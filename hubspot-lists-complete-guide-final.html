@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HubSpot Lists — Complete Admin Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg: #0c0e12;
+  --surface: #12151c;
+  --surface2: #181c26;
+  --surface3: #1e2230;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e4e6f0;
+  --muted: #6e7289;
+  --soft: #9da3bb;
+  --purple: #8b7ff5;
+  --purple-bg: rgba(139,127,245,0.1);
+  --purple-light: #b4abff;
+  --teal: #20c997;
+  --teal-bg: rgba(32,201,151,0.1);
+  --teal-light: #6ef5cc;
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --amber-light: #fcd34d;
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --blue: #60a5fa;
+  --blue-bg: rgba(96,165,250,0.1);
+  --green: #4ade80;
+  --green-bg: rgba(74,222,128,0.1);
+  --hubspot-orange: #ff5c35;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r-lg: 16px;
+  --r-sm: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;background:var(--bg);}
+body{font-family:var(--font-body);background:radial-gradient(circle at top right,rgba(139,127,245,.10),transparent 34rem),var(--bg);color:var(--text);font-size:14.5px;line-height:1.75;}
+a{color:inherit;}
+button{font-family:inherit;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:20;}
+.sb-brand{padding:22px 18px 18px;border-bottom:1px solid var(--border);}
+.hs-brand{display:block;text-decoration:none;color:inherit;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,92,53,0.24);background:linear-gradient(135deg,rgba(255,92,53,0.10),rgba(255,255,255,0.02));transition:transform .18s,border-color .18s,background .18s;margin-bottom:18px;}
+.hs-brand:hover{transform:translateY(-1px);border-color:rgba(255,92,53,0.48);background:linear-gradient(135deg,rgba(255,92,53,0.16),rgba(255,255,255,0.03));}
+.hs-word{font-size:18px;font-weight:700;color:var(--hubspot-orange);letter-spacing:.2px;display:flex;align-items:center;gap:8px;}
+.hs-word::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--hubspot-orange);box-shadow:16px -8px 0 -2px var(--hubspot-orange),18px 11px 0 -3px var(--hubspot-orange);display:inline-block;}
+.hs-ref{font-size:10.5px;color:var(--soft);margin-top:3px;line-height:1.45;}
+.sb-module{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.sb-title{font-family:var(--font-display);font-size:19px;color:var(--text);line-height:1.3;font-weight:300;}
+.sb-title em{font-style:italic;color:var(--purple-light);}
+.sb-sub{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.55;}
+.nav-sec{padding:15px 0 8px;}
+.nav-block{margin-bottom:3px;}
+.nav-group{width:calc(100% - 20px);margin:0 10px 8px;display:flex;align-items:center;justify-content:space-between;border:1px solid transparent;background:transparent;color:var(--soft);border-radius:10px;padding:10px 13px;font-size:13.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.15px;cursor:pointer;transition:all .15s;text-align:left;}
+.nav-group:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.nav-group.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,0.30);}
+.group-arrow{font-size:18px;line-height:1;color:var(--muted);transition:transform .18s,color .18s;}
+.nav-group.active .group-arrow{transform:rotate(90deg);color:var(--purple-light);}
+.nav-sub{display:none;padding-bottom:4px;}
+.nav-block.open .nav-sub{display:block;}
+.nav-item{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;font-size:13.4px;color:var(--muted);border-left:2px solid transparent;transition:all .15s;cursor:pointer;text-align:left;}
+.nav-item:hover{color:var(--text);background:var(--surface2);}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple);}
+.nb{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:rgba(255,255,255,0.18);}
+.nb.t{background:var(--teal);}.nb.p{background:var(--purple);}.nb.a{background:var(--amber);}
+.sb-foot{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6;}
+.mobile-top{display:none;}
+.main{flex:1;padding:52px 60px;max-width:920px;width:100%;}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border);}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start;}
+.hero-kicker,.hero-mod{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px;}
+.hero h1{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px;}
+.hero h1 em{font-style:italic;color:var(--purple-light);}
+.hero-desc{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+.pill{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);color:var(--soft);font-weight:500;}
+.pill.t{background:var(--teal-bg);border-color:rgba(32,201,151,0.2);color:var(--teal-light);}
+.pill.p{background:var(--purple-bg);border-color:rgba(139,127,245,0.2);color:var(--purple-light);}
+.pill.a{background:var(--amber-bg);border-color:rgba(245,158,11,0.2);color:var(--amber-light);}
+.pill.o{background:rgba(255,92,53,.10);border-color:rgba(255,92,53,.24);color:#ffb199;}
+.creator-card{display:block;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015));border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;transition:transform .18s,border-color .18s,background .18s;}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,0.45);background:linear-gradient(180deg,rgba(255,92,53,0.08),rgba(139,127,245,0.04));}
+.creator-card img{width:100%;aspect-ratio:4/5;height:auto;border-radius:14px;border:2px solid rgba(255,92,53,0.75);box-shadow:0 12px 28px rgba(255,92,53,0.16),0 18px 42px rgba(0,0,0,0.28);object-fit:cover;display:block;}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text);line-height:1.2;}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:3px;font-weight:500;}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:6px;line-height:1.4;}
+.content-switcher{scroll-margin-top:26px;}
+.section{margin-bottom:68px;scroll-margin-top:24px;animation:fadeIn .22s ease-out;}
+.section.page-hidden{display:none;}
+@keyframes fadeIn{from{opacity:.4;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sec-kicker,.section-eyebrow{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.sec-title,.section-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px;}
+.sec-title em,.section-title em{font-style:italic;color:var(--purple-light);}
+.sec-desc,.section-desc{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:var(--border2);}
+.card-hd{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+.card-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.card-ico.t{background:var(--teal-bg);}.card-ico.p{background:var(--purple-bg);}.card-ico.a{background:var(--amber-bg);}.card-ico.r{background:var(--red-bg);}.card-ico.b{background:var(--blue-bg);}
+.c-title{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2;}
+.c-sub{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.c-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.chev{font-size:18px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0;}
+.card.open .chev{transform:rotate(90deg);}
+.card-body{display:none;}
+.card.open .card-body{display:block;}
+.tab-pane{display:none;padding:24px;}.tab-pane.on{display:block;}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;overflow-x:auto;}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;}
+.tab:hover{color:var(--text);}.tab.on{color:var(--text);border-bottom-color:var(--purple);}
+h3{font-family:var(--font-display);font-size:17px;font-weight:500;font-style:italic;color:var(--text);margin-bottom:12px;margin-top:22px;}h3:first-child{margin-top:0;}
+h4{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;margin-top:18px;}
+p{color:var(--soft);margin-bottom:12px;font-size:14.5px;line-height:1.8;}strong{color:var(--text);font-weight:600;}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
+.tbl{width:100%;min-width:650px;border-collapse:collapse;font-size:13px;margin:0;}
+.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2);}
+.tbl th{padding:9px 13px;text-align:left;font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;}.tbl tr:last-child td{border-bottom:none;}.tbl tr:hover td{background:rgba(255,255,255,0.015);}
+.mono{font-family:var(--font-mono);font-size:12px;color:var(--purple-light);background:var(--purple-bg);padding:2px 7px;border-radius:3px;white-space:nowrap;}
+.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}.tag.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,.2);}.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,.2);}.tag.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,.2);}.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,.2);}.tag.n{background:rgba(122,127,148,.08);color:var(--muted);border:1px solid var(--border);}.tag.o{background:rgba(255,92,53,.10);color:#ffb199;border:1px solid rgba(255,92,53,.24);}
+.box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid;}.box p{margin:0;font-size:14px;}.box p+p{margin-top:7px;}.bl{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;}.box.why,.box.revops{border-color:var(--purple);background:var(--purple-bg);}.box.why .bl,.box.revops .bl{color:var(--purple-light);}.box.tip{border-color:var(--teal);background:var(--teal-bg);}.box.tip .bl{color:var(--teal-light);}.box.amber{border-color:var(--amber);background:var(--amber-bg);}.box.amber .bl{color:var(--amber-light);}.box.warn{border-color:var(--red);background:var(--red-bg);}.box.warn .bl{color:var(--red);}.box.case{border-color:var(--blue);background:var(--blue-bg);}.box.case .bl{color:var(--blue);}.box.orange{border-color:var(--hubspot-orange);background:rgba(255,92,53,.08);}.box.orange .bl{color:#ffb199;}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}.cmp-card{border:1px solid var(--border);border-radius:var(--r);padding:20px;background:var(--surface);}.cmp-card.t-card{border-top:3px solid var(--teal);}.cmp-card.p-card{border-top:3px solid var(--purple);}.cmp-head{font-family:var(--font-display);font-size:18px;font-weight:500;font-style:italic;margin-bottom:4px;}.cmp-head.t{color:var(--teal-light);}.cmp-head.p{color:var(--purple-light);}.cmp-badge{font-size:11px;color:var(--muted);margin-bottom:14px;}.cmp-list{list-style:none;padding:0;}.cmp-list li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);}.cmp-list li:last-child{border-bottom:none;}.ck{flex-shrink:0;width:16px;height:16px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px;}.ck.t{background:var(--teal-bg);color:var(--teal-light);}.ck.p{background:var(--purple-bg);color:var(--purple-light);}.ck.n{background:var(--surface3);color:var(--muted);}
+.scenario{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:18px;margin-bottom:14px;}.sc-co{font-family:var(--font-display);font-size:16px;font-style:italic;color:var(--text);margin-bottom:12px;}.steps,.psteps,.prlist,.mlist,.cmp-list{list-style:none;}.steps li{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);}.steps li:last-child{border-bottom:none;}.sn{font-family:var(--font-mono);font-size:10px;color:var(--muted);padding-top:3px;flex-shrink:0;width:22px;}.psteps{counter-reset:ps;padding:0;}.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);}.psteps li:last-child{border-bottom:none;}.psteps li::before{content:counter(ps);font-family:var(--font-mono);font-size:11px;color:var(--teal-light);background:var(--teal-bg);border:1px solid rgba(32,201,151,.2);border-radius:3px;padding:2px 7px;flex-shrink:0;height:fit-content;margin-top:1px;}.prlist{padding:0;}.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);}.prlist li:last-child{border-bottom:none;}.pi{flex-shrink:0;padding-top:1px;color:var(--amber-light);}.mlist{padding:0;}.mlist li{background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft);}.mt{color:var(--red);font-weight:600;margin-bottom:4px;font-size:12.5px;}
+.supp-grid{display:grid;gap:10px;margin-bottom:16px;}.supp-row{display:grid;grid-template-columns:1.8fr 1.5fr 1fr;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);font-size:13.5px;align-items:start;}.supp-row.hdr{background:var(--surface2);color:var(--text);border-radius:var(--r-sm);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}.supp-name{font-family:var(--font-mono);font-size:12px;color:var(--purple-light);background:var(--purple-bg);padding:2px 8px;border-radius:3px;width:fit-content;margin-bottom:4px;}.supp-who{font-size:13px;color:var(--soft);}.supp-why{font-size:12px;color:var(--muted);}.iq{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:10px;}.iq-q{font-size:13.5px;color:var(--text);font-weight:500;margin-bottom:8px;}.iq-a{font-size:13px;color:var(--soft);line-height:1.8;}
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:14px 0;}.fs{background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:8px 14px;font-size:12.5px;color:var(--text);white-space:nowrap;}.fs.t{border-color:rgba(32,201,151,.4);color:var(--teal-light);background:var(--teal-bg);}.fs.p{border-color:rgba(139,127,245,.4);color:var(--purple-light);background:var(--purple-bg);}.fa{font-size:13px;color:var(--muted);padding:0 6px;}.fb{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:14px;}.fb-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}.fb-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);min-width:60px;}.fb-chip{font-size:12.5px;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);color:var(--soft);background:var(--surface2);}.fb-chip.on{background:var(--teal-bg);border-color:rgba(32,201,151,.3);color:var(--teal-light);}.fb-logic{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--muted);padding:4px 10px;background:var(--surface3);border-radius:20px;}.fb-count{font-family:var(--font-display);font-size:20px;font-style:italic;color:var(--teal-light);}.name-ex{font-family:var(--font-mono);font-size:14px;background:var(--surface2);color:var(--text);padding:14px 18px;border-radius:6px;margin-bottom:12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}.ne-part{padding:2px 8px;border-radius:3px;font-size:13px;}.ne-part.t{background:rgba(32,201,151,.16);color:var(--teal-light);}.ne-part.p{background:rgba(139,127,245,.16);color:var(--purple-light);}.ne-part.a{background:rgba(245,158,11,.16);color:var(--amber-light);}.ne-sep{color:var(--muted);}
+.footer{border-top:1px solid var(--border2);margin-top:52px;padding-top:28px;padding-bottom:56px;}.footer-title{font-family:var(--font-display);font-size:20px;font-weight:500;font-style:italic;color:var(--text);margin-bottom:8px;}.footer p{font-size:13px;color:var(--muted);} 
+::-webkit-scrollbar{width:5px;height:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:3px;}
+@media(max-width:860px){.sidebar{display:none;}.mobile-top{display:block;position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border2);box-shadow:0 10px 28px rgba(0,0,0,.28);}.mobile-brand{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;background:var(--surface);}.mobile-brand a{text-decoration:none;}.mobile-hubspot{color:var(--hubspot-orange);font-weight:800;font-size:16px;}.mobile-ref{font-size:10px;color:var(--muted);}.mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch;}.mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;white-space:nowrap;cursor:pointer;}.mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff;}.mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch;}.mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap;}.mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38);}.main{padding:24px 15px 34px;max-width:100%;}.hero{margin-bottom:34px;padding-bottom:28px;}.hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start;}.creator-card{grid-column:1;grid-row:1;padding:0;border:0;background:transparent;border-radius:14px;box-shadow:none;}.creator-card:hover{transform:none;background:transparent;border-color:transparent;}.creator-card img{width:64px;height:80px;border-radius:14px;object-fit:cover;}.creator-name,.creator-role,.creator-link{display:none;}.hero-copy{grid-column:2;grid-row:1;min-width:0;}.hero-kicker{font-size:9.5px;letter-spacing:1.5px;margin-bottom:8px;}.hero h1{font-size:32px;line-height:1.08;margin-bottom:12px;}.hero-desc{font-size:13.5px;line-height:1.65;}.hero-pills{margin-top:15px;gap:7px;grid-column:1 / -1;}.pill{font-size:11.3px;padding:4px 10px;}.sec-title{font-size:25px;}.sec-desc{font-size:13.5px;}.card-hd{padding:17px 16px 15px;gap:11px;}.card-ico{width:38px;height:38px;font-size:18px;}.c-title{font-size:18px;}.card-body .tab-pane,.card-body>div[style]{padding:17px!important;}.tabs{display:flex;overflow-x:auto;gap:7px;padding:9px 12px;}.tab{flex:0 0 auto;padding:8px 11px;font-size:12px;}.cmp-grid{grid-template-columns:1fr;}.supp-row{grid-template-columns:1fr;gap:5px;}.flow{display:block;}.fs,.fa{display:inline-flex;margin:3px 0;}.fa{padding:0 5px;}.footer{padding-bottom:34px;}}
+@media(max-width:430px){body{font-size:14px;}.main{padding-left:12px;padding-right:12px;}.hero-inner{grid-template-columns:64px minmax(0,1fr);gap:12px;}.creator-card img{width:58px;height:72px;}.hero h1{font-size:28px;}.hero-desc{font-size:13px;}.mobile-section-btn{font-size:12px;padding:8px 10px;}.mobile-division-btn{font-size:11.8px;padding:7px 10px;}}
+
+</style>
+</head>
+<body>
+<div class="mobile-top" aria-label="Mobile guide navigation">
+  <div class="mobile-brand">
+    <a href="https://www.hubspot.com/" target="_blank" rel="noopener">
+      <div class="mobile-hubspot">HubSpot</div>
+      <div class="mobile-ref">For better references, visit hubspot.com</div>
+    </a>
+    <div class="mobile-ref">Lists Guide</div>
+  </div>
+  <div class="mobile-section-row" aria-label="Main sections">
+    <button class="mobile-section-btn active" type="button" data-mobile-group="foundation">Foundation</button>
+<button class="mobile-section-btn" type="button" data-mobile-group="admin">Admin Setup</button>
+<button class="mobile-section-btn" type="button" data-mobile-group="applied">Applied Learning</button>
+  </div>
+  <div class="mobile-division-row" aria-label="Section divisions"></div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Guide navigation">
+    <div class="sb-brand">
+      <a class="hs-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+        <div class="hs-word">HubSpot</div>
+        <div class="hs-ref">For better references, visit hubspot.com</div>
+      </a>
+      <div class="sb-module">Module 3 · HubSpot Admin</div>
+      <div class="sb-title">Lists &amp; <em>Segments</em></div>
+      <div class="sb-sub">Complete guide · All types · Cases · Best practices</div>
+    </div>
+    <div class="nav-sec">
+      
+    <div class="nav-block" data-nav-block="foundation">
+      <button class="nav-group active" type="button" data-group-target="foundation" aria-expanded="true">
+        <span>Foundation</span><span class="group-arrow">›</span>
+      </button>
+      <div class="nav-sub">
+        <button class="nav-item active" type="button" data-division-target="what" data-group="foundation"><span class="nb p"></span><span>What is a list?</span></button>
+<button class="nav-item" type="button" data-division-target="types" data-group="foundation"><span class="nb p"></span><span>Active vs Static</span></button>
+<button class="nav-item" type="button" data-division-target="filters" data-group="foundation"><span class="nb p"></span><span>Filter types</span></button>
+<button class="nav-item" type="button" data-division-target="logic" data-group="foundation"><span class="nb p"></span><span>AND vs OR logic</span></button>
+      </div>
+    </div>
+
+    <div class="nav-block" data-nav-block="admin">
+      <button class="nav-group" type="button" data-group-target="admin" aria-expanded="false">
+        <span>Admin Setup</span><span class="group-arrow">›</span>
+      </button>
+      <div class="nav-sub">
+        <button class="nav-item" type="button" data-division-target="create" data-group="admin"><span class="nb t"></span><span>How to create</span></button>
+<button class="nav-item" type="button" data-division-target="naming" data-group="admin"><span class="nb t"></span><span>Naming conventions</span></button>
+<button class="nav-item" type="button" data-division-target="suppression" data-group="admin"><span class="nb t"></span><span>Suppression lists</span></button>
+<button class="nav-item" type="button" data-division-target="objects" data-group="admin"><span class="nb t"></span><span>Object-based lists</span></button>
+      </div>
+    </div>
+
+    <div class="nav-block" data-nav-block="applied">
+      <button class="nav-group" type="button" data-group-target="applied" aria-expanded="false">
+        <span>Applied Learning</span><span class="group-arrow">›</span>
+      </button>
+      <div class="nav-sub">
+        <button class="nav-item" type="button" data-division-target="example" data-group="applied"><span class="nb a"></span><span>Real-world example</span></button>
+<button class="nav-item" type="button" data-division-target="cases" data-group="applied"><span class="nb a"></span><span>Case studies</span></button>
+<button class="nav-item" type="button" data-division-target="mistakes" data-group="applied"><span class="nb a"></span><span>Common mistakes</span></button>
+<button class="nav-item" type="button" data-division-target="practice" data-group="applied"><span class="nb a"></span><span>Practice exercise</span></button>
+<button class="nav-item" type="button" data-division-target="interview" data-group="applied"><span class="nb a"></span><span>Interview Q&A</span></button>
+<button class="nav-item" type="button" data-division-target="cheatsheet" data-group="applied"><span class="nb a"></span><span>Cheatsheet</span></button>
+      </div>
+    </div>
+    </div>
+    <div class="sb-foot">Click a section, then choose a division. Only one learning page is shown at a time.</div>
+  </nav>
+
+  <main class="main">
+    <section class="hero" aria-labelledby="guide-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-kicker">HubSpot Admin · Module 3</div>
+          <h1 id="guide-title">Lists &amp; <em>Segments</em></h1>
+          <p class="hero-desc">The segmentation engine of HubSpot — how to build, manage, and leverage Active and Static lists across workflows, campaigns, reports, and lead routing.</p>
+          <div class="hero-pills">
+            <span class="pill p">Active vs Static</span>
+            <span class="pill p">AND / OR logic</span>
+            <span class="pill t">Filter types</span>
+            <span class="pill t">Suppression lists</span>
+            <span class="pill a">3 case studies</span>
+            <span class="pill o">Admin reference</span>
+          </div>
+        </div>
+        <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener" aria-label="Open Naveed Abbas on LinkedIn">
+          <img src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo" loading="eager"/>
+          <div class="creator-name">Naveed Abbas</div>
+          <div class="creator-role">CRM Administrator</div>
+          <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+        </a>
+      </div>
+    </section>
+
+    <div id="guide-content" class="content-switcher"></div>
+    <div class="section" data-division="what" data-page-group="foundation" id="what">
+<div class="sec-kicker">Foundation · 01</div>
+<div class="sec-title">What is a <em>List?</em></div>
+<p class="sec-desc">A saved, named segment of CRM records — the bridge between your data and every action HubSpot takes.</p>
+<div class="box why">
+<div class="bl">Core definition</div>
+<p>A <strong>List</strong> is a saved segment of records in HubSpot — a named group of Contacts (or Companies, or Deals) that match criteria you define. Think of it as a smart filter you name and reuse. Instead of rebuilding a filter every time you want to send a campaign or trigger a workflow, you define the audience once as a list and reference it everywhere.</p>
+</div>
+<h3>Why lists are infrastructure, not just filters</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>What you want to do</th><th>How lists make it possible</th></tr></thead>
+<tbody>
+<tr><td>Send a targeted email campaign</td><td>Set the list as the recipient audience in the email tool</td></tr>
+<tr><td>Trigger an automation workflow</td><td>Use the list as the enrolment criteria — anyone who joins the list enters the workflow</td></tr>
+<tr><td>Pull a segment report</td><td>Filter your report by list membership over time</td></tr>
+<tr><td>Suppress contacts from a send</td><td>Create a suppression list and exclude it on every campaign</td></tr>
+<tr><td>Route leads to the right rep</td><td>Build a list for each territory or segment, trigger assignment workflows</td></tr>
+<tr><td>Monitor data quality</td><td>Build a "Contacts with no owner" list — when it's empty, your data is clean</td></tr>
+</tbody>
+</table></div>
+<div class="box amber">
+<div class="bl">Admin mental model</div>
+<p>Lists sit between your data layer and your action layer. Objects and Properties are how data is stored. Workflows, campaigns, and reports are how you act on that data. Lists are what connect them — they answer the question "who?" before every action your CRM takes.</p>
+</div>
+</div>
+
+<div class="section page-hidden" data-division="types" data-page-group="foundation" id="types">
+<div class="sec-kicker">Foundation · 02</div>
+<div class="sec-title">Active vs <em>Static</em> Lists</div>
+<p class="sec-desc">The most important decision you make when creating a list — and the one beginners get wrong most often.</p>
+<div class="cmp-grid">
+<div class="cmp-card t-card">
+<div class="cmp-head t">Active list</div>
+<div class="cmp-badge">Updates automatically, in real time</div>
+<ul class="cmp-list">
+<li><span class="ck t">+</span>Contacts join when they match the rules</li>
+<li><span class="ck t">+</span>Contacts leave when they stop matching</li>
+<li><span class="ck t">+</span>Always reflects current reality</li>
+<li><span class="ck t">+</span>Best for ongoing workflows and live campaigns</li>
+<li><span class="ck n">—</span>Cannot manually add members</li>
+<li><span class="ck n">—</span>Membership fluctuates — can't be "frozen"</li>
+</ul>
+<div class="box tip" style="margin-top:14px">
+<div class="bl">Use for</div>
+<p>Workflow enrolment · Recurring campaigns · Real-time segments · Data quality monitoring · Lead scoring audiences</p>
+</div>
+</div>
+<div class="cmp-card p-card">
+<div class="cmp-head p">Static list</div>
+<div class="cmp-badge">Fixed snapshot — never changes automatically</div>
+<ul class="cmp-list">
+<li><span class="ck p">+</span>Membership is permanent once set</li>
+<li><span class="ck p">+</span>Can add or remove members manually</li>
+<li><span class="ck p">+</span>Properties on members still update</li>
+<li><span class="ck p">+</span>Best for one-time sends and historical records</li>
+<li><span class="ck n">—</span>Will not pick up new matching contacts</li>
+<li><span class="ck n">—</span>Cannot convert to active after creation</li>
+</ul>
+<div class="box revops" style="margin-top:14px">
+<div class="bl">Use for</div>
+<p>Event attendees · One-time import sends · A/B test control groups · Historical snapshots · Manual curation</p>
+</div>
+</div>
+</div>
+<div class="box warn">
+<div class="bl">Critical rule — type cannot be changed after creation</div>
+<p>You cannot convert an Active list to Static or vice versa after it has been saved. If you choose the wrong type, you must delete the list and rebuild it. Make the decision deliberately before clicking "Create list."</p>
+</div>
+<h3>The key difference in plain terms</h3>
+<p>An Active list is like a classroom roll that updates every semester — students come and go as they meet the criteria. A Static list is like a yearbook photo — everyone who was in the room on that specific day, frozen forever.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th></th><th>Active</th><th>Static</th></tr></thead>
+<tbody>
+<tr><td><strong>Membership updates</strong></td><td>Continuously, automatically</td><td>Never (without manual action)</td></tr>
+<tr><td><strong>Add members manually</strong></td><td>No</td><td>Yes</td></tr>
+<tr><td><strong>Remove members manually</strong></td><td>No</td><td>Yes</td></tr>
+<tr><td><strong>Member properties update</strong></td><td>Yes</td><td>Yes (properties always update)</td></tr>
+<tr><td><strong>Requires criteria/rules</strong></td><td>Yes — mandatory</td><td>Optional (can be empty and manually filled)</td></tr>
+<tr><td><strong>Best trigger for workflows</strong></td><td>Yes — always current</td><td>Only for one-time enrolment</td></tr>
+<tr><td><strong>Example</strong></td><td>"All MQLs in SaaS with score &gt;50"</td><td>"October webinar attendees"</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<div class="section page-hidden" data-division="filters" data-page-group="foundation" id="filters">
+<div class="sec-kicker">Foundation · 03</div>
+<div class="sec-title">Filter <em>Categories</em></div>
+<p class="sec-desc">Everything you can filter on when building a list — properties, behaviours, and list membership.</p>
+<div class="card open">
+<div class="card-hd" onclick="toggle(this)">
+<div class="card-ico t">🏷️</div>
+<div style="flex:1">
+<div class="c-title">Property filters</div>
+<div class="c-sub">Filter based on values stored on the record</div>
+<div class="c-tags"><span class="tag t">Most common</span><span class="tag n">All plans</span></div>
+</div>
+<div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tab-pane on" style="display:block;padding:24px">
+<p>Property filters match contacts based on the values stored in their properties — every field on a Contact, Company, or Deal record can be used as a filter.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Property type</th><th>Available operators</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>Dropdown / Checkbox</td><td>is equal to · is not equal to · is any of · is none of · is known · is unknown</td><td>Lifecycle stage is equal to MQL</td></tr>
+<tr><td>Text (single/multi-line)</td><td>contains · doesn't contain · starts with · ends with · is equal to · is known · is unknown</td><td>Job title contains "Director"</td></tr>
+<tr><td>Number / Currency</td><td>is equal to · is greater than · is less than · is between · is known · is unknown</td><td>Lead score is greater than 50</td></tr>
+<tr><td>Date</td><td>is equal to · is before · is after · is between · is within last X days · is more than X days ago</td><td>Create date is within last 30 days</td></tr>
+<tr><td>Boolean (single checkbox)</td><td>is equal to true · is equal to false · is known · is unknown</td><td>Has signed NDA is known</td></tr>
+</tbody>
+</table></div>
+<div class="box warn">
+<div class="bl">Is known vs is equal to true</div>
+<p>For Single checkbox properties, <strong>"is known"</strong> means the checkbox has been set (checked). <strong>"is equal to true"</strong> means it is explicitly checked. Unchecked does not mean false — it means unknown. Always use "is known" unless you're certain the field has been deliberately set on all relevant records.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="toggle(this)">
+<div class="card-ico a">⚡</div>
+<div style="flex:1">
+<div class="c-title">Behaviour / activity filters</div>
+<div class="c-sub">Filter based on what the contact has done</div>
+<div class="c-tags"><span class="tag a">Engagement data</span><span class="tag n">All plans</span></div>
+</div>
+<div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tab-pane on" style="display:block;padding:24px">
+<p>Behaviour filters match contacts based on actions they have taken — email interactions, website visits, form submissions, and more. These are the most powerful filters for engagement-based segmentation.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Behaviour category</th><th>Example filters</th><th>Use case</th></tr></thead>
+<tbody>
+<tr><td>Email engagement</td><td>Opened email · Clicked link in email · Was sent email · Has not opened in 90 days</td><td>Re-engagement campaigns, nurture sequences</td></tr>
+<tr><td>Form submission</td><td>Submitted any form · Submitted specific form · Never submitted a form</td><td>Lead capture follow-up, form abandonment</td></tr>
+<tr><td>Page views</td><td>Visited specific URL · Viewed pricing page · Spent more than X seconds on page</td><td>Intent-based scoring, sales alerts</td></tr>
+<tr><td>Meetings</td><td>Has a meeting booked · Meeting outcome = completed · No meeting in last 30 days</td><td>Sales pipeline management</td></tr>
+<tr><td>Marketing events</td><td>Registered for event · Attended event · Did not attend (no-show)</td><td>Post-webinar follow-up sequences</td></tr>
+<tr><td>Calls / sequences</td><td>Was called · Is enrolled in sequence · Replied to sequence email</td><td>Sales activity tracking</td></tr>
+</tbody>
+</table></div>
+<div class="box tip">
+<div class="bl">Admin tip</div>
+<p>Behaviour filters with time windows are especially powerful. "Opened an email in the last 30 days" keeps your re-engagement list constantly fresh. "Has not visited the site in 90 days" automatically identifies at-risk contacts. Time-windowed behaviour filters are the basis of most good engagement-based segments.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="toggle(this)">
+<div class="card-ico p">📋</div>
+<div style="flex:1">
+<div class="c-title">List membership filters</div>
+<div class="c-sub">Filter based on whether a contact is in another list</div>
+<div class="c-tags"><span class="tag p">Advanced segmentation</span><span class="tag n">All plans</span></div>
+</div>
+<div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tab-pane on" style="display:block;padding:24px">
+<p>List membership filters let you build lists based on other lists — enabling nested segmentation and suppression logic. This is where list building becomes genuinely powerful.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Operator</th><th>What it means</th><th>Example use</th></tr></thead>
+<tbody>
+<tr><td>Is member of list</td><td>Contact must be in the referenced list</td><td>"All MQLs" AND "Is member of UK contacts list"</td></tr>
+<tr><td>Is not member of list</td><td>Contact must NOT be in the referenced list</td><td>Targeting list AND "Is NOT member of [SUPPRESS] Customers"</td></tr>
+</tbody>
+</table></div>
+<div class="box revops">
+<div class="bl">RevOps use: suppression via list membership</div>
+<p>The most important use of list membership filters is suppression. Build a master suppression list ("All current customers"), then add "Is NOT member of [SUPPRESS] Customers" to every prospecting campaign list. Any contact who becomes a customer is automatically excluded from all future prospecting — without touching each campaign individually.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section page-hidden" data-division="logic" data-page-group="foundation" id="logic">
+<div class="sec-kicker">Foundation · 04</div>
+<div class="sec-title">AND vs OR <em>Logic</em></div>
+<p class="sec-desc">The single most important concept in list building — and the most common source of targeting mistakes.</p>
+<div class="box why">
+<div class="bl">The rule</div>
+<p><strong>AND logic</strong> — the contact must match every filter in the group. Narrows the segment.<br/><strong>OR logic</strong> — the contact must match at least one filter. Widens the segment.</p>
+</div>
+<h3>How HubSpot structures filter groups</h3>
+<p>HubSpot uses a two-level logic system. Within a filter group, all filters are connected by AND. Between filter groups, the connection is OR. This lets you build complex compound logic without needing to understand Boolean algebra.</p>
+<div class="fb">
+<div class="fb-row">
+<span class="fb-label">Group 1:</span>
+<span class="fb-chip on">Lifecycle = MQL</span>
+<span class="fb-logic">AND</span>
+<span class="fb-chip on">Industry = SaaS</span>
+<span class="fb-logic">AND</span>
+<span class="fb-chip on">Country = UK</span>
+</div>
+<div style="padding:6px 0;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:1px">— OR —</div>
+<div class="fb-row">
+<span class="fb-label">Group 2:</span>
+<span class="fb-chip on">Lifecycle = SQL</span>
+<span class="fb-logic">AND</span>
+<span class="fb-chip on">Lead score &gt; 60</span>
+</div>
+<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;">
+<span style="font-size:12px;color:var(--muted)">This list includes:</span>
+<span class="fb-count">UK SaaS MQLs</span>
+<span style="font-size:14px;color:var(--muted)">+</span>
+<span class="fb-count">High-score SQLs anywhere</span>
+</div>
+</div>
+<div class="box amber">
+<div class="bl">Plain English translation</div>
+<p>"Give me all contacts who are MQLs AND in SaaS AND in the UK — OR any SQL with a lead score above 60."</p>
+<p style="margin-top:6px">The two groups are independent. A contact only needs to satisfy one entire group, not both.</p>
+</div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Logic type</th><th>Effect</th><th>When to use</th><th>Risk if wrong</th></tr></thead>
+<tbody>
+<tr><td><strong>AND</strong></td><td>Narrows — fewer contacts match</td><td>Tightly targeted campaigns, qualified lead lists</td><td>Too narrow — you miss valid contacts</td></tr>
+<tr><td><strong>OR</strong></td><td>Widens — more contacts match</td><td>Catch-all segments, broad awareness sends</td><td>Too wide — you include contacts who shouldn't be there</td></tr>
+<tr><td><strong>Groups (AND within, OR between)</strong></td><td>Flexible compound logic</td><td>Multi-persona campaigns, combined qualification criteria</td><td>Misreading which group a filter belongs to</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<div class="section page-hidden" data-division="create" data-page-group="admin" id="create">
+<div class="sec-kicker">Admin Setup · 05</div>
+<div class="sec-title">How to <em>Create</em> a List</div>
+<p class="sec-desc">Step-by-step walkthrough with the exact path, decisions, and admin considerations at each stage.</p>
+<div class="box tip">
+<div class="bl">Path in HubSpot</div>
+<p>Contacts → Lists → Create list (top right button)</p>
+</div>
+<ol class="psteps">
+<li><strong>Choose the record type</strong> — Contact-based, Company-based, or Deal-based. Most lists are Contact-based. The record type determines which properties and behaviours you can filter on.</li>
+<li><strong>Choose Active or Static</strong> — this is permanent. Active if the membership should update over time. Static if it's a one-time, fixed group. When in doubt: active is usually safer for ongoing use.</li>
+<li><strong>Name the list</strong> — use your naming convention (see Naming Conventions section below). A good name explains what's in the list without opening it. Example: <span class="mono">[MKT] MQLs — SaaS — UK</span></li>
+<li><strong>Add filter group 1</strong> — click "Add filter" and choose your first criterion. Select the property, the operator, and the value. Add more filters to the same group using AND logic.</li>
+<li><strong>Add additional filter groups</strong> (if needed) — click "Add filter group" to create a second group connected by OR. Use this for multi-persona or multi-scenario targeting.</li>
+<li><strong>Preview the count</strong> — before saving, HubSpot shows a live preview of how many records match. Always check this. If the number is 0 or suspiciously large, your logic has an error.</li>
+<li><strong>Save the list</strong> — for Active lists, HubSpot immediately begins evaluating all contacts. For large portals, this can take a few minutes to process.</li>
+</ol>
+<div class="box warn">
+<div class="bl">Before you save — the final check</div>
+<p>Ask yourself three questions: (1) Does the count look right for my expected audience? (2) Are my AND/OR operators correct? (3) Have I added a suppression filter to exclude anyone who shouldn't be in this list?</p>
+</div>
+</div>
+
+<div class="section page-hidden" data-division="naming" data-page-group="admin" id="naming">
+<div class="sec-kicker">Admin Setup · 06</div>
+<div class="sec-title">Naming <em>Conventions</em></div>
+<p class="sec-desc">The difference between a manageable list library and an unusable one is naming discipline.</p>
+<p>Without a naming convention, lists accumulate over months and become impossible to navigate. "Test List 3," "Sarah's leads," and "Campaign June" tell you nothing without opening each one.</p>
+<h3>The standard admin naming format</h3>
+<div class="name-ex">
+<span class="ne-part t">[TEAM]</span>
+<span class="ne-sep">·</span>
+<span class="ne-part p">Purpose</span>
+<span class="ne-sep">—</span>
+<span class="ne-part a">Segment detail</span>
+<span class="ne-sep">—</span>
+<span class="ne-part p">Date/Quarter</span>
+</div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>List type</th><th>Example name</th><th>What it tells you</th></tr></thead>
+<tbody>
+<tr><td>Marketing campaign target</td><td><span class="mono">[MKT] Webinar invite — SaaS MQLs — Q4 2024</span></td><td>Team, purpose, segment, when</td></tr>
+<tr><td>Workflow enrolment</td><td><span class="mono">[AUTO] Lead nurture entry — Score 20–50</span></td><td>Automated, what triggers it, score range</td></tr>
+<tr><td>Suppression list</td><td><span class="mono">[SUPPRESS] Current customers</span></td><td>Type immediately obvious</td></tr>
+<tr><td>Data quality monitor</td><td><span class="mono">[ADMIN] Contacts with no owner</span></td><td>Admin purpose, what's wrong</td></tr>
+<tr><td>Sales segment</td><td><span class="mono">[SALES] Hot leads — UK — score &gt;70</span></td><td>Team, urgency, geography, threshold</td></tr>
+<tr><td>Reporting segment</td><td><span class="mono">[REPORT] MQL count — monthly snapshot</span></td><td>Purpose is reporting, what it tracks</td></tr>
+</tbody>
+</table></div>
+<div class="box tip">
+<div class="bl">Admin rule</div>
+<p>Establish your naming convention on day one of any HubSpot setup. Document it in your admin handbook. Enforce it with every new list request — never allow exceptions. One inconsistently named list becomes the precedent for twenty more.</p>
+</div>
+</div>
+
+<div class="section page-hidden" data-division="suppression" data-page-group="admin" id="suppression">
+<div class="sec-kicker">Admin Setup · 07</div>
+<div class="sec-title">Suppression <em>Lists</em></div>
+<p class="sec-desc">The safety net every HubSpot portal needs before the first bulk email send.</p>
+<div class="box warn">
+<div class="bl">Why this matters</div>
+<p>Emailing an unsubscribed contact even once is a compliance violation under GDPR and CAN-SPAM. Emailing a current customer a prospecting message damages your brand. Suppression lists are the mechanism that prevents both. They are not optional — they are infrastructure.</p>
+</div>
+<h3>Core suppression lists every portal needs</h3>
+<div class="supp-grid">
+<div class="supp-row hdr">
+<span>List name</span><span>Who is in it</span><span>Why</span>
+</div>
+<div class="supp-row">
+<div><div class="supp-name">[SUPPRESS] Unsubscribed</div><div class="supp-who">All email opt-outs</div></div>
+<div class="supp-who">Contacts who have unsubscribed from marketing emails</div>
+<div class="supp-why">Legal compliance. HubSpot also enforces this automatically, but having a named list ensures intentional exclusion.</div>
+</div>
+<div class="supp-row">
+<div><div class="supp-name">[SUPPRESS] Current customers</div><div class="supp-who">Lifecycle = Customer</div></div>
+<div class="supp-who">All contacts marked as active paying customers</div>
+<div class="supp-why">Prevents sending prospecting or lead-gen emails to people already paying you.</div>
+</div>
+<div class="supp-row">
+<div><div class="supp-name">[SUPPRESS] Competitors</div><div class="supp-who">Domain-based or manually flagged</div></div>
+<div class="supp-who">Contacts at known competitor companies</div>
+<div class="supp-why">Prevents sharing product roadmaps, pricing, or strategy with competitors monitoring your comms.</div>
+</div>
+<div class="supp-row">
+<div><div class="supp-name">[SUPPRESS] Do not contact</div><div class="supp-who">Manually managed</div></div>
+<div class="supp-who">Contacts who have specifically requested no communication</div>
+<div class="supp-why">Legal requests, personal preference, or relationship sensitivity (e.g. VIP accounts handled by leadership only).</div>
+</div>
+<div class="supp-row">
+<div><div class="supp-name">[SUPPRESS] Hard bounces</div><div class="supp-who">Email bounce property</div></div>
+<div class="supp-who">Contacts with invalid email addresses</div>
+<div class="supp-why">Sending to hard-bounced addresses damages your email sender reputation and deliverability for everyone.</div>
+</div>
+<div class="supp-row">
+<div><div class="supp-name">[SUPPRESS] Internal team</div><div class="supp-who">Company domain = yourdomain.com</div></div>
+<div class="supp-who">Your own employees in the CRM</div>
+<div class="supp-why">Prevents sending external customer campaigns to your own staff.</div>
+</div>
+</div>
+<div class="box tip">
+<div class="bl">How to use suppression lists</div>
+<p>In HubSpot email tool: when sending a campaign, look for the "Don't send to" or "Exclude" field in the recipients settings. Add your suppression list there. In workflows: use an "Is not member of [SUPPRESS] list" filter in your enrolment criteria, or add a branch that removes contacts who join the suppression list.</p>
+</div>
+</div>
+
+<div class="section page-hidden" data-division="objects" data-page-group="admin" id="objects">
+<div class="sec-kicker">Admin Setup · 08</div>
+<div class="sec-title">Object-Based <em>Lists</em></div>
+<p class="sec-desc">Lists are not just for contacts — you can segment Companies and Deals too.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>List type</th><th>Filters on</th><th>Used for</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><strong>Contact-based</strong></td><td>Contact properties and behaviours</td><td>Email campaigns, lead workflows, nurture sequences</td><td>All MQLs in SaaS with score &gt;40</td></tr>
+<tr><td><strong>Company-based</strong></td><td>Company properties</td><td>Account-based marketing (ABM), account segmentation, Company-level workflows</td><td>All companies with &gt;200 employees in FinTech</td></tr>
+<tr><td><strong>Deal-based</strong></td><td>Deal properties and pipeline stage</td><td>Pipeline reporting, deal-level automation, sales ops workflows</td><td>All deals in Negotiation stage open &gt;14 days</td></tr>
+</tbody>
+</table></div>
+<div class="box revops">
+<div class="bl">RevOps use: deal-based lists as pipeline health monitors</div>
+<p>A deal-based list called "Stale deals — no activity 14d" is one of the most valuable admin tools in a Sales Hub setup. When any deal enters this list, a workflow fires — notifying the deal owner and creating a follow-up task. The list is always accurate because it's active. This replaces a weekly manual pipeline review with an automated alert system.</p>
+</div>
+</div>
+
+<div class="section page-hidden" data-division="example" data-page-group="applied" id="example">
+<div class="sec-kicker">Applied Learning · 09</div>
+<div class="sec-title">Real-World <em>Example</em></div>
+<p class="sec-desc">How a real admin builds a complete list ecosystem for a product webinar campaign.</p>
+<p>A B2B SaaS company wants to run a quarterly product webinar. Their target audience: decision-makers at SaaS companies who are currently MQL or SQL, have engaged with at least one email in the past 60 days, and are not already customers.</p>
+<h3>Step 1 — Build the targeting list (Active)</h3>
+<div class="fb">
+<div class="fb-row">
+<span class="fb-label">Group 1:</span>
+<span class="fb-chip on">Lifecycle = MQL or SQL</span>
+<span class="fb-logic">AND</span>
+<span class="fb-chip on">Industry = SaaS</span>
+<span class="fb-logic">AND</span>
+<span class="fb-chip on">Job title contains VP, Director, Head of</span>
+<span class="fb-logic">AND</span>
+<span class="fb-chip on">Email opened in last 60d</span>
+<span class="fb-logic">AND</span>
+<span class="fb-chip on">Is NOT member of [SUPPRESS] Customers</span>
+</div>
+<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">
+      Preview: <strong style="color:var(--teal-light);font-size:16px;">342</strong> contacts match
+    </div>
+</div>
+<h3>Step 2 — Build post-webinar lists (Static)</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>List name</th><th>Type</th><th>How populated</th><th>Used for</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">[MKT] Webinar — Attended — Q4</span></td><td>Static</td><td>Synced from Zoom via Marketing Events integration</td><td>Thank you + next steps sequence</td></tr>
+<tr><td><span class="mono">[MKT] Webinar — No-show — Q4</span></td><td>Static</td><td>Synced from Zoom (registered, didn't attend)</td><td>Recording follow-up sequence</td></tr>
+</tbody>
+</table></div>
+<h3>Step 3 — Connect to workflows</h3>
+<div class="flow">
+<div class="fs t">Contact joins targeting list</div><div class="fa">→</div>
+<div class="fs">Invitation email sent</div><div class="fa">→</div>
+<div class="fs t">Webinar occurs</div><div class="fa">→</div>
+<div class="fs p">Zoom syncs attendance to HubSpot</div><div class="fa">→</div>
+<div class="fs">Attended list → "Thank you" workflow</div>
+</div>
+<div class="flow" style="margin-top:6px">
+<div class="fs p">No-show list</div><div class="fa">→</div>
+<div class="fs">"You missed it" + recording workflow</div>
+</div>
+<h3>Outcome</h3>
+<p>The admin built 3 lists total — one for targeting, two for post-event follow-up. Every workflow, email, and report in the campaign references one of these lists. When the next webinar runs next quarter, the targeting list auto-refreshes. The admin only needs to rebuild the static post-event lists from the new Zoom export.</p>
+</div>
+
+<div class="section page-hidden" data-division="cases" data-page-group="applied" id="cases">
+<div class="sec-kicker">Applied Learning · 10</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="toggle(this)">
+<div class="card-ico t">📊</div>
+<div style="flex:1">
+<div class="c-title">Case 1 — The unsubscribed customer problem</div>
+<div class="c-sub">When a customer receives a prospecting email</div>
+<div class="c-tags"><span class="tag t">Suppression</span><span class="tag n">E-commerce</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div style="padding:24px">
+<div class="box case"><div class="bl">The problem</div><p>An e-commerce brand's marketing team sent a "We miss you — come back for 20% off" re-engagement campaign to a segment of "inactive contacts." The list was built on last email open date, but had no suppression applied. 180 current customers received the discount offer, costing the company $14,000 in unnecessary discount codes redeemed. Several customers replied angrily asking why they were being treated like lapsed prospects.</p></div>
+<h3>Admin solution</h3>
+<ul class="prlist">
+<li><span class="pi">1.</span><div>Created <span class="mono">[SUPPRESS] Active customers</span> — an active list filtering Lifecycle Stage = Customer AND create date is known. 2,400 contacts auto-populated.</div></li>
+<li><span class="pi">2.</span><div>Added "Is NOT member of [SUPPRESS] Active customers" as a required filter in all campaign targeting lists going forward.</div></li>
+<li><span class="pi">3.</span><div>Built a campaign checklist: before any email send, the marketing team must confirm suppression lists are applied. Admin reviews all sends over 500 contacts before scheduling.</div></li>
+<li><span class="pi">4.</span><div>Created a workflow: when any contact's Lifecycle Stage changes to Customer, they are automatically added to the suppression list within seconds.</div></li>
+</ul>
+<div class="box revops"><div class="bl">RevOps outcome</div><p>Zero suppression errors in the following 8 months. The process of requiring suppression list review before sends also caught two other segmentation errors before they went out — one would have emailed a competitor's CEO.</p></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="toggle(this)">
+<div class="card-ico p">🔧</div>
+<div style="flex:1">
+<div class="c-title">Case 2 — The static vs active confusion</div>
+<div class="c-sub">When a workflow stops enrolling new leads</div>
+<div class="c-tags"><span class="tag p">List type</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div style="padding:24px">
+<div class="box case"><div class="bl">The problem</div><p>A SaaS startup's SDR team noticed that new inbound leads were not entering their lead nurture workflow. The workflow had been running fine for two months, but stopped enrolling contacts three weeks ago. The sales manager assumed it was a workflow bug.</p></div>
+<h3>Admin investigation</h3>
+<ul class="prlist">
+<li><span class="pi">1.</span><div>Checked the workflow enrolment criteria — it was enrolling from a list called "Inbound leads — nurture entry."</div></li>
+<li><span class="pi">2.</span><div>Opened the list — it was a <strong>Static</strong> list. It had been created from an import 2 months ago with 340 contacts. No new contacts had been added since.</div></li>
+<li><span class="pi">3.</span><div>The original admin who built the list had chosen Static, assuming the criteria-based filter would keep updating. It doesn't — only Active lists do that.</div></li>
+</ul>
+<h3>Admin fix</h3>
+<ul class="prlist">
+<li><span class="pi">1.</span><div>Created a new Active list with identical filter criteria: Lifecycle = Lead AND Create date is within last 90 days AND Lead status = New.</div></li>
+<li><span class="pi">2.</span><div>Updated the workflow to enrol from the new Active list.</div></li>
+<li><span class="pi">3.</span><div>Manually enrolled the 87 leads who had been missed during the 3-week gap.</div></li>
+<li><span class="pi">4.</span><div>Added a note to the admin handbook: "Workflow enrolment lists must always be Active unless the workflow is a deliberate one-time send."</div></li>
+</ul>
+<div class="box revops"><div class="bl">RevOps lesson</div><p>This mistake costs pipeline every time it happens. A new lead who doesn't enter nurture within 3 days of signing up has a statistically lower conversion rate. Estimated pipeline impact over 3 weeks: 87 leads × 18% conversion × $4,200 ACV = ~$65,000 in at-risk pipeline.</p></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="toggle(this)">
+<div class="card-ico a">🎯</div>
+<div style="flex:1">
+<div class="c-title">Case 3 — Building a full list library from scratch</div>
+<div class="c-sub">Systematic approach for a new HubSpot implementation</div>
+<div class="c-tags"><span class="tag a">Implementation</span><span class="tag n">Agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div style="padding:24px">
+<div class="box case"><div class="bl">The situation</div><p>A RevOps consultant is setting up HubSpot from scratch for a 25-person B2B software company. They have 3,400 contacts migrated from Salesforce. No lists exist yet. The company needs to start sending campaigns and trigger workflows within 2 weeks.</p></div>
+<h3>Admin's 5-category list framework</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Category</th><th>Lists built</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td><strong>Suppression (build first)</strong></td><td>[SUPPRESS] Unsubscribed · [SUPPRESS] Customers · [SUPPRESS] Competitors · [SUPPRESS] Internal team</td><td>Day 1 — before any send</td></tr>
+<tr><td><strong>Lifecycle segments</strong></td><td>[SEG] All leads · [SEG] MQLs · [SEG] SQLs · [SEG] Opportunities · [SEG] Customers · [SEG] Churned</td><td>Day 1 — foundation of all reporting</td></tr>
+<tr><td><strong>Workflow entry points</strong></td><td>[AUTO] Lead nurture entry · [AUTO] MQL handoff to sales · [AUTO] Win/loss notification · [AUTO] Customer onboarding</td><td>Day 2 — before workflows are built</td></tr>
+<tr><td><strong>Data quality monitors</strong></td><td>[ADMIN] No owner · [ADMIN] No lifecycle stage · [ADMIN] Duplicate emails · [ADMIN] Blank company</td><td>Day 3 — then reviewed weekly</td></tr>
+<tr><td><strong>Campaign targets</strong></td><td>Built per campaign as needed, following naming convention</td><td>Ongoing</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps outcome</div><p>By building lists in this order — suppression first, lifecycle segments second, workflow triggers third — the consultant ensured no campaigns went out before suppression was in place, and all workflows had valid enrolment lists before they were activated. Zero suppression errors in the first 6 months. The data quality monitor lists caught 340 contacts with no lifecycle stage on day 3, which were corrected before the first campaign went out.</p></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section page-hidden" data-division="mistakes" data-page-group="applied" id="mistakes">
+<div class="sec-kicker">Applied Learning · 11</div>
+<div class="sec-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">1. Using Static when you meant Active — the "dead workflow" mistake</div>A static list connected to an ongoing workflow stops enrolling new contacts the moment it's created. New leads that should enter the workflow are silently missed. Fix: default to Active for any list connected to a recurring workflow. Only use Static for deliberate one-time sends.</li>
+<li><div class="mt">2. Wrong AND/OR logic — the "too broad" mistake</div>Building a list with OR instead of AND results in a segment 3–5× larger than intended. "Lifecycle = MQL OR Industry = SaaS" captures every MQL regardless of industry, plus every SaaS contact regardless of lifecycle. Fix: always preview the count before saving and sanity-check whether the number makes sense for your intended audience.</li>
+<li><div class="mt">3. No suppression lists before first send — the compliance mistake</div>Sending a campaign without suppression applied risks emailing unsubscribed contacts, current customers with prospecting content, or competitors. Fix: build all four core suppression lists before any bulk send goes out. Make suppression review part of every campaign checklist.</li>
+<li><div class="mt">4. No naming convention — the "what is this list?" mistake</div>After 12 months: 200 lists, half named "Test" or "Campaign" or people's names. Nobody knows which to use. Fix: naming convention on day one. [TEAM] Purpose — Segment — Date. Enforce it on every request.</li>
+<li><div class="mt">5. Never archiving old lists — the cluttered library mistake</div>Lists from past campaigns, old workflows, and deprecated segments pile up. The list picker becomes unusable. Fix: quarterly list audit. Archive anything unused for 6+ months. Archived lists still exist but are hidden from active views.</li>
+<li><div class="mt">6. Using "is equal to true" on a single checkbox — the "missing contacts" mistake</div>"Has signed NDA is equal to true" misses contacts where the property was never set (unknown state). Fix: use "is known" to catch all contacts where the checkbox has been set, regardless of whether it's explicitly checked.</li>
+<li><div class="mt">7. Building targeting lists without suppression filters built in — the "belt and braces" mistake</div>Even if you apply suppression at send time, building it into the list itself means the list count is accurate and the suppressed contacts never even appear as targets. Fix: add "Is NOT member of [SUPPRESS] Customers" as a filter inside every prospecting targeting list.</li>
+</ul>
+</div>
+
+<div class="section page-hidden" data-division="practice" data-page-group="applied" id="practice">
+<div class="sec-kicker">Applied Learning · 12</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-desc">Do this in your free HubSpot sandbox account. It takes about 30 minutes and covers the full list workflow.</p>
+<ol class="psteps">
+<li><strong>Create 4 suppression lists first</strong> — [SUPPRESS] Unsubscribed, [SUPPRESS] Customers, [SUPPRESS] Do not contact, [SUPPRESS] Internal team. Use Active lists with the appropriate property filters for each.</li>
+<li><strong>Create a lifecycle segment</strong> — Active list named [SEG] All MQLs. Filter: Lifecycle stage = Marketing Qualified Lead. Note the count.</li>
+<li><strong>Create a campaign targeting list</strong> — Active list: [MKT] Product demo invite — SaaS leads. Filters: Lifecycle = Lead AND Industry = SaaS AND Is NOT member of [SUPPRESS] Customers. Note the count vs your MQL list.</li>
+<li><strong>Create a data quality monitor</strong> — Active list named [ADMIN] Contacts with no lifecycle stage. Filter: Lifecycle stage is unknown. This is your ongoing data quality alert.</li>
+<li><strong>Create a static list</strong> — Go to Contacts, filter for contacts created in the last 7 days, manually select 5–10 contacts, and add them to a new Static list named [TEST] Recent imports — static. Notice that this list count will never change even as new contacts are created tomorrow.</li>
+<li><strong>Check the difference</strong> — Go back to your Active MQL list and add a test contact with Lifecycle = MQL. Watch them appear in the list within seconds. Change their lifecycle to SQL — watch them disappear. This is live Active list behaviour.</li>
+</ol>
+</div>
+
+<div class="section page-hidden" data-division="interview" data-page-group="applied" id="interview">
+<div class="sec-kicker">Applied Learning · 13</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">Q: "What is the difference between an Active and a Static list in HubSpot?"</div>
+<div class="iq-a">"An active list has criteria-based rules and updates continuously — contacts join when they match and leave when they stop matching. It's always current. A static list is a frozen snapshot — membership is fixed at creation and only changes if you manually add or remove people. I use active lists for ongoing workflows and recurring campaigns, and static lists for one-time sends to a specific group like event attendees. The key thing to remember is that you can't convert between types after creation."</div>
+</div>
+<div class="iq">
+<div class="iq-q">Q: "A workflow has stopped enrolling new leads. How do you diagnose the issue?"</div>
+<div class="iq-a">"First I'd check the workflow's enrolment source — is it list-based or property-based? If it's list-based, I'd open the list and check whether it's Active or Static. A static list with no new members is the most common cause of this. I'd also check the workflow's re-enrolment settings — is it set to enrol contacts only once, or every time they meet the criteria? Then I'd look at a specific contact that should have enrolled and check their property history to see if and when they met the criteria."</div>
+</div>
+<div class="iq">
+<div class="iq-q">Q: "How do you use lists to prevent sending a prospecting email to existing customers?"</div>
+<div class="iq-a">"I maintain a suppression list called [SUPPRESS] Current customers — an active list that filters on Lifecycle Stage = Customer. When any contact becomes a customer, they're automatically on this list within seconds. For every outbound prospecting campaign, I add this list to the 'Exclude' field in the email send settings, and I also build it directly into the campaign targeting list as a filter: Is NOT member of [SUPPRESS] Current customers. This double-layer approach means customers are excluded both at the list level and the send level."</div>
+</div>
+<div class="iq">
+<div class="iq-q">Q: "Walk me through how you'd set up lists for a new HubSpot portal."</div>
+<div class="iq-a">"I follow a five-category framework. First, suppression lists — before any send goes out, I build lists for unsubscribed contacts, current customers, competitors, and internal team. Second, lifecycle segments — active lists for each lifecycle stage so I have clean, reportable segments from day one. Third, workflow entry points — active lists that serve as enrolment triggers for each major workflow. Fourth, data quality monitors — lists that surface bad data like contacts with no owner or no lifecycle stage. Fifth, campaign-specific lists — built as needed, following the naming convention. This order matters: suppression first so nothing goes wrong before we're ready."</div>
+</div>
+</div>
+
+<div class="section page-hidden" data-division="cheatsheet" data-page-group="applied" id="cheatsheet">
+<div class="sec-kicker">Applied Learning · 14</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is a list</td><td>A saved, named segment of CRM records — contacts, companies, or deals</td></tr>
+<tr><td>Active list</td><td>Updates automatically — contacts join when they match, leave when they don't</td></tr>
+<tr><td>Static list</td><td>Frozen snapshot — membership never changes automatically after creation</td></tr>
+<tr><td>Type is permanent</td><td>Cannot convert Active to Static or vice versa after creation</td></tr>
+<tr><td>Filter categories</td><td>Properties · Behaviours/activities · List membership</td></tr>
+<tr><td>AND logic</td><td>Contact must match all filters — narrows the segment</td></tr>
+<tr><td>OR logic</td><td>Contact must match any filter — widens the segment</td></tr>
+<tr><td>Filter groups</td><td>Within a group = AND logic · Between groups = OR logic</td></tr>
+<tr><td>Suppression list</td><td>Excludes contacts from sends — build before first campaign</td></tr>
+<tr><td>Core suppressions</td><td>Unsubscribed · Customers · Competitors · Do not contact · Bounces</td></tr>
+<tr><td>Naming convention</td><td>[TEAM] Purpose — Segment — Date/Quarter</td></tr>
+<tr><td>Workflow rule</td><td>Always use Active lists for workflow enrolment — Static lists stop updating</td></tr>
+<tr><td>Preview count</td><td>Always check before saving — 0 or unexpectedly large = logic error</td></tr>
+<tr><td>Object types</td><td>Contact · Company · Deal — most lists are contact-based</td></tr>
+<tr><td>RevOps superpower</td><td>Lists as data quality monitors — "Contacts with no owner" = 0 means clean CRM</td></tr>
+</tbody>
+</table></div>
+<div class="box revops">
+<div class="bl">RevOps mindset on lists</div>
+<p>Lists are not just a marketing feature — they are the segmentation infrastructure of your entire CRM. Every workflow trigger, every campaign audience, every suppression rule, and every data quality alert runs through lists. A well-governed list library — with clear naming, consistent types, and maintained suppression lists — is the difference between a CRM that runs reliably and one that requires constant firefighting. Build your list library deliberately, document it, and treat it as infrastructure you maintain — not a side task you do once.</p>
+</div>
+</div>
+
+    <footer class="footer">
+      <p class="footer-title">HubSpot Lists — Complete Admin Reference</p>
+      <p>Active vs Static · Filter categories · AND/OR logic · Suppression lists · Naming conventions · 3 case studies · Practice exercise · Interview Q&amp;A. Save alongside your HubSpot sandbox for reference.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+
+const GUIDE_NAV = [{"id": "foundation", "label": "Foundation", "tone": "p", "items": [{"id": "what", "label": "What is a list?", "tone": "p"}, {"id": "types", "label": "Active vs Static", "tone": "p"}, {"id": "filters", "label": "Filter types", "tone": "p"}, {"id": "logic", "label": "AND vs OR logic", "tone": "p"}]}, {"id": "admin", "label": "Admin Setup", "tone": "t", "items": [{"id": "create", "label": "How to create", "tone": "t"}, {"id": "naming", "label": "Naming conventions", "tone": "t"}, {"id": "suppression", "label": "Suppression lists", "tone": "t"}, {"id": "objects", "label": "Object-based lists", "tone": "t"}]}, {"id": "applied", "label": "Applied Learning", "tone": "a", "items": [{"id": "example", "label": "Real-world example", "tone": "a"}, {"id": "cases", "label": "Case studies", "tone": "a"}, {"id": "mistakes", "label": "Common mistakes", "tone": "a"}, {"id": "practice", "label": "Practice exercise", "tone": "a"}, {"id": "interview", "label": "Interview Q&A", "tone": "a"}, {"id": "cheatsheet", "label": "Cheatsheet", "tone": "a"}]}];
+let activeGroup = 'foundation';
+let activeDivision = 'what';
+
+function getGroup(groupId) {
+  return GUIDE_NAV.find(group => group.id === groupId) || GUIDE_NAV[0];
+}
+function getGroupForDivision(divisionId) {
+  return GUIDE_NAV.find(group => group.items.some(item => item.id === divisionId)) || GUIDE_NAV[0];
+}
+function renderMobileDivisions() {
+  const row = document.querySelector('.mobile-division-row');
+  if (!row) return;
+  const group = getGroup(activeGroup);
+  row.innerHTML = group.items.map(item => `<button class="mobile-division-btn ${item.id === activeDivision ? 'active' : ''}" type="button" data-mobile-division="${item.id}">${item.label}</button>`).join('');
+}
+function setActive(groupId, divisionId, shouldScroll = true) {
+  const group = getGroup(groupId);
+  const validDivision = group.items.some(item => item.id === divisionId) ? divisionId : group.items[0].id;
+  activeGroup = group.id;
+  activeDivision = validDivision;
+
+  document.querySelectorAll('.section[data-division]').forEach(section => {
+    section.classList.toggle('page-hidden', section.dataset.division !== activeDivision);
+  });
+  document.querySelectorAll('.nav-block').forEach(block => {
+    const isOpen = block.dataset.navBlock === activeGroup;
+    block.classList.toggle('open', isOpen);
+    const groupButton = block.querySelector('.nav-group');
+    if (groupButton) {
+      groupButton.classList.toggle('active', isOpen);
+      groupButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+  });
+  document.querySelectorAll('.nav-item[data-division-target]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.divisionTarget === activeDivision);
+  });
+  document.querySelectorAll('.mobile-section-btn[data-mobile-group]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mobileGroup === activeGroup);
+  });
+  renderMobileDivisions();
+  if (shouldScroll) {
+    const content = document.getElementById('guide-content');
+    if (content) content.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+function toggle(hd) {
+  const card = hd.closest('.card');
+  const section = hd.closest('.section');
+  if (!card || !section) return;
+  section.querySelectorAll('.card.open').forEach(other => { if (other !== card) other.classList.remove('open'); });
+  card.classList.toggle('open');
+}
+function jump(id) {
+  const group = getGroupForDivision(id);
+  setActive(group.id, id, true);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.nav-block').forEach(block => {
+    block.classList.toggle('open', block.dataset.navBlock === activeGroup);
+  });
+  document.querySelectorAll('[data-group-target]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = getGroup(btn.dataset.groupTarget);
+      setActive(group.id, group.items[0].id, true);
+    });
+  });
+  document.querySelectorAll('[data-division-target]').forEach(btn => {
+    btn.addEventListener('click', () => setActive(btn.dataset.group, btn.dataset.divisionTarget, true));
+  });
+  document.querySelectorAll('[data-mobile-group]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = getGroup(btn.dataset.mobileGroup);
+      setActive(group.id, group.items[0].id, true);
+    });
+  });
+  const mobileDivisionRow = document.querySelector('.mobile-division-row');
+  if (mobileDivisionRow) {
+    mobileDivisionRow.addEventListener('click', event => {
+      const btn = event.target.closest('[data-mobile-division]');
+      if (!btn) return;
+      setActive(activeGroup, btn.dataset.mobileDivision, true);
+    });
+  }
+  document.querySelectorAll('.tabs').forEach(tabBar => {
+    tabBar.addEventListener('click', event => {
+      const tab = event.target.closest('.tab');
+      if (!tab) return;
+      const card = tab.closest('.card');
+      if (!card) return;
+      const tabs = [...tabBar.querySelectorAll('.tab')];
+      const idx = tabs.indexOf(tab);
+      tabs.forEach(t => t.classList.remove('on'));
+      tab.classList.add('on');
+      card.querySelectorAll('.tab-pane').forEach((pane, paneIdx) => pane.classList.toggle('on', paneIdx === idx));
+    });
+  });
+  setActive(activeGroup, activeDivision, false);
+});
+
+</script>
+</body>
+</html>
