@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HubSpot Lifecycle Stages — Complete Admin Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0c0e12;
+  --surface: #12151c;
+  --surface2: #181c26;
+  --surface3: #1e2230;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e4e6f0;
+  --muted: #6e7289;
+  --soft: #9da3bb;
+  --purple: #8b7ff5;
+  --purple-bg: rgba(139,127,245,0.1);
+  --purple-light: #b4abff;
+  --teal: #20c997;
+  --teal-bg: rgba(32,201,151,0.1);
+  --teal-light: #6ef5cc;
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --amber-light: #fcd34d;
+  --orange: #ff5c35;
+  --orange-bg: rgba(255,92,53,0.1);
+  --orange-border: rgba(255,92,53,0.28);
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --blue: #60a5fa;
+  --blue-bg: rgba(96,165,250,0.1);
+  --green: #4ade80;
+  --green-bg: rgba(74,222,128,0.1);
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r-sm: 6px;
+  --r-lg: 16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;scrollbar-width:thin;scrollbar-color:var(--border2) transparent;z-index:50;}
+.sidebar-brand{padding:16px 16px 18px;border-bottom:1px solid var(--border);}
+.hubspot-reference{display:block;text-decoration:none;color:inherit;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,92,53,0.24);background:linear-gradient(135deg,rgba(255,92,53,0.10),rgba(255,255,255,0.02));transition:transform .18s,border-color .18s,background .18s;}
+.hubspot-reference:hover{transform:translateY(-1px);border-color:rgba(255,92,53,0.45);background:linear-gradient(135deg,rgba(255,92,53,0.15),rgba(255,255,255,0.03));}
+.hubspot-word{display:block;color:var(--orange);font-weight:700;font-size:18px;letter-spacing:.2px;}
+.reference-note{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;}
+.guide-title{font-family:var(--font-display);font-size:19px;color:var(--text);line-height:1.25;font-weight:500;margin-top:16px;}
+.guide-subtitle{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.5;}
+.desktop-nav{padding:14px 0 8px;}
+.nav-group{margin-bottom:4px;}
+.nav-group-label{width:calc(100% - 20px);margin:0 10px 8px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 13px;border-radius:10px;border:1px solid transparent;background:transparent;color:var(--soft);font-family:var(--font-body);font-size:13.5px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+.nav-group-label:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.nav-group.active-page .nav-group-label{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,0.30);}
+.nav-arrow{display:inline-block;transition:transform .18s;color:var(--muted);font-size:18px;line-height:1;}
+.nav-group.open .nav-arrow,.nav-group.active-page .nav-arrow{transform:rotate(90deg);color:var(--purple-light);}
+.nav-page-items{display:none;margin-bottom:10px;}
+.nav-group.open .nav-page-items,.nav-group.active-page .nav-page-items{display:block;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;font-size:13.4px;color:var(--muted);text-decoration:none;border-left:2px solid transparent;transition:all .15s;cursor:pointer;line-height:1.35;}
+.nav-item:hover{color:var(--text);background:var(--surface2);}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple);}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.nav-dot.p{background:var(--purple);}.nav-dot.t{background:var(--teal);}.nav-dot.a{background:var(--amber);}
+.mobile-nav{display:none;}
+.sidebar-footer{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.5;}
+.main{flex:1;padding:52px 60px;max-width:920px;}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border);}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start;}
+.hero-copy{min-width:0;}
+.hero-kicker{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px;}
+.hero-title{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px;}
+.hero-title em{color:var(--purple);font-style:italic;}
+.hero-description{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8;margin-bottom:0;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+.hero-pill{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid var(--border2);color:var(--soft);background:var(--surface);}
+.hero-pill.p{border-color:rgba(139,127,245,0.30);color:var(--purple-light);background:var(--purple-bg);}
+.hero-pill.t{border-color:rgba(32,201,151,0.30);color:var(--teal-light);background:var(--teal-bg);}
+.hero-pill.a{border-color:rgba(245,158,11,0.30);color:var(--amber-light);background:var(--amber-bg);}
+.hero-pill.o{border-color:var(--orange-border);color:#ffb199;background:var(--orange-bg);}
+.creator-card{display:block;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015));border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;transition:transform .18s,border-color .18s,background .18s;}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,0.45);background:linear-gradient(180deg,rgba(255,92,53,0.08),rgba(139,127,245,0.04));}
+.creator-img{width:100%;height:auto;display:block;border-radius:14px;border:2px solid rgba(255,92,53,0.75);box-shadow:0 12px 28px rgba(255,92,53,0.16),0 18px 42px rgba(0,0,0,0.28);object-fit:cover;}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text);}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:2px;}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:5px;line-height:1.45;}
+.section{margin-bottom:68px;scroll-margin-top:24px;}
+.section.page-hidden{display:none!important;}
+.division.division-hidden{display:none!important;}
+.division{animation:fadeIn .16s ease-out;}
+@keyframes fadeIn{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sec,.section-header{margin-bottom:28px;}
+.sec-eye,.section-eyebrow{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-family:var(--font-body);}
+.sec-title,.section-title{font-family:var(--font-display);font-size:30px;font-weight:300;color:var(--text);line-height:1.2;margin-bottom:14px;}
+.sec-title em,.section-title em{font-style:italic;color:var(--purple);}
+.sec-lead,.section-desc{font-size:14px;color:var(--soft);margin-top:10px;max-width:640px;line-height:1.8;margin-bottom:24px;font-weight:400;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:var(--border2);}
+.card-hd,.card-header{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+.card-ico,.card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.card-ico.p,.card-icon.p{background:var(--purple-bg);}.card-ico.t,.card-icon.t{background:var(--teal-bg);}.card-ico.a,.card-icon.a{background:var(--amber-bg);}.card-ico.r,.card-icon.r{background:var(--red-bg);}.card-ico.b,.card-icon.b{background:var(--blue-bg);}
+.ctitle,.card-title{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2;}
+.csub,.card-subtitle{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.ctags,.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px;}
+.chev,.chevron{font-size:16px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0;}
+.card.open .chev,.card.open .chevron{transform:rotate(90deg);}
+.card-body{display:none;}
+.card.open .card-body{display:block;}
+.tabs,.tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;gap:0;overflow-x:auto;}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;font-family:var(--font-body);letter-spacing:0;}
+.tab:hover{color:var(--text);}
+.tab.on,.tab.active{color:var(--text);border-bottom-color:var(--purple);}
+.tab-pane,.tab-content{display:none;padding:26px;}
+.tab-pane.on,.tab-content.active{display:block;}
+h3{font-family:var(--font-display);font-size:17px;font-weight:500;color:var(--text);margin-bottom:12px;margin-top:22px;font-style:normal;}
+h3:first-child{margin-top:0;}h4{font-size:13px;font-weight:500;color:var(--soft);margin-bottom:8px;margin-top:16px;letter-spacing:.3px;font-family:var(--font-body);text-transform:none;}
+p{color:var(--soft);margin-bottom:12px;font-size:14px;line-height:1.8;font-weight:400;}strong{color:var(--text);font-weight:500;}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
+.table-wrap table{margin-bottom:0;min-width:650px;}
+table,.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;}thead,.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2);}th,.tbl th{padding:9px 13px;text-align:left;font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:var(--font-body);}td,.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:400;}tr:hover,.tbl tr:hover td{background:rgba(255,255,255,0.015);}
+.mono{font-family:var(--font-mono);font-size:12px;color:var(--purple-light);background:var(--purple-bg);padding:2px 7px;border-radius:4px;white-space:nowrap;}
+.box,.info-box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid;}
+.box p,.info-box p{margin:0;font-size:13.5px;color:var(--soft);font-weight:400;}.box p+p,.info-box p+p{margin-top:6px;}
+.bl,.box-label{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;font-family:var(--font-body);}
+.box.why,.info-box.why{border-color:var(--purple);background:var(--purple-bg);}.box.why .bl,.info-box.why .box-label{color:var(--purple-light);}
+.box.case,.info-box.case{border-color:var(--blue);background:var(--blue-bg);}.box.case .bl,.info-box.case .box-label{color:var(--blue);}
+.box.tip,.info-box.tip{border-color:var(--teal);background:var(--teal-bg);}.box.tip .bl,.info-box.tip .box-label{color:var(--teal-light);}
+.box.warn,.info-box.warn{border-color:var(--red);background:var(--red-bg);}.box.warn .bl,.info-box.warn .box-label{color:var(--red);}
+.box.amber,.info-box.amber{border-color:var(--amber);background:var(--amber-bg);}.box.amber .bl,.info-box.amber .box-label{color:var(--amber-light);}
+.box.revops,.revops-box{border-color:var(--purple);background:linear-gradient(135deg,var(--purple-bg),var(--teal-bg));}.box.revops .bl,.revops-label{color:var(--purple-light);}
+.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);}.tag.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,0.2);}.tag.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.2);}.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,0.2);}.tag.n{background:rgba(122,127,148,0.08);color:var(--muted);border:1px solid var(--border);}
+.stage-strip{display:flex;gap:8px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;}
+.ss-item{flex:0 0 auto;min-width:88px;padding:12px 10px;text-align:center;cursor:pointer;border:1px solid var(--border);border-radius:12px;transition:all .15s;font-size:12px;font-weight:600;color:var(--soft);background:var(--surface2);}
+.ss-item:hover{background:var(--surface3);color:var(--text);border-color:var(--border2);}.ss-item.on{border-color:rgba(139,127,245,0.38);color:var(--text);background:var(--purple-bg);}
+.ss-num{font-family:var(--font-mono);font-size:9px;display:block;letter-spacing:1px;margin-bottom:4px;color:var(--muted);}
+.stage-detail{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;display:none;}.stage-detail.on{display:block;}
+.sd-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);}.sd-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:18px;font-style:italic;flex-shrink:0;}.sd-num{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}.sd-name{font-family:var(--font-display);font-size:22px;color:var(--text);}.sd-tag{font-size:12px;color:var(--muted);font-weight:400;margin-top:3px;}.sd-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}.sd-block{background:var(--surface2);border-radius:6px;padding:14px;}.sd-block-l{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}.sd-block p,.sd-block ul li{font-size:13px;color:var(--soft);margin:0;font-weight:400;line-height:1.7;}.sd-block ul{list-style:none;padding:0;margin:0;}.sd-block ul li{padding:3px 0;display:flex;gap:8px;}.sd-block ul li::before{content:'→';color:var(--muted);flex-shrink:0;}.sd-admin{margin-top:14px;padding:12px 16px;border-left:3px solid var(--purple);background:var(--purple-bg);font-size:13px;color:var(--soft);line-height:1.7;}.sd-admin strong{color:var(--purple-light);font-weight:500;}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}.cmp-c{border:1px solid var(--border);border-radius:10px;padding:20px;background:var(--surface);}.cmp-c.p{border-top:3px solid var(--purple);}.cmp-c.a{border-top:3px solid var(--amber);}.cmp-title{font-family:var(--font-display);font-size:18px;font-style:italic;margin-bottom:4px;}.cmp-title.p{color:var(--purple-light);}.cmp-title.a{color:var(--amber-light);}.cmp-sub{font-size:12px;color:var(--muted);margin-bottom:14px;font-weight:400;}.cmp-rows{list-style:none;padding:0;}.cmp-rows li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--soft);font-weight:400;}.ck{width:16px;height:16px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;margin-top:1px;}.ck.p{background:var(--purple-bg);color:var(--purple-light);}.ck.a{background:var(--amber-bg);color:var(--amber-light);}.ck.n{background:var(--surface3);color:var(--muted);}
+.psteps{list-style:none;padding:0;counter-reset:ps;}.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:400;}.psteps li::before{content:counter(ps);font-family:var(--font-mono);font-size:11px;color:var(--purple-light);background:var(--purple-bg);border:1px solid rgba(139,127,245,0.2);border-radius:4px;padding:2px 7px;flex-shrink:0;height:fit-content;margin-top:1px;}
+.prlist{list-style:none;padding:0;}.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:400;}.pi{flex-shrink:0;}
+.mlist{list-style:none;padding:0;}.mlist li{background:rgba(248,113,113,0.04);border:1px solid rgba(248,113,113,0.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft);font-weight:400;}.mt{color:var(--red);font-weight:500;margin-bottom:4px;font-size:12.5px;font-family:var(--font-body);letter-spacing:.2px;}
+.journey{list-style:none;padding:0;position:relative;}.journey::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:1px;background:var(--border2);}.journey li{display:flex;gap:20px;padding:16px 0;align-items:flex-start;position:relative;}.j-dot{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;font-style:italic;z-index:1;}.j-dot.g{background:var(--surface2);border:1px solid var(--border);color:var(--muted);}.j-dot.p{background:var(--purple-bg);border:1px solid rgba(139,127,245,0.2);color:var(--purple-light);}.j-dot.t{background:var(--teal-bg);border:1px solid rgba(32,201,151,0.2);color:var(--teal-light);}.j-stage{font-family:var(--font-display);font-size:16px;font-style:italic;color:var(--text);margin-bottom:3px;}.j-desc{font-size:13px;color:var(--soft);line-height:1.7;}.j-day{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:4px;}
+.iq{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:12px;}.iq-q{font-family:var(--font-display);font-size:14.5px;color:var(--text);font-style:italic;margin-bottom:8px;}.iq-a{font-size:13px;color:var(--soft);line-height:1.8;font-weight:400;}
+.sla-doc,.scenario,.wf-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:16px;}.sla-title,.wf-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}.sla-row{display:flex;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--border);}.sla-key{font-weight:500;color:var(--text);min-width:160px;font-size:13.5px;}.sla-val{font-size:13px;color:var(--soft);font-weight:400;}.wf-trigger{background:var(--purple-bg);border-left:3px solid var(--purple);padding:10px 14px;margin-bottom:8px;font-size:13px;color:var(--purple-light);}.wf-actions{list-style:none;padding:0;}.wf-actions li{display:flex;gap:10px;padding:7px 0;font-size:13px;color:var(--soft);border-bottom:1px solid var(--border);}.wf-actions li::before{content:'→';color:var(--teal-light);flex-shrink:0;font-weight:500;}
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:14px 0;}.fs{background:var(--surface2);border:1px solid var(--border2);border-radius:6px;padding:8px 14px;font-size:12.5px;color:var(--text);}.fs.p{border-color:rgba(139,127,245,0.3);color:var(--purple-light);background:var(--purple-bg);}.fs.t,.fs.win{border-color:rgba(32,201,151,0.3);color:var(--teal-light);background:var(--teal-bg);}.fa{font-size:13px;color:var(--muted);padding:0 7px;}
+::-webkit-scrollbar{width:5px;height:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+@media(max-width:760px){
+  .layout{display:block;}.sidebar{display:block!important;width:100%;min-width:0;height:auto;max-height:none;position:sticky;top:0;z-index:50;border-right:none;border-bottom:1px solid var(--border2);box-shadow:0 18px 42px rgba(0,0,0,.18);overflow:visible;background:var(--surface);}.sidebar-brand,.desktop-nav,.sidebar-footer{display:none;}.mobile-nav{display:block;}.mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch;}.mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;white-space:nowrap;}.mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff;}.mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch;}.mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap;}.mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38);}.main{width:100%;padding:22px 14px 34px;max-width:100%;}.hero{margin-bottom:38px;padding-bottom:30px;}.hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start;}.creator-card{grid-column:1;grid-row:1;padding:0;border:none;background:transparent;box-shadow:none;align-self:start;}.creator-card:hover{transform:none;background:transparent;border-color:transparent;}.creator-img{width:64px;height:80px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28);}.creator-name,.creator-role,.creator-link{display:none;}.hero-copy{grid-column:2;grid-row:1;}.hero-kicker{font-size:10px;letter-spacing:1.4px;margin-bottom:8px;}.hero-title{font-size:32px;margin-bottom:12px;}.hero-description{font-size:14px;}.hero-pills{gap:7px;margin-top:14px;}.hero-pill{font-size:11.5px;padding:4px 10px;}.sec-title,.section-title{font-size:25px;}.card-hd,.card-header{padding:18px 16px 15px;}.tab-pane,.tab-content{padding:16px;}.tabs,.tab-bar{display:flex;overflow-x:auto;gap:7px;padding:9px 12px;}.tab{flex:0 0 auto;padding:8px 11px;font-size:12px;}.cmp,.sd-grid{grid-template-columns:1fr;}.sla-row{display:block;}.sla-key{display:block;min-width:0;margin-bottom:3px;}.table-wrap table{min-width:640px;}
+}
+@media(max-width:430px){.hero-title{font-size:28px;}.creator-img{width:58px;height:72px;}.sec-title,.section-title{font-size:23px;}.hero-inner{grid-template-columns:64px minmax(0,1fr);gap:12px;}}
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <a class="hubspot-reference" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+        <span class="hubspot-word">HubSpot</span>
+        <div class="reference-note">For better references, visit hubspot.com</div>
+      </a>
+      <div class="guide-title">Lifecycle Stages<br/>Complete Guide</div>
+      <div class="guide-subtitle">Complete reference · All 7 stages · Workflows · Interview prep</div>
+    </div>
+    <div class="desktop-nav">
+      
+        <div class="nav-group active-page open" data-page-group="foundation">
+          <button class="nav-group-label page-tab" onclick="togglePageGroup('foundation')">
+            <span>Foundation</span><span class="nav-arrow">›</span>
+          </button>
+          <div class="nav-page-items">
+            <a class="nav-item active" data-page="foundation" data-target="what" onclick="showDivision('foundation','what', true)"><span class="nav-dot p"></span>What is a lifecycle stage?</a><a class="nav-item" data-page="foundation" data-target="all7" onclick="showDivision('foundation','all7', true)"><span class="nav-dot p"></span>All 7 stages explained</a><a class="nav-item" data-page="foundation" data-target="logic" onclick="showDivision('foundation','logic', true)"><span class="nav-dot p"></span>System logic &amp; rules</a><a class="nav-item" data-page="foundation" data-target="vs-lead" onclick="showDivision('foundation','vs-lead', true)"><span class="nav-dot p"></span>vs. Lead status</a>
+          </div>
+        </div>
+        <div class="nav-group" data-page-group="admin">
+          <button class="nav-group-label page-tab" onclick="togglePageGroup('admin')">
+            <span>Admin Setup</span><span class="nav-arrow">›</span>
+          </button>
+          <div class="nav-page-items">
+            <a class="nav-item" data-page="admin" data-target="setup" onclick="showDivision('admin','setup', true)"><span class="nav-dot t"></span>Step-by-step setup</a><a class="nav-item" data-page="admin" data-target="mql" onclick="showDivision('admin','mql', true)"><span class="nav-dot t"></span>Defining MQL criteria</a><a class="nav-item" data-page="admin" data-target="workflows" onclick="showDivision('admin','workflows', true)"><span class="nav-dot t"></span>Key workflows to build</a><a class="nav-item" data-page="admin" data-target="stamp" onclick="showDivision('admin','stamp', true)"><span class="nav-dot t"></span>Date-stamp properties</a>
+          </div>
+        </div>
+        <div class="nav-group" data-page-group="applied">
+          <button class="nav-group-label page-tab" onclick="togglePageGroup('applied')">
+            <span>Applied Learning</span><span class="nav-arrow">›</span>
+          </button>
+          <div class="nav-page-items">
+            <a class="nav-item" data-page="applied" data-target="journey" onclick="showDivision('applied','journey', true)"><span class="nav-dot a"></span>Full contact journey</a><a class="nav-item" data-page="applied" data-target="cases" onclick="showDivision('applied','cases', true)"><span class="nav-dot a"></span>Case studies</a><a class="nav-item" data-page="applied" data-target="mistakes" onclick="showDivision('applied','mistakes', true)"><span class="nav-dot a"></span>Common mistakes</a><a class="nav-item" data-page="applied" data-target="best" onclick="showDivision('applied','best', true)"><span class="nav-dot a"></span>Best practices</a><a class="nav-item" data-page="applied" data-target="practice" onclick="showDivision('applied','practice', true)"><span class="nav-dot a"></span>Practice exercise</a><a class="nav-item" data-page="applied" data-target="interview" onclick="showDivision('applied','interview', true)"><span class="nav-dot a"></span>Interview questions</a><a class="nav-item" data-page="applied" data-target="cheatsheet" onclick="showDivision('applied','cheatsheet', true)"><span class="nav-dot a"></span>Cheatsheet</a>
+          </div>
+        </div>
+    </div>
+    <div class="mobile-nav">
+      <div class="mobile-section-row"><button class="mobile-section-btn active" data-page-group="foundation" onclick="showPage('foundation', null, true)">Foundation</button><button class="mobile-section-btn" data-page-group="admin" onclick="showPage('admin', null, true)">Admin Setup</button><button class="mobile-section-btn" data-page-group="applied" onclick="showPage('applied', null, true)">Applied Learning</button></div>
+      <div class="mobile-division-row" id="mobileDivisionRow"></div>
+    </div>
+    <div class="sidebar-footer">Click any section to explore · Cards expand on click</div>
+  </nav>
+  <main class="main">
+    <div class="hero" id="page-top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-kicker">HubSpot Admin Reference · Module 4</div>
+          <h1 class="hero-title">Lifecycle<br/><em>Stages</em></h1>
+          <p class="hero-description">The shared language between Marketing, Sales, and Customer Success — how to configure, automate, and govern the full contact funnel from Subscriber to Evangelist.</p>
+          <div class="hero-pills">
+            <span class="hero-pill p">7 fixed stages</span>
+            <span class="hero-pill t">5 key workflows</span>
+            <span class="hero-pill a">3 case studies</span>
+            <span class="hero-pill o">Interview Q&amp;A</span>
+          </div>
+        </div>
+        <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+          <img class="creator-img" src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo"/>
+          <div class="creator-name">Naveed Abbas</div>
+          <div class="creator-role">CRM Administrator</div>
+          <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+        </a>
+      </div>
+    </div>
+    
+      <section class="section" id="page-foundation" data-page="foundation">
+        
+          <div class="division" id="what" data-page="foundation" data-division="what">
+            
+<div class="sec-eye">Foundation · 01</div>
+<div class="sec-title">What Is a <em>Lifecycle Stage?</em></div>
+<p class="sec-lead">A property that tracks how far along a contact is in their journey from stranger to customer — the funnel milestone property that drives everything else.</p>
+<div class="box why"><div class="bl">Core definition</div><p>A <strong>Lifecycle Stage</strong> is a dropdown property on Contact and Company records that tells you where that person sits in your overall relationship — from total stranger (Subscriber) all the way to loyal advocate (Evangelist). It answers the question: <em>"How far along is this contact in becoming our customer?"</em></p></div>
+<h3>Why it's the backbone of your CRM</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Business question</th><th>How lifecycle stage answers it</th></tr></thead>
+<tbody>
+<tr><td>How many potential buyers do we have?</td><td>Count contacts where Lifecycle Stage = SQL or MQL</td></tr>
+<tr><td>Where are leads getting stuck?</td><td>Compare MQL count vs SQL count — gap = Marketing/Sales friction</td></tr>
+<tr><td>What's our lead-to-customer rate?</td><td>Customers this month ÷ Leads last quarter</td></tr>
+<tr><td>How many MQLs did Marketing produce?</td><td>Count contacts who entered MQL stage this month</td></tr>
+<tr><td>Who should CS be onboarding right now?</td><td>Active list: Lifecycle Stage = Customer AND Create date within 30 days</td></tr>
+<tr><td>Which contacts should NOT get prospecting emails?</td><td>Suppress contacts where Lifecycle Stage = Customer</td></tr>
+</tbody>
+</table></div>
+<div class="box amber"><div class="bl">Admin truth</div><p>If Lifecycle Stages are blank, stale, or inconsistently set — every funnel report is wrong, every automation that depends on stages breaks, and Marketing and Sales cannot align on performance. Stage governance is an ongoing admin responsibility, not a one-time setup task.</p></div>
+
+          </div>
+          <div class="division division-hidden" id="all7" data-page="foundation" data-division="all7">
+            
+<div class="sec-eye">Foundation · 02</div>
+<div class="sec-title">All <em>7 Stages</em> Explained</div>
+<p class="sec-lead">Click each stage to see the full definition, ownership, triggers, how contacts leave, and admin notes.</p>
+<div class="stage-strip" id="stage-strip"></div>
+<div id="stage-detail"></div>
+
+          </div>
+          <div class="division division-hidden" id="logic" data-page="foundation" data-division="logic">
+            
+<div class="sec-eye">Foundation · 03</div>
+<div class="sec-title">System <em>Logic &amp; Rules</em></div>
+<p class="sec-lead">How HubSpot thinks about Lifecycle Stages — the four critical rules every admin must know.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Rule</th><th>What it means</th><th>Admin implication</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Forward-only by default</strong></td>
+<td>HubSpot ignores workflow actions that try to set Lifecycle Stage to an earlier value automatically</td>
+<td>To move a contact backward, you must manually update the record or use explicit workflow logic with a "Set property value" action that forces the change</td>
+</tr>
+<tr>
+<td><strong>Single-select — one stage at a time</strong></td>
+<td>A contact can only be in one lifecycle stage simultaneously. Moving to MQL replaces Lead — they can't be both.</td>
+<td>Stage is a clean overwrite. You track history via HubSpot's property history log or custom date-stamp properties</td>
+</tr>
+<tr>
+<td><strong>Auto-set on form submit</strong></td>
+<td>If a contact with a blank Lifecycle Stage submits any HubSpot form, HubSpot automatically sets their stage to Lead</td>
+<td>This is why form submissions are the primary Lead creation mechanism. Ensure your forms are HubSpot-hosted or connected via embedding</td>
+</tr>
+<tr>
+<td><strong>Auto-set on Deal events (if enabled)</strong></td>
+<td>When a Deal is created → contact set to Opportunity. When a Deal closes won → contact set to Customer. Both require activation in Settings.</td>
+<td>Enable both in Settings → Objects → Deals. Always test in sandbox first. These save hundreds of manual rep updates per month.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="box warn"><div class="bl">The most misunderstood rule</div><p>The forward-only protection only applies to <em>automated</em> changes. Any user with edit permissions can manually set a contact to any stage — including backward. Workflows can also force backward movement with explicit Set Property actions. The protection prevents accidental workflow overwrites, not intentional admin actions.</p></div>
+<h3>What gets logged automatically</h3>
+<p>Every time a contact's Lifecycle Stage changes — regardless of how — HubSpot logs it in the <strong>property history</strong>. On any Contact record, click the Lifecycle Stage field → "View property history." You'll see every stage, when it changed, and what source changed it. This is your audit trail for debugging automation and data quality issues.</p>
+
+          </div>
+          <div class="division division-hidden" id="vs-lead" data-page="foundation" data-division="vs-lead">
+            
+<div class="sec-eye">Foundation · 04</div>
+<div class="sec-title">Lifecycle Stage <em>vs Lead Status</em></div>
+<p class="sec-lead">The most common point of confusion in HubSpot — they look similar but serve completely different purposes.</p>
+<div class="cmp">
+<div class="cmp-c p">
+<div class="cmp-title p">Lifecycle stage</div>
+<div class="cmp-sub">Big-picture funnel milestone</div>
+<ul class="cmp-rows">
+<li><span class="ck p">→</span>Answers: "How far have they come?"</li>
+<li><span class="ck p">→</span>Used by all teams: Marketing, Sales, CS</li>
+<li><span class="ck p">→</span>Changed by automation + all teams</li>
+<li><span class="ck p">→</span>7 fixed options — cannot add more</li>
+<li><span class="ck p">→</span>Moves forward by default</li>
+<li><span class="ck p">→</span>Drives cross-functional reporting</li>
+<li><span class="ck n">—</span>Cannot be customised or renamed</li>
+<li><span class="ck n">—</span>Not for day-to-day sales tracking</li>
+</ul>
+</div>
+<div class="cmp-c a">
+<div class="cmp-title a">Lead status</div>
+<div class="cmp-sub">Sales-side working status</div>
+<ul class="cmp-rows">
+<li><span class="ck a">→</span>Answers: "What is the rep doing with them?"</li>
+<li><span class="ck a">→</span>Used by: Sales team only</li>
+<li><span class="ck a">→</span>Changed by: Sales reps</li>
+<li><span class="ck a">→</span>Fully customisable — add any options</li>
+<li><span class="ck a">→</span>Can move any direction at any time</li>
+<li><span class="ck a">→</span>Drives rep activity tracking</li>
+<li><span class="ck n">—</span>Not a funnel milestone</li>
+<li><span class="ck n">—</span>Not for cross-team reporting</li>
+</ul>
+</div>
+</div>
+<div class="box why"><div class="bl">The analogy that makes it click</div><p><strong>Lifecycle Stage is the chapter of the book. Lead Status is what's happening on the current page.</strong> A contact can be in the SQL chapter (Lifecycle Stage) while their Lead Status is "In Progress" — the rep is calling them. Or "Bad Timing" — the rep spoke to them, they're qualified, but not ready. The lifecycle stage doesn't change. The working status does.</p></div>
+<h3>Default Lead Status options</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Default option</th><th>What it means</th><th>When to use</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">New</span></td><td>Lead just entered — nobody has touched it yet</td><td>Auto-set when MQL is created or handed to Sales</td></tr>
+<tr><td><span class="mono">Open</span></td><td>SDR is aware but hasn't started outreach</td><td>Initial review stage</td></tr>
+<tr><td><span class="mono">In Progress</span></td><td>SDR is actively reaching out</td><td>While calling or emailing sequence is active</td></tr>
+<tr><td><span class="mono">Open Deal</span></td><td>A Deal has been created for this contact</td><td>Contact has moved to Opportunity stage</td></tr>
+<tr><td><span class="mono">Unqualified</span></td><td>Not a good fit — wrong company, wrong person</td><td>After disqualification conversation</td></tr>
+<tr><td><span class="mono">Bad Timing</span></td><td>Qualified but not ready to buy yet</td><td>After conversation — revisit in future</td></tr>
+<tr><td><span class="mono">Connected</span></td><td>SDR has made first contact</td><td>After first meaningful conversation</td></tr>
+</tbody>
+</table></div>
+<div class="box tip"><div class="bl">Custom options to add</div><p>Consider adding: "Contacted — no response" (attempted outreach, awaiting reply) · "Nurture — revisit Q3" (timing issue, flag for future) · "Wrong person — find DM" (right company, need to find decision maker). Customise in Settings → Properties → Contacts → Lead status.</p></div>
+
+          </div>
+      </section>
+      <section class="section page-hidden" id="page-admin" data-page="admin">
+        
+          <div class="division division-hidden" id="setup" data-page="admin" data-division="setup">
+            
+<div class="sec-eye">Admin Setup · 05</div>
+<div class="sec-title">Step-by-Step <em>Setup</em></div>
+<p class="sec-lead">Every configuration decision an admin makes when setting up Lifecycle Stages — with the exact path in HubSpot.</p>
+<ol class="psteps">
+<li><strong>Enable Deal auto-set for Opportunity</strong> — Settings → Objects → Deals → scroll to "Lifecycle stage" → enable "Automatically set associated contact and company lifecycle stage to 'Opportunity' when a deal is created." This removes a major manual burden from AEs.</li>
+<li><strong>Enable Deal auto-set for Customer</strong> — Same settings page → enable "Automatically set associated contact and company lifecycle stage to 'Customer' when a deal is closed won." Test this in your sandbox with a test deal before enabling in production.</li>
+<li><strong>Define MQL criteria jointly with Marketing and Sales</strong> — This is a business conversation, not a technical task. Facilitate a joint session (see MQL section below). Document the agreed criteria in writing before building anything.</li>
+<li><strong>Build the MQL promotion workflow</strong> — Automation → Workflows → Create workflow → Contact-based. Set the enrolment trigger to your agreed MQL criteria. Actions: set Lifecycle Stage = MQL, set Lead Status = New, notify assigned SDR, create follow-up task.</li>
+<li><strong>Build the Customer post-close workflow</strong> — Enrolment: associated Deal stage = Closed Won. Actions: set Lead Status = Open Deal, enrol in onboarding sequence, notify CS team, create onboarding task.</li>
+<li><strong>Customise Lead Status options</strong> — Settings → Properties → Contacts → Lead status → edit the dropdown options. Add options relevant to your sales motion. Remove options nobody uses.</li>
+<li><strong>Create date-stamp custom properties</strong> — For each key stage (MQL, SQL, Customer), create a custom Date property on Contact: "MQL Date," "SQL Date," "Customer Date." Build workflows that stamp these when stages are entered. (See Date-stamp section.)</li>
+<li><strong>Build the "blank Lifecycle Stage" monitor list</strong> — Active list: Lifecycle Stage is unknown. Review weekly. Any contact without a stage is invisible to your funnel reports. Fix by importing with a default or building a catch-all workflow.</li>
+<li><strong>Sync Lifecycle Stage to Companies</strong> — Build a workflow: when Contact Lifecycle Stage = Customer AND associated Company Lifecycle Stage ≠ Customer → set Company Lifecycle Stage = Customer. Keeps your account-level data accurate.</li>
+</ol>
+
+          </div>
+          <div class="division division-hidden" id="mql" data-page="admin" data-division="mql">
+            
+<div class="sec-eye">Admin Setup · 06</div>
+<div class="sec-title">Defining <em>MQL Criteria</em></div>
+<p class="sec-lead">The most important admin configuration — and the one that requires Marketing and Sales to agree before you build anything.</p>
+<div class="box warn"><div class="bl">Admin interview gold</div><p>When an interviewer asks "how do you configure Lifecycle Stages?" — the answer that separates senior admins from juniors is: "Before I build any workflow, I facilitate a joint MQL definition session with Marketing and Sales. I document the agreed criteria and get sign-off from both sides before writing a single workflow action." This signals RevOps thinking, not just technical execution.</p></div>
+<h3>The MQL SLA document — what you produce as admin</h3>
+<div class="sla-doc">
+<div class="sla-title">MQL Definition — Marketing/Sales Agreement</div>
+<div class="sla-row"><span class="sla-key">Lead score threshold</span><span class="sla-val">≥ 50 points</span></div>
+<div class="sla-row"><span class="sla-key">Required industry</span><span class="sla-val">SaaS, FinTech, or B2B Services</span></div>
+<div class="sla-row"><span class="sla-key">Required job title</span><span class="sla-val">Contains: Manager, Director, VP, Head of, C-level, Founder</span></div>
+<div class="sla-row"><span class="sla-key">Company size</span><span class="sla-val">≥ 20 employees</span></div>
+<div class="sla-row"><span class="sla-key">Behavioural trigger</span><span class="sla-val">Visited pricing page OR submitted demo request OR attended webinar</span></div>
+<div class="sla-row"><span class="sla-key">SDR response SLA</span><span class="sla-val">Review within 4 business hours. Accept or reject with reason.</span></div>
+<div class="sla-row"><span class="sla-key">Rejection feedback loop</span><span class="sla-val">Rep fills "MQL Rejection Reason" property. Marketing reviews monthly.</span></div>
+<div class="sla-row"><span class="sla-key">Review cadence</span><span class="sla-val">Monthly review of MQL-to-SQL conversion rate. Adjust criteria if conversion &lt; 25%.</span></div>
+</div>
+<div class="box revops"><div class="bl">RevOps perspective</div><p>The MQL definition is where Marketing and Sales alignment is tested. If Sales constantly rejects MQLs, the criteria are too loose. If MQLs pile up ignored, Sales doesn't trust them. As admin, you don't just build the workflow — you facilitate the negotiation, document the agreement, and build the feedback loop. This is the operational governance work that separates a CRM admin from a RevOps practitioner.</p></div>
+
+          </div>
+          <div class="division division-hidden" id="workflows" data-page="admin" data-division="workflows">
+            
+<div class="sec-eye">Admin Setup · 07</div>
+<div class="sec-title">Key <em>Workflows</em> to Build</div>
+<p class="sec-lead">Every admin building a Lifecycle Stage system needs these five workflows — in this order.</p>
+<div class="wf-card">
+<div class="wf-title">Workflow 1 — MQL promotion</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Lead Score ≥ 50 AND Industry is any of [SaaS, FinTech] AND Job Title contains [Director, VP, Manager]</div>
+<ul class="wf-actions">
+<li>Set Lifecycle Stage = Marketing Qualified Lead</li>
+<li>Set Lead Status = New</li>
+<li>Notify deal owner via email: "New MQL — {{contact.firstname}} at {{contact.company}}"</li>
+<li>Create task for owner: "Review and accept/reject MQL — due in 4 hours"</li>
+<li>Set MQL Date = Today (custom date property)</li>
+</ul>
+</div>
+<div class="wf-card">
+<div class="wf-title">Workflow 2 — MQL to SQL transition</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Lead Status = Connected OR Lead Status = In Progress (rep has made contact)</div>
+<ul class="wf-actions">
+<li>Set Lifecycle Stage = Sales Qualified Lead</li>
+<li>Set SQL Date = Today</li>
+<li>Notify SDR manager: "SQL created — {{contact.firstname}}"</li>
+</ul>
+</div>
+<div class="wf-card">
+<div class="wf-title">Workflow 3 — Customer promotion on deal close</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Associated Deal Stage = Closed Won</div>
+<ul class="wf-actions">
+<li>Set Lifecycle Stage = Customer</li>
+<li>Set Customer Date = Today</li>
+<li>Set Lead Status = Open Deal</li>
+<li>Enrol in onboarding email sequence</li>
+<li>Create task for CS owner: "Begin onboarding — {{contact.firstname}}"</li>
+<li>Notify CS Slack channel with deal value and contact details</li>
+</ul>
+</div>
+<div class="wf-card">
+<div class="wf-title">Workflow 4 — MQL SLA escalation</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Lifecycle Stage = MQL AND MQL Date is more than 1 business day ago AND Lead Status = New (nobody has touched it)</div>
+<ul class="wf-actions">
+<li>Notify SDR manager: "MQL unreviewed for 24h — {{contact.firstname}}"</li>
+<li>Create urgent task for SDR manager: "Review stale MQL immediately"</li>
+</ul>
+</div>
+<div class="wf-card">
+<div class="wf-title">Workflow 5 — Blank stage catchall</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Lifecycle Stage is unknown AND Contact created date is known</div>
+<ul class="wf-actions">
+<li>Set Lifecycle Stage = Lead (default — no stage = treat as Lead)</li>
+<li>Set Lead Status = New</li>
+</ul>
+</div>
+
+          </div>
+          <div class="division division-hidden" id="stamp" data-page="admin" data-division="stamp">
+            
+<div class="sec-eye">Admin Setup · 08</div>
+<div class="sec-title">Date-Stamp <em>Properties</em></div>
+<p class="sec-lead">The RevOps superpower that turns Lifecycle Stage into a full funnel velocity reporting system.</p>
+<div class="box why"><div class="bl">Why you need these</div><p>Lifecycle Stage shows you the <em>current</em> stage. It doesn't show you when a contact entered each stage. Without date-stamp properties, you cannot calculate average MQL-to-SQL time, average SQL-to-Customer time, or sales cycle length — the core RevOps metrics every CEO asks for.</p></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Property name</th><th>Field type</th><th>What it captures</th><th>Set by</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">Lead Date</span></td><td>Date picker</td><td>When the contact first became a Lead</td><td>Workflow: on Lifecycle Stage → Lead</td></tr>
+<tr><td><span class="mono">MQL Date</span></td><td>Date picker</td><td>When the contact was promoted to MQL</td><td>Workflow: on Lifecycle Stage → MQL</td></tr>
+<tr><td><span class="mono">SQL Date</span></td><td>Date picker</td><td>When Sales accepted the lead as SQL</td><td>Workflow: on Lifecycle Stage → SQL</td></tr>
+<tr><td><span class="mono">Opportunity Date</span></td><td>Date picker</td><td>When a Deal was created (Opportunity stage)</td><td>Workflow: on Deal creation</td></tr>
+<tr><td><span class="mono">Customer Date</span></td><td>Date picker</td><td>When the contact became a Customer</td><td>Workflow: on Deal Closed Won</td></tr>
+</tbody>
+</table></div>
+<p>With these properties, you can build reports: "Average days from MQL Date to SQL Date" → your Marketing-to-Sales handoff speed. "Average days from SQL Date to Customer Date" → your sales cycle. These are executive-level metrics that prove the RevOps function's value.</p>
+
+          </div>
+      </section>
+      <section class="section page-hidden" id="page-applied" data-page="applied">
+        
+          <div class="division division-hidden" id="journey" data-page="applied" data-division="journey">
+            
+<div class="sec-eye">Applied Learning · 09</div>
+<div class="sec-title">Full Contact <em>Journey</em></div>
+<p class="sec-lead">A real contact's complete lifecycle — every stage, every trigger, every owner, from first touch to signed contract.</p>
+<ul class="journey">
+<li>
+<div class="j-dot g">S</div>
+<div>
+<div class="j-stage">Subscriber</div>
+<div class="j-desc">Sarah Khan subscribes to the SaaS Insights blog. HubSpot creates a Contact record and auto-sets Lifecycle Stage = Subscriber. Marketing owns her — she's in long-form nurture content drip.</div>
+<div class="j-day">Day 1 · Auto-set on blog subscribe form</div>
+</div>
+</li>
+<li>
+<div class="j-dot g">L</div>
+<div>
+<div class="j-stage">Lead</div>
+<div class="j-desc">Sarah downloads the "2024 B2B SaaS Buyer's Guide" — a gated asset requiring a form fill. HubSpot auto-sets Lifecycle Stage = Lead. She's now in a lead nurture workflow: 3 emails over 14 days.</div>
+<div class="j-day">Day 8 · Auto-set on form submission</div>
+</div>
+</li>
+<li>
+<div class="j-dot p">M</div>
+<div>
+<div class="j-stage">Marketing Qualified Lead (MQL)</div>
+<div class="j-desc">Sarah opens 4 emails, visits the pricing page twice, and her lead score reaches 55. The MQL workflow fires: Lifecycle = MQL, Lead Status = New, SDR Naveed is notified with a task to review within 4 hours. MQL Date is stamped: Day 14.</div>
+<div class="j-day">Day 14 · Workflow-set on lead score threshold</div>
+</div>
+</li>
+<li>
+<div class="j-dot p">SQL</div>
+<div>
+<div class="j-stage">Sales Qualified Lead (SQL)</div>
+<div class="j-desc">Naveed calls Sarah. She confirms: budget ($12k approved), she's the VP of Operations (decision maker), they need a solution by Q1, and her current process is a clear pain. Naveed accepts the MQL. Lifecycle = SQL, SQL Date stamped. Lead Status → In Progress.</div>
+<div class="j-day">Day 17 · Rep-set after qualification call</div>
+</div>
+</li>
+<li>
+<div class="j-dot t">Opp</div>
+<div>
+<div class="j-stage">Opportunity</div>
+<div class="j-desc">AE James creates a Deal: "TechCorp — Pro Plan | $12,000 | Close: 45 days." HubSpot auto-sets Lifecycle Stage = Opportunity because the Deal is associated to Sarah's Contact. Opportunity Date stamped. The Deal enters the pipeline at Prospecting stage.</div>
+<div class="j-day">Day 19 · Auto-set when Deal is created</div>
+</div>
+</li>
+<li>
+<div class="j-dot t">Cust</div>
+<div>
+<div class="j-stage">Customer</div>
+<div class="j-desc">Sarah signs the Quote via HubSpot. James marks the Deal as Closed Won. HubSpot auto-sets Lifecycle Stage = Customer. Customer Date stamped. The Customer workflow fires: CS team notified, onboarding sequence starts, Sarah is added to [SUPPRESS] Customers list — no more prospecting emails ever. Total sales cycle: 17 days from MQL.</div>
+<div class="j-day">Day 34 · Auto-set on Deal Closed Won</div>
+</div>
+</li>
+</ul>
+
+          </div>
+          <div class="division division-hidden" id="cases" data-page="applied" data-division="cases">
+            
+<div class="sec-eye">Applied Learning · 10</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="toggle(this)">
+<div class="card-ico p">📊</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — The MQL rejection problem</div>
+<div class="csub">When Sales rejects 70% of Marketing's MQLs</div>
+<div class="ctags"><span class="tag p">MQL criteria</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'cs1-p')">Problem</div><div class="tab" onclick="st(this,'cs1-s')">Solution</div><div class="tab" onclick="st(this,'cs1-r')">Outcome</div></div>
+<div class="tab-pane on" id="cs1-p"><div class="box case"><div class="bl">The problem</div><p>A B2B software company's marketing team was generating 120 MQLs per month and feeling great about it. But the Sales Director complained that "these leads are useless." SDRs were rejecting 85 of the 120 MQLs every month — 71% rejection rate. Marketing said Sales was being picky. Sales said Marketing had no idea what a good lead looked like. The HubSpot admin had built the MQL workflow based on a single criteria: lead score ≥ 30. That was it.</p></div></div>
+<div class="tab-pane" id="cs1-s">
+<ul class="prlist">
+<li><span class="pi">1.</span><div>Admin facilitated a joint workshop with CMO and VP of Sales. Reviewed the last 6 months of closed-won contacts — what did they have in common? Industry (SaaS/FinTech), job title (VP+), company size (50+ employees), and they had either visited pricing or requested a demo.</div></li>
+<li><span class="pi">2.</span><div>Rebuilt MQL criteria: Lead Score ≥ 45 AND (Industry = SaaS OR FinTech) AND Job Title contains (VP OR Director OR C-level) AND (visited pricing page OR requested demo). Also required Company Employees ≥ 50.</div></li>
+<li><span class="pi">3.</span><div>Added a "MQL Rejection Reason" custom dropdown property on Contact. When an SDR rejects an MQL, they must select a reason: Wrong Industry, Wrong Seniority, No Budget, Bad Timing, Already a Customer. Made it a required field on rejection.</div></li>
+<li><span class="pi">4.</span><div>Built a monthly report: MQL rejection reasons by count. Shared with Marketing every first Monday. Both teams review together and adjust criteria quarterly.</div></li>
+</ul>
+</div>
+<div class="tab-pane" id="cs1-r"><div class="box revops"><div class="bl">RevOps outcome</div><p>MQL volume dropped from 120 to 38 per month. MQL acceptance rate jumped from 29% to 84%. Sales stopped complaining. Marketing stopped producing vanity metrics. The CMO initially pushed back on "fewer MQLs" — until the data showed MQL-to-Customer conversion went from 4% to 22%. Fewer, better leads outperformed more, worse ones by every measure.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="toggle(this)">
+<div class="card-ico t">⚙️</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — The customer who got a prospecting email</div>
+<div class="csub">When Lifecycle Stage = Customer doesn't stop marketing outreach</div>
+<div class="ctags"><span class="tag t">Suppression</span><span class="tag n">E-commerce SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'cs2-p')">Problem</div><div class="tab" onclick="st(this,'cs2-s')">Solution</div><div class="tab" onclick="st(this,'cs2-r')">Outcome</div></div>
+<div class="tab-pane on" id="cs2-p"><div class="box case"><div class="bl">The problem</div><p>An e-commerce SaaS company ran a "Free trial — last chance" campaign targeted at leads who hadn't converted. The email copy: "You're missing out — start your free trial today." A customer who had been paying $800/month for 8 months received it. They replied to the account manager: "Are we not considered a customer? Should we be looking at your competitor?" The deal auto-renewal was at risk. Investigation found: the campaign used a list filtered only on Lead Score &lt; 60. Lifecycle Stage was never checked. The customer's lifecycle stage had never been set to Customer — the Deal close workflow wasn't enabled.</p></div></div></div>
+<div class="tab-pane" id="cs2-s">
+<ul class="prlist">
+<li><span class="pi">1.</span><div>Enabled Deal auto-set in Settings → Objects → Deals. All future closed-won deals now automatically set contact to Customer. Ran a one-time import to retroactively set Customer stage for all 200+ contacts with associated Closed Won deals.</div></li>
+<li><span class="pi">2.</span><div>Created [SUPPRESS] Current customers — active list filtering Lifecycle Stage = Customer. Applied to every existing and future campaign as a mandatory exclusion.</div></li>
+<li><span class="pi">3.</span><div>Added a campaign pre-send checklist to the team's process: every email send over 100 contacts must have a Suppression List review by admin before scheduling.</div></li>
+<li><span class="pi">4.</span><div>Built a data quality monitor — active list: "Has associated Closed Won deal AND Lifecycle ≠ Customer." Found 47 more contacts in the same situation. Fixed all of them within 24 hours.</div></li>
+</ul>
+</div>
+<div class="tab-pane" id="cs2-r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Zero suppression errors in the following 10 months. The pre-send review process caught three more errors before they went out. The at-risk renewal was saved — the customer received a personal apology from the CSM and renewed. The admin's data quality monitor list is now reviewed every Monday morning.</p></div></div>
+</div>
+
+          </div>
+          <div class="division division-hidden" id="mistakes" data-page="applied" data-division="mistakes">
+            
+<div class="sec-eye">Applied Learning · 11</div>
+<div class="sec-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — Building MQL workflow before defining criteria</div>Building a workflow based on a guess at what MQL means leads to Sales rejecting most leads and losing trust in marketing data. Fix: document the agreed criteria with both teams before writing a single workflow action. Get written sign-off.</li>
+<li><div class="mt">02 — Confusing Lifecycle Stage with Lead Status</div>Trying to track "Contacted — no response" as a Lifecycle Stage (impossible), or reporting on Lead Status as if it were a funnel milestone (wrong). Fix: Lifecycle Stage = funnel milestone. Lead Status = rep working status. Never use one for the other's purpose.</li>
+<li><div class="mt">03 — Not enabling auto-set on Deal close</div>Reps close deals and forget to update lifecycle stage. 40 contacts sit as SQL when they should be Customer. Suppression lists don't fire. Fix: enable Settings → Objects → Deals → auto-set lifecycle stage. Test in sandbox first.</li>
+<li><div class="mt">04 — Leaving Lifecycle Stage blank on new contacts</div>60% of contacts have no stage. Every funnel report is wildly inaccurate. Fix: build a catchall workflow (Lifecycle Stage is unknown → set to Lead) AND set defaults in import templates.</li>
+<li><div class="mt">05 — Never building date-stamp properties</div>You can report current stage count, but not velocity — how long contacts spend at each stage. CEO asks "what's our MQL-to-Customer time?" and you have no answer. Fix: build date-stamp properties from day one. Retroactive repair is painful.</li>
+<li><div class="mt">06 — Not moving contacts backward after lost deals</div>A lost deal leaves the contact at Opportunity or SQL — excluded from all lead nurture workflows. They're never re-engaged. Fix: when a deal closes lost, build a workflow that evaluates re-nurture eligibility and moves the contact back to Lead or MQL with appropriate reason logged.</li>
+<li><div class="mt">07 — Not syncing lifecycle stage to Company records</div>Contact = Customer, Company = Lead. Account-level reporting is wrong. ABM targeting is broken. Fix: build a workflow that syncs Contact lifecycle stage to the associated Company record when it changes to Customer.</li>
+</ul>
+
+          </div>
+          <div class="division division-hidden" id="best" data-page="applied" data-division="best">
+            
+<div class="sec-eye">Applied Learning · 12</div>
+<div class="sec-title">Admin <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span class="pi">📋</span><div><strong>Document your MQL definition in writing</strong> — create a living document both Marketing and Sales reference. Paste the criteria into every related workflow's description field. Revisit quarterly.</div></li>
+<li><span class="pi">🕒</span><div><strong>Always date-stamp stage entries</strong> — MQL Date, SQL Date, Customer Date properties + workflows. These unlock velocity reporting and sales cycle analysis — the metrics executives actually care about.</div></li>
+<li><span class="pi">🔗</span><div><strong>Sync lifecycle stage to Companies</strong> — don't leave Company lifecycle stages out of sync with their Contacts. Build the sync workflow from day one.</div></li>
+<li><span class="pi">🚫</span><div><strong>Build suppression before your first send</strong> — [SUPPRESS] Customers active list should exist before any campaign goes out. Make it a non-negotiable part of every campaign setup checklist.</div></li>
+<li><span class="pi">📊</span><div><strong>Build the funnel dashboard immediately</strong> — Leads, MQLs, SQLs, Opportunities, Customers — all with month-over-month tracking. This gives stakeholders immediate visibility and justifies the admin function's value.</div></li>
+<li><span class="pi">🔄</span><div><strong>Build the lost deal re-nurture workflow</strong> — when a deal closes lost, evaluate whether the contact should return to Lead for nurture. A lost deal isn't a lost contact forever — many buy 6–18 months later.</div></li>
+<li><span class="pi">📅</span><div><strong>Run monthly lifecycle audits</strong> — check: blank stage count, Customer count vs Closed Won deal count (should match), MQL-to-SQL conversion rate. These three numbers tell you if your system is healthy.</div></li>
+</ul>
+
+          </div>
+          <div class="division division-hidden" id="practice" data-page="applied" data-division="practice">
+            
+<div class="sec-eye">Applied Learning · 13</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-lead">Do this in your free HubSpot sandbox — approximately 45 minutes.</p>
+<ol class="psteps">
+<li><strong>Enable Deal auto-set</strong> — Settings → Objects → Deals → enable auto-set for both Opportunity and Customer. This is your first step in any real implementation.</li>
+<li><strong>Create 5 test contacts</strong> — give each a different lifecycle stage manually: Subscriber, Lead, MQL, SQL, Customer. Note how each looks in the record view.</li>
+<li><strong>Create date-stamp custom properties</strong> — Settings → Properties → Contacts → Create property. Create "MQL Date" (Date picker type). Repeat for "SQL Date" and "Customer Date." Put them all in a new group called "Funnel Dates."</li>
+<li><strong>Build the MQL promotion workflow</strong> — Automation → Workflows. Enrolment: Lead Score ≥ 5 (low for testing). Actions: (1) Set Lifecycle Stage = MQL, (2) Set Lead Status = New, (3) Set MQL Date = Today, (4) Create task for owner. Save and activate.</li>
+<li><strong>Trigger the workflow</strong> — Go to one of your Lead contacts. Manually set their Lead Score to 10. Wait 5 minutes. Watch: their stage should change to MQL, a task should be created, and MQL Date should be stamped.</li>
+<li><strong>Test the Deal auto-set</strong> — Create a Deal for your MQL contact. Does Lifecycle Stage automatically change to Opportunity? If yes, the setting is working. Move the Deal to Closed Won — does the contact become Customer?</li>
+<li><strong>Build the Customer suppression list</strong> — Active list: Lifecycle Stage = Customer. Name it [SUPPRESS] Current customers. Verify your Customer test contact appears in it.</li>
+<li><strong>Build the blank stage monitor</strong> — Active list: Lifecycle Stage is unknown. Any contact in this list needs fixing. In a real portal, this list should trend toward zero.</li>
+</ol>
+
+          </div>
+          <div class="division division-hidden" id="interview" data-page="applied" data-division="interview">
+            
+<div class="sec-eye">Applied Learning · 14</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"What is the difference between Lifecycle Stage and Lead Status in HubSpot?"</div>
+<div class="iq-a">Lifecycle Stage tracks the big-picture funnel milestone — where a contact sits in their overall journey from Subscriber to Customer. It's used by all teams and drives cross-functional reporting. Lead Status is a sales-specific working status — it tells a rep what action they're currently taking: New, In Progress, Bad Timing. The key differences: Lifecycle Stage has 7 fixed options that cannot be customised; Lead Status is a customisable dropdown. Lifecycle Stage is moved forward by default in automation; Lead Status can move any direction at any time. The analogy I use: Lifecycle Stage is the chapter of the book, Lead Status is what's happening on the current page.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"How would you define and configure MQL criteria for a new client?"</div>
+<div class="iq-a">First, I'd facilitate a joint session with Marketing and Sales leadership before building anything. I'd review the last 12 months of closed-won contacts to identify their common attributes — industry, job title, company size, behavioural signals. I'd ask Sales what makes a lead worth picking up the phone for. Then I'd translate the agreed criteria into a documented SLA — score threshold, required properties, behavioural triggers, and an SDR response time commitment. I'd build a workflow that promotes contacts meeting those criteria and a rejection feedback loop — a required dropdown property that reps fill when rejecting an MQL, so the data feeds back into refining criteria over time. The system is never set-and-forget — I'd review MQL-to-SQL conversion monthly and adjust criteria if conversion drops below the target rate.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"A contact is at Customer stage but is still receiving prospecting emails. How do you diagnose and fix it?"</div>
+<div class="iq-a">Three layers to check. First: are suppression lists applied to the campaigns sending those emails? I'd open each active campaign and verify that a [SUPPRESS] Customers list is in the exclusion field. If not, I add it immediately. Second: is the contact's Lifecycle Stage actually Customer? I'd check their property history to see when and how it was set. If it was never set to Customer despite a closed-won deal, the Deal auto-set isn't enabled — I'd turn that on and retroactively fix the contact. Third: are there workflow-based emails sending based on criteria that bypass the lifecycle stage check? I'd audit all active workflows for any email actions without an explicit "Lifecycle Stage is not equal to Customer" branch. The fix addresses all three simultaneously rather than patching one at a time.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"How do you report on sales cycle length using HubSpot?"</div>
+<div class="iq-a">Out of the box, HubSpot doesn't make this easy — Lifecycle Stage shows current state, not history. My solution is date-stamp custom properties: I create "MQL Date," "SQL Date," and "Customer Date" as Date properties on Contact, then build workflows that stamp each one when the corresponding stage is entered. With those three dates, I can build a calculated report in HubSpot: average days between MQL Date and Customer Date gives total sales cycle length. Average MQL Date to SQL Date gives Marketing-to-Sales handoff speed. Average SQL Date to Customer Date gives the Sales team's close speed. These are the metrics executives ask for, and having them available in a live dashboard is usually what separates a RevOps-capable admin from a basic HubSpot user.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"Can you add new Lifecycle Stage options in HubSpot? What do you do if the standard 7 stages don't fit your client's process?"</div>
+<div class="iq-a">No — HubSpot's 7 lifecycle stages are fixed. You cannot add, rename, or remove them. If a client's process doesn't map cleanly to the standard stages, I have three options. First, I check whether the standard stages can be stretched to fit — "Warm Lead" often maps to either Lead or MQL depending on qualification level. Second, I use Lead Status to capture the additional granularity — it's fully customisable and can represent sub-states within a lifecycle stage. Third, for truly unique business models, I create a custom property called "Custom Stage" with whatever options the business needs, and use that alongside the standard Lifecycle Stage. What I never do is try to rename or misuse the standard stages — that breaks reporting, automation, and everyone else's understanding of what the stages mean.</div>
+</div>
+
+          </div>
+          <div class="division division-hidden" id="cheatsheet" data-page="applied" data-division="cheatsheet">
+            
+<div class="sec-eye">Applied Learning · 15</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is it</td><td>A funnel milestone property — tracks a contact's big-picture position from Subscriber to Customer</td></tr>
+<tr><td>The 7 stages</td><td>Subscriber → Lead → MQL → SQL → Opportunity → Customer → Evangelist</td></tr>
+<tr><td>Fixed options</td><td>Cannot add, remove, or rename — all 7 are permanent HubSpot options</td></tr>
+<tr><td>Forward-only default</td><td>Auto-moves forward only — backward moves require manual action or explicit workflow logic</td></tr>
+<tr><td>Auto-set: form submit</td><td>Blank contact submits any HubSpot form → auto-set to Lead</td></tr>
+<tr><td>Auto-set: Deal created</td><td>Deal associated to contact → auto-set to Opportunity (must enable in Settings)</td></tr>
+<tr><td>Auto-set: Deal closed won</td><td>Deal closes won → auto-set to Customer (must enable in Settings)</td></tr>
+<tr><td>vs Lead Status</td><td>Lifecycle Stage = funnel chapter. Lead Status = rep's daily working state. Never confuse them.</td></tr>
+<tr><td>MQL definition</td><td>Agreed criteria between Marketing and Sales — documented, signed off, reviewed quarterly</td></tr>
+<tr><td>Date-stamp properties</td><td>MQL Date, SQL Date, Customer Date — enables velocity reporting and sales cycle analysis</td></tr>
+<tr><td>Most critical workflow</td><td>Customer promotion on Deal close — with suppression list update as first action</td></tr>
+<tr><td>Suppression rule</td><td>Customer = immediate suppression from all prospecting. Build [SUPPRESS] Customers before first send.</td></tr>
+<tr><td>Company sync</td><td>Build workflow to sync Contact lifecycle stage changes to associated Company records</td></tr>
+<tr><td>RevOps metric</td><td>MQL→SQL conversion rate = the primary marketing-sales alignment health indicator</td></tr>
+<tr><td>Admin interview gold</td><td>"Before building, I facilitate a joint MQL definition session and document the agreed criteria with sign-off from both teams."</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps mindset on lifecycle stages</div><p>Lifecycle Stages are the revenue reporting backbone. Every funnel metric — lead volume, MQL rate, MQL-to-SQL conversion, SQL-to-close rate, average sales cycle — depends on stages being accurate. Bad stage data means wrong decisions at the executive level. As a RevOps admin, you treat stage governance as a weekly operational responsibility: monitor blank stages, verify auto-set workflows are firing, review conversion rates, and facilitate the Marketing-Sales SLA conversation every quarter. This is the work that makes the CRM a reliable business intelligence tool rather than just a digital rolodex.</p></div>
+
+          </div>
+      </section>
+  </main>
+</div>
+<script>
+const pageData = {"foundation": {"label": "Foundation", "divisions": [{"id": "what", "label": "What is a lifecycle stage?"}, {"id": "all7", "label": "All 7 stages explained"}, {"id": "logic", "label": "System logic & rules"}, {"id": "vs-lead", "label": "vs. Lead status"}]}, "admin": {"label": "Admin Setup", "divisions": [{"id": "setup", "label": "Step-by-step setup"}, {"id": "mql", "label": "Defining MQL criteria"}, {"id": "workflows", "label": "Key workflows to build"}, {"id": "stamp", "label": "Date-stamp properties"}]}, "applied": {"label": "Applied Learning", "divisions": [{"id": "journey", "label": "Full contact journey"}, {"id": "cases", "label": "Case studies"}, {"id": "mistakes", "label": "Common mistakes"}, {"id": "best", "label": "Best practices"}, {"id": "practice", "label": "Practice exercise"}, {"id": "interview", "label": "Interview questions"}, {"id": "cheatsheet", "label": "Cheatsheet"}]}};
+const divisionToPage = {};
+Object.keys(pageData).forEach(page => pageData[page].divisions.forEach(d => divisionToPage[d.id]=page));
+let currentPage = 'foundation';
+let currentDivision = 'what';
+
+function renderMobileDivisions(page) {
+  const row = document.getElementById('mobileDivisionRow');
+  if (!row || !pageData[page]) return;
+  row.innerHTML = pageData[page].divisions.map(d => `<button class="mobile-division-btn ${d.id===currentDivision?'active':''}" data-page="${page}" data-target="${d.id}" onclick="showDivision('${page}','${d.id}', true)">${d.label}</button>`).join('');
+}
+function setActiveNav(page, division) {
+  document.querySelectorAll('.nav-group').forEach(g => {
+    const active = g.dataset.pageGroup === page;
+    g.classList.toggle('active-page', active);
+    g.classList.toggle('open', active);
+  });
+  document.querySelectorAll('.nav-item').forEach(item => item.classList.toggle('active', item.dataset.page === page && item.dataset.target === division));
+  document.querySelectorAll('.mobile-section-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.pageGroup === page));
+  document.querySelectorAll('.mobile-division-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.page === page && btn.dataset.target === division));
+}
+function showPage(page, division=null, doScroll=false) {
+  if (!pageData[page]) return;
+  const target = division || pageData[page].divisions[0].id;
+  showDivision(page, target, doScroll);
+}
+function showDivision(page, division, doScroll=false) {
+  if (!pageData[page] || !divisionToPage[division]) return;
+  currentPage = page;
+  currentDivision = division;
+  document.querySelectorAll('[data-page].section').forEach(sec => sec.classList.toggle('page-hidden', sec.dataset.page !== page));
+  document.querySelectorAll('.division').forEach(div => {
+    const isActive = div.dataset.page === page && div.dataset.division === division;
+    div.classList.toggle('division-hidden', !isActive);
+  });
+  renderMobileDivisions(page);
+  setActiveNav(page, division);
+  const targetEl = document.getElementById(division);
+  if (targetEl) {
+    targetEl.querySelectorAll('.card.open').forEach((card, idx) => { if (idx > 0) card.classList.remove('open'); });
+  }
+  if (doScroll) {
+    const top = window.innerWidth <= 760 ? document.querySelector('.hero') : document.getElementById('page-top');
+    (top || targetEl)?.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+function togglePageGroup(page) {
+  if (currentPage !== page) { showPage(page, null, true); return; }
+  const group = document.querySelector(`.nav-group[data-page-group="${page}"]`);
+  if (group) group.classList.toggle('open');
+}
+function jump(id) {
+  const page = divisionToPage[id] || currentPage;
+  showDivision(page, id, true);
+}
+function toggle(hd) {
+  const card = hd.closest('.card');
+  if (!card) return;
+  const willOpen = !card.classList.contains('open');
+  const division = card.closest('.division');
+  if (division) division.querySelectorAll('.card.open').forEach(c => { if (c !== card) c.classList.remove('open'); });
+  card.classList.toggle('open', willOpen);
+}
+function st(tab, paneId) {
+  const body = tab.closest('.card-body') || tab.closest('.division') || document;
+  const bar = tab.closest('.tabs') || tab.closest('.tab-bar');
+  if (bar) bar.querySelectorAll('.tab').forEach(t => t.classList.remove('on','active'));
+  const cardBody = tab.closest('.card-body') || body;
+  cardBody.querySelectorAll('.tab-pane,.tab-content').forEach(p => p.classList.remove('on','active'));
+  tab.classList.add('on','active');
+  const p = document.getElementById(paneId);
+  if (p) p.classList.add('on','active');
+}
+function switchTab(tab, paneId) { st(tab, paneId); }
+
+const stages=[
+  {name:"Subscriber",num:"Stage 01",icon:"S",col:"#f2efe8",tcol:"#6b6860",tagline:"Opted into content — not yet a potential buyer",owner:"Marketing",desc:"A Subscriber has given HubSpot their email address specifically to receive blog posts or newsletters. They've raised their hand for information but have not expressed interest in your product. This is the widest, coldest part of the funnel.",triggers:["Subscribed to blog or newsletter","Opted into email from a campaign","Imported with Subscriber as default stage"],leaves:["Submits a contact or demo form → becomes Lead","Downloads gated content → becomes Lead"],admin:"Subscribers are often overlooked by sales but valuable for long-term nurturing. Don't treat them as pipeline contacts. Run separate content-only workflows for Subscribers — never send them sales outreach."},
+  {name:"Lead",num:"Stage 02",icon:"L",col:"#f2efe8",tcol:"#6b6860",tagline:"Engaged with content — identity known, interest implied",owner:"Marketing",desc:"A Lead has provided their information via a form submission, content download, or direct inquiry. They're known to you. Unlike a Subscriber, a Lead has done something that signals potential buying intent, even if unconfirmed.",triggers:["Submitted any non-subscriber form","Contacted via chat or email","Manually created in CRM","Imported from a list","Registered for an event"],leaves:["Meets MQL criteria → promoted to MQL","Sales outreaches and qualifies → can move to SQL directly"],admin:"Lead is the 'inbox' of your funnel — everyone who isn't yet qualified lands here. Build a 'Leads older than 90 days with no activity' active list to identify and re-engage or disqualify cold leads weekly."},
+  {name:"Marketing Qualified Lead",num:"Stage 03",icon:"MQL",col:"#eeedfb",tcol:"#4a3fb5",tagline:"Marketing-vetted — ready for sales review",owner:"Marketing → Sales handoff",desc:"An MQL is a Lead that Marketing has determined meets your agreed qualification criteria. Marketing is saying: 'We believe this person is worth a sales conversation.' This is the official handoff point from Marketing to Sales.",triggers:["Lead score reaches agreed threshold","Visited pricing page with qualifying job title","Downloaded bottom-of-funnel content (demo, comparison)","Attended webinar AND matches ICP","Meets all agreed demographic criteria"],leaves:["Sales reviews and accepts → becomes SQL","Sales reviews and rejects (wrong fit) → Lead Status = Unqualified","Sales reviews and rejects (timing) → Lead Status = Bad Timing"],admin:"The MQL definition is where Marketing and Sales alignment is tested. If Sales rejects 60%+ of MQLs, the criteria are too loose. Facilitate the joint definition session before building the workflow. Build a rejection reason feedback loop."},
+  {name:"Sales Qualified Lead",num:"Stage 04",icon:"SQL",col:"#eeedfb",tcol:"#4a3fb5",tagline:"Sales has accepted — actively being worked",owner:"Sales (SDR / AE)",desc:"An SQL is a Lead that Sales has reviewed, accepted, and is actively pursuing. Sales is saying: 'Yes, we believe this person can become a customer and we are taking ownership.' An SDR is typically reaching out or a deal is being created.",triggers:["Sales rep reviews MQL and accepts it","SDR has a qualifying call and confirms BANT","Sales manager manually promotes","Deal is created for this contact"],leaves:["Deal created → becomes Opportunity","Disqualified after conversation → Lead Status = Unqualified, stage may return to Lead"],admin:"From your SDR background — SQL is when you've confirmed a real opportunity. As admin, make SQL qualification reason a required field. Build a workflow: if SQL sits with no activity for 7 days, escalate to manager."},
+  {name:"Opportunity",num:"Stage 05",icon:"Opp",col:"#e0f2eb",tcol:"#0a5c47",tagline:"An open Deal exists — in the sales pipeline",owner:"Sales (AE)",desc:"An Opportunity means there is an open Deal record associated with this contact in HubSpot. In most setups, this is set automatically when a Deal is created — no manual action needed.",triggers:["Deal is created and associated to this contact (auto-set)","Manually set by admin or AE"],leaves:["Deal Closed Won → becomes Customer","Deal Closed Lost → evaluate re-nurture, may return to Lead or SQL"],admin:"Enable the auto-set in Settings → Objects → Deals. This is often overlooked in new setups. Without it, contacts stay at SQL even when they have open deals — pipeline reports are wrong and suppression may not fire correctly."},
+  {name:"Customer",num:"Stage 06",icon:"Cust",col:"#e0f2eb",tcol:"#0a5c47",tagline:"Deal closed won — now a paying client",owner:"Customer Success / Finance",desc:"A Customer is a contact whose associated Deal has been Closed Won. They have purchased. This is the most important transition in the entire lifecycle — ownership shifts from Sales to Customer Success. All prospecting communications must stop immediately.",triggers:["Associated Deal moves to Closed Won (auto-set)","Manually set by admin or finance team","Integration sync from billing system"],leaves:["Churned → may return to Lead for re-engagement","Expansion → new Deal created, stays as Customer"],admin:"THE most important suppression trigger. The moment Lifecycle = Customer, they must be excluded from ALL prospecting. Build [SUPPRESS] Customers active list before your first send. Emailing a customer a 'learn more about us' email is a brand-damaging mistake that loses renewals."},
+  {name:"Evangelist",num:"Stage 07",icon:"Ev",col:"#e0f2eb",tcol:"#0a5c47",tagline:"Happy customer who actively refers others",owner:"Customer Success / Marketing",desc:"An Evangelist is a customer who actively promotes your product — referrals, reviews, case studies, events. Not all companies use this stage. Only activate it if you have a defined advocacy program.",triggers:["Manually set by CS team after advocacy action","Submitted a referral","Agreed to case study or testimonial"],leaves:["No standard exit — Evangelists stay in this stage"],admin:"Many companies skip Evangelist and that is fine. Only activate it if you have a defined referral or advocacy program with real triggers and follow-up actions. An unused Evangelist stage creates confusion about what it means."}
+];
+let activeStage=0;
+function buildStages(){
+  const strip=document.getElementById('stage-strip');
+  if(!strip) return;
+  strip.innerHTML=stages.map((s,i)=>`<div class="ss-item${i===activeStage?' on':''}" onclick="selectStage(${i})"><span class="ss-num">${s.num.replace('Stage ','0')}</span>${s.name.replace(' Qualified Lead','').replace('Marketing ','MQL').replace('Sales ','SQL')}</div>`).join('');
+  const det=document.getElementById('stage-detail');
+  if(!det) return;
+  const s=stages[activeStage];
+  const colorClass = activeStage < 2 ? 'var(--surface3)' : activeStage < 5 ? 'var(--purple-bg)' : 'var(--teal-bg)';
+  const textColor = activeStage < 2 ? 'var(--muted)' : activeStage < 5 ? 'var(--purple-light)' : 'var(--teal-light)';
+  det.className='stage-detail on';
+  det.innerHTML=`
+    <div class="sd-head">
+      <div class="sd-icon" style="background:${colorClass};color:${textColor}">${s.icon}</div>
+      <div><div class="sd-num">${s.num}</div><div class="sd-name">${s.name}</div><div class="sd-tag">${s.tagline}</div></div>
+    </div>
+    <p style="font-size:14px;color:var(--soft);line-height:1.8;margin-bottom:14px">${s.desc}</p>
+    <div class="sd-grid">
+      <div class="sd-block"><div class="sd-block-l">Owned by</div><p>${s.owner}</p></div>
+      <div class="sd-block"><div class="sd-block-l">Typical triggers</div><ul>${s.triggers.map(t=>`<li>${t}</li>`).join('')}</ul></div>
+      <div class="sd-block" style="grid-column:1/-1"><div class="sd-block-l">How contacts leave this stage</div><ul>${s.leaves.map(l=>`<li>${l}</li>`).join('')}</ul></div>
+    </div>
+    <div class="sd-admin"><strong>Admin note:</strong> ${s.admin}</div>`;
+}
+function selectStage(i){activeStage=i;buildStages();const det=document.getElementById('stage-detail'); if(det && window.innerWidth<=760) det.scrollIntoView({behavior:'smooth',block:'nearest'});}
+
+document.addEventListener('DOMContentLoaded', () => {
+  currentPage='foundation'; currentDivision='what';
+  buildStages();
+  renderMobileDivisions(currentPage);
+  setActiveNav(currentPage,currentDivision);
+  showDivision(currentPage,currentDivision,false);
+});
+</script>
+</body>
+</html>
