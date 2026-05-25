@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HubSpot Lead Status — Complete Admin Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+
+:root{
+  --bg:#0c0e12;
+  --surface:#12151c;
+  --surface2:#181c26;
+  --surface3:#1e2230;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.11);
+  --text:#e4e6f0;
+  --muted:#6e7289;
+  --soft:#9da3bb;
+  --purple:#8b7ff5;
+  --purple-bg:rgba(139,127,245,0.10);
+  --purple-light:#b4abff;
+  --teal:#20c997;
+  --teal-bg:rgba(32,201,151,0.10);
+  --teal-light:#6ef5cc;
+  --amber:#f59e0b;
+  --amber-bg:rgba(245,158,11,0.10);
+  --amber-light:#fcd34d;
+  --orange:#ff5c35;
+  --orange-bg:rgba(255,92,53,0.10);
+  --orange-border:rgba(255,92,53,0.28);
+  --red:#f87171;
+  --red-bg:rgba(248,113,113,0.10);
+  --blue:#60a5fa;
+  --blue-bg:rgba(96,165,250,0.10);
+  --green:#4ade80;
+  --green-bg:rgba(74,222,128,0.10);
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --r:10px;
+  --r-sm:6px;
+  --r-lg:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75}
+button{font:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:20;
+  scrollbar-width:thin;scrollbar-color:var(--border2) transparent;
+}
+.sidebar-brand{padding:16px 16px 18px;border-bottom:1px solid var(--border)}
+.hubspot-brand{
+  display:block;text-decoration:none;color:inherit;padding:10px 11px;border-radius:10px;
+  border:1px solid rgba(255,92,53,.24);
+  background:linear-gradient(135deg,rgba(255,92,53,.10),rgba(255,255,255,.02));
+  transition:transform .18s,border-color .18s,background .18s;
+}
+.hubspot-brand:hover{transform:translateY(-1px);border-color:rgba(255,92,53,.45);background:linear-gradient(135deg,rgba(255,92,53,.15),rgba(255,255,255,.03))}
+.hubspot-text{display:inline-flex;align-items:center;color:var(--orange);font-weight:700;font-size:18px;letter-spacing:.2px}
+.reference-note{font-size:11px;color:var(--muted);margin-top:5px}
+.guide-title{font-family:var(--font-display);font-size:19px;color:var(--text);font-weight:500;line-height:1.25;margin-top:16px}
+.guide-desc{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.55}
+.desktop-nav{padding:14px 0 8px}
+.mobile-nav{display:none}
+.nav-group{margin-bottom:4px}
+.nav-group-label{
+  width:calc(100% - 20px);margin:0 10px 8px;padding:10px 13px;border-radius:10px;border:1px solid transparent;
+  background:transparent;color:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  font-size:13.5px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;text-align:left;transition:all .15s;
+}
+.nav-group-label:hover{background:var(--surface2);border-color:var(--border2);color:var(--text)}
+.nav-group.active-page .nav-group-label{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.30)}
+.nav-arrow{font-size:18px;color:var(--muted);transition:transform .18s,color .18s;line-height:1}
+.nav-group.active-page .nav-arrow,.nav-group.open .nav-arrow{transform:rotate(90deg);color:var(--purple-light)}
+.nav-page-items{display:none;padding-bottom:8px}
+.nav-group.open .nav-page-items{display:block}
+.nav-item{
+  width:100%;display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;
+  font-size:13.4px;color:var(--muted);border:0;border-left:2px solid transparent;background:transparent;
+  text-align:left;cursor:pointer;transition:all .15s;
+}
+.nav-item:hover{color:var(--text);background:var(--surface2)}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple)}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.nav-dot.purple{background:var(--purple)}
+.nav-dot.teal{background:var(--teal)}
+.nav-dot.amber{background:var(--amber)}
+.sidebar-footer{margin-top:auto;padding:14px 16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
+.main{flex:1;padding:52px 60px;max-width:920px;width:100%}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border)}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start}
+.creator-card{
+  grid-column:2;grid-row:1;display:block;text-decoration:none;color:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+  border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;
+  transition:transform .18s,border-color .18s,background .18s;
+}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,.45);background:linear-gradient(180deg,rgba(255,92,53,.08),rgba(139,127,245,.04))}
+.creator-img{width:100%;height:auto;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28);object-fit:cover}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text)}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:2px}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:5px}
+.hero-copy{grid-column:1;grid-row:1}
+.hero-kicker{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px}
+.hero-title{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px}
+.hero-title em{font-style:italic;color:var(--purple)}
+.hero-description{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-pill{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);color:var(--soft)}
+.hero-pill.p{border-color:rgba(139,127,245,.3);color:var(--purple-light);background:var(--purple-bg)}
+.hero-pill.t{border-color:rgba(32,201,151,.3);color:var(--teal-light);background:var(--teal-bg)}
+.hero-pill.a{border-color:rgba(245,158,11,.3);color:var(--amber-light);background:var(--amber-bg)}
+.page-hidden,.division-hidden{display:none!important}
+.section{margin-bottom:68px;scroll-margin-top:24px}
+.division{margin-bottom:68px;scroll-margin-top:24px}
+.section-eyebrow{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.section-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px}
+.section-title em{font-style:italic;color:var(--purple)}
+.section-desc{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px}
+h3{font-family:var(--font-display);font-size:17px;font-weight:500;color:var(--text);margin-bottom:12px;margin-top:22px}
+h3:first-child{margin-top:0}
+h4{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;margin-top:18px}
+p{color:var(--soft);margin-bottom:12px;font-size:14px;line-height:1.8}
+strong{color:var(--text);font-weight:500}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px}
+.tbl{width:100%;min-width:650px;border-collapse:collapse;font-size:13px;margin-bottom:0}
+.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2)}
+.tbl th{padding:9px 13px;text-align:left;font-family:var(--font-body);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:400}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,.015)}
+.mono{font-family:var(--font-mono);font-size:12px;color:var(--amber-light);background:var(--amber-bg);padding:2px 7px;border-radius:4px;white-space:nowrap}
+.mono.t{color:var(--teal-light);background:var(--teal-bg)}
+.box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid}
+.box p{margin:0;font-size:13.5px}
+.box p+p{margin-top:6px}
+.bl{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px}
+.box.why{border-color:var(--purple);background:var(--purple-bg)}
+.box.why .bl{color:var(--purple-light)}
+.box.tip{border-color:var(--teal);background:var(--teal-bg)}
+.box.tip .bl{color:var(--teal-light)}
+.box.warn{border-color:var(--red);background:var(--red-bg)}
+.box.warn .bl{color:var(--red)}
+.box.case{border-color:var(--blue);background:var(--blue-bg)}
+.box.case .bl{color:var(--blue)}
+.box.revops{border-color:var(--purple);background:linear-gradient(135deg,var(--purple-bg),var(--teal-bg))}
+.box.revops .bl{color:var(--purple-light)}
+.box.amber{border-color:var(--amber);background:var(--amber-bg)}
+.box.amber .bl{color:var(--amber-light)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.card-hd,.card-header{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.card-ico,.card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.card-ico.a,.card-icon.a{background:var(--amber-bg)}
+.card-ico.t,.card-icon.t{background:var(--teal-bg)}
+.card-ico.r,.card-icon.r{background:var(--red-bg)}
+.card-ico.p,.card-icon.p{background:var(--purple-bg)}
+.ctitle,.card-title{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2}
+.csub,.card-subtitle{font-size:12.5px;color:var(--muted);margin-top:4px}
+.ctags,.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.chev,.chevron{font-size:16px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0}
+.card.open .chev,.card.open .chevron{transform:rotate(90deg)}
+.card-body{display:none}
+.card.open .card-body{display:block}
+.tabs,.tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;overflow-x:auto}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.tab:hover{color:var(--text)}
+.tab.on,.tab.active{color:var(--text);border-bottom-color:var(--purple)}
+.tab-pane,.tab-content{display:none;padding:26px}
+.tab-pane.on,.tab-content.active{display:block}
+.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px}
+.tag.a,.chip.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,.2)}
+.tag.t,.chip.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,.2)}
+.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.tag.g{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,.2)}
+.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,.2)}
+.tag.n,.chip.n{background:rgba(122,127,148,.08);color:var(--muted);border:1px solid var(--border)}
+.status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px}
+.status-card{padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--surface2);cursor:pointer;transition:all .15s}
+.status-card:hover{border-color:var(--border2);background:var(--surface3)}
+.status-card.act{border-color:var(--purple);background:var(--purple-bg)}
+.sc-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.status-card.act .sc-name{color:var(--purple-light)}
+.sc-hint{font-size:11.5px;color:var(--muted)}
+.sc-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-top:7px}
+.sc-badge.rep{background:rgba(122,127,148,.08);color:var(--muted);border:1px solid var(--border)}
+.sc-badge.auto{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,.2)}
+.sc-badge.exit{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.status-detail{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:22px;display:none;margin-bottom:14px;scroll-margin-top:120px}
+.status-detail.vis{display:block}
+.sd-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.sd-name{font-family:var(--font-display);font-size:22px;font-weight:500;font-style:italic;color:var(--text)}
+.sd-tag{font-size:12.5px;color:var(--muted);margin-top:3px}
+.sd-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sd-block{background:var(--surface2);border-radius:6px;padding:13px}
+.sd-label{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sd-block p{font-size:13px;color:var(--soft);margin:0;line-height:1.7}
+.sd-block ul{list-style:none;padding:0;margin:0}
+.sd-block li{font-size:13px;color:var(--soft);padding:2.5px 0;display:flex;gap:6px}
+.sd-block li::before{content:"→";color:var(--muted);flex-shrink:0}
+.sd-admin{margin-top:12px;padding:11px 15px;border-left:3px solid var(--amber);background:var(--amber-bg);font-size:13px;color:var(--soft);line-height:1.75}
+.sd-admin strong{color:var(--amber-light)}
+.sd-sdr{margin-top:8px;padding:9px 13px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--muted);font-style:italic}
+.psteps{list-style:none;padding:0;counter-reset:ps}
+.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft)}
+.psteps li:last-child{border-bottom:none}
+.psteps li::before{content:counter(ps,decimal-leading-zero);font-family:var(--font-mono);font-size:10px;color:var(--amber-light);border:1px solid rgba(245,158,11,.2);border-radius:4px;padding:2px 7px;flex-shrink:0;height:fit-content;margin-top:1px;background:var(--amber-bg)}
+.prlist{list-style:none;padding:0}
+.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft)}
+.prlist li:last-child{border-bottom:none}
+.mlist{list-style:none;padding:0}
+.mlist li{background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft)}
+.mt{color:var(--red);font-weight:500;margin-bottom:4px;font-size:12.5px;font-family:var(--font-mono)}
+.wf{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.wf-t{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
+.wf-trigger{background:var(--purple-bg);border-left:3px solid var(--purple);padding:9px 13px;font-size:13px;color:var(--purple-light);margin-bottom:8px}
+.wf-actions{list-style:none;padding:0}
+.wf-actions li{display:flex;gap:9px;padding:7px 0;font-size:13px;color:var(--soft);border-bottom:1px solid var(--border)}
+.wf-actions li:last-child{border-bottom:none}
+.wf-actions li::before{content:"→";color:var(--teal);flex-shrink:0;font-weight:500}
+.iq{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:12px}
+.iq-q{font-family:var(--font-display);font-size:15px;color:var(--text);font-style:italic;margin-bottom:8px}
+.iq-a{font-size:13px;color:var(--muted);line-height:1.8}
+.reason-grid{display:grid;gap:10px;margin-bottom:14px}
+.reason-sec{background:var(--surface2);border-radius:6px;padding:14px;border:1px solid var(--border)}
+.reason-sec-t{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.reason-tags{display:flex;flex-wrap:wrap;gap:6px}
+.reason-tag{font-size:12.5px;padding:4px 11px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--soft)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@media(max-width:760px){
+  .layout{display:block}
+  .sidebar{display:block!important;width:100%;min-width:0;height:auto;max-height:none;position:sticky;top:0;z-index:50;border-right:none;border-bottom:1px solid var(--border2);box-shadow:0 18px 42px rgba(0,0,0,.18);overflow:visible;background:var(--surface)}
+  .sidebar-brand{display:none}
+  .desktop-nav{display:none}
+  .mobile-nav{display:block}
+  .sidebar-footer{display:none}
+  .main{width:100%;padding:22px 14px 34px;max-width:100%}
+  .mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch}
+  .mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;white-space:nowrap}
+  .mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff}
+  .mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch}
+  .mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap}
+  .mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38)}
+  .hero{margin-bottom:38px;padding-bottom:30px}
+  .hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start}
+  .creator-card{grid-column:1;grid-row:1;padding:0;border:none;background:transparent;box-shadow:none}
+  .creator-card:hover{transform:none;border:none;background:transparent}
+  .creator-img{width:64px;height:80px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28)}
+  .creator-name,.creator-role,.creator-link{display:none}
+  .hero-copy{grid-column:2;grid-row:1}
+  .hero-kicker{font-size:10px;margin-bottom:10px}
+  .hero-title{font-size:32px}
+  .hero-description{font-size:14px}
+  .hero-pills{gap:7px;margin-top:16px}
+  .hero-pill{font-size:11.5px;padding:4px 10px}
+  .section-title{font-size:25px}
+  .section-desc{font-size:14px}
+  .division{scroll-margin-top:118px}
+  .card-hd,.card-header{padding:18px 16px 15px}
+  .card-ico,.card-icon{width:38px;height:38px}
+  .ctitle,.card-title{font-size:18px}
+  .tabs,.tab-bar{display:flex;overflow-x:auto;gap:7px;padding:9px 12px}
+  .tab{flex:0 0 auto;padding:8px 11px;font-size:12px}
+  .tab-pane,.tab-content{padding:16px}
+  .sd-grid{grid-template-columns:1fr}
+  .sd-block[style*="grid-column"]{grid-column:auto!important}
+  .tbl{min-width:620px}
+}
+@media(max-width:430px){
+  .hero-inner{grid-template-columns:66px minmax(0,1fr);gap:12px}
+  .creator-img{width:58px;height:72px}
+  .hero-title{font-size:28px}
+  .section-title{font-size:23px}
+}
+
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <a class="hubspot-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+        <div class="hubspot-text">HubSpot</div>
+        <div class="reference-note">For better references, visit hubspot.com</div>
+      </a>
+      <div class="guide-title">Lead Status<br/>Complete Guide</div>
+      <div class="guide-desc">Sales activity layer · Default options · Customization · Workflows · Case studies</div>
+    </div>
+    <div class="desktop-nav">
+<div class="nav-group active-page open" data-page-group="foundation">
+<button class="nav-group-label page-tab" type="button" onclick="showPage('foundation')"><span>Foundation</span><span class="nav-arrow">›</span></button>
+<div class="nav-page-items">
+<button class="nav-item active" type="button" data-page="foundation" data-target="what" onclick="showDivision('foundation','what')"><span class="nav-dot purple"></span>What is Lead Status?</button>
+<button class="nav-item" type="button" data-page="foundation" data-target="vs" onclick="showDivision('foundation','vs')"><span class="nav-dot purple"></span>vs Lifecycle Stage</button>
+<button class="nav-item" type="button" data-page="foundation" data-target="options" onclick="showDivision('foundation','options')"><span class="nav-dot purple"></span>All Default Options</button>
+<button class="nav-item" type="button" data-page="foundation" data-target="logic" onclick="showDivision('foundation','logic')"><span class="nav-dot purple"></span>System Logic</button>
+</div></div>
+<div class="nav-group" data-page-group="admin-setup">
+<button class="nav-group-label page-tab" type="button" onclick="showPage('admin-setup')"><span>Admin Setup</span><span class="nav-arrow">›</span></button>
+<div class="nav-page-items">
+<button class="nav-item" type="button" data-page="admin-setup" data-target="custom" onclick="showDivision('admin-setup','custom')"><span class="nav-dot teal"></span>Custom Options</button>
+<button class="nav-item" type="button" data-page="admin-setup" data-target="setup" onclick="showDivision('admin-setup','setup')"><span class="nav-dot teal"></span>Step-by-step Setup</button>
+<button class="nav-item" type="button" data-page="admin-setup" data-target="reason" onclick="showDivision('admin-setup','reason')"><span class="nav-dot teal"></span>Disqualification Reason</button>
+<button class="nav-item" type="button" data-page="admin-setup" data-target="workflows" onclick="showDivision('admin-setup','workflows')"><span class="nav-dot teal"></span>Key Workflows</button>
+</div></div>
+<div class="nav-group" data-page-group="applied-learning">
+<button class="nav-group-label page-tab" type="button" onclick="showPage('applied-learning')"><span>Applied Learning</span><span class="nav-arrow">›</span></button>
+<div class="nav-page-items">
+<button class="nav-item" type="button" data-page="applied-learning" data-target="example" onclick="showDivision('applied-learning','example')"><span class="nav-dot amber"></span>Real-world Example</button>
+<button class="nav-item" type="button" data-page="applied-learning" data-target="cases" onclick="showDivision('applied-learning','cases')"><span class="nav-dot amber"></span>Case Studies</button>
+<button class="nav-item" type="button" data-page="applied-learning" data-target="mistakes" onclick="showDivision('applied-learning','mistakes')"><span class="nav-dot amber"></span>Common Mistakes</button>
+<button class="nav-item" type="button" data-page="applied-learning" data-target="best" onclick="showDivision('applied-learning','best')"><span class="nav-dot amber"></span>Best Practices</button>
+<button class="nav-item" type="button" data-page="applied-learning" data-target="practice" onclick="showDivision('applied-learning','practice')"><span class="nav-dot amber"></span>Practice Exercise</button>
+<button class="nav-item" type="button" data-page="applied-learning" data-target="interview" onclick="showDivision('applied-learning','interview')"><span class="nav-dot amber"></span>Interview Questions</button>
+<button class="nav-item" type="button" data-page="applied-learning" data-target="cheatsheet" onclick="showDivision('applied-learning','cheatsheet')"><span class="nav-dot amber"></span>Cheatsheet</button>
+</div></div>
+</div>
+    
+<div class="mobile-nav">
+  <div class="mobile-section-row">
+    <button class="mobile-section-btn active" type="button" data-page-group="foundation" onclick="showPage('foundation')">Foundation</button>
+    <button class="mobile-section-btn" type="button" data-page-group="admin-setup" onclick="showPage('admin-setup')">Admin Setup</button>
+    <button class="mobile-section-btn" type="button" data-page-group="applied-learning" onclick="showPage('applied-learning')">Applied Learning</button>
+  </div>
+  <div class="mobile-division-row" id="mobileDivisionRow"></div>
+</div>
+
+    <div class="sidebar-footer">Click any section to explore · Cards and tabs are interactive</div>
+  </nav>
+
+  <main class="main">
+    <div class="hero" id="page-top">
+      <div class="hero-inner">
+        <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+          <img class="creator-img" src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo"/>
+          <div class="creator-name">Naveed Abbas</div>
+          <div class="creator-role">CRM Administrator</div>
+          <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+        </a>
+        <div class="hero-copy">
+          <div class="hero-kicker">HubSpot Admin · Module 5</div>
+          <h1 class="hero-title">Lead<br/><em>Status</em></h1>
+          <p class="hero-description">The sales activity layer of your CRM — how to configure, govern, and extract maximum pipeline value from this fully-customisable contact property.</p>
+          <div class="hero-pills">
+            <span class="hero-pill p">7 default options</span>
+            <span class="hero-pill p">Fully customisable</span>
+            <span class="hero-pill t">Bad timing re-engagement</span>
+            <span class="hero-pill t">Disqualification reasons</span>
+            <span class="hero-pill a">3 case studies</span>
+            <span class="hero-pill a">4 key workflows</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section page-section" id="page-foundation" data-page="foundation">
+<div class="division" data-division="what" id="what">
+<div class="section-eyebrow">Foundation · 01</div>
+<div class="section-title">What Is <em>Lead Status?</em></div>
+<p class="section-desc">A Contact property that tracks the sales team's day-to-day working state with a lead — from first contact to conversion or disqualification.</p>
+<div class="box why"><div class="bl">Core definition</div><p>Lead Status is a <strong>customisable dropdown property</strong> on Contact records that tells you what the sales team is currently doing with a lead. While Lifecycle Stage tells you the big-picture funnel milestone (which chapter), Lead Status tells you what's happening right now (which page). It is owned and managed by the sales team — reps update it as they work their leads.</p></div>
+<h3>Why the sales team needs it</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Sales question</th><th>How Lead Status answers it</th></tr></thead>
+<tbody>
+<tr><td>Which leads have my reps actually worked?</td><td>Filter: Lead Status ≠ New</td></tr>
+<tr><td>Which leads are sitting untouched?</td><td>Filter: Lead Status = New AND Create Date &gt; 48h</td></tr>
+<tr><td>Which reps are most active right now?</td><td>Count Lead Status changes by owner this week</td></tr>
+<tr><td>Why aren't MQLs converting to SQLs?</td><td>Report on Unqualified + Bad Timing reason breakdown</td></tr>
+<tr><td>What future pipeline is sitting in Bad Timing?</td><td>Count Bad Timing × avg conversion rate × ACV</td></tr>
+<tr><td>Which leads should I resurrect next quarter?</td><td>Active list: Lead Status = Bad Timing AND Follow-up Date = this month</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="division division-hidden" data-division="vs" id="vs">
+<div class="section-eyebrow">Foundation · 02</div>
+<div class="section-title">Lead Status <em>vs Lifecycle Stage</em></div>
+<p class="section-desc">The most important distinction in HubSpot contact tracking. These two properties serve completely different purposes.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th></th><th>Lead Status</th><th>Lifecycle Stage</th></tr></thead>
+<tbody>
+<tr><td><strong>Purpose</strong></td><td>Sales working state — what the rep is doing today</td><td>Funnel milestone — how far the contact has come</td></tr>
+<tr><td><strong>Analogy</strong></td><td>The current page of the book</td><td>The chapter of the book</td></tr>
+<tr><td><strong>Used by</strong></td><td>Sales team only</td><td>All teams — Marketing, Sales, CS</td></tr>
+<tr><td><strong>Options</strong></td><td>7 defaults + fully customisable</td><td>7 fixed — cannot add or rename</td></tr>
+<tr><td><strong>Direction</strong></td><td>Any direction, any time — no restrictions</td><td>Forward by default — backward needs explicit logic</td></tr>
+<tr><td><strong>Drives</strong></td><td>Rep activity reports, coaching, disqualification analysis</td><td>Funnel reports, MQL/SQL counts, conversion rates</td></tr>
+<tr><td><strong>Who sets it</strong></td><td>Reps + workflows</td><td>Workflows + automation (with rep input on SQL)</td></tr>
+<tr><td><strong>Syncs to Company?</strong></td><td>No</td><td>Yes — via workflow</td></tr>
+</tbody>
+</table></div>
+<div class="box why"><div class="bl">The analogy that makes it permanent</div><p>Lifecycle Stage = the chapter of the book. Lead Status = what's happening on the current page. A contact can be in the SQL chapter while their Lead Status is "In Progress" (rep is actively calling) or "Bad Timing" (spoken to them, right fit, not ready). The chapter doesn't change — only the page does. <strong>Never use Lead Status for funnel milestone reporting, and never use Lifecycle Stage for rep activity tracking.</strong></p></div>
+</div>
+<div class="division division-hidden" data-division="options" id="options">
+<div class="section-eyebrow">Foundation · 03</div>
+<div class="section-title">All <em>7 Default Options</em></div>
+<p class="section-desc">Click each status to see the full definition, who sets it, when to use it, and admin notes — including perspective from your SDR background.</p>
+<div class="status-grid" id="status-grid"></div>
+<div class="status-detail" id="status-detail"></div>
+</div>
+<div class="division division-hidden" data-division="logic" id="logic">
+<div class="section-eyebrow">Foundation · 04</div>
+<div class="section-title">System <em>Logic</em></div>
+<p class="section-desc">Five rules that govern how HubSpot handles Lead Status — know these before building any automation.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Rule</th><th>What it means</th><th>Admin implication</th></tr></thead>
+<tbody>
+<tr><td><strong>Any direction, any time</strong></td><td>Lead Status has no direction enforcement. New → Bad Timing → New → In Progress — all valid.</td><td>No safety net. A careless rep can overwrite important statuses. Build required Reason properties to capture context before status changes.</td></tr>
+<tr><td><strong>Fully customisable</strong></td><td>You can add, remove, and rename any option at any time.</td><td>Never delete an option that has contacts assigned — it blanks those contacts' Lead Status. Archive instead.</td></tr>
+<tr><td><strong>Does not sync to Lifecycle Stage</strong></td><td>Changing Lead Status has no automatic effect on Lifecycle Stage and vice versa.</td><td>You connect them via workflows. Build explicit automation to bridge them (e.g. deal created → Lead Status = Open Deal).</td></tr>
+<tr><td><strong>Contact property only</strong></td><td>Lead Status lives on Contact records. It does not exist on Deal or Company records.</td><td>When a Deal moves through pipeline stages, you must build a workflow to update the associated Contact's Lead Status if needed.</td></tr>
+<tr><td><strong>No history protection</strong></td><td>Every change overwrites the previous value. No forward-only protection exists.</td><td>Use property history logs for auditing. Build required Reason fields to capture context at the point of change, not after.</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section class="section page-section page-hidden" id="page-admin-setup" data-page="admin-setup">
+<div class="division division-hidden" data-division="custom" id="custom">
+<div class="section-eyebrow">Admin Setup · 05</div>
+<div class="section-title">Custom Options <em>to Add</em></div>
+<p class="section-desc">The default 7 cover the basics — but most real sales teams need more granularity to capture their actual process.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Option</th><th>When to use it</th><th>Why it's valuable</th></tr></thead>
+<tbody>
+<tr><td><span class="mono">Contacted — no response</span></td><td>Outreach attempted (call/email) but no reply yet</td><td>Distinguishes "actively trying" from "haven't started." Shows reps who are running cadences vs sitting on leads.</td></tr>
+<tr><td><span class="mono">Meeting booked</span></td><td>Demo or discovery call is scheduled but hasn't happened yet</td><td>Milestone before meeting completion. Enables no-show re-engagement workflows.</td></tr>
+<tr><td><span class="mono">Wrong person — find DM</span></td><td>Right company, but speaking to the wrong contact</td><td>Tells the next rep exactly what to do: find the decision maker. Better than leaving it In Progress.</td></tr>
+<tr><td><span class="mono">Referral given</span></td><td>Contact referred the rep to the right person at their company</td><td>Tracks referral activity. Trigger follow-up task for the referred contact.</td></tr>
+<tr><td><span class="mono">Closed lost — nurture</span></td><td>Deal closed lost but contact is worth nurturing for future</td><td>Different from Unqualified. These people could return — enrol them in a long-term nurture sequence.</td></tr>
+<tr><td><span class="mono">Sequence enrolled</span></td><td>Contact is in an active email sequence</td><td>Filter "who is currently in a sequence" — prevents reps from manually emailing someone already receiving automated sequences.</td></tr>
+</tbody>
+</table></div>
+<div class="box warn"><div class="bl">Admin rule — less is more</div><p>Keep total Lead Status options under 12. More options = less adoption. If you have 18 options, reps either pick randomly or always pick the same 3. Run a quarterly usage report: any option with fewer than 5% of contacts assigned should be reviewed — either retrain the team on it or remove it.</p></div>
+</div>
+<div class="division division-hidden" data-division="setup" id="setup">
+<div class="section-eyebrow">Admin Setup · 06</div>
+<div class="section-title">Step-by-Step <em>Setup</em></div>
+<div class="box tip"><div class="bl">Path in HubSpot</div><p>Settings → Properties → Contacts → Search "Lead status" → Click to edit options</p></div>
+<ol class="psteps">
+<li><strong>Export current distribution</strong> — Before editing, check how many contacts are at each current option. Go to Contacts → filter by Lead Status = each value → note the counts. This prevents accidentally removing a status 300 contacts are using.</li>
+<li><strong>Review default options</strong> — Decide which defaults to keep, which to rename, and which to remove. "Open" is commonly unused — if your team skips it, remove it to reduce noise.</li>
+<li><strong>Add custom options</strong> — Click "Add option." Name it clearly. Set display order: active outreach options first (New, In Progress, Connected), then exit options last (Unqualified, Bad Timing). This ordering guides rep behaviour.</li>
+<li><strong>Set a default value</strong> — In the property settings, set "New" as the default value. Every contact created manually or imported without a Lead Status will start at New automatically.</li>
+<li><strong>Update MQL workflow</strong> — In your MQL promotion workflow, add: Set Lead Status = New. This ensures every MQL lands in the SDR queue as a fresh, unreviewed contact.</li>
+<li><strong>Build Open Deal automation</strong> — Workflow: Deal is created AND associated Contact exists → Set Contact Lead Status = Open Deal. This removes a manual step reps consistently forget.</li>
+<li><strong>Create the Reason property</strong> — Create a custom dropdown: "Lead Status Reason." See the Disqualification Reason section below for the full option list.</li>
+<li><strong>Create Follow-up Date property</strong> — Custom Date picker property on Contact: "Lead Status Follow-up Date." Reps fill this when setting Bad Timing. The re-engagement workflow uses it as a trigger.</li>
+<li><strong>Build the Bad Timing re-engagement workflow</strong> — This is the most valuable setup step. See the Workflows section for full details.</li>
+</ol>
+</div>
+<div class="division division-hidden" data-division="reason" id="reason">
+<div class="section-eyebrow">Admin Setup · 07</div>
+<div class="section-title">Disqualification <em>Reason Property</em></div>
+<p class="section-desc">The diagnostic data that improves your entire upstream process — most companies don't build this. Those that do see compounding returns.</p>
+<div class="box why"><div class="bl">Why this matters</div><p>Setting a contact to Unqualified or Bad Timing without capturing why is like a doctor discharging a patient without writing a diagnosis. You lose the data that would improve your lead generation targeting, your MQL criteria, and your content strategy. This one property, collected consistently over 6 months, drives more strategic improvement than almost any other admin initiative.</p></div>
+<h3>Recommended option list by category</h3>
+<div class="reason-grid">
+<div class="reason-sec">
+<div class="reason-sec-t">Wrong fit</div>
+<div class="reason-tags">
+<span class="reason-tag">Wrong industry</span>
+<span class="reason-tag">Wrong company size</span>
+<span class="reason-tag">Wrong geography</span>
+<span class="reason-tag">Wrong product fit</span>
+</div>
+</div>
+<div class="reason-sec">
+<div class="reason-sec-t">Wrong person</div>
+<div class="reason-tags">
+<span class="reason-tag">Not decision maker</span>
+<span class="reason-tag">Wrong department</span>
+<span class="reason-tag">No referral possible</span>
+</div>
+</div>
+<div class="reason-sec">
+<div class="reason-sec-t">Budget / authority</div>
+<div class="reason-tags">
+<span class="reason-tag">No budget this year</span>
+<span class="reason-tag">Budget too small</span>
+<span class="reason-tag">Budget already committed</span>
+</div>
+</div>
+<div class="reason-sec">
+<div class="reason-sec-t">Timing</div>
+<div class="reason-tags">
+<span class="reason-tag">Starting next quarter</span>
+<span class="reason-tag">Post merger / acquisition</span>
+<span class="reason-tag">Just signed with competitor</span>
+</div>
+</div>
+<div class="reason-sec">
+<div class="reason-sec-t">Engagement</div>
+<div class="reason-tags">
+<span class="reason-tag">Ghosted — no response (6+ attempts)</span>
+<span class="reason-tag">Asked not to be contacted</span>
+<span class="reason-tag">Duplicate contact</span>
+</div>
+</div>
+</div>
+<div class="box revops"><div class="bl">What to do with this data</div><p>Build a monthly report: count of Unqualified contacts by Lead Status Reason, segmented by Lead Source. If the top reason is "Wrong industry" from leads that came via Google Ads → your ad targeting is wrong. If it's "No budget" → add budget confirmation to your MQL criteria or your forms. This feedback loop makes your entire demand generation engine smarter over time.</p></div>
+</div>
+<div class="division division-hidden" data-division="workflows" id="workflows">
+<div class="section-eyebrow">Admin Setup · 08</div>
+<div class="section-title">Key <em>Workflows</em> to Build</div>
+<p class="section-desc">Four workflows that every portal with a sales team needs — in priority order.</p>
+<div class="wf">
+<div class="wf-t">Workflow 1 — MQL arrival (highest priority)</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Lifecycle Stage = Marketing Qualified Lead AND Lead Status is unknown (first time entering MQL)</div>
+<ul class="wf-actions">
+<li>Set Lead Status = New</li>
+<li>Notify assigned SDR: "New MQL — {{contact.firstname}} at {{contact.company}}"</li>
+<li>Create task for owner: "Review this MQL — due in 4 hours"</li>
+</ul>
+</div>
+<div class="wf">
+<div class="wf-t">Workflow 2 — Open Deal auto-set</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Deal is created AND associated Contact is known</div>
+<ul class="wf-actions">
+<li>Set associated Contact Lead Status = Open Deal</li>
+</ul>
+</div>
+<div class="wf">
+<div class="wf-t">Workflow 3 — Stale lead alert (rep accountability)</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Lead Status = New AND Create Date is more than 2 business days ago</div>
+<ul class="wf-actions">
+<li>Create urgent task for owner: "MQL sitting at New for 48h — review immediately"</li>
+<li>Notify SDR manager via email</li>
+</ul>
+</div>
+<div class="wf">
+<div class="wf-t">Workflow 4 — Bad Timing re-engagement (highest ROI)</div>
+<div class="wf-trigger"><strong>Enrolment trigger:</strong> Lead Status = Bad Timing AND Lead Status Follow-up Date = today</div>
+<ul class="wf-actions">
+<li>Set Lead Status = New</li>
+<li>Clear Lead Status Follow-up Date</li>
+<li>Notify owner: "Time to re-engage — {{contact.firstname}} at {{contact.company}}. You marked them as Bad Timing on {{lead_status_follow_up_date_original}}."</li>
+<li>Create task: "Re-engagement call — {{contact.firstname}}"</li>
+</ul>
+</div>
+<div class="box tip"><div class="bl">Build these in order</div><p>Workflow 1 is highest operational priority — every MQL must land in a rep's queue. Workflow 4 is highest ROI — it generates revenue from leads most teams forget. Build both in your first week of any new HubSpot setup.</p></div>
+</div>
+</section>
+<section class="section page-section page-hidden" id="page-applied-learning" data-page="applied-learning">
+<div class="division division-hidden" data-division="example" id="example">
+<div class="section-eyebrow">Applied Learning · 09</div>
+<div class="section-title">Real-World <em>Example</em></div>
+<p class="section-desc">How a complete Lead Status system transformed a sales team's pipeline visibility and created a re-engagement revenue engine.</p>
+<div class="box case"><div class="bl">The situation</div><p>A 15-person B2B SaaS company was generating 80 MQLs per month. Sales was complaining leads were garbage. Marketing said sales wasn't working them. Neither had data. Lead Status was being used — but with no custom options, no disqualification reasons, and no automation. Every dead lead was just "Unqualified" with no further context.</p></div>
+<h3>What the admin built</h3>
+<ul class="prlist">
+<li><span>📋</span><div>Added 5 custom options: "Contacted — no response," "Meeting booked," "Wrong person — find DM," "Closed lost — revisit," and "Sequence enrolled"</div></li>
+<li><span>🔢</span><div>Created "Lead Status Reason" dropdown with 12 specific disqualification options across 4 categories</div></li>
+<li><span>📅</span><div>Created "Lead Status Follow-up Date" date property — reps required to fill when setting Bad Timing</div></li>
+<li><span>⚙️</span><div>Built all 4 workflows above: MQL arrival, Open Deal auto-set, Stale lead alert, and Bad Timing re-engagement</div></li>
+<li><span>📊</span><div>Built a Lead Status dashboard: contacts by status per rep, stale New count, Bad Timing pipeline forecast, and Disqualification Reason breakdown</div></li>
+</ul>
+<h3>Results after 3 months</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Metric</th><th>Before</th><th>After</th></tr></thead>
+<tbody>
+<tr><td>Avg time from MQL to first outreach</td><td>3.2 days</td><td>6 hours</td></tr>
+<tr><td>MQLs sitting unreviewed at any time</td><td>40+ contacts</td><td>0–3 contacts</td></tr>
+<tr><td>Disqualification reason data</td><td>None</td><td>12 specific reasons tracked</td></tr>
+<tr><td>Bad Timing contacts re-engaged/month</td><td>0 (manually impossible)</td><td>23 automatically</td></tr>
+<tr><td>Revenue from re-engaged Bad Timing</td><td>$0</td><td>~$50k ARR/month</td></tr>
+<tr><td>Marketing's top ad targeting fix</td><td>Unknown</td><td>"Wrong industry" = 41% of Unqualified → fixed Google Ads audience</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="division division-hidden" data-division="cases" id="cases">
+<div class="section-eyebrow">Applied Learning · 10</div>
+<div class="section-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico a">📊</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — The In Progress graveyard</div>
+<div class="csub">When reps use In Progress as a permanent parking spot</div>
+<div class="ctags"><span class="tag a">Rep accountability</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c1p')">Problem</div><div class="tab" onclick="st(this,'c1s')">Solution</div><div class="tab" onclick="st(this,'c1r')">Outcome</div></div>
+<div class="tab-pane on" id="c1p"><div class="box case"><div class="bl">The problem</div><p>A sales manager noticed their pipeline was stagnant. Looking at the CRM, 240 contacts had been sitting at Lead Status = In Progress for more than 30 days. Reps were calling them "active" but in reality, most hadn't been touched in weeks. Nobody wanted to move leads to Unqualified because it looked like they were failing to convert. The sales manager had no visibility into which reps were actually working their queue vs using "In Progress" as a comfort blanket.</p></div></div>
+<div class="tab-pane" id="c1s">
+<ul class="prlist">
+<li><span>⚙️</span><div>Admin built a workflow: Lead Status = In Progress AND Last Activity Date &gt; 14 days → Create urgent task for owner: "This lead has been In Progress for 14 days with no activity. Review and update status today." → Notify manager.</div></li>
+<li><span>📊</span><div>Built a "Stale In Progress" dashboard widget: count of contacts per rep that have been In Progress 14+ days with no logged activity. Updated daily. Visible to the sales manager.</div></li>
+<li><span>📋</span><div>Added "Contacted — no response" as a new Lead Status option. Now reps had a honest place for leads they were genuinely trying to reach but getting no reply — without the psychological weight of "Unqualified."</div></li>
+<li><span>🗓️</span><div>Added a weekly 15-minute "pipeline hygiene" task to every rep's recurring tasks: review all In Progress leads and update statuses. This normalised honest status reporting.</div></li>
+</ul>
+</div>
+<div class="tab-pane" id="c1r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Within 6 weeks, the 240 stale In Progress contacts were resolved: 60 moved to Connected after re-engagement, 80 moved to Bad Timing with follow-up dates, 70 moved to Unqualified (honest disqualification), and 30 moved to "Contacted — no response" (genuine attempts with no reply). The pipeline became accurate. The sales manager could finally trust the data and coach reps on real issues rather than chasing ghost leads.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">🔄</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — The Bad Timing pipeline machine</div>
+<div class="csub">Building a systematic re-engagement loop from scratch</div>
+<div class="ctags"><span class="tag t">Re-engagement</span><span class="tag n">Agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c2p')">Problem</div><div class="tab" onclick="st(this,'c2s')">Solution</div><div class="tab" onclick="st(this,'c2r')">Outcome</div></div>
+<div class="tab-pane on" id="c2p"><div class="box case"><div class="bl">The problem</div><p>A 30-person digital agency was generating strong pipeline from inbound, but the VP of Sales noticed that about 35% of qualified leads were being marked Bad Timing and then forgotten forever. Reps would tell contacts "I'll follow up in Q3" but then never do — because there was no system to remind them. The agency estimated it had "forgotten" $800k+ in potential ARR from qualified leads over the past 18 months.</p></div></div>
+<div class="tab-pane" id="c2s">
+<ul class="prlist">
+<li><span>📅</span><div>Created "Lead Status Follow-up Date" custom Date property. Made it visible in the contact sidebar. Added it to the default view alongside Lead Status.</div></li>
+<li><span>⚙️</span><div>Built Bad Timing re-engagement workflow (Workflow 4 above). When Lead Status = Bad Timing AND Follow-up Date = today → reset to New, notify owner, create task.</div></li>
+<li><span>📊</span><div>Built a "Bad Timing forecast" report: count of contacts with Lead Status = Bad Timing by follow-up month × average historical conversion rate × average ACV = projected future pipeline per month. Shared in the monthly exec review.</div></li>
+<li><span>🔔</span><div>Added validation: when a rep sets Lead Status = Bad Timing, a workflow creates a task: "Fill in Follow-up Date for {{contact.firstname}} — Bad Timing contacts without a follow-up date will be automatically re-engaged in 90 days." This ensured the date was always set.</div></li>
+</ul>
+</div>
+<div class="tab-pane" id="c2r"><div class="box revops"><div class="bl">RevOps outcome</div><p>In the first 6 months after implementation: 180 Bad Timing contacts were automatically re-engaged by the workflow. Of those, 34 (19%) converted to SQL. 12 (35% of SQL) became customers. Average ACV $18k → $216k in revenue directly attributed to the re-engagement system. The VP of Sales called it "the best ROI of any admin project we've ever done." The system required zero rep effort after setup.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico r">🔍</div>
+<div style="flex:1">
+<div class="ctitle">Case 3 — Disqualification data transforms marketing spend</div>
+<div class="csub">When Lead Status Reason data reveals a broken lead gen strategy</div>
+<div class="ctags"><span class="tag r">Disqualification analysis</span><span class="tag n">B2B Tech</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c3p')">Problem</div><div class="tab" onclick="st(this,'c3s')">Solution</div><div class="tab" onclick="st(this,'c3r')">Outcome</div></div>
+<div class="tab-pane on" id="c3p"><div class="box case"><div class="bl">The problem</div><p>A B2B technology company was spending $45k per month on Google Ads generating 150 MQLs. Sales was accepting only 30 (20% acceptance rate) and closing 5 per month. The CMO and VP of Sales were in constant conflict — CMO claimed volume was strong, VP claimed quality was terrible. They had been arguing about it for 6 months with no resolution because there was no objective data on why 120 MQLs per month were being rejected.</p></div></div>
+<div class="tab-pane" id="c3s">
+<ul class="prlist">
+<li><span>📋</span><div>Admin built Lead Status Reason property with 12 specific options. Required field via workflow task when Lead Status = Unqualified or Bad Timing.</div></li>
+<li><span>⚙️</span><div>Added "Lead Source" as a cross-dimension in the disqualification report. Now could see disqualification reasons broken down by where the lead came from.</div></li>
+<li><span>📊</span><div>After 30 days of data: built the disqualification report. Shared it in a joint Marketing-Sales monthly review.</div></li>
+</ul>
+</div>
+<div class="tab-pane" id="c3r"><div class="box revops"><div class="bl">RevOps outcome</div><p>The data was decisive. 62% of disqualified leads from Google Ads had "Wrong industry" as their reason. Investigation revealed a broad keyword strategy was pulling in B2C companies and non-target verticals. The CMO immediately restructured the Google Ads campaigns: tighter keyword targeting, industry exclusions, negative keyword lists. Within 60 days: MQL volume dropped from 150 to 70, but acceptance rate jumped from 20% to 58%. SQL count actually increased from 30 to 41 per month with half the unqualified leads. Ad spend efficiency nearly doubled. The CMO and VP of Sales stopped fighting. The argument was resolved with data.</p></div></div>
+</div>
+</div>
+</div>
+<div class="division division-hidden" data-division="mistakes" id="mistakes">
+<div class="section-eyebrow">Applied Learning · 11</div>
+<div class="section-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — Using Lead Status for funnel reporting</div>Lead Status = In Progress doesn't tell you about pipeline health — it tells you about rep workload. Reporting on Lead Status as a funnel metric confuses activity with progression. Use Lifecycle Stage for funnel analysis. Use Lead Status for rep activity analysis.</li>
+<li><div class="mt">02 — Not capturing disqualification reasons</div>Setting Unqualified or Bad Timing with no reason loses your most valuable diagnostic data. Fix: build the Lead Status Reason property and make it required via a task workflow that fires on these transitions.</li>
+<li><div class="mt">03 — Letting In Progress become a parking lot</div>Leads that stay In Progress for 30+ days are either being ignored or the rep is avoiding a difficult disqualification decision. Fix: build the 14-day stale In Progress alert workflow. Normalise honest disqualification.</li>
+<li><div class="mt">04 — Not automating Open Deal status</div>Relying on reps to manually set Lead Status = Open Deal when they create a deal results in 30–50% of contacts never getting updated. The data becomes unreliable. Fix: build the workflow. Always.</li>
+<li><div class="mt">05 — Deleting a Lead Status option instead of archiving</div>Deleting a Lead Status option removes the value from every contact who had it set — replacing their status with blank. Their Lead Status history is lost and any workflows referencing that option break silently. Fix: always archive, never delete.</li>
+<li><div class="mt">06 — Creating too many Lead Status options</div>18 options means reps pick the first three they see or the same one every time. Data quality drops to near-zero. Fix: start with 8–10 options maximum. Quarterly review: remove options with less than 5% adoption.</li>
+<li><div class="mt">07 — Forgetting to build the Bad Timing loop</div>Bad Timing contacts without a re-engagement system are forgotten pipeline. Every one of them was a qualified lead who just wasn't ready. Without automation, they never come back. Fix: Workflow 4 is non-negotiable. Build it in every HubSpot setup.</li>
+</ul>
+</div>
+<div class="division division-hidden" data-division="best" id="best">
+<div class="section-eyebrow">Applied Learning · 12</div>
+<div class="section-title">Admin <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span>🔄</span><div><strong>Build the Bad Timing re-engagement loop as standard.</strong> Every HubSpot setup you do, this workflow goes in. It is the highest-ROI single automation in a sales CRM.</div></li>
+<li><span>📊</span><div><strong>Report on Lead Status transition velocity.</strong> How many days does a contact spend at New before moving to In Progress? Average days at In Progress before Connected? These benchmarks identify process bottlenecks and individual rep patterns worth coaching.</div></li>
+<li><span>🔍</span><div><strong>Use disqualification data as a coaching tool.</strong> A rep with mostly "Wrong industry" in their Unqualified reasons is getting bad leads. A rep with mostly "Ghosted" is not running enough touchpoints. The data tells the coaching story.</div></li>
+<li><span>📋</span><div><strong>Align options with your actual sales motion.</strong> An inbound-only team may not need "Open" or even "New" the way an outbound SDR team does. Customise to reflect how your team actually works, not how an imaginary team works.</div></li>
+<li><span>🗓️</span><div><strong>Quarterly Lead Status audit.</strong> Review usage counts per option. Remove or retrain on options with less than 5% adoption. Review whether new options are needed based on rep feedback.</div></li>
+<li><span>🔔</span><div><strong>Make the SDR manager's alerts automatic.</strong> A weekly "stale MQL" summary email, auto-generated by HubSpot workflow, that shows the manager which reps have the most uncovered New contacts is a simple admin build with significant operational impact.</div></li>
+</ul>
+</div>
+<div class="division division-hidden" data-division="practice" id="practice">
+<div class="section-eyebrow">Applied Learning · 13</div>
+<div class="section-title">Practice <em>Exercise</em></div>
+<p class="section-desc">Do this in your free HubSpot sandbox — approximately 40 minutes.</p>
+<ol class="psteps">
+<li><strong>Review default Lead Status options</strong> — Settings → Properties → Contacts → search "lead status." Look at the 7 defaults. Note which you'd keep, rename, or remove for a typical B2B sales team.</li>
+<li><strong>Add 3 custom options</strong> — Add: "Contacted — no response," "Meeting booked," and "Wrong person — find DM." Set them in a logical display order after the defaults.</li>
+<li><strong>Create the Reason property</strong> — New dropdown property: "Lead Status Reason." Add 8 options across 3 categories (wrong fit, budget, timing). Put it in a new group called "Sales Tracking."</li>
+<li><strong>Create the Follow-up Date property</strong> — New Date picker property: "Lead Status Follow-up Date." Put it in the same "Sales Tracking" group.</li>
+<li><strong>Build the Bad Timing workflow</strong> — Contact-based workflow. Enrolment: Lead Status = Bad Timing AND Follow-up Date = today. Actions: Set Lead Status = New, clear Follow-up Date, create task for owner. Activate on 5 test contacts. Set one's Follow-up Date to today and watch it fire.</li>
+<li><strong>Build the Stale New alert</strong> — Contact-based workflow. Enrolment: Lead Status = New AND Create Date is more than 2 days ago. Action: create task "Stale MQL — review and update status." Test with a contact you created 3 days ago.</li>
+<li><strong>Build the Lead Status dashboard</strong> — Contacts → Create a saved filter for Lead Status = each value. Note the counts. Build a simple "contacts by Lead Status" bar chart report. This is the rep activity view your sales manager needs.</li>
+</ol>
+</div>
+<div class="division division-hidden" data-division="interview" id="interview">
+<div class="section-eyebrow">Applied Learning · 14</div>
+<div class="section-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"How does Lead Status differ from Lifecycle Stage, and when would you use each?"</div>
+<div class="iq-a">Lifecycle Stage tracks the big-picture funnel milestone — it's shared across Marketing, Sales, and CS and drives all cross-functional reporting. Lead Status is a sales-specific working state — it tells a rep what action they're currently taking with a contact. Lifecycle Stage has seven fixed options and moves forward by default; Lead Status is fully customisable and can move any direction. The analogy: Lifecycle Stage is the chapter of the book, Lead Status is the current page. I'd report on pipeline health and MQL-to-customer conversion using Lifecycle Stage. I'd report on rep activity, disqualification patterns, and outreach velocity using Lead Status. They work together — neither replaces the other.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"What is the Bad Timing status and why do you consider it strategically important?"</div>
+<div class="iq-a">Bad Timing means the contact is genuinely qualified — right fit, right seniority, real need — but the timing is wrong right now. Maybe they just signed a contract, are in a budget freeze, or are going through an acquisition. The strategic value is that these are warm leads who already know you. They will be ready in the future — and when that future arrives, a competitor could reach them first. My approach is to build a re-engagement workflow using a "Follow-up Date" custom property. When a rep sets Bad Timing, they fill the date. On that date, the workflow resets Lead Status to New and notifies the owner. Done consistently, Bad Timing contacts become one of the most reliable pipeline sources — I've seen this generate 15–25% of monthly new pipeline at companies with good CRM hygiene. Most teams leave this completely untapped.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"A sales manager says they have no visibility into what reps are doing with their MQLs. How do you solve it in HubSpot?"</div>
+<div class="iq-a">First, I'd audit the current Lead Status setup: are options aligned with the actual sales process, are reps actually updating them, and is there a default set on new contacts? Then I'd build four things. One: an MQL arrival workflow that auto-sets Lead Status to New and creates a review task for the rep — so every MQL is acknowledged. Two: a stale New alert workflow that fires if a contact sits at New for more than 48 hours without being touched, notifying the manager. Three: a disqualification reason property so every Unqualified or Bad Timing contact has a logged reason — this turns "garbage leads" complaints into structured data. Four: a Lead Status activity dashboard showing contacts by status per rep, average days at New, and disqualification reason distribution. Within 30 days the manager would have full activity visibility and could make data-driven coaching decisions.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"You want to remove a Lead Status option that nobody seems to use. What's the right process?"</div>
+<div class="iq-a">Never delete — always archive. Deleting a Lead Status option removes the value from every contact currently assigned to it, replacing their status with blank and breaking any active workflows or lists referencing that option. The right process: first, filter contacts by that Lead Status value and note the count. If there are contacts there, decide what their status should be updated to and bulk-update them before archiving. Check all active workflows for any branches or triggers that reference that option and update or remove them. Then archive the option in the property settings — it disappears from the dropdown but the historical data is preserved. Finally, document the change in your admin changelog so future admins understand why it was removed.</div>
+</div>
+</div>
+<div class="division division-hidden" data-division="cheatsheet" id="cheatsheet">
+<div class="section-eyebrow">Applied Learning · 15</div>
+<div class="section-title">Summary <em>Cheatsheet</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is it</td><td>A customisable Contact property tracking the sales team's day-to-day working state with a lead</td></tr>
+<tr><td>vs Lifecycle Stage</td><td>Lead Status = current page. Lifecycle Stage = chapter. Never confuse them.</td></tr>
+<tr><td>Direction</td><td>Any direction, any time — no forward-only protection</td></tr>
+<tr><td>Customisable</td><td>Fully — add, remove, rename via Settings → Properties → Contacts → Lead status</td></tr>
+<tr><td>New</td><td>Untouched lead. Auto-set by MQL workflow. Monitor for 48h+ inactivity.</td></tr>
+<tr><td>In Progress</td><td>Active outreach underway. Key rep activity metric. Alert if stale 14+ days.</td></tr>
+<tr><td>Connected</td><td>First real two-way conversation. Conversion rate from here = qualifying conversation quality.</td></tr>
+<tr><td>Unqualified</td><td>Wrong fit — always capture the reason. Data drives ICP refinement.</td></tr>
+<tr><td>Bad Timing</td><td>Right fit, wrong timing — build re-engagement automation. This is free future pipeline.</td></tr>
+<tr><td>Open Deal</td><td>Deal created — automate via workflow. Never rely on rep manual update.</td></tr>
+<tr><td>Critical custom options</td><td>Contacted — no response · Meeting booked · Wrong person — find DM</td></tr>
+<tr><td>Disqualification Reason</td><td>Required custom property when Unqualified/Bad Timing. Monthly report drives upstream improvements.</td></tr>
+<tr><td>Follow-up Date</td><td>Custom date property reps fill with Bad Timing. Re-engagement workflow fires on this date.</td></tr>
+<tr><td>Highest ROI workflow</td><td>Bad Timing + Follow-up Date → auto-reset to New. Generates 15–25% of pipeline at well-run companies.</td></tr>
+<tr><td>Admin interview gold</td><td>"I build Bad Timing re-engagement loops as standard. It consistently generates revenue from leads most teams forget entirely."</td></tr>
+<tr><td>Never do this</td><td>Delete a Lead Status option — always archive. Deletion destroys historical data on contacts.</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps mindset on Lead Status</div><p>Lead Status is the activity data layer of your CRM. It enables three things Lifecycle Stage cannot: rep accountability reporting (who is working their queue?), disqualification analysis (why are leads failing, and what does that tell marketing?), and future pipeline prediction (Bad Timing contacts with known re-engagement dates = quantifiable projected revenue). Companies that build this system seriously — with custom options, disqualification reasons, and re-engagement automation — consistently outperform those that treat Lead Status as a simple dropdown they fill in manually. The difference is not the property itself — it's the system built around it.</p></div>
+</div>
+</section>
+  </main>
+</div>
+<script>
+
+const pageMap = {"foundation": [{"id": "what", "label": "What is Lead Status?"}, {"id": "vs", "label": "vs Lifecycle Stage"}, {"id": "options", "label": "All Default Options"}, {"id": "logic", "label": "System Logic"}], "admin-setup": [{"id": "custom", "label": "Custom Options"}, {"id": "setup", "label": "Step-by-step Setup"}, {"id": "reason", "label": "Disqualification Reason"}, {"id": "workflows", "label": "Key Workflows"}], "applied-learning": [{"id": "example", "label": "Real-world Example"}, {"id": "cases", "label": "Case Studies"}, {"id": "mistakes", "label": "Common Mistakes"}, {"id": "best", "label": "Best Practices"}, {"id": "practice", "label": "Practice Exercise"}, {"id": "interview", "label": "Interview Questions"}, {"id": "cheatsheet", "label": "Cheatsheet"}]};
+const statuses = [
+  {name:"New",hint:"Never touched",badge:"auto",btext:"Auto-set",tagline:"Lead has arrived — no rep has reviewed it yet",who:"Set automatically by MQL workflow or admin on import. Default value for all new contacts.",when:["MQL promotion workflow fires","New lead imported or created manually","SDR has not yet reviewed the contact"],leaves:["SDR opens and reviews → Open or In Progress","Stale alert fires if untouched 48h → task created for manager"],admin:"New is your pipeline inbox health indicator. Build an active list: Lead Status = New AND Create Date > 2 business days. Any contact on this list is falling through the cracks. If this list regularly grows, you have a coverage or capacity problem.",sdr:"This is what you saw when a fresh lead landed in your queue. Your first job was to move it off New by reviewing it — even if you hadn't called yet."},
+  {name:"Open",hint:"Reviewed, not started",badge:"rep",btext:"Rep sets",tagline:"SDR has seen it but outreach has not yet begun",who:"Rep sets manually after reviewing a New contact but before starting outreach",when:["Rep has confirmed they will pursue the lead","Contact is in their queue but outreach hasn't started"],leaves:["Rep begins calling or emailing → In Progress","Rep decides not worth pursuing → Unqualified"],admin:"Open is often skipped in practice — reps go New → In Progress. If your team doesn't use Open, remove it to reduce noise. Only keep options that reps actually use. Quarterly audit: if Open has less than 3% of contacts, retire it.",sdr:"Honest answer — most SDRs skipped this. You either called them (In Progress) or you didn't. Open was a limbo state nobody used consistently."},
+  {name:"In progress",hint:"Active outreach",badge:"rep",btext:"Rep sets",tagline:"SDR is actively calling and emailing this contact",who:"Rep sets when they begin their outreach cadence — first call attempt or first email sent",when:["First call attempt made","First email sent","Contact enrolled in an outreach sequence"],leaves:["Connection made → Connected","No response after full cadence → Contacted — no response or Bad Timing","Not a fit revealed → Unqualified"],admin:"In Progress is your key rep activity metric. Build a stale alert: Lead Status = In Progress AND Last Activity Date > 14 days → notify owner and create task. Reps who park leads here indefinitely are avoiding disqualification decisions — a coaching issue, not a data issue.",sdr:"This was your bread and butter — contacts you were actively running your call cadence on. 5-touch, 7-touch, 10-touch — all In Progress until they picked up, replied, or went cold."},
+  {name:"Connected",hint:"Two-way contact",badge:"rep",btext:"Rep sets",tagline:"Rep has had a real conversation with this contact",who:"Rep sets after first meaningful two-way conversation — phone, video, or substantive email exchange",when:["Discovery call completed","Contact picked up and had a real conversation","Email reply received with substantive content"],leaves:["Conversation confirms fit → Lifecycle → SQL, deal created → Open Deal","No fit revealed → Unqualified","Right person, wrong time → Bad Timing"],admin:"Connected is a milestone worth tracking as a separate conversion rate. Connected → SQL tells you how well your reps qualify during discovery calls. Low rate = weak qualifying questions or wrong leads. Track it as a KPI alongside MQL acceptance rate.",sdr:"Connected was the one you celebrated. It meant you finally talked to them — now everything depended on the quality of that conversation. Your close rate started here."},
+  {name:"Open deal",hint:"Deal in pipeline",badge:"auto",btext:"Should be auto",tagline:"A Deal has been created and is actively in the pipeline",who:"Should be set automatically by workflow when a Deal is created and associated to the contact",when:["AE creates a Deal linked to this contact","Contact advances from SQL to Opportunity lifecycle stage"],leaves:["Deal closes won → Lead Status cleared or custom 'Won' value","Deal closes lost → Unqualified or custom 'Closed lost — nurture' value"],admin:"This must be automated. If you rely on reps to set this manually, 30–50% will forget and your data is wrong. Build the workflow: Deal created AND associated Contact exists → Set Lead Status = Open Deal. Test it today in your sandbox.",sdr:"You'd see this when an AE took your qualified lead and created the deal. Your job was done — the AE owned it from here and you moved to your next lead."},
+  {name:"Unqualified",hint:"Wrong fit",badge:"exit",btext:"Exit status",tagline:"This contact is not a good fit — outreach should stop",who:"Rep sets after determining the contact doesn't meet qualification criteria",when:["Wrong industry, company size, or geography","Contact is not a decision maker and no DM referral is possible","Product genuinely doesn't solve their problem"],leaves:["Permanently disqualified — stays here","Could return to Lead if company profile changes significantly later"],admin:"Unqualified is your most valuable diagnostic data. Report on disqualification reasons monthly. If 'Wrong industry' dominates → your lead gen targeting is wrong. If 'No budget' dominates → add budget confirmation to your MQL criteria. This feedback loop drives compounding upstream improvements.",sdr:"Setting Unqualified honestly was the hard but professionally right thing to do. Every rep has had the temptation to keep a dead lead 'In Progress' to avoid admitting it's gone. That hurts your data and your manager's forecast."},
+  {name:"Bad timing",hint:"Right fit, wrong time",badge:"exit",btext:"Exit status",tagline:"Qualified contact — not ready to buy right now",who:"Rep sets after a qualifying conversation reveals genuine fit but wrong timing",when:["'Come back in Q3 — we're in budget freeze'","'We just signed a 2-year contract'","'Revisit after our merger closes'"],leaves:["Re-engagement workflow fires on Follow-up Date → resets to New","Time passes with no follow-up date → contact stays here indefinitely (bad)"],admin:"Bad Timing is your future pipeline goldmine. Every contact here is a qualified lead who wasn't ready — they may be ready in 3, 6, or 12 months. Build the re-engagement workflow using Follow-up Date property. This is the highest-ROI workflow in a sales CRM. Most companies leave it completely untapped.",sdr:"'Call me next quarter' was probably the most common answer in your SDR career. Bad Timing was the honest capture — and a good system automatically resurfaces those contacts when the time comes."}
+];
+let activeStatus = 0;
+let currentPage = 'foundation';
+let currentDivision = 'what';
+
+function getFirstDivision(page) {
+  return pageMap[page] && pageMap[page][0] ? pageMap[page][0].id : null;
+}
+
+function renderMobileDivisions(page, activeDivision) {
+  const row = document.getElementById('mobileDivisionRow');
+  if (!row || !pageMap[page]) return;
+  row.innerHTML = pageMap[page].map(item => `
+    <button class="mobile-division-btn ${item.id === activeDivision ? 'active' : ''}" type="button" data-page="${page}" data-target="${item.id}" onclick="showDivision('${page}','${item.id}')">${item.label}</button>
+  `).join('');
+}
+
+function showPage(page, division, shouldScroll = true) {
+  const targetDivision = division || getFirstDivision(page);
+  if (!targetDivision) return;
+  currentPage = page;
+  currentDivision = targetDivision;
+
+  document.querySelectorAll('.page-section').forEach(section => {
+    section.classList.toggle('page-hidden', section.dataset.page !== page);
+  });
+
+  document.querySelectorAll('.nav-group').forEach(group => {
+    const active = group.dataset.pageGroup === page;
+    group.classList.toggle('active-page', active);
+    group.classList.toggle('open', active);
+  });
+
+  document.querySelectorAll('.mobile-section-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pageGroup === page);
+  });
+
+  renderMobileDivisions(page, targetDivision);
+  showDivision(page, targetDivision, shouldScroll, true);
+}
+
+function showDivision(page, division, shouldScroll = true, pageAlreadyShown = false) {
+  if (!pageAlreadyShown && currentPage !== page) {
+    return showPage(page, division, shouldScroll);
+  }
+
+  currentPage = page;
+  currentDivision = division;
+
+  const pageSection = document.querySelector(`.page-section[data-page="${page}"]`);
+  if (!pageSection) return;
+
+  document.querySelectorAll('.page-section').forEach(section => {
+    section.classList.toggle('page-hidden', section.dataset.page !== page);
+  });
+
+  pageSection.querySelectorAll('.division').forEach(div => {
+    div.classList.toggle('division-hidden', div.dataset.division !== division);
+  });
+
+  document.querySelectorAll('.nav-group').forEach(group => {
+    const active = group.dataset.pageGroup === page;
+    group.classList.toggle('active-page', active);
+    group.classList.toggle('open', active);
+  });
+
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.page === page && item.dataset.target === division);
+  });
+
+  document.querySelectorAll('.mobile-section-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pageGroup === page);
+  });
+
+  document.querySelectorAll('.mobile-division-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.page === page && btn.dataset.target === division);
+  });
+
+  // Open the first accordion card inside the selected division when relevant and close siblings.
+  const selected = document.getElementById(division);
+  if (selected) {
+    const cards = selected.querySelectorAll(':scope > .card');
+    if (cards.length) {
+      cards.forEach((c, i) => c.classList.toggle('open', i === 0));
+    }
+    if (shouldScroll) selected.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+function jump(id) {
+  const pageEntry = Object.entries(pageMap).find(([page, items]) => items.some(item => item.id === id));
+  if (pageEntry) showDivision(pageEntry[0], id);
+}
+
+function tog(hd) {
+  const card = hd.closest('.card');
+  if (!card) return;
+  const wasOpen = card.classList.contains('open');
+  const scope = card.closest('.division') || card.parentElement;
+  scope.querySelectorAll('.card').forEach(c => {
+    if (c !== card) c.classList.remove('open');
+  });
+  card.classList.toggle('open', !wasOpen);
+}
+
+function st(tab, pid) {
+  const body = tab.closest('.card-body') || tab.closest('.division') || document;
+  body.querySelectorAll('.tab').forEach(t => t.classList.remove('on','active'));
+  body.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('on'));
+  tab.classList.add('on');
+  const pane = document.getElementById(pid);
+  if (pane) pane.classList.add('on');
+}
+
+function buildStatuses(scrollToDetail=false) {
+  const grid = document.getElementById('status-grid');
+  const det = document.getElementById('status-detail');
+  if (!grid || !det || !Array.isArray(statuses) || !statuses.length) return;
+  grid.innerHTML = statuses.map((s,i)=>`
+    <div class="status-card${i===activeStatus?' act':''}" onclick="selStatus(${i})">
+      <div class="sc-name">${s.name}</div>
+      <div class="sc-hint">${s.hint}</div>
+      <span class="sc-badge ${s.badge}">${s.btext}</span>
+    </div>`).join('');
+  const s = statuses[activeStatus];
+  det.className = 'status-detail vis';
+  det.innerHTML = `
+    <div class="sd-top">
+      <div><div class="sd-name">${s.name}</div><div class="sd-tag">${s.tagline}</div></div>
+      <span class="sc-badge ${s.badge}" style="margin-top:4px">${s.btext}</span>
+    </div>
+    <div class="sd-grid">
+      <div class="sd-block"><div class="sd-label">Who sets it</div><p>${s.who}</p></div>
+      <div class="sd-block"><div class="sd-label">When to use it</div><ul>${s.when.map(w=>`<li>${w}</li>`).join('')}</ul></div>
+      <div class="sd-block" style="grid-column:1/-1"><div class="sd-label">How contacts leave this status</div><ul>${s.leaves.map(l=>`<li>${l}</li>`).join('')}</ul></div>
+    </div>
+    <div class="sd-admin"><strong>Admin note:</strong> ${s.admin}</div>
+    <div class="sd-sdr">From your SDR experience: ${s.sdr}</div>`;
+  if (scrollToDetail) det.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function selStatus(i) {
+  activeStatus = i;
+  buildStatuses(true);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderMobileDivisions(currentPage, currentDivision);
+  buildStatuses(false);
+  showPage('foundation','what',false);
+});
+
+</script>
+</body>
+</html>
