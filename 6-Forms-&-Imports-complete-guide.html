@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HubSpot Forms & Imports — Complete Admin Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+
+
+:root{
+  --bg:#0c0e12;
+  --surface:#12151c;
+  --surface2:#181c26;
+  --surface3:#1e2230;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.11);
+  --text:#e4e6f0;
+  --muted:#6e7289;
+  --soft:#9da3bb;
+  --purple:#8b7ff5;
+  --purple-bg:rgba(139,127,245,0.10);
+  --purple-light:#b4abff;
+  --teal:#20c997;
+  --teal-bg:rgba(32,201,151,0.10);
+  --teal-light:#6ef5cc;
+  --amber:#f59e0b;
+  --amber-bg:rgba(245,158,11,0.10);
+  --amber-light:#fcd34d;
+  --orange:#ff5c35;
+  --orange-bg:rgba(255,92,53,0.10);
+  --orange-border:rgba(255,92,53,0.28);
+  --red:#f87171;
+  --red-bg:rgba(248,113,113,0.10);
+  --blue:#60a5fa;
+  --blue-bg:rgba(96,165,250,0.10);
+  --green:#4ade80;
+  --green-bg:rgba(74,222,128,0.10);
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --r:10px;
+  --r-sm:6px;
+  --r-lg:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75}
+button{font:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:20;
+  scrollbar-width:thin;scrollbar-color:var(--border2) transparent;
+}
+.sidebar-brand{padding:16px 16px 18px;border-bottom:1px solid var(--border)}
+.hubspot-brand{
+  display:block;text-decoration:none;color:inherit;padding:10px 11px;border-radius:10px;
+  border:1px solid rgba(255,92,53,.24);
+  background:linear-gradient(135deg,rgba(255,92,53,.10),rgba(255,255,255,.02));
+  transition:transform .18s,border-color .18s,background .18s;
+}
+.hubspot-brand:hover{transform:translateY(-1px);border-color:rgba(255,92,53,.45);background:linear-gradient(135deg,rgba(255,92,53,.15),rgba(255,255,255,.03))}
+.hubspot-text{display:inline-flex;align-items:center;color:var(--orange);font-weight:700;font-size:18px;letter-spacing:.2px}
+.reference-note{font-size:11px;color:var(--muted);margin-top:5px}
+.guide-title{font-family:var(--font-display);font-size:19px;color:var(--text);font-weight:500;line-height:1.25;margin-top:16px}
+.guide-desc{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.55}
+.desktop-nav{padding:14px 0 8px}
+.mobile-nav{display:none}
+.nav-group{margin-bottom:4px}
+.nav-group-label{
+  width:calc(100% - 20px);margin:0 10px 8px;padding:10px 13px;border-radius:10px;border:1px solid transparent;
+  background:transparent;color:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  font-size:13.5px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;text-align:left;transition:all .15s;
+}
+.nav-group-label:hover{background:var(--surface2);border-color:var(--border2);color:var(--text)}
+.nav-group.active-page .nav-group-label{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.30)}
+.nav-arrow{font-size:18px;color:var(--muted);transition:transform .18s,color .18s;line-height:1}
+.nav-group.active-page .nav-arrow,.nav-group.open .nav-arrow{transform:rotate(90deg);color:var(--purple-light)}
+.nav-page-items{display:none;padding-bottom:8px}
+.nav-group.open .nav-page-items{display:block}
+.nav-item{
+  width:100%;display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;
+  font-size:13.4px;color:var(--muted);border:0;border-left:2px solid transparent;background:transparent;
+  text-align:left;cursor:pointer;transition:all .15s;
+}
+.nav-item:hover{color:var(--text);background:var(--surface2)}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple)}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.nav-dot.purple{background:var(--purple)}
+.nav-dot.teal{background:var(--teal)}
+.nav-dot.amber{background:var(--amber)}
+.sidebar-footer{margin-top:auto;padding:14px 16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
+.main{flex:1;padding:52px 60px;max-width:920px;width:100%}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border)}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start}
+.creator-card{
+  grid-column:2;grid-row:1;display:block;text-decoration:none;color:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+  border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;
+  transition:transform .18s,border-color .18s,background .18s;
+}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,.45);background:linear-gradient(180deg,rgba(255,92,53,.08),rgba(139,127,245,.04))}
+.creator-img{width:100%;height:auto;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28);object-fit:cover}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text)}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:2px}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:5px}
+.hero-copy{grid-column:1;grid-row:1}
+.hero-kicker{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px}
+.hero-title{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px}
+.hero-title em{font-style:italic;color:var(--purple)}
+.hero-description{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-pill{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);color:var(--soft)}
+.hero-pill.p{border-color:rgba(139,127,245,.3);color:var(--purple-light);background:var(--purple-bg)}
+.hero-pill.t{border-color:rgba(32,201,151,.3);color:var(--teal-light);background:var(--teal-bg)}
+.hero-pill.a{border-color:rgba(245,158,11,.3);color:var(--amber-light);background:var(--amber-bg)}
+.page-hidden,.division-hidden{display:none!important}
+.section{margin-bottom:68px;scroll-margin-top:24px}
+.division{margin-bottom:68px;scroll-margin-top:24px}
+.section-eyebrow{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.section-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px}
+.section-title em{font-style:italic;color:var(--purple)}
+.section-desc{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px}
+h3{font-family:var(--font-display);font-size:17px;font-weight:500;color:var(--text);margin-bottom:12px;margin-top:22px}
+h3:first-child{margin-top:0}
+h4{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;margin-top:18px}
+p{color:var(--soft);margin-bottom:12px;font-size:14px;line-height:1.8}
+strong{color:var(--text);font-weight:500}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px}
+.tbl{width:100%;min-width:650px;border-collapse:collapse;font-size:13px;margin-bottom:0}
+.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2)}
+.tbl th{padding:9px 13px;text-align:left;font-family:var(--font-body);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:400}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,.015)}
+.mono{font-family:var(--font-mono);font-size:12px;color:var(--amber-light);background:var(--amber-bg);padding:2px 7px;border-radius:4px;white-space:nowrap}
+.mono.t{color:var(--teal-light);background:var(--teal-bg)}
+.box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid}
+.box p{margin:0;font-size:13.5px}
+.box p+p{margin-top:6px}
+.bl{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px}
+.box.why{border-color:var(--purple);background:var(--purple-bg)}
+.box.why .bl{color:var(--purple-light)}
+.box.tip{border-color:var(--teal);background:var(--teal-bg)}
+.box.tip .bl{color:var(--teal-light)}
+.box.warn{border-color:var(--red);background:var(--red-bg)}
+.box.warn .bl{color:var(--red)}
+.box.case{border-color:var(--blue);background:var(--blue-bg)}
+.box.case .bl{color:var(--blue)}
+.box.revops{border-color:var(--purple);background:linear-gradient(135deg,var(--purple-bg),var(--teal-bg))}
+.box.revops .bl{color:var(--purple-light)}
+.box.amber{border-color:var(--amber);background:var(--amber-bg)}
+.box.amber .bl{color:var(--amber-light)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.card-hd,.card-header{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.card-ico,.card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.card-ico.a,.card-icon.a{background:var(--amber-bg)}
+.card-ico.t,.card-icon.t{background:var(--teal-bg)}
+.card-ico.r,.card-icon.r{background:var(--red-bg)}
+.card-ico.p,.card-icon.p{background:var(--purple-bg)}
+.ctitle,.card-title{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2}
+.csub,.card-subtitle{font-size:12.5px;color:var(--muted);margin-top:4px}
+.ctags,.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.chev,.chevron{font-size:16px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0}
+.card.open .chev,.card.open .chevron{transform:rotate(90deg)}
+.card-body{display:none}
+.card.open .card-body{display:block}
+.tabs,.tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;overflow-x:auto}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.tab:hover{color:var(--text)}
+.tab.on,.tab.active{color:var(--text);border-bottom-color:var(--purple)}
+.tab-pane,.tab-content{display:none;padding:26px}
+.tab-pane.on,.tab-content.active{display:block}
+.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px}
+.tag.a,.chip.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,.2)}
+.tag.t,.chip.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,.2)}
+.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.tag.g{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,.2)}
+.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,.2)}
+.tag.n,.chip.n{background:rgba(122,127,148,.08);color:var(--muted);border:1px solid var(--border)}
+.status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px}
+.status-card{padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--surface2);cursor:pointer;transition:all .15s}
+.status-card:hover{border-color:var(--border2);background:var(--surface3)}
+.status-card.act{border-color:var(--purple);background:var(--purple-bg)}
+.sc-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.status-card.act .sc-name{color:var(--purple-light)}
+.sc-hint{font-size:11.5px;color:var(--muted)}
+.sc-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-top:7px}
+.sc-badge.rep{background:rgba(122,127,148,.08);color:var(--muted);border:1px solid var(--border)}
+.sc-badge.auto{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,.2)}
+.sc-badge.exit{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.status-detail{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:22px;display:none;margin-bottom:14px;scroll-margin-top:120px}
+.status-detail.vis{display:block}
+.sd-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.sd-name{font-family:var(--font-display);font-size:22px;font-weight:500;font-style:italic;color:var(--text)}
+.sd-tag{font-size:12.5px;color:var(--muted);margin-top:3px}
+.sd-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sd-block{background:var(--surface2);border-radius:6px;padding:13px}
+.sd-label{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sd-block p{font-size:13px;color:var(--soft);margin:0;line-height:1.7}
+.sd-block ul{list-style:none;padding:0;margin:0}
+.sd-block li{font-size:13px;color:var(--soft);padding:2.5px 0;display:flex;gap:6px}
+.sd-block li::before{content:"→";color:var(--muted);flex-shrink:0}
+.sd-admin{margin-top:12px;padding:11px 15px;border-left:3px solid var(--amber);background:var(--amber-bg);font-size:13px;color:var(--soft);line-height:1.75}
+.sd-admin strong{color:var(--amber-light)}
+.sd-sdr{margin-top:8px;padding:9px 13px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--muted);font-style:italic}
+.psteps{list-style:none;padding:0;counter-reset:ps}
+.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft)}
+.psteps li:last-child{border-bottom:none}
+.psteps li::before{content:counter(ps,decimal-leading-zero);font-family:var(--font-mono);font-size:10px;color:var(--amber-light);border:1px solid rgba(245,158,11,.2);border-radius:4px;padding:2px 7px;flex-shrink:0;height:fit-content;margin-top:1px;background:var(--amber-bg)}
+.prlist{list-style:none;padding:0}
+.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft)}
+.prlist li:last-child{border-bottom:none}
+.mlist{list-style:none;padding:0}
+.mlist li{background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft)}
+.mt{color:var(--red);font-weight:500;margin-bottom:4px;font-size:12.5px;font-family:var(--font-mono)}
+.wf{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.wf-t{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
+.wf-trigger{background:var(--purple-bg);border-left:3px solid var(--purple);padding:9px 13px;font-size:13px;color:var(--purple-light);margin-bottom:8px}
+.wf-actions{list-style:none;padding:0}
+.wf-actions li{display:flex;gap:9px;padding:7px 0;font-size:13px;color:var(--soft);border-bottom:1px solid var(--border)}
+.wf-actions li:last-child{border-bottom:none}
+.wf-actions li::before{content:"→";color:var(--teal);flex-shrink:0;font-weight:500}
+.iq{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:12px}
+.iq-q{font-family:var(--font-display);font-size:15px;color:var(--text);font-style:italic;margin-bottom:8px}
+.iq-a{font-size:13px;color:var(--muted);line-height:1.8}
+.reason-grid{display:grid;gap:10px;margin-bottom:14px}
+.reason-sec{background:var(--surface2);border-radius:6px;padding:14px;border:1px solid var(--border)}
+.reason-sec-t{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.reason-tags{display:flex;flex-wrap:wrap;gap:6px}
+.reason-tag{font-size:12.5px;padding:4px 11px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--soft)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@media(max-width:760px){
+  .layout{display:block}
+  .sidebar{display:block!important;width:100%;min-width:0;height:auto;max-height:none;position:sticky;top:0;z-index:50;border-right:none;border-bottom:1px solid var(--border2);box-shadow:0 18px 42px rgba(0,0,0,.18);overflow:visible;background:var(--surface)}
+  .sidebar-brand{display:none}
+  .desktop-nav{display:none}
+  .mobile-nav{display:block}
+  .sidebar-footer{display:none}
+  .main{width:100%;padding:22px 14px 34px;max-width:100%}
+  .mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch}
+  .mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;white-space:nowrap}
+  .mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff}
+  .mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch}
+  .mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap}
+  .mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38)}
+  .hero{margin-bottom:38px;padding-bottom:30px}
+  .hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start}
+  .creator-card{grid-column:1;grid-row:1;padding:0;border:none;background:transparent;box-shadow:none}
+  .creator-card:hover{transform:none;border:none;background:transparent}
+  .creator-img{width:64px;height:80px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28)}
+  .creator-name,.creator-role,.creator-link{display:none}
+  .hero-copy{grid-column:2;grid-row:1}
+  .hero-kicker{font-size:10px;margin-bottom:10px}
+  .hero-title{font-size:32px}
+  .hero-description{font-size:14px}
+  .hero-pills{gap:7px;margin-top:16px}
+  .hero-pill{font-size:11.5px;padding:4px 10px}
+  .section-title{font-size:25px}
+  .section-desc{font-size:14px}
+  .division{scroll-margin-top:118px}
+  .card-hd,.card-header{padding:18px 16px 15px}
+  .card-ico,.card-icon{width:38px;height:38px}
+  .ctitle,.card-title{font-size:18px}
+  .tabs,.tab-bar{display:flex;overflow-x:auto;gap:7px;padding:9px 12px}
+  .tab{flex:0 0 auto;padding:8px 11px;font-size:12px}
+  .tab-pane,.tab-content{padding:16px}
+  .sd-grid{grid-template-columns:1fr}
+  .sd-block[style*="grid-column"]{grid-column:auto!important}
+  .tbl{min-width:620px}
+}
+@media(max-width:430px){
+  .hero-inner{grid-template-columns:66px minmax(0,1fr);gap:12px}
+  .creator-img{width:58px;height:72px}
+  .hero-title{font-size:28px}
+  .section-title{font-size:23px}
+}
+
+
+
+/* Forms & Imports specific components */
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.sec-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px}
+.sec-title em{font-style:italic;color:var(--purple)}
+.sec-title.t em{color:var(--teal)}
+.sec-lead{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px}
+.chip.b,.hero-pill.b{border-color:rgba(96,165,250,.3);color:var(--blue);background:var(--blue-bg)}
+.card-ico.b,.card-icon.b{background:var(--blue-bg)}
+.tag.b{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,.2)}
+.pane{display:none;padding:26px}.pane.on{display:block}
+code{font-family:var(--font-mono);font-size:12px;color:var(--blue);background:var(--blue-bg);padding:2px 6px;border-radius:4px}
+code.t{color:var(--teal-light);background:var(--teal-bg)}
+.form-anatomy{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;background:var(--surface)}
+.fa-item{padding:14px 16px;border-bottom:1px solid var(--border)}
+.fa-item:nth-child(odd){border-right:1px solid var(--border)}
+.fa-item:nth-last-child(-n+2){border-bottom:none}
+.fa-name{font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:4px}
+.fa-desc{font-size:13px;color:var(--soft);line-height:1.65}
+.csv-example{font-family:var(--font-mono);font-size:12px;background:#07090d;color:#b7f5c2;padding:16px 18px;border-radius:8px;overflow-x:auto;margin-bottom:14px;line-height:1.9;border:1px solid var(--border)}
+.csv-header{color:var(--teal-light)}
+.ft-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:14px}
+.ft-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;transition:all .15s}
+.ft-card:hover{border-color:var(--border2);background:var(--surface3)}
+.ft-card.b{border-top:2px solid var(--blue)}
+.ft-card.t{border-top:2px solid var(--teal)}
+.ft-card.a{border-top:2px solid var(--amber)}
+.ft-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:4px}
+.ft-sub{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.ft-desc{font-size:13px;color:var(--soft);line-height:1.65}
+.ft-best{font-size:11.5px;color:var(--blue);margin-top:8px;font-weight:500}.ft-best.t{color:var(--teal-light)}.ft-best.a{color:var(--amber-light)}
+.overwrite-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;border:1px solid var(--border)}
+.ow-cell{background:var(--surface);padding:14px 16px}.ow-cell.header{background:var(--surface3);color:var(--text)}
+.ow-title{font-size:13px;font-weight:600;margin-bottom:4px}.ow-title.b{color:var(--blue)}.ow-title.t{color:var(--teal-light)}
+.ow-body{font-size:12.5px;color:var(--soft);line-height:1.65}
+.module-banner{padding:16px 22px;border-radius:10px;margin-bottom:24px;display:flex;align-items:center;gap:12px;border:1px solid var(--border)}
+.module-banner.forms{background:var(--blue-bg);border-left:4px solid var(--blue)}
+.module-banner.imports{background:var(--teal-bg);border-left:4px solid var(--teal)}
+.mb-label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}.mb-title{font-family:var(--font-display);font-size:18px;color:var(--text);font-style:italic}
+.psteps.t li::before{color:var(--teal-light);border-color:rgba(32,201,151,.2);background:var(--teal-bg)}
+@media(max-width:760px){
+ .form-anatomy{grid-template-columns:1fr}.fa-item:nth-child(odd){border-right:none}.fa-item:nth-last-child(-n+2){border-bottom:1px solid var(--border)}.fa-item:last-child{border-bottom:none}
+ .overwrite-grid{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr}.pane{padding:16px}.tabs{gap:7px;padding:9px 12px}.tab{flex:0 0 auto;padding:8px 11px;font-size:12px}
+}
+@media(max-width:430px){.hero-title{font-size:28px}.creator-img{width:58px;height:72px}.section-title,.sec-title{font-size:23px}}
+
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <a class="hubspot-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+        <span class="hubspot-text">HubSpot</span>
+        <div class="reference-note">For better references, visit hubspot.com</div>
+      </a>
+      <div class="guide-title">Forms &amp; Imports<br/>Complete Guide</div>
+      <div class="guide-desc">Data capture · Real-time forms · Bulk CSV imports · Admin workflows</div>
+    </div>
+
+    <div class="desktop-nav">
+      <div class="nav-group active-page open" data-page-group="forms">
+        <button class="nav-group-label page-tab" onclick="showPage('forms')"><span>Forms</span><span class="nav-arrow">›</span></button>
+        <div class="nav-page-items">
+          <button class="nav-item active" data-page="forms" data-target="forms-what" onclick="showDivision('forms','forms-what')"><span class="nav-dot purple"></span>What are forms?</button>
+          <button class="nav-item" data-page="forms" data-target="form-types" onclick="showDivision('forms','form-types')"><span class="nav-dot purple"></span>4 form types</button>
+          <button class="nav-item" data-page="forms" data-target="form-anatomy" onclick="showDivision('forms','form-anatomy')"><span class="nav-dot purple"></span>Form anatomy</button>
+          <button class="nav-item" data-page="forms" data-target="form-logic" onclick="showDivision('forms','form-logic')"><span class="nav-dot purple"></span>System logic</button>
+          <button class="nav-item" data-page="forms" data-target="form-setup" onclick="showDivision('forms','form-setup')"><span class="nav-dot purple"></span>Step-by-step setup</button>
+          <button class="nav-item" data-page="forms" data-target="form-workflow" onclick="showDivision('forms','form-workflow')"><span class="nav-dot purple"></span>Form → workflow chain</button>
+          <button class="nav-item" data-page="forms" data-target="form-mistakes" onclick="showDivision('forms','form-mistakes')"><span class="nav-dot purple"></span>Common mistakes</button>
+        </div>
+      </div>
+      <div class="nav-group" data-page-group="imports">
+        <button class="nav-group-label page-tab" onclick="showPage('imports')"><span>Imports</span><span class="nav-arrow">›</span></button>
+        <div class="nav-page-items">
+          <button class="nav-item" data-page="imports" data-target="import-what" onclick="showDivision('imports','import-what')"><span class="nav-dot teal"></span>What are imports?</button>
+          <button class="nav-item" data-page="imports" data-target="import-process" onclick="showDivision('imports','import-process')"><span class="nav-dot teal"></span>Import process</button>
+          <button class="nav-item" data-page="imports" data-target="import-rules" onclick="showDivision('imports','import-rules')"><span class="nav-dot teal"></span>Import rules</button>
+          <button class="nav-item" data-page="imports" data-target="import-overwrite" onclick="showDivision('imports','import-overwrite')"><span class="nav-dot teal"></span>Overwrite decision</button>
+          <button class="nav-item" data-page="imports" data-target="import-multi" onclick="showDivision('imports','import-multi')"><span class="nav-dot teal"></span>Multi-object imports</button>
+          <button class="nav-item" data-page="imports" data-target="import-best" onclick="showDivision('imports','import-best')"><span class="nav-dot teal"></span>Best practices</button>
+        </div>
+      </div>
+      <div class="nav-group" data-page-group="applied">
+        <button class="nav-group-label page-tab" onclick="showPage('applied')"><span>Applied Learning</span><span class="nav-arrow">›</span></button>
+        <div class="nav-page-items">
+          <button class="nav-item" data-page="applied" data-target="example" onclick="showDivision('applied','example')"><span class="nav-dot amber"></span>Real-world example</button>
+          <button class="nav-item" data-page="applied" data-target="cases" onclick="showDivision('applied','cases')"><span class="nav-dot amber"></span>Case studies</button>
+          <button class="nav-item" data-page="applied" data-target="practice" onclick="showDivision('applied','practice')"><span class="nav-dot amber"></span>Practice exercise</button>
+          <button class="nav-item" data-page="applied" data-target="interview" onclick="showDivision('applied','interview')"><span class="nav-dot amber"></span>Interview questions</button>
+          <button class="nav-item" data-page="applied" data-target="cheatsheet" onclick="showDivision('applied','cheatsheet')"><span class="nav-dot amber"></span>Cheatsheet</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-nav">
+      <div class="mobile-section-row">
+          <button class="mobile-section-btn active" data-page-group="forms" onclick="showPage('forms')">Forms</button>
+          <button class="mobile-section-btn" data-page-group="imports" onclick="showPage('imports')">Imports</button>
+          <button class="mobile-section-btn" data-page-group="applied" onclick="showPage('applied')">Applied Learning</button>
+      </div>
+      <div class="mobile-division-row" id="mobileDivisionRow"></div>
+    </div>
+
+    <div class="sidebar-footer">Click any section to explore · Cards expand on click</div>
+  </nav>
+
+  <main class="main">
+    <div class="hero" id="page-top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-kicker">HubSpot Admin · Module 6</div>
+          <h1 class="hero-title">Forms <span style="color:var(--muted)">&amp;</span><br/><em>Imports</em></h1>
+          <p class="hero-description">The two data intake mechanisms of HubSpot — real-time form submissions and bulk CSV imports. Configure, connect, govern, and keep CRM data clean from every source.</p>
+          <div class="hero-pills">
+              <span class="hero-pill p">4 form types</span>
+              <span class="hero-pill p">Form → workflow chain</span>
+              <span class="hero-pill t">Import rules</span>
+              <span class="hero-pill t">Overwrite logic</span>
+              <span class="hero-pill a">3 case studies</span>
+              <span class="hero-pill a">CSV hygiene guide</span>
+            </div>
+        </div>
+        <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+          <img class="creator-img" src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo"/>
+          <div class="creator-name">Naveed Abbas</div>
+          <div class="creator-role">CRM Administrator</div>
+          <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+        </a>
+      </div>
+    </div>
+
+      <section class="page-section section" id="page-forms" data-page="forms">
+<div class="sec division" data-division="forms-what" id="forms-what">
+<div class="sec-eye">Forms · 01</div>
+<div class="sec-title">What Are <em>Forms?</em></div>
+<p class="sec-lead">The front door of your CRM — a data collection tool that writes visitor information directly into HubSpot Contact records the moment they submit.</p>
+<div class="box why"><div class="bl">Core definition</div><p>A HubSpot Form is a web-based input tool that, when submitted, creates or updates a Contact record in your CRM automatically. Every field on the form maps to a Contact property. When a visitor submits their name, email, and company — those values land directly in the CRM with no manual entry, no spreadsheet, and no delay.</p></div>
+<h3>Why this replaced manual data entry</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Old way</th><th>HubSpot Forms way</th></tr></thead>
+<tbody>
+<tr><td>Visitor fills PDF or Google Form</td><td>Visitor fills HubSpot Form</td></tr>
+<tr><td>Someone copies data to a spreadsheet</td><td>Data writes directly to CRM instantly</td></tr>
+<tr><td>Admin imports spreadsheet</td><td>Contact created or updated automatically</td></tr>
+<tr><td>Rep sees lead 3–5 days later</td><td>Rep notified within seconds</td></tr>
+<tr><td>Lifecycle Stage not set</td><td>Lifecycle Stage auto-set to Lead</td></tr>
+<tr><td>No automation triggered</td><td>Workflow fires immediately on submit</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="form-types" id="form-types">
+<div class="sec-eye">Forms · 02</div>
+<div class="sec-title">The <em>4 Form Types</em></div>
+<p class="sec-lead">HubSpot offers four distinct form types — each designed for a different placement and user experience.</p>
+<div class="ft-grid">
+<div class="ft-card b">
+<div class="ft-name">Embedded form</div>
+<div class="ft-sub">Inline within page content</div>
+<div class="ft-desc">Sits directly inside your webpage — not a popup, not an overlay. The visitor sees it as part of the page content itself. This is the most common and least intrusive form type.</div>
+<div class="ft-best">Best for: landing pages, contact us pages, demo request pages</div>
+</div>
+<div class="ft-card t">
+<div class="ft-name">Popup form</div>
+<div class="ft-sub">Appears over page content</div>
+<div class="ft-desc">Appears as an overlay on top of the page. Can be triggered by: time spent on page, scroll depth, exit intent (when the mouse moves toward the browser close button), or button click.</div>
+<div class="ft-best t">Best for: lead generation, content upgrades, newsletter signups</div>
+</div>
+<div class="ft-card t">
+<div class="ft-name">Slide-in form</div>
+<div class="ft-sub">Slides in from page corner</div>
+<div class="ft-desc">Less disruptive than a full popup — appears as a panel that slides in from the bottom corner. Triggered by scroll depth (e.g. when the visitor reaches 50% of the page).</div>
+<div class="ft-best t">Best for: blog posts, long-form content, subtle newsletter capture</div>
+</div>
+<div class="ft-card a">
+<div class="ft-name">Standalone page</div>
+<div class="ft-sub">HubSpot-hosted page</div>
+<div class="ft-desc">A full page hosted by HubSpot — no website required. HubSpot generates a URL you can share directly. Useful for quick campaigns, event registrations, or teams without a CMS.</div>
+<div class="ft-best a">Best for: quick campaigns, events, teams without a website CMS</div>
+</div>
+</div>
+<div class="box tip"><div class="bl">Admin rule</div><p>All four types write to HubSpot exactly the same way — the form type only affects how and where it appears to visitors. Choose the type based on UX intent, not technical differences. An embedded form on a landing page converts higher than a popup because visitors arrived intending to learn more.</p></div>
+</div><div class="sec division division-hidden" data-division="form-anatomy" id="form-anatomy">
+<div class="sec-eye">Forms · 03</div>
+<div class="sec-title">Form <em>Anatomy</em></div>
+<p class="sec-lead">Every component of a HubSpot form — what it does and why it matters.</p>
+<div class="form-anatomy">
+<div class="fa-item"><div class="fa-name">Fields</div><div class="fa-desc">The input questions. Each maps to a Contact property. Adding a "Company Name" field maps to the <code>company</code> property. You can use any HubSpot property — default or custom — as a field.</div></div>
+<div class="fa-item"><div class="fa-name">Required fields</div><div class="fa-desc">Fields that cannot be left blank. Email is almost always required — it's the deduplication key. Each additional required field reduces completion rate by ~10–15%.</div></div>
+<div class="fa-item"><div class="fa-name">Progressive profiling</div><div class="fa-desc">Replaces already-answered fields with new questions for returning visitors. Sarah filled Name + Email on visit 1. On visit 2, she sees Company + Industry instead. Builds contact profiles over time without long forms.</div></div>
+<div class="fa-item"><div class="fa-name">Submit button text</div><div class="fa-desc">The action button copy. "Submit" underperforms. Action-specific copy converts better: "Download the guide," "Book my demo," "Get started free."</div></div>
+<div class="fa-item"><div class="fa-name">Thank you / redirect</div><div class="fa-desc">Post-submit behaviour. Either a thank you message appears in-place, or the visitor is redirected to a URL (thank you page, content download, booking calendar).</div></div>
+<div class="fa-item"><div class="fa-name">Notifications</div><div class="fa-desc">Who gets emailed when the form is submitted. Options: specific users, the contact's owner, or both. Build these for high-priority forms (demo request, pricing inquiry).</div></div>
+<div class="fa-item"><div class="fa-name">GDPR consent</div><div class="fa-desc">Explicit opt-in checkboxes for EU visitors. Required by GDPR before sending marketing emails. HubSpot has built-in consent options — always enable for EU-facing forms.</div></div>
+<div class="fa-item"><div class="fa-name">Pre-population</div><div class="fa-desc">For known (cookied) visitors, HubSpot pre-fills fields with data already in their Contact record. Reduces friction for returning visitors.</div></div>
+</div>
+</div><div class="sec division division-hidden" data-division="form-logic" id="form-logic">
+<div class="sec-eye">Forms · 04</div>
+<div class="sec-title">System <em>Logic</em></div>
+<p class="sec-lead">The exact sequence HubSpot executes when a form is submitted — understanding this prevents common admin mistakes.</p>
+<ol class="psteps">
+<li><strong>Email lookup:</strong> HubSpot checks the submitted email against all existing Contact records.</li>
+<li><strong>Create or update:</strong> If no match → create new Contact. If match → update existing Contact record.</li>
+<li><strong>Property mapping:</strong> Each form field value writes to its mapped Contact property. Last write wins — the form value overwrites any previous value in that property.</li>
+<li><strong>Lifecycle Stage auto-set:</strong> If the Contact's Lifecycle Stage is currently blank → automatically set to Lead. If already set to a later stage (MQL, SQL, Customer) → not changed.</li>
+<li><strong>Form submission logged:</strong> A "Form submission" activity is logged on the Contact record with timestamp, form name, and field values.</li>
+<li><strong>Workflows triggered:</strong> Any workflow with "Contact submits [this form]" as an enrollment trigger fires immediately.</li>
+<li><strong>Thank you action:</strong> Display the thank you message or redirect the visitor to the configured URL.</li>
+<li><strong>Notification sent:</strong> Configured notification emails sent to specified users or owners.</li>
+<li><strong>Analytics updated:</strong> Form views, submissions, and conversion rate updated in HubSpot analytics.</li>
+<li><strong>Cookie set:</strong> If the visitor isn't cookied yet, HubSpot sets a tracking cookie — future visits from this browser are attributed to this contact.</li>
+</ol>
+<div class="box warn"><div class="bl">Critical — last write wins</div><p>When a form writes to a property, it overwrites whatever was there before. If a rep manually set a contact's Industry to "SaaS" and that contact then fills a form with an Industry field — the form's value wins. Design your forms with this in mind. Only add fields for properties you genuinely want the visitor to set or update.</p></div>
+</div><div class="sec division division-hidden" data-division="form-setup" id="form-setup">
+<div class="sec-eye">Forms · 05</div>
+<div class="sec-title">Step-by-Step <em>Setup</em></div>
+<div class="box tip"><div class="bl">Path in HubSpot</div><p>Marketing → Lead Capture → Forms → Create form</p></div>
+<ol class="psteps">
+<li><strong>Choose form type</strong> — Embedded, Popup, Slide-in, or Standalone. Based on placement intent, not technical preference.</li>
+<li><strong>Name the form descriptively</strong> — "Demo Request — Homepage Hero" tells you more than "Contact Form 3." Name = page + purpose + position.</li>
+<li><strong>Add fields</strong> — Drag from the left panel. Each field = one Contact property. Start with Email (required), then add only what you genuinely need to take action.</li>
+<li><strong>Configure each field</strong> — Required vs optional. Placeholder text. For dropdowns: options come from the property's configured values — no custom options here.</li>
+<li><strong>Set submit button text</strong> — Replace "Submit" with action-specific copy: "Book my demo," "Download the guide."</li>
+<li><strong>Configure what happens after submit</strong> — Options → "After submission." Choose: display a thank you message, or redirect to a URL.</li>
+<li><strong>Set notifications</strong> — Options → "Send notifications to." Add users who should receive an alert on submission.</li>
+<li><strong>Enable GDPR options</strong> — If applicable. Options → "GDPR options." Enable explicit consent checkboxes and link your privacy policy.</li>
+<li><strong>Publish</strong> — Click Publish. For external websites: copy the embed code (JavaScript snippet) and paste into your site. For HubSpot CMS pages: drag the Form module onto the page and select this form.</li>
+<li><strong>Test it yourself</strong> — Submit the form as a fake contact. Check: did HubSpot create the Contact? Did all fields map correctly? Did the workflow fire? Did you receive the notification?</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="form-workflow" id="form-workflow">
+<div class="sec-eye">Forms · 06</div>
+<div class="sec-title">Form → Workflow <em>Connection</em></div>
+<p class="sec-lead">A form alone captures data. A form connected to a workflow takes action on that data automatically.</p>
+<p>In a workflow, the enrollment trigger can be set to: "Contact submits a specific form" or "Contact submits any form." The moment a visitor submits, the workflow fires and all configured actions execute in sequence — no human needed.</p>
+<div class="box why"><div class="bl">Standard actions to build on every demo request form</div>
+<p>Set Lifecycle Stage = Lead → Set Lead Status = New → Send confirmation email to contact → Send internal notification to SDR → Create task: "Follow up on demo request from [contact name]" → Enrol in lead nurture email sequence</p>
+</div>
+<h3>Form-based workflow enrollment triggers</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Trigger option</th><th>When to use</th><th>Admin note</th></tr></thead>
+<tbody>
+<tr><td>Submits specific form</td><td>When you want different automations per form</td><td>Most common. Build one workflow per key form.</td></tr>
+<tr><td>Submits any form on specific page</td><td>When all forms on a page should trigger the same action</td><td>Useful for pages with multiple forms</td></tr>
+<tr><td>Submits any form</td><td>Universal actions for all lead captures</td><td>Use for broad actions only — avoid over-triggering</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="form-mistakes" id="form-mistakes">
+<div class="sec-eye">Forms · 07</div>
+<div class="sec-title">Common <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — Wrong field type mapping</div>A text input mapped to a Number property lets visitors type "about 50 employees" — the property gets a string, breaks numeric filters, and is useless in reports. Match field types to property types before publishing.</li>
+<li><div class="mt">02 — Too many required fields</div>Every required field reduces completion rate by 10–15%. Only require Email and one or two genuinely needed fields. Everything else = optional.</li>
+<li><div class="mt">03 — Generic submit button copy</div>"Submit" consistently underperforms action-specific copy. Always use verb + value: "Get my report," "Book my call," "Start free trial."</li>
+<li><div class="mt">04 — Not testing before launch</div>Fill the form yourself after publishing. Verify the Contact record, check field mappings, confirm the workflow fired, check the notification arrived. 10 minutes of testing prevents hours of cleanup.</li>
+<li><div class="mt">05 — No GDPR consent for EU audiences</div>If your form is seen by EU visitors and you plan to email them, not having explicit consent is a legal compliance issue. Enable HubSpot's GDPR options for all forms targeting European markets.</li>
+<li><div class="mt">06 — Naming forms generically</div>"Form 1," "Contact Form," "New form" — six months later nobody knows what any of these are for. Always name with: page + purpose + date. "Demo Request — Pricing Page — Q4 2024."</li>
+</ul>
+</div>
+      </section>
+      <section class="page-section section page-hidden" id="page-imports" data-page="imports">
+<div class="sec division division-hidden" data-division="import-what" id="import-what">
+<div class="sec-eye">Imports · 08</div>
+<div class="sec-title t">What Are <em>Imports?</em></div>
+<p class="sec-lead">The loading dock of your CRM — bulk uploading Contacts, Companies, or Deals from a CSV spreadsheet into HubSpot in one operation.</p>
+<div class="box tip"><div class="bl">Core definition</div><p>An Import is how you get large amounts of existing data into HubSpot at once — uploading a CSV spreadsheet of records that live outside HubSpot and need to be brought in. While forms capture data one visitor at a time in real time, imports handle hundreds or thousands of records in a single batch operation.</p></div>
+<h3>When to use imports</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Scenario</th><th>What you're importing</th></tr></thead>
+<tbody>
+<tr><td>Migrating from another CRM (Salesforce, Pipedrive)</td><td>All existing contacts, companies, and deals</td></tr>
+<tr><td>Trade show / conference — collected business cards</td><td>New contacts from the event</td></tr>
+<tr><td>Bulk property update — updating phone numbers or industries</td><td>Updated values for existing contacts</td></tr>
+<tr><td>Historical deal data for reporting</td><td>Past deals to populate pipeline analytics</td></tr>
+<tr><td>Enriching contacts with data from an external tool</td><td>Additional property values (revenue, employee count)</td></tr>
+<tr><td>Re-importing corrected data after an error</td><td>Fixed version of a previous import</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="import-process" id="import-process">
+<div class="sec-eye">Imports · 09</div>
+<div class="sec-title t">The Import <em>Process</em></div>
+<div class="box tip"><div class="bl">Path in HubSpot</div><p>Contacts → Import (top right button) → Start an import</p></div>
+<ol class="psteps t">
+<li><strong>Prepare your CSV file</strong> — Clean in Excel or Google Sheets first. Column headers in row 1. One record per row. No merged cells. Email column present for contacts. Values match HubSpot property types exactly.</li>
+<li><strong>Choose object type</strong> — Contacts, Companies, Deals, Tickets, or a combination. Multi-object imports (Contacts + Companies) auto-associate records when domain columns are included.</li>
+<li><strong>Upload the file</strong> — Drag or select your CSV. HubSpot reads the headers and sample rows.</li>
+<li><strong>Map columns to properties</strong> — HubSpot presents each column and lets you match it to a HubSpot property. Unmapped columns are skipped. You can create a new custom property on the spot if needed.</li>
+<li><strong>Choose overwrite behaviour</strong> — This is the most consequential decision. Overwrite all = new values replace existing ones. Preserve existing = only fill blank fields. Choose based on what you know about the existing data. See the Overwrite section below.</li>
+<li><strong>Enable "Add to static list"</strong> — Always check this option. HubSpot creates a static list of everyone imported — enabling targeted follow-up and providing a rollback mechanism.</li>
+<li><strong>Review the import summary</strong> — HubSpot shows: records to be created, records to be updated, records with errors. Fix errors before proceeding.</li>
+<li><strong>Start import</strong> — HubSpot processes the file. For large imports (10k+ records) this takes several minutes.</li>
+<li><strong>Review results</strong> — HubSpot emails you when complete with a summary. Download the error file, fix failed rows, and re-import the errors as a separate file.</li>
+<li><strong>Post-import verification</strong> — Spot-check 10–15 records. Did fields map correctly? Did lifecycle stages set? Are companies associated? Run a quick data quality check.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="import-rules" id="import-rules">
+<div class="sec-eye">Imports · 10</div>
+<div class="sec-title t">Import <em>Rules</em> &amp; CSV Hygiene</div>
+<p class="sec-lead">The rules HubSpot uses during imports — and the CSV requirements that prevent errors before they happen.</p>
+<h3>Three core import rules</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Rule</th><th>What it means</th><th>Admin implication</th></tr></thead>
+<tbody>
+<tr><td><strong>Email = deduplication key</strong></td><td>Same email already in CRM → update that contact. No email → always creates new.</td><td>Always include an email column. Contacts without email cannot be deduplicated and may create duplicates.</td></tr>
+<tr><td><strong>Dropdown values must match exactly</strong></td><td>If your Industry field has "Software as a Service (SaaS)" and your CSV has "SaaS" — it won't map.</td><td>Export your HubSpot dropdown values before preparing your CSV. Match character-for-character.</td></tr>
+<tr><td><strong>Boolean fields: true or false only</strong></td><td>Single checkbox properties only accept "true" or "false." Not "yes," "no," "1," or "0."</td><td>Update your CSV to use true/false for any checkbox property columns before importing.</td></tr>
+</tbody>
+</table></div>
+<h3>CSV preparation checklist</h3>
+<div class="csv-example">
+<span class="csv-header">First Name,Last Name,Email,Company Name,Company Domain,Lifecycle Stage,Industry,Phone</span>
+Sarah,Khan,sarah@techcorp.com,TechCorp,techcorp.com,Lead,Technology,+1 415 555 0172
+Ahmed,Ali,ahmed@globalco.com,Global Co,globalco.com,Customer,Financial Services,+44 20 7946 0958</div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Rule</th><th>Correct</th><th>Incorrect — causes errors</th></tr></thead>
+<tbody>
+<tr><td>Column headers</td><td>Row 1 only, plain text</td><td>Multiple header rows, merged cells</td></tr>
+<tr><td>Dates</td><td>MM/DD/YYYY or YYYY-MM-DD</td><td>"Jan 15, 2024" or "15/01/2024"</td></tr>
+<tr><td>Currency / numbers</td><td>12500 or 12500.00</td><td>$12,500 or "12,500 USD"</td></tr>
+<tr><td>Checkboxes</td><td>true or false</td><td>Yes, No, 1, 0, TRUE, FALSE</td></tr>
+<tr><td>Phone numbers</td><td>+1 415 555 0172</td><td>Inconsistent formats within same column</td></tr>
+<tr><td>Encoding</td><td>UTF-8</td><td>Windows-1252 (breaks special characters)</td></tr>
+<tr><td>Formulas</td><td>Values only (copy → paste special → values)</td><td>Any Excel formula (=SUM, =VLOOKUP)</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="import-overwrite" id="import-overwrite">
+<div class="sec-eye">Imports · 11</div>
+<div class="sec-title t">The Overwrite <em>Decision</em></div>
+<p class="sec-lead">The most consequential choice in any import — getting this wrong silently corrupts your CRM data.</p>
+<div class="overwrite-grid">
+<div class="ow-cell header"><div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(246,244,239,0.5);margin-bottom:3px">Option</div><div style="font-size:13px;font-weight:500">Overwrite all property values</div></div>
+<div class="ow-cell header"><div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(246,244,239,0.5);margin-bottom:3px">Option</div><div style="font-size:13px;font-weight:500">Don't overwrite existing values</div></div>
+<div class="ow-cell"><div class="ow-title b">What it does</div><div class="ow-body">Import values replace whatever is currently in the property — even if the field already has data.</div></div>
+<div class="ow-cell"><div class="ow-title t">What it does</div><div class="ow-body">Import values only fill properties that are currently blank. Existing data is never overwritten.</div></div>
+<div class="ow-cell"><div class="ow-title b">Use when</div><div class="ow-body">First-time import with no existing data · You're correcting bad existing data · Updating a specific property in bulk · Migrating from another CRM as source of truth</div></div>
+<div class="ow-cell"><div class="ow-title t">Use when</div><div class="ow-body">Enriching existing contacts with missing data · Reps have manually corrected some records · Importing from a lower-quality data source · You want to preserve any manually-set values</div></div>
+</div>
+<div class="box amber"><div class="bl">Admin rule — test first, always</div><p>Import 10 records with your chosen overwrite setting. Check those 10 records in HubSpot. Verify field values, associations, and lifecycle stages. Only proceed with the full import if the test looks correct. Ten minutes of testing prevents hours of cleanup on thousands of records.</p></div>
+</div><div class="sec division division-hidden" data-division="import-multi" id="import-multi">
+<div class="sec-eye">Imports · 12</div>
+<div class="sec-title t">Multi-Object <em>Imports</em></div>
+<p class="sec-lead">Import Contacts and Companies in the same file — HubSpot auto-associates them, saving hours of manual work.</p>
+<p>When your CSV includes both Contact-level columns (First Name, Email) and Company-level columns (Company Name, Domain), HubSpot can create both types of records and link them in a single import. The key: include the <code class="t">Company Domain Name</code> column — HubSpot uses domain as the Company deduplication key.</p>
+<div class="csv-example">
+<span class="csv-header">First Name,Last Name,Email,Job Title,Company Name,Company Domain,Industry,Employees</span>
+Sarah,Khan,sarah@techcorp.com,VP Operations,TechCorp,techcorp.com,Technology,250
+Ahmed,Ali,ahmed@techcorp.com,CTO,TechCorp,techcorp.com,Technology,250
+Omar,Farooq,omar@globalco.com,CEO,Global Co,globalco.com,Finance,85</div>
+<p>Sarah and Ahmed share the same domain (techcorp.com) — HubSpot creates one Company record for TechCorp and associates both contacts to it. Omar gets a separate Company record for Global Co. This is exactly how a CRM migration from Salesforce should be structured.</p>
+<div class="box tip"><div class="bl">What HubSpot does during multi-object import</div><p>Creates or finds Company by domain → Sets Company properties from Company columns → Creates or updates Contact by email → Sets Contact properties from Contact columns → Associates Contact to Company automatically</p></div>
+</div><div class="sec division division-hidden" data-division="import-best" id="import-best">
+<div class="sec-eye">Imports · 13</div>
+<div class="sec-title t">Import <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span>📋</span><div><strong>Always import to a static list.</strong> Check "Add imported contacts to a list." This gives you a rollback mechanism and a target audience for post-import follow-up campaigns.</div></li>
+<li><span>🔢</span><div><strong>Always include a Lifecycle Stage column.</strong> Every imported contact needs a stage. No exceptions. Import without stages = 2,000 contacts invisible to workflows and reports.</div></li>
+<li><span>🧹</span><div><strong>Clean data before import — not after.</strong> Fix formatting, remove duplicates, validate emails, and standardise dropdown values in Excel/Google Sheets before touching HubSpot. Post-import cleanup is 5× harder.</div></li>
+<li><span>🧪</span><div><strong>Test with 10 records first.</strong> Import a small batch, verify thoroughly, then proceed. This catches mapping errors before they scale to thousands of records.</div></li>
+<li><span>📂</span><div><strong>Download and fix error files.</strong> HubSpot generates an error report for every failed row. Download it, fix the issues, and re-import just the failed rows as a separate file.</div></li>
+<li><span>📊</span><div><strong>Document every import.</strong> Keep a log: date, who imported, what file, how many records, overwrite setting used, and the resulting static list name. This is your audit trail.</div></li>
+<li><span>🚫</span><div><strong>Do not import purchased lists without checking compliance.</strong> Cold purchased contacts often violate GDPR, CAN-SPAM, and HubSpot's Terms of Service. At minimum: only import to leads who have a legitimate business reason to hear from you, and never send marketing emails without proper consent.</div></li>
+</ul>
+</div>
+      </section>
+      <section class="page-section section page-hidden" id="page-applied" data-page="applied">
+<div class="sec division division-hidden" data-division="example" id="example">
+<div class="sec-eye">Applied Learning · 14</div>
+<div class="sec-title">Real-World <em>Example</em></div>
+<p class="sec-lead">Forms and Imports working together in a complete CRM setup scenario.</p>
+<div class="box case"><div class="bl">The situation</div><p>A B2B SaaS startup is launching HubSpot. They have: 1,200 contacts from their old CRM (Salesforce export), 15 existing customers managed via Gmail, and a new website going live next week with a demo request form.</p></div>
+<h3>The admin's complete plan</h3>
+<ul class="prlist">
+<li><span>1.</span><div><strong>Import existing contacts from Salesforce.</strong> Clean the export: standardise fields, add Lifecycle Stage column (Lead for prospects, Customer for paying clients), validate emails. Import with "Preserve existing" overwrite setting. Import to static list: "Salesforce migration — [date]." This prevents any inadvertent overwriting of data that may already exist in HubSpot from previous form submissions.</div></li>
+<li><span>2.</span><div><strong>Import 15 existing customers separately.</strong> Separate file with Lifecycle Stage = Customer. HubSpot adds them to the [SUPPRESS] Customers list automatically via workflow. They won't receive any prospecting emails.</div></li>
+<li><span>3.</span><div><strong>Create the demo request form.</strong> Embedded form on the homepage hero section and pricing page. Fields: First Name, Last Name, Email (required), Company, Job Title, "What's your biggest challenge?" (dropdown). Submit button: "Book my demo." On submit: redirect to Calendly booking page.</div></li>
+<li><span>4.</span><div><strong>Connect form to workflow.</strong> Enrollment trigger: Contact submits "Demo Request" form. Actions: Set Lifecycle Stage = Lead → Set Lead Status = New → Send confirmation email → Notify SDR with contact details → Create task "Follow up in 2 hours."</div></li>
+</ul>
+<h3>The result</h3>
+<p>From day one, two data intake channels are live and connected to the same CRM: the import baseline (1,215 contacts, lifecycle stages set, customers suppressed) and the real-time form capture (every demo request lands in HubSpot in seconds, SDR notified instantly). The database is clean, categorised, and actionable from the first day of operation.</p>
+</div><div class="sec division division-hidden" data-division="cases" id="cases">
+<div class="sec-eye">Applied Learning · 15</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico b">📋</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — The import that overwrote 2,000 rep notes</div>
+<div class="csub">When "Overwrite all" is used on existing data</div>
+<div class="ctags"><span class="tag b">Import</span><span class="tag n">B2B Agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c1p')">Problem</div><div class="tab" onclick="st(this,'c1s')">Solution</div><div class="tab" onclick="st(this,'c1r')">Outcome</div></div>
+<div class="pane on" id="c1p"><div class="box case"><div class="bl">Problem</div><p>A B2B agency's new admin wanted to update industry values for 2,000 contacts by importing a cleaned spreadsheet. They chose "Overwrite all property values" without realising the import file had more columns than just Industry — it also had Lifecycle Stage, Lead Status, and Notes columns from the original export. The overwrite set every contact's Lifecycle Stage back to "Lead" (including 200 existing customers) and blanked all manually-entered rep notes (which were in the wrong column format anyway). Sales team discovered it 3 days later when customers started receiving prospecting emails.</p></div></div>
+<div class="pane" id="c1s"><ul class="prlist">
+<li><span>1.</span><div>Immediately ran a workflow to restore Lifecycle Stage = Customer for all contacts with associated Closed Won deals — recovered 180 of 200 customers.</div></li>
+<li><span>2.</span><div>The remaining 20 were identified via the import static list (which had been created — the one thing done right) and manually corrected.</div></li>
+<li><span>3.</span><div>Rep notes were unrecoverable — the previous values were gone. This was the real loss.</div></li>
+<li><span>4.</span><div>Built new import SOP: when updating a specific property, only include that property column in the import file (plus email for deduplication). Never export and re-import all columns unless you mean to overwrite everything.</div></li>
+</ul></div>
+<div class="pane" id="c1r"><div class="box revops"><div class="bl">RevOps lesson</div><p>The static list saved 20 customers from continued suppression failure. Without it, identifying the affected contacts would have required a full manual review. Always create a list on import — it's your only rollback mechanism. And the admin SOP now reads: "For targeted updates, import only the email column + the property you're changing. Never include extra columns you don't intend to overwrite."</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">📝</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — Form field mapped to wrong property type</div>
+<div class="csub">When a text input maps to a number property</div>
+<div class="ctags"><span class="tag t">Forms</span><span class="tag n">SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c2p')">Problem</div><div class="tab" onclick="st(this,'c2s')">Solution</div><div class="tab" onclick="st(this,'c2r')">Outcome</div></div>
+<div class="pane on" id="c2p"><div class="box case"><div class="bl">Problem</div><p>A SaaS company built a demo request form with a "Number of employees" text input field, mapped to HubSpot's "Number of Employees" Number property. The form accepted free text — visitors entered values like "around 50," "50-100," "~200," and "we're a startup." 6 months and 800 form submissions later, the revenue team tried to filter "companies with more than 100 employees" and the report returned zero results. All 800 employee count values were stored as text strings — unusable for numeric filtering, scoring, or ICP analysis.</p></div></div>
+<div class="pane" id="c2s"><ul class="prlist">
+<li><span>1.</span><div>Changed the form field from text input to a dropdown with fixed ranges: "1–10," "11–50," "51–200," "201–500," "500+." Mapped to a new "Employee Range" dropdown property (not the Number property).</div></li>
+<li><span>2.</span><div>The original Number of Employees property was left for CRM enrichment tools (like HubSpot Insights) that write numeric values automatically.</div></li>
+<li><span>3.</span><div>Attempted to clean the 800 corrupted values — exported, manually categorised into ranges where possible, re-imported. Approximately 400 of 800 were salvageable. The rest were deleted.</div></li>
+</ul></div>
+<div class="pane" id="c2r"><div class="box revops"><div class="bl">RevOps lesson</div><p>Never use a freeform text input for any field you'll need to filter, segment, or calculate with. If visitors need to tell you their company size, give them a dropdown with ranges — you lose some granularity but gain 100% data quality. The admin rule: if it will ever be used in a filter, a score, or a report — it must be a structured field type (dropdown, number, checkbox).</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico a">🔄</div>
+<div style="flex:1">
+<div class="ctitle">Case 3 — Forms + imports as a full lead gen system</div>
+<div class="csub">How a conference team built a post-event pipeline machine</div>
+<div class="ctags"><span class="tag a">Forms + Imports</span><span class="tag n">B2B Events</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c3p')">Setup</div><div class="tab" onclick="st(this,'c3s')">Execution</div><div class="tab" onclick="st(this,'c3r')">Outcome</div></div>
+<div class="pane on" id="c3p"><p>A tech company attends 8 conferences per year, collecting 150–300 business cards at each. Previously: cards were manually typed into a spreadsheet, imported weeks later with no lifecycle stages set, and reps called them cold with no context. Open rate: 8%. Meeting rate: 1.2%.</p>
+<p>The admin redesigned the system. Before each conference: prepared a standard import template CSV with all required columns pre-formatted, a post-event email sequence pre-built in HubSpot, and a "Conference attendees" workflow ready to activate.</p></div>
+<div class="pane" id="c3s"><ul class="prlist">
+<li><span>1.</span><div>At each conference: used a QR code linking to a HubSpot Standalone form — "Great meeting you! Save your details for our follow-up." Collected 40% of contacts this way in real time.</div></li>
+<li><span>2.</span><div>Business cards from the other 60%: collected in a consistent format, entered into the prepared CSV template on the flight home (while context was fresh).</div></li>
+<li><span>3.</span><div>Import on Day 2 post-conference: all cards uploaded. Lifecycle Stage = Lead. Lead Status = New. A "Conference: [Event Name]" tag applied via import. Static list created per event.</div></li>
+<li><span>4.</span><div>Workflow automatically enrolled all imported contacts in a 3-email post-conference sequence: Day 1 "Great meeting you," Day 3 "Relevant resource," Day 7 "Book a 15-minute call."</div></li>
+</ul></div>
+<div class="pane" id="c3r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Open rate jumped from 8% to 41% — because emails went out within 24–48 hours while the conference interaction was still fresh. Meeting booking rate went from 1.2% to 9.8%. Average time from conference to first meeting: 4.2 days vs 3.1 weeks previously. The combination of real-time QR form capture + fast structured import + automated sequence turned conference attendance from a fuzzy activity into a measurable, repeatable pipeline source.</p></div></div>
+</div>
+</div>
+</div><div class="sec division division-hidden" data-division="practice" id="practice">
+<div class="sec-eye">Applied Learning · 16</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-lead">Do this in your free HubSpot sandbox — approximately 60 minutes total.</p>
+<h3>Part A — Build a form (30 min)</h3>
+<ol class="psteps">
+<li>Go to Marketing → Lead Capture → Forms → Create form. Choose Embedded type.</li>
+<li>Add fields: First Name, Last Name, Email (required), Company, Job Title, and a custom dropdown field called "What best describes you?" (Options: Founder / Executive, Manager / Director, Individual Contributor, Student / Researcher).</li>
+<li>Set submit button text to "Get in touch" (not Submit).</li>
+<li>Set "After submission" to display a thank you message: "Thanks! We'll be in touch within 24 hours."</li>
+<li>Publish the form. Copy the share link and open it in a new browser tab.</li>
+<li>Fill it out with fake data and submit.</li>
+<li>Go to Contacts and find the record that was just created. Verify all fields mapped correctly. Check the "Form submissions" activity in the timeline.</li>
+</ol>
+<h3>Part B — Create a form workflow (15 min)</h3>
+<ol class="psteps t">
+<li>Go to Automation → Workflows → Create workflow → Contact-based.</li>
+<li>Set enrollment trigger: Contact submits form → choose your newly created form.</li>
+<li>Add actions: (1) Set Lifecycle Stage = Lead, (2) Create task for owner: "Follow up with {{contact.firstname}} from form submission."</li>
+<li>Activate the workflow. Submit the form again with a different email. Check the new contact — did the workflow fire? Is there a task created?</li>
+</ol>
+<h3>Part C — Do a test import (15 min)</h3>
+<ol class="psteps t">
+<li>Create a CSV file in Google Sheets with 5 fake contacts. Columns: First Name, Last Name, Email, Company Name, Lifecycle Stage (set to Lead for all), Lead Status (set to New).</li>
+<li>Go to Contacts → Import → Start an import.</li>
+<li>Upload your CSV. Map all columns. Choose "Don't overwrite existing values."</li>
+<li>Check "Add imported contacts to a static list." Name it "Test import — [today's date]."</li>
+<li>Complete the import. Check the 5 new contacts. Verify lifecycle stage = Lead. Find the static list and confirm all 5 are in it.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="interview" id="interview">
+<div class="sec-eye">Applied Learning · 17</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"What happens when a form submission email address matches an existing contact in HubSpot?"</div>
+<div class="iq-a">HubSpot uses email address as the deduplication key for contacts. If the submitted email matches an existing contact, HubSpot updates that contact's record with the new form field values rather than creating a duplicate. This is the "last write wins" rule — the form values overwrite whatever was previously in those mapped properties. This is why admins need to think carefully about which properties their forms are writing to. If a rep has manually set a contact's Industry to "SaaS" and that contact fills a form with an Industry dropdown, the form's value replaces the rep's. For properties where you want to protect existing values, you'd use workflow "don't overwrite" logic downstream rather than relying on the form's default behaviour.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"Walk me through how you'd import 5,000 contacts from a trade show CSV into HubSpot."</div>
+<div class="iq-a">Before touching HubSpot, I'd clean the CSV in Excel: ensure column headers are in row 1 only, standardise date formats, remove any Excel formulas and replace with values, validate email addresses, and check that any dropdown field values like Industry or Country exactly match HubSpot's configured options — case-sensitive, character-for-character. I'd add a Lifecycle Stage column set to Lead for everyone — no contact enters without a stage. Then I'd test with 10 records first, choosing "Don't overwrite existing values" since these are new contacts who may have previously submitted forms. I'd check those 10 records thoroughly: field mapping, lifecycle stage, any unintended associations. If correct, I'd run the full import with one non-negotiable option: "Add imported contacts to a static list." That list gives me a rollback mechanism and an audience for the post-event welcome sequence. After import, I'd download the error report, fix failed rows, and re-import the errors as a separate file.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"When should you use 'Overwrite all property values' vs 'Don't overwrite' on an import?"</div>
+<div class="iq-a">The choice depends on what you know about the existing data quality. Overwrite all is correct when: you're doing a first-time import with no existing data, you're intentionally correcting bad existing values like wrong industry names, or the import file is the authoritative source of truth and existing values are known to be stale. Don't overwrite is correct when: you're enriching existing contacts by filling in missing properties, reps have manually corrected data you might otherwise overwrite, or the import source is lower quality than what's already in the CRM. My default rule: if in doubt, choose Don't overwrite, and test on 10 records first regardless of which setting you use. The test step isn't optional — it's the only way to verify your field mapping is correct before it affects thousands of records.</div>
+</div>
+</div><div class="sec division division-hidden" data-division="cheatsheet" id="cheatsheet">
+<div class="sec-eye">Applied Learning · 18</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<h3>Forms</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What it does</td><td>Captures visitor data in real time and writes directly to Contact records</td></tr>
+<tr><td>4 types</td><td>Embedded (inline), Popup (overlay), Slide-in (corner), Standalone (HubSpot-hosted)</td></tr>
+<tr><td>Deduplication</td><td>Same email = update existing contact, not create duplicate</td></tr>
+<tr><td>Lifecycle Stage</td><td>Auto-sets to Lead on submission if currently blank</td></tr>
+<tr><td>Field mapping</td><td>Each field = one Contact property. Last write wins.</td></tr>
+<tr><td>Required fields</td><td>Email always. Keep others minimal — each reduces completion ~10–15%.</td></tr>
+<tr><td>Progressive profiling</td><td>Replaces already-answered fields with new questions (Pro+)</td></tr>
+<tr><td>Submit button</td><td>Always use action-specific copy — not "Submit"</td></tr>
+<tr><td>Workflow trigger</td><td>"Contact submits [form]" — fires instantly on submission</td></tr>
+<tr><td>GDPR</td><td>Enable consent options for EU audiences before launch</td></tr>
+<tr><td>Test rule</td><td>Always submit the form yourself and verify the Contact record before going live</td></tr>
+</tbody>
+</table></div>
+<h3 style="margin-top:24px">Imports</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What it does</td><td>Bulk loads contacts, companies, or deals from a CSV into HubSpot</td></tr>
+<tr><td>Deduplication key</td><td>Email — same email = update existing, not create duplicate</td></tr>
+<tr><td>Overwrite all</td><td>New values replace existing ones — use for corrections and first-time imports</td></tr>
+<tr><td>Don't overwrite</td><td>Only fills blank fields — use for enrichment and when existing data is trusted</td></tr>
+<tr><td>Always include</td><td>Email, Lifecycle Stage, and enable "Add to static list"</td></tr>
+<tr><td>Multi-object</td><td>Contacts + Companies in one file → auto-associated via Company Domain column</td></tr>
+<tr><td>CSV rules</td><td>Row 1 = headers only · Dates: MM/DD/YYYY · Numbers: digits only · Checkboxes: true/false</td></tr>
+<tr><td>Dropdown values</td><td>Must match HubSpot options exactly — export your values before preparing CSV</td></tr>
+<tr><td>Test rule</td><td>Import 10 records, verify thoroughly, then run full import</td></tr>
+<tr><td>Error file</td><td>Download after import, fix failed rows, re-import errors as separate file</td></tr>
+<tr><td>Static list</td><td>Always create — it's your only rollback mechanism</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps mindset on forms and imports</div><p>Forms and imports are your data intake architecture — the two front doors through which every piece of contact information enters your CRM. A RevOps practitioner designs both deliberately: forms with the right fields, the right field types, connected to the right workflows; imports with clean data, correct lifecycle stages, and a static list for every batch. The quality of your entire CRM — every report, every workflow, every forecast — is determined by how well-designed these intake mechanisms are. Garbage in, garbage out. The time to enforce data quality is at the point of entry, not during a painful cleanup six months later.</p></div>
+</div>
+      </section>
+  </main>
+</div>
+<script>
+
+const pageMap = {"forms": [{"id": "forms-what", "label": "What are forms?"}, {"id": "form-types", "label": "4 form types"}, {"id": "form-anatomy", "label": "Form anatomy"}, {"id": "form-logic", "label": "System logic"}, {"id": "form-setup", "label": "Step-by-step setup"}, {"id": "form-workflow", "label": "Form \u2192 workflow chain"}, {"id": "form-mistakes", "label": "Common mistakes"}], "imports": [{"id": "import-what", "label": "What are imports?"}, {"id": "import-process", "label": "Import process"}, {"id": "import-rules", "label": "Import rules"}, {"id": "import-overwrite", "label": "Overwrite decision"}, {"id": "import-multi", "label": "Multi-object imports"}, {"id": "import-best", "label": "Best practices"}], "applied": [{"id": "example", "label": "Real-world example"}, {"id": "cases", "label": "Case studies"}, {"id": "practice", "label": "Practice exercise"}, {"id": "interview", "label": "Interview questions"}, {"id": "cheatsheet", "label": "Cheatsheet"}]};
+let currentPage = 'forms';
+let currentDivision = 'forms-what';
+
+function getFirstDivision(page) {
+  return pageMap[page] && pageMap[page][0] ? pageMap[page][0].id : null;
+}
+
+function renderMobileDivisions(page, activeDivision) {
+  const row = document.getElementById('mobileDivisionRow');
+  if (!row || !pageMap[page]) return;
+  row.innerHTML = pageMap[page].map(item => `
+    <button class="mobile-division-btn ${item.id === activeDivision ? 'active' : ''}" data-page="${page}" data-target="${item.id}" onclick="showDivision('${page}','${item.id}')">${item.label}</button>
+  `).join('');
+}
+
+function showPage(page, division, shouldScroll = true) {
+  const targetDivision = division || getFirstDivision(page);
+  if (!targetDivision) return;
+  currentPage = page;
+  currentDivision = targetDivision;
+
+  document.querySelectorAll('.page-section').forEach(section => {
+    section.classList.toggle('page-hidden', section.dataset.page !== page);
+  });
+
+  document.querySelectorAll('.nav-group').forEach(group => {
+    const active = group.dataset.pageGroup === page;
+    group.classList.toggle('active-page', active);
+    group.classList.toggle('open', active);
+  });
+
+  document.querySelectorAll('.mobile-section-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pageGroup === page);
+  });
+
+  renderMobileDivisions(page, targetDivision);
+  showDivision(page, targetDivision, shouldScroll, true);
+}
+
+function showDivision(page, division, shouldScroll = true, pageAlreadyShown = false) {
+  if (!pageAlreadyShown && currentPage !== page) {
+    return showPage(page, division, shouldScroll);
+  }
+
+  currentPage = page;
+  currentDivision = division;
+
+  const pageSection = document.querySelector(`.page-section[data-page="${page}"]`);
+  if (!pageSection) return;
+
+  document.querySelectorAll('.page-section').forEach(section => {
+    section.classList.toggle('page-hidden', section.dataset.page !== page);
+  });
+
+  pageSection.querySelectorAll('.division').forEach(div => {
+    div.classList.toggle('division-hidden', div.dataset.division !== division);
+  });
+
+  document.querySelectorAll('.nav-group').forEach(group => {
+    const active = group.dataset.pageGroup === page;
+    group.classList.toggle('active-page', active);
+    group.classList.toggle('open', active);
+  });
+
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.page === page && item.dataset.target === division);
+  });
+
+  document.querySelectorAll('.mobile-section-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pageGroup === page);
+  });
+
+  document.querySelectorAll('.mobile-division-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.page === page && btn.dataset.target === division);
+  });
+
+  const selected = document.getElementById(division);
+  if (selected) {
+    const cards = selected.querySelectorAll(':scope > .card');
+    if (cards.length) {
+      cards.forEach((c, i) => c.classList.toggle('open', i === 0));
+    }
+    if (shouldScroll) selected.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+function jump(id) {
+  const pageEntry = Object.entries(pageMap).find(([page, items]) => items.some(item => item.id === id));
+  if (pageEntry) showDivision(pageEntry[0], id);
+}
+
+function tog(hd) {
+  const card = hd.closest('.card');
+  if (!card) return;
+  const wasOpen = card.classList.contains('open');
+  const scope = card.closest('.division') || card.parentElement;
+  scope.querySelectorAll('.card').forEach(c => { if (c !== card) c.classList.remove('open'); });
+  card.classList.toggle('open', !wasOpen);
+}
+
+function st(tab, pid) {
+  const body = tab.closest('.card-body') || tab.closest('.division') || document;
+  body.querySelectorAll('.tab').forEach(t => t.classList.remove('on','active'));
+  body.querySelectorAll('.pane,.tab-pane').forEach(p => p.classList.remove('on','active'));
+  tab.classList.add('on');
+  const pane = document.getElementById(pid);
+  if (pane) pane.classList.add('on');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderMobileDivisions(currentPage, currentDivision);
+  showPage('forms','forms-what',false);
+});
+
+</script>
+</body>
+</html>
