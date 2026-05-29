@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HubSpot Conversations — Complete Admin Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+
+
+
+:root{
+  --bg:#0c0e12;
+  --surface:#12151c;
+  --surface2:#181c26;
+  --surface3:#1e2230;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.11);
+  --text:#e4e6f0;
+  --muted:#6e7289;
+  --soft:#9da3bb;
+  --purple:#8b7ff5;
+  --purple-bg:rgba(139,127,245,0.10);
+  --purple-light:#b4abff;
+  --teal:#20c997;
+  --teal-bg:rgba(32,201,151,0.10);
+  --teal-light:#6ef5cc;
+  --amber:#f59e0b;
+  --amber-bg:rgba(245,158,11,0.10);
+  --amber-light:#fcd34d;
+  --orange:#ff5c35;
+  --orange-bg:rgba(255,92,53,0.10);
+  --orange-border:rgba(255,92,53,0.28);
+  --red:#f87171;
+  --red-bg:rgba(248,113,113,0.10);
+  --blue:#60a5fa;
+  --blue-bg:rgba(96,165,250,0.10);
+  --green:#4ade80;
+  --green-bg:rgba(74,222,128,0.10);
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'DM Sans',sans-serif;
+  --font-mono:'DM Mono',monospace;
+  --r:10px;
+  --r-sm:6px;
+  --r-lg:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75}
+button{font:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{
+  width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);
+  position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:20;
+  scrollbar-width:thin;scrollbar-color:var(--border2) transparent;
+}
+.sidebar-brand{padding:16px 16px 18px;border-bottom:1px solid var(--border)}
+.hubspot-brand{
+  display:block;text-decoration:none;color:inherit;padding:10px 11px;border-radius:10px;
+  border:1px solid rgba(255,92,53,.24);
+  background:linear-gradient(135deg,rgba(255,92,53,.10),rgba(255,255,255,.02));
+  transition:transform .18s,border-color .18s,background .18s;
+}
+.hubspot-brand:hover{transform:translateY(-1px);border-color:rgba(255,92,53,.45);background:linear-gradient(135deg,rgba(255,92,53,.15),rgba(255,255,255,.03))}
+.hubspot-text{display:inline-flex;align-items:center;color:var(--orange);font-weight:700;font-size:18px;letter-spacing:.2px}
+.reference-note{font-size:11px;color:var(--muted);margin-top:5px}
+.guide-title{font-family:var(--font-display);font-size:19px;color:var(--text);font-weight:500;line-height:1.25;margin-top:16px}
+.guide-desc{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.55}
+.desktop-nav{padding:14px 0 8px}
+.mobile-nav{display:none}
+.nav-group{margin-bottom:4px}
+.nav-group-label{
+  width:calc(100% - 20px);margin:0 10px 8px;padding:10px 13px;border-radius:10px;border:1px solid transparent;
+  background:transparent;color:var(--soft);cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  font-size:13.5px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;text-align:left;transition:all .15s;
+}
+.nav-group-label:hover{background:var(--surface2);border-color:var(--border2);color:var(--text)}
+.nav-group.active-page .nav-group-label{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.30)}
+.nav-arrow{font-size:18px;color:var(--muted);transition:transform .18s,color .18s;line-height:1}
+.nav-group.active-page .nav-arrow,.nav-group.open .nav-arrow{transform:rotate(90deg);color:var(--purple-light)}
+.nav-page-items{display:none;padding-bottom:8px}
+.nav-group.open .nav-page-items{display:block}
+.nav-item{
+  width:100%;display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;
+  font-size:13.4px;color:var(--muted);border:0;border-left:2px solid transparent;background:transparent;
+  text-align:left;cursor:pointer;transition:all .15s;
+}
+.nav-item:hover{color:var(--text);background:var(--surface2)}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple)}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.nav-dot.purple{background:var(--purple)}
+.nav-dot.teal{background:var(--teal)}
+.nav-dot.amber{background:var(--amber)}
+.sidebar-footer{margin-top:auto;padding:14px 16px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
+.main{flex:1;padding:52px 60px;max-width:920px;width:100%}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border)}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start}
+.creator-card{
+  grid-column:2;grid-row:1;display:block;text-decoration:none;color:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+  border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;
+  transition:transform .18s,border-color .18s,background .18s;
+}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,.45);background:linear-gradient(180deg,rgba(255,92,53,.08),rgba(139,127,245,.04))}
+.creator-img{width:100%;height:auto;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28);object-fit:cover}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text)}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:2px}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:5px}
+.hero-copy{grid-column:1;grid-row:1}
+.hero-kicker{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px}
+.hero-title{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px}
+.hero-title em{font-style:italic;color:var(--purple)}
+.hero-description{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-pill{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);color:var(--soft)}
+.hero-pill.p{border-color:rgba(139,127,245,.3);color:var(--purple-light);background:var(--purple-bg)}
+.hero-pill.t{border-color:rgba(32,201,151,.3);color:var(--teal-light);background:var(--teal-bg)}
+.hero-pill.a{border-color:rgba(245,158,11,.3);color:var(--amber-light);background:var(--amber-bg)}
+.page-hidden,.division-hidden{display:none!important}
+.section{margin-bottom:68px;scroll-margin-top:24px}
+.division{margin-bottom:68px;scroll-margin-top:24px}
+.section-eyebrow{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.section-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px}
+.section-title em{font-style:italic;color:var(--purple)}
+.section-desc{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px}
+h3{font-family:var(--font-display);font-size:17px;font-weight:500;color:var(--text);margin-bottom:12px;margin-top:22px}
+h3:first-child{margin-top:0}
+h4{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;margin-top:18px}
+p{color:var(--soft);margin-bottom:12px;font-size:14px;line-height:1.8}
+strong{color:var(--text);font-weight:500}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px}
+.tbl{width:100%;min-width:650px;border-collapse:collapse;font-size:13px;margin-bottom:0}
+.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2)}
+.tbl th{padding:9px 13px;text-align:left;font-family:var(--font-body);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:400}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,.015)}
+.mono{font-family:var(--font-mono);font-size:12px;color:var(--amber-light);background:var(--amber-bg);padding:2px 7px;border-radius:4px;white-space:nowrap}
+.mono.t{color:var(--teal-light);background:var(--teal-bg)}
+.box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid}
+.box p{margin:0;font-size:13.5px}
+.box p+p{margin-top:6px}
+.bl{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px}
+.box.why{border-color:var(--purple);background:var(--purple-bg)}
+.box.why .bl{color:var(--purple-light)}
+.box.tip{border-color:var(--teal);background:var(--teal-bg)}
+.box.tip .bl{color:var(--teal-light)}
+.box.warn{border-color:var(--red);background:var(--red-bg)}
+.box.warn .bl{color:var(--red)}
+.box.case{border-color:var(--blue);background:var(--blue-bg)}
+.box.case .bl{color:var(--blue)}
+.box.revops{border-color:var(--purple);background:linear-gradient(135deg,var(--purple-bg),var(--teal-bg))}
+.box.revops .bl{color:var(--purple-light)}
+.box.amber{border-color:var(--amber);background:var(--amber-bg)}
+.box.amber .bl{color:var(--amber-light)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.card-hd,.card-header{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.card-ico,.card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.card-ico.a,.card-icon.a{background:var(--amber-bg)}
+.card-ico.t,.card-icon.t{background:var(--teal-bg)}
+.card-ico.r,.card-icon.r{background:var(--red-bg)}
+.card-ico.p,.card-icon.p{background:var(--purple-bg)}
+.ctitle,.card-title{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2}
+.csub,.card-subtitle{font-size:12.5px;color:var(--muted);margin-top:4px}
+.ctags,.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.chev,.chevron{font-size:16px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0}
+.card.open .chev,.card.open .chevron{transform:rotate(90deg)}
+.card-body{display:none}
+.card.open .card-body{display:block}
+.tabs,.tab-bar{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;overflow-x:auto}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.tab:hover{color:var(--text)}
+.tab.on,.tab.active{color:var(--text);border-bottom-color:var(--purple)}
+.tab-pane,.tab-content{display:none;padding:26px}
+.tab-pane.on,.tab-content.active{display:block}
+.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px}
+.tag.a,.chip.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,.2)}
+.tag.t,.chip.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,.2)}
+.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.tag.g{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,.2)}
+.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,.2)}
+.tag.n,.chip.n{background:rgba(122,127,148,.08);color:var(--muted);border:1px solid var(--border)}
+.status-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px}
+.status-card{padding:14px;border:1px solid var(--border);border-radius:10px;background:var(--surface2);cursor:pointer;transition:all .15s}
+.status-card:hover{border-color:var(--border2);background:var(--surface3)}
+.status-card.act{border-color:var(--purple);background:var(--purple-bg)}
+.sc-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.status-card.act .sc-name{color:var(--purple-light)}
+.sc-hint{font-size:11.5px;color:var(--muted)}
+.sc-badge{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-top:7px}
+.sc-badge.rep{background:rgba(122,127,148,.08);color:var(--muted);border:1px solid var(--border)}
+.sc-badge.auto{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,.2)}
+.sc-badge.exit{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+.status-detail{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:22px;display:none;margin-bottom:14px;scroll-margin-top:120px}
+.status-detail.vis{display:block}
+.sd-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.sd-name{font-family:var(--font-display);font-size:22px;font-weight:500;font-style:italic;color:var(--text)}
+.sd-tag{font-size:12.5px;color:var(--muted);margin-top:3px}
+.sd-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sd-block{background:var(--surface2);border-radius:6px;padding:13px}
+.sd-label{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sd-block p{font-size:13px;color:var(--soft);margin:0;line-height:1.7}
+.sd-block ul{list-style:none;padding:0;margin:0}
+.sd-block li{font-size:13px;color:var(--soft);padding:2.5px 0;display:flex;gap:6px}
+.sd-block li::before{content:"→";color:var(--muted);flex-shrink:0}
+.sd-admin{margin-top:12px;padding:11px 15px;border-left:3px solid var(--amber);background:var(--amber-bg);font-size:13px;color:var(--soft);line-height:1.75}
+.sd-admin strong{color:var(--amber-light)}
+.sd-sdr{margin-top:8px;padding:9px 13px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--muted);font-style:italic}
+.psteps{list-style:none;padding:0;counter-reset:ps}
+.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft)}
+.psteps li:last-child{border-bottom:none}
+.psteps li::before{content:counter(ps,decimal-leading-zero);font-family:var(--font-mono);font-size:10px;color:var(--amber-light);border:1px solid rgba(245,158,11,.2);border-radius:4px;padding:2px 7px;flex-shrink:0;height:fit-content;margin-top:1px;background:var(--amber-bg)}
+.prlist{list-style:none;padding:0}
+.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft)}
+.prlist li:last-child{border-bottom:none}
+.mlist{list-style:none;padding:0}
+.mlist li{background:rgba(248,113,113,.04);border:1px solid rgba(248,113,113,.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft)}
+.mt{color:var(--red);font-weight:500;margin-bottom:4px;font-size:12.5px;font-family:var(--font-mono)}
+.wf{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.wf-t{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
+.wf-trigger{background:var(--purple-bg);border-left:3px solid var(--purple);padding:9px 13px;font-size:13px;color:var(--purple-light);margin-bottom:8px}
+.wf-actions{list-style:none;padding:0}
+.wf-actions li{display:flex;gap:9px;padding:7px 0;font-size:13px;color:var(--soft);border-bottom:1px solid var(--border)}
+.wf-actions li:last-child{border-bottom:none}
+.wf-actions li::before{content:"→";color:var(--teal);flex-shrink:0;font-weight:500}
+.iq{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:12px}
+.iq-q{font-family:var(--font-display);font-size:15px;color:var(--text);font-style:italic;margin-bottom:8px}
+.iq-a{font-size:13px;color:var(--muted);line-height:1.8}
+.reason-grid{display:grid;gap:10px;margin-bottom:14px}
+.reason-sec{background:var(--surface2);border-radius:6px;padding:14px;border:1px solid var(--border)}
+.reason-sec-t{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.reason-tags{display:flex;flex-wrap:wrap;gap:6px}
+.reason-tag{font-size:12.5px;padding:4px 11px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--soft)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@media(max-width:760px){
+  .layout{display:block}
+  .sidebar{display:block!important;width:100%;min-width:0;height:auto;max-height:none;position:sticky;top:0;z-index:50;border-right:none;border-bottom:1px solid var(--border2);box-shadow:0 18px 42px rgba(0,0,0,.18);overflow:visible;background:var(--surface)}
+  .sidebar-brand{display:none}
+  .desktop-nav{display:none}
+  .mobile-nav{display:block}
+  .sidebar-footer{display:none}
+  .main{width:100%;padding:22px 14px 34px;max-width:100%}
+  .mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch}
+  .mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;white-space:nowrap}
+  .mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff}
+  .mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch}
+  .mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap}
+  .mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38)}
+  .hero{margin-bottom:38px;padding-bottom:30px}
+  .hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start}
+  .creator-card{grid-column:1;grid-row:1;padding:0;border:none;background:transparent;box-shadow:none}
+  .creator-card:hover{transform:none;border:none;background:transparent}
+  .creator-img{width:64px;height:80px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28)}
+  .creator-name,.creator-role,.creator-link{display:none}
+  .hero-copy{grid-column:2;grid-row:1}
+  .hero-kicker{font-size:10px;margin-bottom:10px}
+  .hero-title{font-size:32px}
+  .hero-description{font-size:14px}
+  .hero-pills{gap:7px;margin-top:16px}
+  .hero-pill{font-size:11.5px;padding:4px 10px}
+  .section-title{font-size:25px}
+  .section-desc{font-size:14px}
+  .division{scroll-margin-top:118px}
+  .card-hd,.card-header{padding:18px 16px 15px}
+  .card-ico,.card-icon{width:38px;height:38px}
+  .ctitle,.card-title{font-size:18px}
+  .tabs,.tab-bar{display:flex;overflow-x:auto;gap:7px;padding:9px 12px}
+  .tab{flex:0 0 auto;padding:8px 11px;font-size:12px}
+  .tab-pane,.tab-content{padding:16px}
+  .sd-grid{grid-template-columns:1fr}
+  .sd-block[style*="grid-column"]{grid-column:auto!important}
+  .tbl{min-width:620px}
+}
+@media(max-width:430px){
+  .hero-inner{grid-template-columns:66px minmax(0,1fr);gap:12px}
+  .creator-img{width:58px;height:72px}
+  .hero-title{font-size:28px}
+  .section-title{font-size:23px}
+}
+
+
+
+/* Forms & Imports specific components */
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.sec-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px}
+.sec-title em{font-style:italic;color:var(--purple)}
+.sec-title.t em{color:var(--teal)}
+.sec-lead{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px}
+.chip.b,.hero-pill.b{border-color:rgba(96,165,250,.3);color:var(--blue);background:var(--blue-bg)}
+.card-ico.b,.card-icon.b{background:var(--blue-bg)}
+.tag.b{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,.2)}
+.pane{display:none;padding:26px}.pane.on{display:block}
+code{font-family:var(--font-mono);font-size:12px;color:var(--blue);background:var(--blue-bg);padding:2px 6px;border-radius:4px}
+code.t{color:var(--teal-light);background:var(--teal-bg)}
+.form-anatomy{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;background:var(--surface)}
+.fa-item{padding:14px 16px;border-bottom:1px solid var(--border)}
+.fa-item:nth-child(odd){border-right:1px solid var(--border)}
+.fa-item:nth-last-child(-n+2){border-bottom:none}
+.fa-name{font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:4px}
+.fa-desc{font-size:13px;color:var(--soft);line-height:1.65}
+.csv-example{font-family:var(--font-mono);font-size:12px;background:#07090d;color:#b7f5c2;padding:16px 18px;border-radius:8px;overflow-x:auto;margin-bottom:14px;line-height:1.9;border:1px solid var(--border)}
+.csv-header{color:var(--teal-light)}
+.ft-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:14px}
+.ft-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;transition:all .15s}
+.ft-card:hover{border-color:var(--border2);background:var(--surface3)}
+.ft-card.b{border-top:2px solid var(--blue)}
+.ft-card.t{border-top:2px solid var(--teal)}
+.ft-card.a{border-top:2px solid var(--amber)}
+.ft-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:4px}
+.ft-sub{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.ft-desc{font-size:13px;color:var(--soft);line-height:1.65}
+.ft-best{font-size:11.5px;color:var(--blue);margin-top:8px;font-weight:500}.ft-best.t{color:var(--teal-light)}.ft-best.a{color:var(--amber-light)}
+.overwrite-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;border:1px solid var(--border)}
+.ow-cell{background:var(--surface);padding:14px 16px}.ow-cell.header{background:var(--surface3);color:var(--text)}
+.ow-title{font-size:13px;font-weight:600;margin-bottom:4px}.ow-title.b{color:var(--blue)}.ow-title.t{color:var(--teal-light)}
+.ow-body{font-size:12.5px;color:var(--soft);line-height:1.65}
+.module-banner{padding:16px 22px;border-radius:10px;margin-bottom:24px;display:flex;align-items:center;gap:12px;border:1px solid var(--border)}
+.module-banner.forms{background:var(--blue-bg);border-left:4px solid var(--blue)}
+.module-banner.imports{background:var(--teal-bg);border-left:4px solid var(--teal)}
+.mb-label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}.mb-title{font-family:var(--font-display);font-size:18px;color:var(--text);font-style:italic}
+.psteps.t li::before{color:var(--teal-light);border-color:rgba(32,201,151,.2);background:var(--teal-bg)}
+@media(max-width:760px){
+ .form-anatomy{grid-template-columns:1fr}.fa-item:nth-child(odd){border-right:none}.fa-item:nth-last-child(-n+2){border-bottom:1px solid var(--border)}.fa-item:last-child{border-bottom:none}
+ .overwrite-grid{grid-template-columns:1fr}.ft-grid{grid-template-columns:1fr}.pane{padding:16px}.tabs{gap:7px;padding:9px 12px}.tab{flex:0 0 auto;padding:8px 11px;font-size:12px}
+}
+@media(max-width:430px){.hero-title{font-size:28px}.creator-img{width:58px;height:72px}.section-title,.sec-title{font-size:23px}}
+
+
+
+/* Conversations specific components */
+.hero-pill.p{border-color:rgba(139,127,245,.30);color:var(--purple-light);background:var(--purple-bg)}
+.hero-pill.t{border-color:rgba(32,201,151,.30);color:var(--teal-light);background:var(--teal-bg)}
+.hero-pill.n{border-color:var(--border2);color:var(--muted);background:rgba(122,127,148,.08)}
+
+.inbox-anatomy{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;background:var(--surface)}
+.ia-item{padding:14px 16px;border-bottom:1px solid var(--border);background:var(--surface)}
+.ia-item:nth-child(odd){border-right:1px solid var(--border)}
+.ia-item:nth-last-child(-n+2){border-bottom:none}
+.ia-name{font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:4px}
+.ia-desc{font-size:13px;color:var(--soft);line-height:1.65}
+
+.channel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:14px}
+.ch-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;transition:all .15s}
+.ch-card:hover{border-color:var(--border2);background:var(--surface3)}
+.ch-card.p{border-top:2px solid var(--purple)}.ch-card.t{border-top:2px solid var(--teal)}.ch-card.a{border-top:2px solid var(--amber)}.ch-card.b{border-top:2px solid var(--blue)}
+.ch-name{font-weight:600;font-size:14px;color:var(--text);margin-bottom:4px}.ch-sub{font-size:12px;color:var(--muted);margin-bottom:8px}.ch-desc{font-size:13px;color:var(--soft);line-height:1.6}
+.ch-best{font-size:11.5px;margin-top:8px;font-weight:500}.ch-best.p{color:var(--purple-light)}.ch-best.t{color:var(--teal-light)}.ch-best.a{color:var(--amber-light)}.ch-best.b{color:var(--blue)}
+
+.bot-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ba-item{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px 14px}
+.ba-name{font-weight:600;font-size:13px;color:var(--text);margin-bottom:3px}.ba-desc{font-size:12.5px;color:var(--soft);line-height:1.6}
+
+.status-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.status-pill{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:500}
+.status-pill.open{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,.2)}
+.status-pill.snoozed{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,.2)}
+.status-pill.closed{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,.2)}
+.status-dot{width:7px;height:7px;border-radius:50%}.status-dot.open{background:var(--blue)}.status-dot.snoozed{background:var(--amber)}.status-dot.closed{background:var(--teal)}
+
+.routing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:14px}
+.ro-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:13px 15px}
+.ro-title{font-weight:600;font-size:13px;color:var(--text);margin-bottom:4px}.ro-desc{font-size:12.5px;color:var(--soft);line-height:1.6}.ro-use{font-size:11.5px;color:var(--purple-light);margin-top:6px;font-weight:500}
+
+.scenario{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.sc-title{font-family:var(--font-display);font-size:16px;font-style:italic;color:var(--text);margin-bottom:12px}
+.steps{list-style:none;padding:0}.steps li{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft)}.steps li:last-child{border-bottom:none}
+.sn{font-family:var(--font-mono);font-size:10px;color:var(--muted);padding-top:2px;flex-shrink:0;width:28px}
+
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;border:1px solid var(--border)}
+.ba-cell{background:var(--surface);padding:16px}.ba-cell.h{background:var(--surface3);padding:10px 16px}
+.ba-head{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}.ba-label{font-size:13px;font-weight:600;color:var(--text)}
+.ba-item-list{list-style:none;padding:0}.ba-item-list li{font-size:13px;color:var(--soft);padding:5px 0;border-bottom:1px solid var(--border)}.ba-item-list li:last-child{border-bottom:none}
+.ba-item-list li.bad::before{content:"✗ ";color:var(--red)}.ba-item-list li.good::before{content:"✓ ";color:var(--teal)}
+
+@media(max-width:760px){
+  .inbox-anatomy{grid-template-columns:1fr}.ia-item:nth-child(odd){border-right:none}.ia-item:nth-last-child(-n+2){border-bottom:1px solid var(--border)}.ia-item:last-child{border-bottom:none}
+  .bot-actions,.ba-grid{grid-template-columns:1fr}.channel-grid,.routing-grid{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <a class="hubspot-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+        <span class="hubspot-text">HubSpot</span>
+        <div class="reference-note">For better references, visit hubspot.com</div>
+      </a>
+      <div class="guide-title">Conversations<br/>Complete Guide</div>
+      <div class="guide-desc">Unified inbox · Channels · Bots · CRM integration</div>
+    </div>
+
+    <div class="desktop-nav">
+      <div class="nav-group open active-page" data-page-group="foundation">
+  <button class="nav-group-label page-tab" onclick="showPage('foundation')"><span>Foundation</span><span class="nav-arrow">›</span></button>
+  <div class="nav-page-items"><button class="nav-item active" data-page="foundation" data-target="what" onclick="showDivision('foundation','what')"><span class="nav-dot purple"></span>What is Conversations?</button><button class="nav-item" data-page="foundation" data-target="concepts" onclick="showDivision('foundation','concepts')"><span class="nav-dot purple"></span>Core Concepts</button><button class="nav-item" data-page="foundation" data-target="channels" onclick="showDivision('foundation','channels')"><span class="nav-dot purple"></span>Channel Types</button><button class="nav-item" data-page="foundation" data-target="logic" onclick="showDivision('foundation','logic')"><span class="nav-dot purple"></span>System Logic</button><button class="nav-item" data-page="foundation" data-target="status" onclick="showDivision('foundation','status')"><span class="nav-dot purple"></span>Conversation Statuses</button></div>
+</div>
+<div class="nav-group" data-page-group="admin">
+  <button class="nav-group-label page-tab" onclick="showPage('admin')"><span>Admin Setup</span><span class="nav-arrow">›</span></button>
+  <div class="nav-page-items"><button class="nav-item" data-page="admin" data-target="inbox-anatomy" onclick="showDivision('admin','inbox-anatomy')"><span class="nav-dot teal"></span>Inbox Anatomy</button><button class="nav-item" data-page="admin" data-target="routing" onclick="showDivision('admin','routing')"><span class="nav-dot teal"></span>Routing Rules</button><button class="nav-item" data-page="admin" data-target="chatbot" onclick="showDivision('admin','chatbot')"><span class="nav-dot teal"></span>Chatbots</button><button class="nav-item" data-page="admin" data-target="setup" onclick="showDivision('admin','setup')"><span class="nav-dot teal"></span>Step-by-Step Setup</button><button class="nav-item" data-page="admin" data-target="tickets" onclick="showDivision('admin','tickets')"><span class="nav-dot teal"></span>Conversations + Tickets</button><button class="nav-item" data-page="admin" data-target="properties" onclick="showDivision('admin','properties')"><span class="nav-dot teal"></span>Conversation Properties</button></div>
+</div>
+<div class="nav-group" data-page-group="applied">
+  <button class="nav-group-label page-tab" onclick="showPage('applied')"><span>Applied Learning</span><span class="nav-arrow">›</span></button>
+  <div class="nav-page-items"><button class="nav-item" data-page="applied" data-target="example" onclick="showDivision('applied','example')"><span class="nav-dot amber"></span>Real-World Example</button><button class="nav-item" data-page="applied" data-target="cases" onclick="showDivision('applied','cases')"><span class="nav-dot amber"></span>Case Studies</button><button class="nav-item" data-page="applied" data-target="mistakes" onclick="showDivision('applied','mistakes')"><span class="nav-dot amber"></span>Common Mistakes</button><button class="nav-item" data-page="applied" data-target="best" onclick="showDivision('applied','best')"><span class="nav-dot amber"></span>Best Practices</button><button class="nav-item" data-page="applied" data-target="practice" onclick="showDivision('applied','practice')"><span class="nav-dot amber"></span>Practice Exercise</button><button class="nav-item" data-page="applied" data-target="interview" onclick="showDivision('applied','interview')"><span class="nav-dot amber"></span>Interview Questions</button><button class="nav-item" data-page="applied" data-target="cheatsheet" onclick="showDivision('applied','cheatsheet')"><span class="nav-dot amber"></span>Cheatsheet</button></div>
+</div>
+    </div>
+
+    <div class="mobile-nav">
+      <div class="mobile-section-row"><button class="mobile-section-btn active" data-page-group="foundation" onclick="showPage('foundation')">Foundation</button><button class="mobile-section-btn" data-page-group="admin" onclick="showPage('admin')">Admin Setup</button><button class="mobile-section-btn" data-page-group="applied" onclick="showPage('applied')">Applied Learning</button></div>
+      <div class="mobile-division-row" id="mobileDivisionRow"></div>
+    </div>
+
+    <div class="sidebar-footer">Click any section to explore · Cards expand on click</div>
+  </nav>
+
+  <main class="main">
+    <div class="hero" id="page-top">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-kicker">HubSpot Admin · Module 7</div>
+          <h1 class="hero-title">HubSpot<br/><em>Conversations</em></h1>
+          <p class="hero-description">The unified messaging hub — how to configure inboxes, connect channels, build chatbots, route conversations to the right people, and connect every message to your CRM.</p>
+          <div class="hero-pills">
+            <span class="hero-pill p">6 channel types</span>
+            <span class="hero-pill p">Inbox architecture</span>
+            <span class="hero-pill t">Chatbot builder</span>
+            <span class="hero-pill t">Routing rules</span>
+            <span class="hero-pill n">3 case studies</span>
+            <span class="hero-pill n">CRM integration</span>
+          </div>
+        </div>
+        <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+          <img class="creator-img" src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo"/>
+          <div class="creator-name">Naveed Abbas</div>
+          <div class="creator-role">CRM Administrator</div>
+          <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+        </a>
+      </div>
+    </div>
+
+    <section class="section" id="foundation" data-page="foundation">
+<div class="sec division" data-division="what" id="what">
+<div class="sec-eye">Foundation · 01</div>
+<div class="sec-title">What Is <em>Conversations?</em></div>
+<p class="sec-lead">A unified inbox where every customer message — regardless of channel — lands, gets routed, gets answered, and gets logged in your CRM.</p>
+<div class="box why"><div class="bl">Core definition</div><p><strong>HubSpot Conversations</strong> is the messaging layer of HubSpot — a shared team inbox that connects all of your communication channels (email, live chat, WhatsApp, Facebook Messenger) into one place, linked directly to your CRM. Every message creates a conversation thread associated to a Contact record. Every reply is logged. Every handoff is tracked.</p></div>
+<h3>The problem it solves</h3>
+<div class="ba-grid">
+<div class="ba-cell h"><div class="ba-head">Before Conversations</div><div class="ba-label">Scattered, invisible, untracked</div></div>
+<div class="ba-cell h"><div class="ba-head">With Conversations</div><div class="ba-label">Unified, connected, reportable</div></div>
+<div class="ba-cell">
+<ul class="ba-item-list">
+<li class="bad">Support emails buried in Gmail — invisible to CRM</li>
+<li class="bad">Chat conversations in Intercom — no CRM link</li>
+<li class="bad">Sales and CS using separate inboxes — no visibility</li>
+<li class="bad">No way to see who is handling a customer</li>
+<li class="bad">No audit trail of what was promised</li>
+<li class="bad">Repeat questions with no automation layer</li>
+</ul>
+</div>
+<div class="ba-cell">
+<ul class="ba-item-list">
+<li class="good">All emails land in a shared CRM-connected inbox</li>
+<li class="good">Live chat links directly to Contact records</li>
+<li class="good">One shared inbox both teams can access</li>
+<li class="good">Assignment and ownership visible to all teammates</li>
+<li class="good">Full conversation history on every Contact timeline</li>
+<li class="good">Chatbots handle common queries automatically 24/7</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sec division division-hidden" data-division="concepts" id="concepts">
+<div class="sec-eye">Foundation · 02</div>
+<div class="sec-title">Core <em>Concepts</em></div>
+<p class="sec-lead">Four terms that define the entire Conversations architecture — understand these before anything else.</p>
+<table class="tbl">
+<thead><tr><th>Concept</th><th>What it is</th><th>Analogy</th></tr></thead>
+<tbody>
+<tr><td><strong>Channel</strong></td><td>A connected communication source — an email address, website chat widget, WhatsApp account, or Facebook page. Set up once, routes messages into an inbox continuously.</td><td>The phone line that rings</td></tr>
+<tr><td><strong>Inbox</strong></td><td>A named container where conversations from one or more channels are collected and managed by a team. Each inbox has its own team members, routing rules, and settings.</td><td>The shared phone at the reception desk</td></tr>
+<tr><td><strong>Conversation</strong></td><td>A single thread of messages between your team and a contact. It belongs to an inbox, is assigned to an agent, has a status, and is linked to a Contact record.</td><td>One phone call from start to finish</td></tr>
+<tr><td><strong>Thread</strong></td><td>The individual messages within a conversation, sorted by time — every reply from your team and every message from the contact.</td><td>The words spoken during that call</td></tr>
+</tbody>
+</table>
+<div class="box why"><div class="bl">Admin mental model</div><p>Think of Conversations as a phone system for a company. <strong>Channels</strong> are the individual phone numbers. <strong>Inboxes</strong> are the departments those numbers route to. <strong>Conversations</strong> are individual calls that land in a department. <strong>Threads</strong> are the transcripts of those calls. Everything connects back to the CRM — so when you look up a Contact, you see every call they ever made, what was said, and who handled it.</p></div>
+</div>
+<div class="sec division division-hidden" data-division="channels" id="channels">
+<div class="sec-eye">Foundation · 03</div>
+<div class="sec-title">Channel <em>Types</em></div>
+<p class="sec-lead">Six types of channels you can connect to HubSpot Conversations — each with different setup requirements and use cases.</p>
+<div class="channel-grid">
+<div class="ch-card p">
+<div class="ch-name">Team email</div>
+<div class="ch-sub">Shared email address</div>
+<div class="ch-desc">Connect a shared email address (support@, sales@, info@) to HubSpot. All emails to that address land in the inbox. Replies come from the shared address, not personal accounts.</div>
+<div class="ch-best p">Best for: support tickets, inbound inquiries, sales follow-up</div>
+</div>
+<div class="ch-card t">
+<div class="ch-name">Live chat</div>
+<div class="ch-sub">Website chat widget</div>
+<div class="ch-desc">A chat bubble on your website. Visitors click it and chat with agents or a bot in real time. You control which pages show the widget and what triggers it to open.</div>
+<div class="ch-best t">Best for: lead qualification, real-time visitor support, demo booking</div>
+</div>
+<div class="ch-card t">
+<div class="ch-name">Facebook Messenger</div>
+<div class="ch-sub">Social messaging</div>
+<div class="ch-desc">Connect your company Facebook page. Direct messages sent to your Facebook page route into HubSpot. You manage and reply from HubSpot without visiting Facebook.</div>
+<div class="ch-best t">Best for: social DMs, marketing-driven inbound from Facebook ads</div>
+</div>
+<div class="ch-card a">
+<div class="ch-name">WhatsApp</div>
+<div class="ch-sub">WhatsApp Business</div>
+<div class="ch-desc">Connect a WhatsApp Business account. Customers message you on WhatsApp; your team manages replies in HubSpot. Requires a WhatsApp Business API number.</div>
+<div class="ch-best a">Best for: regions where WhatsApp is primary channel, customer service</div>
+</div>
+<div class="ch-card b">
+<div class="ch-name">Chatbot / bot</div>
+<div class="ch-sub">Automated first response</div>
+<div class="ch-desc">Runs on your website chat widget. Qualifies visitors, answers FAQs, collects contact info, and routes to humans when needed — all without a live agent.</div>
+<div class="ch-best b">Best for: 24/7 coverage, lead qualification, meeting booking, FAQ deflection</div>
+</div>
+<div class="ch-card p">
+<div class="ch-name">Calling</div>
+<div class="ch-sub">HubSpot calling integration</div>
+<div class="ch-desc">Phone calls made or received via HubSpot Calling. Call logs, recordings, and notes appear in the conversation thread linked to the Contact record.</div>
+<div class="ch-best p">Best for: sales teams logging calls alongside all other communication</div>
+</div>
+</div>
+<div class="box amber"><div class="bl">Admin rule — start simple</div><p>Don't connect all channels on day one. Start with the one your team uses most (usually team email or live chat). Get the routing, bot, and CRM integration right first. Add additional channels once the first is stable. Each new channel adds complexity — connection issues, new routing rules, new notifications to configure.</p></div>
+</div>
+<div class="sec division division-hidden" data-division="logic" id="logic">
+<div class="sec-eye">Foundation · 04</div>
+<div class="sec-title">System <em>Logic</em></div>
+<p class="sec-lead">The four rules that govern how HubSpot handles every incoming conversation — know these before configuring any inbox.</p>
+<table class="tbl">
+<thead><tr><th>Rule</th><th>What it means</th><th>Admin implication</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Every conversation links to a Contact</strong></td>
+<td>HubSpot matches the sender's email or phone to an existing Contact. If no match: a new Contact is created. If match: the conversation is attached to the existing record.</td>
+<td>Always ask for email early in chat flows — anonymous visitors create orphaned contacts that don't link to your CRM data. The email is the bridge between conversation and Contact record.</td>
+</tr>
+<tr>
+<td><strong>Conversation status drives queue management</strong></td>
+<td>Every conversation is Open, Snoozed, or Closed. These statuses control what agents see in their queue and what appears in reporting.</td>
+<td>Train agents to close conversations when resolved — not just stop responding. Unclosed conversations inflate your "open" count and make workload reporting meaningless.</td>
+</tr>
+<tr>
+<td><strong>Routing rules determine ownership</strong></td>
+<td>Auto-assignment rules run when a conversation is created. Round-robin, contact owner, specific agent, or unassigned queue.</td>
+<td>Always configure routing. Unassigned conversations with no rule default to unassigned — nobody feels responsible, nobody responds. This is the #1 cause of missed conversations.</td>
+</tr>
+<tr>
+<td><strong>Conversations can create Tickets</strong></td>
+<td>An incoming conversation can automatically create a Ticket record for pipeline-style support tracking. This is configurable per inbox.</td>
+<td>Enable for support inboxes — gives you SLA reporting, pipeline visibility, and ticket-based automation. Don't enable for sales inboxes where conversations are not support issues.</td>
+</tr>
+</tbody>
+</table>
+<h3>Processing sequence — what happens when a message arrives</h3>
+<ol class="psteps">
+<li><strong>Message received on channel</strong> — email hits the inbox address, visitor sends a chat, WhatsApp message arrives.</li>
+<li><strong>Email/phone lookup</strong> — HubSpot checks the sender against existing Contacts. Match found → link to existing Contact. No match → create new Contact.</li>
+<li><strong>Conversation created in inbox</strong> — a new conversation thread is opened in the correct inbox, showing the full message.</li>
+<li><strong>Routing rules applied</strong> — the conversation is auto-assigned to an agent or placed in the unassigned queue per your routing configuration.</li>
+<li><strong>Notifications sent</strong> — configured notifications fire: email to assigned agent, in-app notification, Slack notification if integrated.</li>
+<li><strong>Ticket created (if enabled)</strong> — a Ticket record is created and linked to the conversation and the Contact.</li>
+<li><strong>Conversation logged on Contact timeline</strong> — the full thread becomes visible on the Contact's CRM record for any team member to see.</li>
+<li><strong>Workflows triggered (if applicable)</strong> — any workflow using "Conversation is created" or "Conversation property changed" as a trigger fires.</li>
+</ol>
+</div>
+<div class="sec division division-hidden" data-division="status" id="status">
+<div class="sec-eye">Foundation · 05</div>
+<div class="sec-title">Conversation <em>Statuses</em></div>
+<p class="sec-lead">Every conversation has one of three statuses — these drive agent queues, reporting, and SLA tracking.</p>
+<div class="status-row">
+<div class="status-pill open"><div class="status-dot open"></div>Open — needs attention</div>
+<div class="status-pill snoozed"><div class="status-dot snoozed"></div>Snoozed — follow up later</div>
+<div class="status-pill closed"><div class="status-dot closed"></div>Closed — resolved</div>
+</div>
+<table class="tbl">
+<thead><tr><th>Status</th><th>What it means</th><th>When to use</th><th>Admin note</th></tr></thead>
+<tbody>
+<tr><td><strong>Open</strong></td><td>The conversation is active and needs a response or action from the team.</td><td>Default status for all new conversations. Stays open until someone closes or snoozes it.</td><td>Open count = your workload metric. If this number is always high, you have a capacity or routing problem, not a tools problem.</td></tr>
+<tr><td><strong>Snoozed</strong></td><td>Temporarily hidden from the queue until a set date and time, when it automatically reopens.</td><td>When you've responded and are waiting for the customer to reply. "Snooze for 3 days" — if no reply by then, it pops back to Open as a reminder.</td><td>Snoozed conversations are hidden from the main view but not resolved. Build a practice: agents snooze waiting conversations instead of leaving them cluttering Open.</td></tr>
+<tr><td><strong>Closed</strong></td><td>The conversation is resolved. It moves out of the active queue into the closed archive.</td><td>When the customer's issue is resolved or the conversation is complete. Closing triggers "time to close" metric and CSAT surveys if configured.</td><td>Train agents to close promptly. Conversations that should be closed but stay Open inflate workload metrics and make prioritisation harder. Build a workflow: conversation closed → send CSAT survey 1 hour later.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="section page-hidden" id="admin" data-page="admin">
+<div class="sec division division-hidden" data-division="inbox-anatomy" id="inbox-anatomy">
+<div class="sec-eye">Admin Setup · 06</div>
+<div class="sec-title">Inbox <em>Anatomy</em></div>
+<p class="sec-lead">Every inbox you configure has these components — understand each before building.</p>
+<div class="inbox-anatomy">
+<div class="ia-item"><div class="ia-name">Inbox name and avatar</div><div class="ia-desc">The display name agents see in HubSpot and the "from" name visitors see in chat. Use team function names: "Customer Support," "Sales Team" — not "Inbox 1."</div></div>
+<div class="ia-item"><div class="ia-name">Connected channels</div><div class="ia-desc">Which email address, chat widget, or social account feeds into this inbox. One inbox can have multiple channels feeding it. Configure each channel connection separately.</div></div>
+<div class="ia-item"><div class="ia-name">Team members</div><div class="ia-desc">Which HubSpot users can see and reply to conversations here. Keep access tight — only people who genuinely handle these conversations. Over-sharing creates noise for everyone.</div></div>
+<div class="ia-item"><div class="ia-name">Routing rules</div><div class="ia-desc">How new conversations get assigned. Round-robin, contact owner, specific agent, or unassigned queue. Always configure this — unassigned conversations with no rule go unanswered.</div></div>
+<div class="ia-item"><div class="ia-name">Availability hours</div><div class="ia-desc">When the inbox is "open." For live chat: what happens outside these hours — offline message, offline form to collect email, or handoff to a bot.</div></div>
+<div class="ia-item"><div class="ia-name">Email signature</div><div class="ia-desc">For email-connected inboxes: the signature appended to all outgoing replies. Set team-level signatures here, not per-agent — consistency across the team matters for branding.</div></div>
+<div class="ia-item"><div class="ia-name">Notification settings</div><div class="ia-desc">When agents get notified: new unassigned conversation, new reply, mentioned in a note, conversation re-opened. Tune carefully — too many notifications = alert fatigue = notifications ignored.</div></div>
+<div class="ia-item"><div class="ia-name">Auto-ticket creation</div><div class="ia-desc">Automatically creates a Ticket record for every new conversation. Enable for support inboxes. Disable for sales inboxes. Gives you pipeline-style support tracking and SLA reporting.</div></div>
+</div>
+</div>
+<div class="sec division division-hidden" data-division="routing" id="routing">
+<div class="sec-eye">Admin Setup · 07</div>
+<div class="sec-title">Routing <em>Rules</em></div>
+<p class="sec-lead">How incoming conversations get assigned to agents — the most operationally important configuration in any inbox.</p>
+<div class="routing-grid">
+<div class="ro-card">
+<div class="ro-title">Rotate among team members</div>
+<div class="ro-desc">Round-robin distribution across all inbox members. Each new conversation goes to the next available agent in rotation.</div>
+<div class="ro-use">Use for: sales inboxes, inbound leads, equal workload distribution</div>
+</div>
+<div class="ro-card">
+<div class="ro-title">Assign to contact owner</div>
+<div class="ro-desc">If the sender is a known Contact with an assigned owner in HubSpot, the conversation routes to that owner automatically.</div>
+<div class="ro-use">Use for: existing customer support, account-based sales, CSM inboxes</div>
+</div>
+<div class="ro-card">
+<div class="ro-title">Assign to a specific agent</div>
+<div class="ro-desc">Every conversation always goes to one named person — regardless of who the contact is or where the message came from.</div>
+<div class="ro-use">Use for: single-person teams, VIP accounts, dedicated account managers</div>
+</div>
+<div class="ro-card">
+<div class="ro-title">Allow agents to self-assign</div>
+<div class="ro-desc">Conversations land unassigned. Agents claim conversations they want to handle. Creates a shared queue model.</div>
+<div class="ro-use">Use for: small teams where self-selection is natural, triaging inboxes</div>
+</div>
+</div>
+<div class="box warn"><div class="bl">The unassigned problem</div><p>The most common Conversations failure mode: no routing rule configured, conversations land unassigned, nobody feels responsible, response time degrades. Always configure routing before going live. If you're unsure which rule to use, "rotate among team members" is the safest default — it ensures ownership without requiring anyone to self-assign.</p></div>
+<h3>Routing + contact owner = the RevOps approach</h3>
+<p>For mature CRM setups, "assign to contact owner" is the most powerful routing option. When a Customer emails support, they route to their dedicated CSM. When an SQL chats on the website, they route to their assigned AE. The routing becomes personalised without any manual intervention. This requires: every Contact in your CRM must have an owner assigned. Build that as a prerequisite with lifecycle stage workflows before enabling this routing option.</p>
+</div>
+<div class="sec division division-hidden" data-division="chatbot" id="chatbot">
+<div class="sec-eye">Admin Setup · 08</div>
+<div class="sec-title">Chatbots — <em>Bot Builder</em></div>
+<p class="sec-lead">HubSpot's no-code chatbot builder — how to design, configure, and connect bots that qualify leads and handle common questions 24/7.</p>
+<div class="box why"><div class="bl">What chatbots do in HubSpot</div><p>A HubSpot chatbot is a <strong>conversation flow</strong> — a pre-built decision tree that responds to visitors automatically. It can ask questions, collect answers and write them to Contact properties, branch based on conditions, route to a human agent, or book a meeting — all without any live agent involvement.</p></div>
+<h3>The two bot types</h3>
+<table class="tbl">
+<thead><tr><th>Bot type</th><th>What it does</th><th>Best for</th></tr></thead>
+<tbody>
+<tr><td><strong>Live chat bot</strong></td><td>A conversational flow on your website. Asks questions, qualifies leads, answers FAQs, and hands off to a human when needed.</td><td>Lead generation, support deflection, 24/7 availability, visitor qualification</td></tr>
+<tr><td><strong>Meetings bot</strong></td><td>A specialised bot that focuses on booking meetings. Asks for name and email, shows available calendar slots, and books directly without a human in the loop.</td><td>Demo booking pages, pricing pages, inbound-heavy sales motions</td></tr>
+</tbody>
+</table>
+<h3>Bot action types — what each step can do</h3>
+<div class="bot-actions">
+<div class="ba-item"><div class="ba-name">Send a message</div><div class="ba-desc">The bot says something to the visitor. Can include plain text, links, or quick-reply buttons.</div></div>
+<div class="ba-item"><div class="ba-name">Ask a question</div><div class="ba-desc">Collects input from the visitor — typed response or multiple choice buttons. The answer can be saved to a Contact property.</div></div>
+<div class="ba-item"><div class="ba-name">Set a contact property</div><div class="ba-desc">Writes the visitor's answer directly to a Contact property in HubSpot. Structured data capture without a form.</div></div>
+<div class="ba-item"><div class="ba-name">Branch based on property</div><div class="ba-desc">If-then logic: "If company size is 50+, go to path A. Otherwise, go to path B." Routes different visitors to different experiences.</div></div>
+<div class="ba-item"><div class="ba-name">Enrol in workflow</div><div class="ba-desc">Adds the visitor's Contact to a HubSpot workflow — starts an email sequence, assigns an owner, sets lifecycle stage.</div></div>
+<div class="ba-item"><div class="ba-name">Hand off to an agent</div><div class="ba-desc">"I'll connect you with someone now." Routes the conversation to a live agent in the inbox. The agent sees the full bot conversation history.</div></div>
+<div class="ba-item"><div class="ba-name">Book a meeting</div><div class="ba-desc">Shows the HubSpot meetings calendar for a specific user or team. The visitor picks a slot and books directly from the chat.</div></div>
+<div class="ba-item"><div class="ba-name">Send an article</div><div class="ba-desc">Links to a HubSpot Knowledge Base article. Used for FAQ deflection — "Here's a guide that answers this question."</div></div>
+</div>
+<div class="box tip"><div class="bl">Admin design principle — every bot must end with an action</div><p>Every branch in your bot flow must conclude with one of: route to human agent, book a meeting, send a resource link, or collect email and enrol in a workflow. A bot that asks three questions and then goes silent is a broken bot. Visitors will leave frustrated. Map your bot flow completely before building it in HubSpot — draw the decision tree on paper first.</p></div>
+<h3>Bot path for a demo request flow</h3>
+<div class="scenario">
+<div class="sc-title">Example: Website demo request bot on pricing page</div>
+<ul class="steps">
+<li><span class="sn">01</span>Bot opens: "Hi! I can help you explore our product. What's your name?"</li>
+<li><span class="sn">02</span>Visitor types name → Set Contact property: First Name</li>
+<li><span class="sn">03</span>Bot: "What's your work email?" → Set Contact property: Email → Contact now linked to CRM</li>
+<li><span class="sn">04</span>Bot: "How large is your team?" [Buttons: 1–10, 11–50, 51–200, 200+] → Set Company Size property</li>
+<li><span class="sn">05</span>Branch: if 50+ → "Great! Our team would love to show you a personalised demo." → Book a meeting action</li>
+<li><span class="sn">06</span>Branch: if under 50 → "We have some great self-serve resources." → Send Knowledge Base article + enrol in nurture workflow</li>
+<li><span class="sn">07</span>Both paths end. Conversation is closed automatically after booking or article is sent.</li>
+</ul>
+</div>
+</div>
+<div class="sec division division-hidden" data-division="setup" id="setup">
+<div class="sec-eye">Admin Setup · 09</div>
+<div class="sec-title">Step-by-Step <em>Setup</em></div>
+<div class="box tip"><div class="bl">Path in HubSpot</div><p>Settings → Inbox → Create inbox</p></div>
+<ol class="psteps">
+<li><strong>Choose inbox type</strong> — Email (shared address), Live chat (website), Facebook Messenger, WhatsApp. The type determines which connection steps follow.</li>
+<li><strong>Connect your channel</strong> — For email: OAuth connect Google/Microsoft, set up email forwarding, or use HubSpot-hosted email. For live chat: no email needed — the widget is the channel. For social: authenticate via your account credentials.</li>
+<li><strong>Name the inbox</strong> — Use team function: "Customer Support," "Sales Team," "General Enquiries." This appears in every agent's view and in reporting.</li>
+<li><strong>Add team members</strong> — Select which HubSpot users get access. Only add people who will genuinely manage conversations here. Each member can be set as an agent or an admin of the inbox.</li>
+<li><strong>Configure routing rules</strong> — Choose how new conversations are assigned. Default recommendation: "Rotate among team members" unless you have a specific case for contact-owner routing.</li>
+<li><strong>Set availability hours</strong> — For live chat: define operating hours. Configure the offline behaviour: show offline message, show an offline contact form, or show the bot instead.</li>
+<li><strong>Configure notifications</strong> — Set when team members are alerted. New unassigned conversation should always notify. Tune other notifications to avoid alert fatigue.</li>
+<li><strong>Enable auto-ticket creation</strong> — For support inboxes only: toggle "Automatically create tickets for new conversations." This creates a Ticket and links it to the conversation and Contact.</li>
+<li><strong>For live chat: install the widget</strong> — HubSpot generates a JS embed code. Paste into your website's <code>&lt;head&gt;</code> tag. For HubSpot CMS: the widget is available as a drag-and-drop module.</li>
+<li><strong>Create your chatbot (if needed)</strong> — Settings → Chatflows → Create chatflow → connect to your inbox → build the bot flow using actions.</li>
+<li><strong>Test thoroughly</strong> — Send a test email to your inbox address, open the chat widget in a browser, or send a test WhatsApp message. Verify: conversation created in correct inbox, Contact record created/linked, routing fired correctly, notifications sent, ticket created if enabled.</li>
+</ol>
+</div>
+<div class="sec division division-hidden" data-division="tickets" id="tickets">
+<div class="sec-eye">Admin Setup · 10</div>
+<div class="sec-title">Conversations <em>+ Tickets</em></div>
+<p class="sec-lead">The two-layer system for support teams — conversations for the communication, tickets for the operational tracking.</p>
+<div class="box why"><div class="bl">Why two separate records?</div><p>A <strong>conversation</strong> is the message thread — the literal back-and-forth between a customer and an agent. A <strong>ticket</strong> is the operational issue — it has a priority, a pipeline stage, a category, a due date, and an SLA. One conversation creates one ticket. But a ticket can span multiple conversations if the same issue resurfaces. They are complementary, not redundant.</p></div>
+<table class="tbl">
+<thead><tr><th></th><th>Conversation</th><th>Ticket</th></tr></thead>
+<tbody>
+<tr><td><strong>What it stores</strong></td><td>The message thread — every word sent and received</td><td>The issue metadata — priority, category, stage, SLA, due date</td></tr>
+<tr><td><strong>What agents do here</strong></td><td>Read messages, write replies, handoff to colleagues</td><td>Set priority, move through pipeline stages, log resolution</td></tr>
+<tr><td><strong>What admins report on</strong></td><td>First response time, message volume, channel distribution</td><td>Resolution time, open tickets by category, SLA compliance</td></tr>
+<tr><td><strong>Linked to</strong></td><td>Contact record</td><td>Contact record, Conversation record, Company record</td></tr>
+<tr><td><strong>Enable for</strong></td><td>All inboxes automatically</td><td>Support inboxes only — configure in inbox settings</td></tr>
+</tbody>
+</table>
+<h3>How auto-ticket creation works</h3>
+<ol class="psteps">
+<li>Customer emails support@company.com (channel: support email inbox).</li>
+<li>Conversation created in the Support inbox. Contact matched or created.</li>
+<li>Auto-ticket creation fires: a new Ticket record is created. Status = New. Priority = Medium (default).</li>
+<li>Ticket is linked to the conversation and the Contact. Visible from both records.</li>
+<li>Agent responds in the conversation thread. Ticket status updates as they work the issue.</li>
+<li>Agent closes the conversation. Ticket moves to Closed stage. Time-to-close is recorded.</li>
+<li>If configured: CSAT survey sent to customer 1 hour after ticket is closed.</li>
+</ol>
+</div>
+<div class="sec division division-hidden" data-division="properties" id="properties">
+<div class="sec-eye">Admin Setup · 11</div>
+<div class="sec-title">Conversation <em>Properties</em></div>
+<p class="sec-lead">The data fields on every conversation — used in workflows, reports, and routing.</p>
+<table class="tbl">
+<thead><tr><th>Property</th><th>What it stores</th><th>Used for</th></tr></thead>
+<tbody>
+<tr><td><code>hs_conversation_status</code></td><td>Open, Snoozed, Closed</td><td>Workflow trigger: "conversation closed" → send CSAT survey</td></tr>
+<tr><td><code>hubspot_owner_id</code></td><td>Assigned agent</td><td>Report on agent workload and conversation ownership</td></tr>
+<tr><td><code>hs_inbox</code></td><td>Which inbox it belongs to</td><td>Filter reports by team/channel; build inbox-specific workflows</td></tr>
+<tr><td><code>hs_channel</code></td><td>Email, chat, WhatsApp, etc.</td><td>Report on which channels generate most conversations</td></tr>
+<tr><td><code>hs_time_to_first_reply_ms</code></td><td>First agent response time (ms)</td><td>SLA reporting — measure against response time targets</td></tr>
+<tr><td><code>hs_time_to_close_ms</code></td><td>Open to closed duration (ms)</td><td>Resolution time reporting</td></tr>
+<tr><td><code>hs_conversation_closed_date</code></td><td>When conversation was closed</td><td>Time-based reports, CSAT survey timing</td></tr>
+<tr><td><code>hs_source_url</code></td><td>Page URL where chat was initiated</td><td>Report which pages generate most conversations</td></tr>
+<tr><td><code>hs_assigned_agent</code></td><td>Agent currently assigned</td><td>Routing and reassignment logic in workflows</td></tr>
+</tbody>
+</table>
+<div class="box tip"><div class="bl">RevOps leverage point</div><p>The <code>hs_time_to_first_reply_ms</code> property is one of the highest-value metrics in a sales-oriented Conversations setup. Studies consistently show that responding to an inbound lead within 5 minutes is 20× more likely to result in a conversion than responding in 30 minutes. Track this property in a real-time dashboard for your sales team. It is a direct revenue driver that Conversations data makes measurable.</p></div>
+</div>
+</section>
+<section class="section page-hidden" id="applied" data-page="applied">
+<div class="sec division division-hidden" data-division="example" id="example">
+<div class="sec-eye">Applied Learning · 12</div>
+<div class="sec-title">Real-World <em>Example</em></div>
+<p class="sec-lead">A complete Conversations architecture for a B2B SaaS company with a sales team and a customer success team.</p>
+<div class="box case"><div class="bl">The situation</div><p>A B2B SaaS company has 8 people in sales and 6 people in customer success. Currently they use Gmail for all email, Intercom for live chat, and a personal WhatsApp for some customer messages. None of these are connected. A new customer might be talking to 3 different people across 3 different tools — none of whom can see each other's conversations.</p></div>
+<h3>The admin builds two inboxes</h3>
+<div class="scenario">
+<div class="sc-title">Inbox 1 — Sales</div>
+<ul class="steps">
+<li><span class="sn">Ch</span>Live chat widget on website (pricing and features pages only)</li>
+<li><span class="sn">Team</span>3 SDRs added as agents</li>
+<li><span class="sn">Bot</span>"Sales Qualifier Bot" — collects name, email, company size, role. Routes 50+ employees with VP+ title to live agent. Routes smaller companies to self-serve resources.</li>
+<li><span class="sn">Route</span>Rotate among SDRs (round-robin)</li>
+<li><span class="sn">Hours</span>Mon–Fri 9am–6pm EST. Outside hours: bot active, collects email, creates Lead in CRM.</li>
+<li><span class="sn">Tickets</span>Disabled — these are sales conversations, not support issues.</li>
+</ul>
+</div>
+<div class="scenario">
+<div class="sc-title">Inbox 2 — Customer Support</div>
+<ul class="steps">
+<li><span class="sn">Ch</span>Team email (support@company.com) + WhatsApp Business</li>
+<li><span class="sn">Team</span>6 CS agents added</li>
+<li><span class="sn">Bot</span>None — all messages go directly to agents</li>
+<li><span class="sn">Route</span>Assign to contact owner — existing customers route to their dedicated CSM automatically</li>
+<li><span class="sn">Hours</span>24/7 (support emails never "close" — after-hours messages queue for morning)</li>
+<li><span class="sn">Tickets</span>Enabled — every new conversation creates a Support Ticket with priority Medium by default</li>
+</ul>
+</div>
+<h3>What changes for the company</h3>
+<ul class="prlist">
+<li><span>🎯</span><div>The sales team's bot qualifies 60% of website visitors automatically — agents only see conversations from qualified leads. Response time for qualified leads drops from 3+ hours to under 5 minutes during business hours.</div></li>
+<li><span>📋</span><div>Every customer support email now creates a Ticket. The CS manager can see a live pipeline: 12 Open, 4 Snoozed, 89 Closed this week. Resolution time tracked for the first time: average 4.2 hours.</div></li>
+<li><span>🔗</span><div>Every conversation — sales and support — is visible on the Contact record. When a Customer calls the AE, the AE can see the last support ticket before picking up the phone.</div></li>
+<li><span>📊</span><div>First response time is now a reportable metric. The sales manager builds a dashboard: average first response time by SDR. Immediately identifies one SDR averaging 47 minutes vs team average of 8 minutes.</div></li>
+</ul>
+</div>
+<div class="sec division division-hidden" data-division="cases" id="cases">
+<div class="sec-eye">Applied Learning · 13</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico p">⏱️</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — The slow response time problem</div>
+<div class="csub">When unassigned conversations kill conversion rate</div>
+<div class="ctags"><span class="tag p">Routing</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c1p')">Problem</div><div class="tab" onclick="st(this,'c1s')">Solution</div><div class="tab" onclick="st(this,'c1r')">Outcome</div></div>
+<div class="pane on" id="c1p"><div class="box case"><div class="bl">The problem</div><p>A B2B SaaS company set up HubSpot Conversations with a live chat widget but left routing as "allow agents to self-assign." Chat conversations would arrive and sit unassigned. Agents assumed someone else would pick them up. Average first response time: 47 minutes. The sales team had a 4% chat-to-demo conversion rate and couldn't understand why. The company was spending $40k/month on paid ads driving traffic to a website where chat inquiries were dying unanswered.</p></div></div>
+<div class="pane" id="c1s">
+<ul class="prlist">
+<li><span>⚙️</span><div>Changed routing to "Rotate among team members" — every new chat immediately assigned to the next SDR in the rotation. No conversation lands unassigned.</div></li>
+<li><span>🔔</span><div>Added a real-time notification: whenever a conversation is assigned to an SDR, they receive an immediate browser notification and a Slack alert via integration.</div></li>
+<li><span>📊</span><div>Built a "First Response Time" dashboard widget — visible to the full sales team. Updated live. Each SDR's average response time visible to everyone. Social accountability kicks in.</div></li>
+<li><span>⚡</span><div>Added a SLA workflow: if a conversation is Open and assigned but no response logged within 10 minutes → notify the SDR manager immediately.</div></li>
+</ul>
+</div>
+<div class="pane" id="c1r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Average first response time dropped from 47 minutes to 4.2 minutes within 30 days. Chat-to-demo conversion rate jumped from 4% to 18%. The $40k/month ad spend was suddenly generating 4.5× more pipeline from the same traffic. The admin change took 2 hours to configure. ROI was immediate and measurable.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">🤖</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — Building a 24/7 lead qualification bot</div>
+<div class="csub">Capturing leads outside business hours at scale</div>
+<div class="ctags"><span class="tag t">Chatbot</span><span class="tag n">E-commerce SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c2p')">Problem</div><div class="tab" onclick="st(this,'c2s')">Solution</div><div class="tab" onclick="st(this,'c2r')">Outcome</div></div>
+<div class="pane on" id="c2p"><div class="box case"><div class="bl">The problem</div><p>An e-commerce SaaS company had 40% of their website traffic arriving between 6pm and 9am — outside business hours. During those hours, the live chat showed "We're offline. Leave a message." Visitors left. No lead was captured. The sales team came in each morning to zero overnight leads despite strong overnight traffic analytics showing 200–400 unique visitors during those hours.</p></div></div>
+<div class="pane" id="c2s">
+<ul class="prlist">
+<li><span>🤖</span><div>Built a "Lead Capture Bot" to run during off-hours. Flow: greeting → ask for name → ask for email → ask "What brings you here today?" (5 fixed options mapped to Contact properties) → ask "What's your company's annual online revenue?" (4 ranges) → set lifecycle = Lead → enrol in overnight nurture sequence → "We'll be in touch during business hours. Here's a guide to get started."</div></li>
+<li><span>⏰</span><div>Configured availability hours: live agents Mon–Fri 9am–6pm. Bot automatically activates outside those hours — no manual switching needed.</div></li>
+<li><span>⚙️</span><div>Built a workflow: every contact captured by the bot overnight → Lead Status = New → create task for assigned SDR: "Overnight lead — follow up first thing." Task due at 9:05am.</div></li>
+</ul>
+</div>
+<div class="pane" id="c2r"><div class="box revops"><div class="bl">RevOps outcome</div><p>First month: 180 overnight leads captured that would have been zero. 34 (19%) booked a demo from the overnight nurture sequence. 11 became customers within 90 days. Revenue from overnight leads in month 1: $88,000. The bot cost 6 hours to build and configure. The sales team loved the morning task queue — structured follow-up on warm, already-partially-qualified leads.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico a">🎫</div>
+<div style="flex:1">
+<div class="ctitle">Case 3 — Conversations + Tickets for SLA reporting</div>
+<div class="csub">When CS needs pipeline-style support visibility</div>
+<div class="ctags"><span class="tag a">Tickets integration</span><span class="tag n">B2B Tech</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c3p')">Problem</div><div class="tab" onclick="st(this,'c3s')">Solution</div><div class="tab" onclick="st(this,'c3r')">Outcome</div></div>
+<div class="pane on" id="c3p"><div class="box case"><div class="bl">The problem</div><p>A B2B tech company's CS team handled 200+ support emails per week. All managed in a shared Gmail inbox. No tracking of resolution time, no way to see what was open vs closed, no reporting on common issue categories, no SLA. The Head of CS had to manually count open emails every Friday to report to the CEO. When a customer asked "what's the status of my issue?" the agent had no structured answer beyond digging through Gmail threads.</p></div></div>
+<div class="pane" id="c3s">
+<ul class="prlist">
+<li><span>📧</span><div>Connected support@company.com to a new HubSpot Support inbox. Enabled auto-ticket creation. Every email now creates a Ticket automatically.</div></li>
+<li><span>📋</span><div>Built a ticket pipeline: New → In Progress → Waiting on Customer → Resolved → Closed. Each agent moves tickets through stages as they work issues.</div></li>
+<li><span>🏷️</span><div>Added a required "Ticket Category" property: Billing, Technical, Account, Feature Request, Other. Agents must categorise before closing.</div></li>
+<li><span>⚙️</span><div>Built SLA workflow: if Ticket priority = High AND no agent reply in 2 hours → escalate to CS manager with notification and create urgent task.</div></li>
+<li><span>📊</span><div>Built CS dashboard: open tickets by category, average resolution time by agent, SLA breaches this week, tickets closed vs opened (net flow). Shared with CEO every Monday via scheduled report.</div></li>
+</ul>
+</div>
+<div class="pane" id="c3r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Week 1: 147 open tickets identified that had been sitting unresolved in Gmail (some for 3+ weeks). All resolved within 10 days with the new process. Ongoing: average resolution time dropped from "unknown" to a tracked 5.8 hours for standard tickets. Billing issues identified as taking 2× longer — finance process changed to fix root cause. The CEO's Friday report went from "I think we have about 30 open issues" to a live dashboard showing exactly 12 open, 4 SLA at risk, 89 closed this week. CS team morale improved — they could see their work quantified and celebrated weekly.</p></div></div>
+</div>
+</div>
+</div>
+<div class="sec division division-hidden" data-division="mistakes" id="mistakes">
+<div class="sec-eye">Applied Learning · 14</div>
+<div class="sec-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — Creating too many inboxes</div>One inbox per team is almost always enough. Per-agent inboxes, per-product inboxes, per-region inboxes — all defeat the purpose of a shared inbox. More inboxes = more routing complexity, more notification confusion, and more places for conversations to fall through the cracks. Start with three maximum: Sales, Support, General.</li>
+<li><div class="mt">02 — No routing rules configured</div>Leaving conversations unassigned with no rule is the single most common Conversations failure. Nobody feels responsible, response times balloon, leads go cold. Always configure routing before any inbox goes live — even "allow agents to self-assign" is better than nothing.</li>
+<li><div class="mt">03 — Not setting availability hours for live chat</div>If live chat runs 24/7 with no bot or offline form, visitors chat at 2am and get silence. They bounce and never come back. Always configure availability hours and define clearly what happens outside those hours: offline message, offline form, or bot takeover.</li>
+<li><div class="mt">04 — Building a bot that dead-ends</div>Every bot path must end with an action: route to human, book a meeting, or send a resource. A bot that asks three questions and then goes quiet is worse than no bot — it actively frustrates visitors who engaged expecting help. Map your entire bot decision tree before building it in HubSpot.</li>
+<li><div class="mt">05 — Not asking for email early in the bot flow</div>Without an email, anonymous visitors create contacts that can't be linked to existing CRM data. The bot collects great qualification answers but they're attached to an orphaned "unknown" contact rather than an existing Lead. Always ask for email as one of the first two bot questions.</li>
+<li><div class="mt">06 — Enabling auto-ticket creation on sales inboxes</div>Every chat from a sales prospect shouldn't create a support ticket — that pollutes your ticket pipeline with non-support conversations. Enable auto-ticket creation on support inboxes only. Sales conversations are conversations, not issues to be tracked in a support pipeline.</li>
+<li><div class="mt">07 — Not training agents to close conversations</div>Agents who respond and then leave conversations Open create a permanently inflated "open" count. Workload reporting becomes meaningless. Build a daily "close stale conversations" practice — conversations with no activity in 48 hours should be reviewed and closed or snoozed.</li>
+</ul>
+</div>
+<div class="sec division division-hidden" data-division="best" id="best">
+<div class="sec-eye">Applied Learning · 15</div>
+<div class="sec-title">Admin <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span>🗂️</span><div><strong>One inbox per team function.</strong> Sales inbox for sales conversations. Support inbox for CS. General inbox for everything else. Never per-agent — shared inboxes exist for a reason.</div></li>
+<li><span>⚙️</span><div><strong>Configure routing before going live.</strong> Routing is the first thing you configure and the last thing you want to be debugging while live conversations are coming in. Test routing with yourself before adding the team.</div></li>
+<li><span>🤖</span><div><strong>Always have a bot or offline form for off-hours.</strong> No inbox should show visitors a dead end. Outside business hours: collect email and qualify with a bot, or at minimum show an offline form that creates a Lead in the CRM.</div></li>
+<li><span>📧</span><div><strong>Ask for email early in every bot flow.</strong> Without email, conversations create orphaned contacts. With email, every bot interaction enriches an existing Contact record. This is the difference between conversations being useful data and being noise.</div></li>
+<li><span>📊</span><div><strong>Build a first response time dashboard from day one.</strong> This is your primary metric for conversations effectiveness. Target under 5 minutes for sales chat. Make it visible to the team — social accountability drives behaviour change faster than any policy.</div></li>
+<li><span>🎫</span><div><strong>Enable auto-ticket creation for every support inbox.</strong> Without tickets, support is invisible. With tickets, you have a pipeline, SLA tracking, category reporting, and resolution time measurement. This is a 2-minute toggle that unlocks an entirely new reporting layer.</div></li>
+<li><span>🔒</span><div><strong>Use snippets and templates for common replies.</strong> Build a library of pre-written responses to common questions. Agents use them in one click. Consistent answers, faster responses, less typing. Create under Settings → Snippets.</div></li>
+</ul>
+</div>
+<div class="sec division division-hidden" data-division="practice" id="practice">
+<div class="sec-eye">Applied Learning · 16</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-lead">Do this in your free HubSpot sandbox — approximately 50 minutes.</p>
+<h3>Part A — Create an inbox (20 min)</h3>
+<ol class="psteps">
+<li>Go to Settings → Inbox → Create inbox. Choose "Live chat."</li>
+<li>Name it "Practice Support Inbox." Add yourself as the only team member.</li>
+<li>Set routing to "Rotate among team members" (even with just yourself).</li>
+<li>Set availability hours: Mon–Fri 9am–5pm. Configure offline message: "We're offline right now. Leave your email and we'll get back to you."</li>
+<li>Enable auto-ticket creation. Save.</li>
+<li>Go to your Conversations view (top navigation) and verify the inbox appears.</li>
+</ol>
+<h3>Part B — Build a simple bot (20 min)</h3>
+<ol class="psteps">
+<li>Go to Settings → Chatflows → Create chatflow → Website → Bot.</li>
+<li>Connect it to your Practice Support Inbox.</li>
+<li>Build a 4-step bot: (1) "Hi! What's your name?" → save to First Name property. (2) "What's your email?" → save to Email. (3) "How can we help?" with 3 quick-reply buttons: Product question / Billing / Something else. (4) Each path ends with "Thanks! We'll be in touch shortly." and closes the conversation.</li>
+<li>Publish the bot. Use the preview tool to test it yourself.</li>
+</ol>
+<h3>Part C — Send a test conversation (10 min)</h3>
+<ol class="psteps">
+<li>Get your live chat share link from the inbox settings. Open it in a private browser window.</li>
+<li>Interact with your bot using a fake name and email. Complete the full flow.</li>
+<li>Go to HubSpot Contacts — verify a new Contact was created with the name and email you entered.</li>
+<li>Go to the Conversations inbox — verify the conversation appears, is assigned to you, and has a status of Open.</li>
+<li>Go to the Tickets view — verify a ticket was automatically created and linked to the conversation.</li>
+<li>Reply to the conversation from inside HubSpot. Close it. Check the ticket — did it close too?</li>
+</ol>
+</div>
+<div class="sec division division-hidden" data-division="interview" id="interview">
+<div class="sec-eye">Applied Learning · 17</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"What is the difference between a channel and an inbox in HubSpot Conversations?"</div>
+<div class="iq-a">A channel is a connected communication source — an email address, a website chat widget, a WhatsApp account, or a Facebook page. It's where messages originate. An inbox is a named container inside HubSpot where conversations from one or more channels land and are managed by a team. You can have multiple channels feeding into one inbox, or each channel with its own dedicated inbox. The inbox is where you configure team access, routing rules, availability hours, and notification settings. The channel is just the connection point. As an admin, you build the inbox first, then connect channels to it.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"How would you configure a chatbot to qualify leads before routing them to a sales agent?"</div>
+<div class="iq-a">I'd start by mapping the bot flow on paper before opening HubSpot — define every question, every possible answer, and every path. The first two actions always collect name and email — without email, the conversation can't link to the CRM. Then I'd ask 2–3 qualifying questions: company size, role, and what they're trying to solve — each answer written to a Contact property using a "Set contact property" action so the data persists in the CRM. Then I'd add a branch: if company size is 50+ employees AND role contains Director or VP, the bot hands off to a live agent with a message like "I'll connect you with someone from our team now." The other branch sends a self-serve resource and enrols the contact in a nurture workflow. Every path ends with an action — never a dead end. After building, I'd test every branch myself before publishing.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"A customer chats on the website but their conversation isn't appearing on their Contact record. How do you troubleshoot?"</div>
+<div class="iq-a">The most common cause is that the visitor didn't provide their email during the chat, or provided a different email than what's stored on their existing Contact record. HubSpot uses email to link conversations to Contacts — without a match, the conversation creates a new anonymous or duplicate contact rather than linking to the existing one. I'd first check the Conversations inbox and find the conversation. If it shows an "Unknown" contact or a newly created contact rather than the existing one, I'd manually merge the records. Then I'd look at the bot or chat flow — if email isn't being collected early, I'd add it as one of the first questions. Going forward, I'd also check whether the visitor was previously cookied (known contact) — if they're using a different device or browser, HubSpot won't recognise them until they provide their email again. The fix is always: collect email early, every time.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"How does enabling auto-ticket creation change the support team's workflow?"</div>
+<div class="iq-a">Auto-ticket creation adds a second layer of operational tracking on top of the conversation thread. Without it, you have conversations — message threads — but no structured pipeline for tracking the status of issues. With it, every incoming support conversation creates a Ticket record that has a pipeline stage, a priority, a category, a due date, and an SLA clock. Agents still reply in the conversation thread, but they also manage the ticket — moving it through stages like New, In Progress, Waiting on Customer, Resolved. This separation matters for reporting: conversations give you communication metrics like first response time and message volume; tickets give you issue metrics like resolution time, category breakdown, and SLA compliance. For a RevOps setup, tickets are what turn support from an invisible cost centre into a measurable operational function.</div>
+</div>
+</div>
+<div class="sec division division-hidden" data-division="cheatsheet" id="cheatsheet">
+<div class="sec-eye">Applied Learning · 18</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is it</td><td>A unified team inbox where all channels (email, chat, WhatsApp, FB) route messages — connected to your CRM</td></tr>
+<tr><td>Channel</td><td>A connected source: email address, chat widget, WhatsApp account, Facebook page</td></tr>
+<tr><td>Inbox</td><td>A named container — has team members, routing rules, availability hours, and settings</td></tr>
+<tr><td>Conversation</td><td>A single thread between team and contact — linked to a Contact record, has a status</td></tr>
+<tr><td>Contact matching</td><td>Email/phone matched to CRM → existing Contact linked. No match → new Contact created.</td></tr>
+<tr><td>Statuses</td><td>Open (needs action) · Snoozed (follow up later) · Closed (resolved)</td></tr>
+<tr><td>Routing options</td><td>Rotate (round-robin) · Contact owner · Specific agent · Self-assign (unassigned queue)</td></tr>
+<tr><td>Routing rule #1</td><td>Always configure routing. Never leave conversations landing unassigned with no rule.</td></tr>
+<tr><td>Live chat + bot</td><td>Bot responds first, qualifies visitor, hands off to human. Bot must always end with an action.</td></tr>
+<tr><td>Bot: always collect email</td><td>First 2 steps of any bot: name + email. Without email, conversations create orphaned contacts.</td></tr>
+<tr><td>Auto-ticket creation</td><td>Enable for support inboxes only. Creates a Ticket record linked to conversation and Contact.</td></tr>
+<tr><td>Inbox vs Ticket</td><td>Conversation = the message thread. Ticket = the operational issue with pipeline stage and SLA.</td></tr>
+<tr><td>Key metric</td><td>First response time (<code>hs_time_to_first_reply_ms</code>) — direct revenue driver for sales inboxes</td></tr>
+<tr><td>Multiple inboxes</td><td>One per team function: Sales, Support, General. Never per-agent.</td></tr>
+<tr><td>Off-hours rule</td><td>Always configure: offline form, offline message, or bot for when agents are unavailable</td></tr>
+<tr><td>RevOps superpower</td><td>Route to contact owner → existing customers reach their CSM automatically with no manual assignment</td></tr>
+<tr><td>Admin interview gold</td><td>"I measure first response time from day one — it's a direct revenue driver for sales inboxes and a direct retention driver for support inboxes."</td></tr>
+</tbody>
+</table>
+<div class="box revops"><div class="bl">RevOps mindset on Conversations</div><p>Conversations is simultaneously a communications tool and a revenue infrastructure component. For sales teams, it's the mechanism that determines whether warm inbound leads get a response in 4 minutes or 47 minutes — and that difference is worth tens of thousands in pipeline monthly. For CS teams, it's the operational backbone that turns support from invisible email chaos into a measurable, pipeline-style function with SLAs, categories, and resolution time reporting. A well-built Conversations setup — right channels, right routing, right bots, right ticket integration — is one of the highest-ROI admin projects you can deliver for any organisation. Build it deliberately and you'll see the impact immediately in the numbers.</p></div>
+</div>
+</section>
+  </main>
+</div>
+
+<script>
+const NAV_CONFIG = {"foundation": {"label": "Foundation", "items": [{"id": "what", "label": "What is Conversations?"}, {"id": "concepts", "label": "Core Concepts"}, {"id": "channels", "label": "Channel Types"}, {"id": "logic", "label": "System Logic"}, {"id": "status", "label": "Conversation Statuses"}]}, "admin": {"label": "Admin Setup", "items": [{"id": "inbox-anatomy", "label": "Inbox Anatomy"}, {"id": "routing", "label": "Routing Rules"}, {"id": "chatbot", "label": "Chatbots"}, {"id": "setup", "label": "Step-by-Step Setup"}, {"id": "tickets", "label": "Conversations + Tickets"}, {"id": "properties", "label": "Conversation Properties"}]}, "applied": {"label": "Applied Learning", "items": [{"id": "example", "label": "Real-World Example"}, {"id": "cases", "label": "Case Studies"}, {"id": "mistakes", "label": "Common Mistakes"}, {"id": "best", "label": "Best Practices"}, {"id": "practice", "label": "Practice Exercise"}, {"id": "interview", "label": "Interview Questions"}, {"id": "cheatsheet", "label": "Cheatsheet"}]}};
+let currentPage = 'foundation';
+let currentDivision = 'what';
+
+function getFirstDivision(page) {
+  return NAV_CONFIG[page]?.items?.[0]?.id || null;
+}
+
+function renderMobileDivisions(page) {
+  const row = document.getElementById('mobileDivisionRow');
+  if (!row || !NAV_CONFIG[page]) return;
+  row.innerHTML = NAV_CONFIG[page].items.map(item => `
+    <button class="mobile-division-btn ${item.id === currentDivision ? 'active' : ''}" data-page="${page}" data-target="${item.id}" onclick="showDivision('${page}','${item.id}')">${item.label}</button>
+  `).join('');
+}
+
+function showPage(page, division, shouldScroll = true) {
+  if (!NAV_CONFIG[page]) return;
+  const targetDivision = division || getFirstDivision(page);
+  currentPage = page;
+  currentDivision = targetDivision;
+
+  document.querySelectorAll('.section[data-page]').forEach(sec => {
+    sec.classList.toggle('page-hidden', sec.dataset.page !== page);
+  });
+
+  document.querySelectorAll('.nav-group').forEach(group => {
+    const active = group.dataset.pageGroup === page;
+    group.classList.toggle('active-page', active);
+    group.classList.toggle('open', active);
+  });
+
+  document.querySelectorAll('.mobile-section-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pageGroup === page);
+  });
+
+  renderMobileDivisions(page);
+  showDivision(page, targetDivision, shouldScroll, true);
+}
+
+function showDivision(page, division, shouldScroll = true, pageAlreadyShown = false) {
+  if (!pageAlreadyShown && currentPage !== page) return showPage(page, division, shouldScroll);
+  currentPage = page;
+  currentDivision = division;
+  const pageSection = document.querySelector(`.section[data-page="${page}"]`);
+  if (!pageSection) return;
+
+  pageSection.querySelectorAll('.division').forEach(div => {
+    div.classList.toggle('division-hidden', div.dataset.division !== division);
+  });
+
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.page === page && item.dataset.target === division);
+  });
+
+  document.querySelectorAll('.mobile-division-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.page === page && btn.dataset.target === division);
+  });
+
+  const selected = document.getElementById(division);
+  if (selected) {
+    const cards = selected.querySelectorAll(':scope > .card');
+    if (cards.length && !Array.from(cards).some(c => c.classList.contains('open'))) {
+      cards[0].classList.add('open');
+    }
+    if (shouldScroll) {
+      const y = selected.getBoundingClientRect().top + window.scrollY - (window.innerWidth <= 760 ? 120 : 24);
+      window.scrollTo({top:y, behavior:'smooth'});
+    }
+  }
+}
+
+function tog(hd) {
+  const card = hd.closest('.card');
+  if (!card) return;
+  const wasOpen = card.classList.contains('open');
+  const scope = card.closest('.division') || card.parentElement;
+  scope.querySelectorAll('.card').forEach(c => { if (c !== card) c.classList.remove('open'); });
+  card.classList.toggle('open', !wasOpen);
+}
+
+function st(tab, pid) {
+  const body = tab.closest('.card-body') || tab.closest('.division') || document;
+  body.querySelectorAll('.tab').forEach(t => t.classList.remove('on','active'));
+  body.querySelectorAll('.pane,.tab-pane').forEach(p => p.classList.remove('on','active'));
+  tab.classList.add('on');
+  const p = document.getElementById(pid);
+  if (p) p.classList.add('on');
+}
+function switchTab(tab, pid) { st(tab, pid); }
+function jump(id) { showDivision(Object.keys(NAV_CONFIG).find(page => NAV_CONFIG[page].items.some(item => item.id === id)) || currentPage, id); }
+
+function wrapTables() {
+  document.querySelectorAll('table.tbl').forEach(tbl => {
+    if (tbl.parentElement && tbl.parentElement.classList.contains('table-wrap')) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrap';
+    tbl.parentNode.insertBefore(wrapper, tbl);
+    wrapper.appendChild(tbl);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  wrapTables();
+  renderMobileDivisions(currentPage);
+  showPage('foundation','what',false);
+});
+</script>
+
+</body>
+</html>
