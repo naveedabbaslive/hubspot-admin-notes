@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HubSpot Workflows — Complete Admin Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0e12;
+  --surface: #12151c;
+  --surface2: #181c26;
+  --surface3: #1e2230;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e4e6f0;
+  --muted: #6e7289;
+  --soft: #9da3bb;
+  --purple: #8b7ff5;
+  --purple-bg: rgba(139,127,245,0.1);
+  --purple-light: #b4abff;
+  --teal: #20c997;
+  --teal-bg: rgba(32,201,151,0.1);
+  --teal-light: #6ef5cc;
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --amber-light: #fcd34d;
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --blue: #60a5fa;
+  --blue-bg: rgba(96,165,250,0.1);
+  --green: #4ade80;
+  --green-bg: rgba(74,222,128,0.1);
+  --hubspot-orange: #ff5c35;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r-lg: 16px;
+  --r-sm: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75;}
+a{color:inherit;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;scrollbar-width:thin;}
+.sidebar-brand{padding:22px 18px 18px;border-bottom:1px solid var(--border);}
+.hubspot-brand{display:block;text-decoration:none;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,92,53,0.24);background:linear-gradient(135deg,rgba(255,92,53,0.10),rgba(255,255,255,0.02));transition:transform .18s,border-color .18s,background .18s;margin-bottom:18px;}
+.hubspot-brand:hover{transform:translateY(-1px);border-color:rgba(255,92,53,0.42);background:linear-gradient(135deg,rgba(255,92,53,0.14),rgba(255,255,255,0.03));}
+.hubspot-word{font-family:var(--font-display);font-size:18px;font-weight:500;color:var(--hubspot-orange);line-height:1;}
+.hubspot-ref{font-size:10.5px;color:var(--muted);margin-top:5px;}
+.sidebar-title{font-family:var(--font-display);font-size:19px;line-height:1.25;font-weight:500;color:var(--text);}
+.sidebar-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-top:7px;}
+.desktop-nav{padding:16px 0 10px;}
+.nav-group{margin-bottom:4px;}
+.nav-group-label{width:calc(100% - 20px);margin:0 10px 8px;padding:10px 13px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--soft);display:flex;align-items:center;justify-content:space-between;font-family:var(--font-body);font-size:13.5px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;cursor:pointer;transition:all .15s;text-align:left;}
+.nav-group-label:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.nav-group.active-page .nav-group-label{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,0.30);}
+.nav-arrow{transition:transform .18s;color:var(--muted);font-size:18px;line-height:1;}
+.nav-group.active-page .nav-arrow,.nav-group.expanded .nav-arrow{transform:rotate(90deg);color:var(--purple-light);}
+.nav-page-items{display:none;padding-bottom:6px;}
+.nav-group.active-page .nav-page-items,.nav-group.expanded .nav-page-items{display:block;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;font-size:13.4px;color:var(--muted);border-left:2px solid transparent;transition:all .15s;cursor:pointer;text-decoration:none;line-height:1.35;}
+.nav-item:hover{color:var(--text);background:var(--surface2);}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple);}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--purple);}
+.dot-purple{background:var(--purple);}
+.dot-teal{background:var(--teal);}
+.dot-amber{background:var(--amber);}
+.mobile-nav{display:none;}
+.sidebar-footer{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+.main{flex:1;padding:52px 60px;max-width:920px;}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border);}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start;}
+.creator-card{grid-column:2;grid-row:1;display:block;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015));border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;transition:transform .18s,border-color .18s,background .18s;}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,0.45);background:linear-gradient(180deg,rgba(255,92,53,0.08),rgba(139,127,245,0.04));}
+.creator-card img{width:100%;height:auto;border-radius:14px;border:2px solid rgba(255,92,53,0.75);box-shadow:0 12px 28px rgba(255,92,53,0.16),0 18px 42px rgba(0,0,0,0.28);object-fit:cover;}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text);}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:2px;}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:5px;}
+.hero-copy{grid-column:1;grid-row:1;}
+.hero-kicker{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px;}
+.hero-title{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px;}
+.hero-title em{font-style:italic;color:var(--purple);}
+.hero-description{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8;margin-bottom:0;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+.pill,.chip,.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
+.pill{font-size:12px;padding:5px 14px;border:1px solid var(--border2);background:var(--surface);color:var(--soft);}
+.pill.p,.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);}
+.pill.t,.tag.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,0.2);}
+.pill.a,.tag.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.2);}
+.pill.n,.tag.n{background:rgba(122,127,148,0.08);color:var(--muted);border:1px solid var(--border);}
+.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,0.18);}
+.tag.g{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,0.18);}
+.section{margin-bottom:68px;scroll-margin-top:24px;}
+.section.page-hidden{display:none;}
+.division.division-hidden{display:none;}
+.division{animation:fadeIn .18s ease-out;}
+@keyframes fadeIn{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.sec-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px;}
+.sec-title em{font-style:italic;color:var(--purple);}
+.sec-lead{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px;}
+h3{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);margin-bottom:11px;margin-top:22px;}
+h3:first-child{margin-top:0;}
+h4{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;margin-top:16px;}
+p{color:var(--soft);margin-bottom:12px;font-size:14.5px;line-height:1.8;font-weight:300;}
+strong{color:var(--text);font-weight:500;}
+code{font-family:var(--font-mono);font-size:12px;color:var(--purple-light);background:var(--purple-bg);padding:2px 6px;border-radius:3px;}
+code.t{color:var(--teal-light);background:var(--teal-bg);}
+code.a{color:var(--amber-light);background:var(--amber-bg);}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:var(--border2);}
+.card-hd{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+.card-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.card-ico.p{background:var(--purple-bg);}
+.card-ico.t{background:var(--teal-bg);}
+.card-ico.a{background:var(--amber-bg);}
+.card-ico.r{background:var(--red-bg);}
+.ctitle{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2;}
+.csub{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.ctags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.chev{font-size:18px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0;}
+.card.open .chev{transform:rotate(90deg);}
+.card-body{display:none;}
+.card.open .card-body{display:block;}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;overflow-x:auto;}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;font-family:var(--font-body);}
+.tab:hover{color:var(--text);}
+.tab.on,.tab.active{color:var(--text);border-bottom-color:var(--purple);}
+.pane,.tab-pane{display:none;padding:24px;}
+.pane.on,.tab-pane.on{display:block;}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
+.table-wrap .tbl{min-width:650px;margin-bottom:0;}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;}
+.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2);}
+.tbl th{padding:9px 13px;text-align:left;font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:300;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(255,255,255,0.015);}
+.box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid;}
+.box p{margin:0;font-size:14px;font-weight:300;}
+.box p+p{margin-top:6px;}
+.bl{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;font-family:var(--font-mono);}
+.box.why{border-color:var(--purple);background:var(--purple-bg);}
+.box.why .bl{color:var(--purple-light);}
+.box.tip{border-color:var(--teal);background:var(--teal-bg);}
+.box.tip .bl{color:var(--teal-light);}
+.box.warn{border-color:var(--red);background:var(--red-bg);}
+.box.warn .bl{color:var(--red);}
+.box.case{border-color:var(--blue);background:var(--blue-bg);}
+.box.case .bl{color:var(--blue);}
+.box.revops{border-color:var(--purple);background:linear-gradient(135deg,var(--purple-bg),var(--teal-bg));}
+.box.revops .bl{color:var(--purple-light);}
+.box.amber{border-color:var(--amber);background:var(--amber-bg);}
+.box.amber .bl{color:var(--amber-light);}
+.psteps{list-style:none;padding:0;counter-reset:ps;}
+.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:300;}
+.psteps li:last-child{border-bottom:none;}
+.psteps li::before{content:counter(ps);font-family:var(--font-mono);font-size:10px;color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);border-radius:3px;padding:2px 6px;flex-shrink:0;height:fit-content;margin-top:1px;background:var(--purple-bg);min-width:26px;text-align:center;}
+.prlist{list-style:none;padding:0;}
+.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:300;}
+.prlist li:last-child{border-bottom:none;}
+.mlist{list-style:none;padding:0;}
+.mlist li{background:rgba(248,113,113,0.04);border:1px solid rgba(248,113,113,0.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft);font-weight:300;}
+.mt{color:var(--red);font-weight:500;margin-bottom:4px;font-size:12.5px;font-family:var(--font-mono);}
+.iq{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:12px;}
+.iq-q{font-family:var(--font-display);font-size:16px;color:var(--text);font-style:italic;margin-bottom:8px;}
+.iq-a{font-size:13px;color:var(--soft);line-height:1.8;font-weight:300;}
+.wf-canvas{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;overflow-x:auto;}
+.wf-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.wf-row{display:flex;align-items:stretch;gap:0;margin-bottom:0;}
+.wf-node{border-radius:6px;padding:12px 16px;min-width:160px;flex-shrink:0;}
+.wf-node.trigger{background:var(--purple-bg);border:1px solid rgba(139,127,245,0.2);}
+.wf-node.filter{background:var(--teal-bg);border:1px solid rgba(32,201,151,0.2);}
+.wf-node.action{background:var(--amber-bg);border:1px solid rgba(245,158,11,0.18);}
+.wf-node.delay{background:rgba(255,255,255,0.035);border:1px dashed var(--border2);}
+.wf-node.branch{background:var(--blue-bg);border:1px solid rgba(96,165,250,0.2);}
+.wf-node.end{background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);}
+.wf-node-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.wf-node-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.wf-node-sub{font-size:11.5px;color:var(--muted);font-weight:300;}
+.wf-arrow{display:flex;align-items:center;padding:0 8px;color:var(--muted);font-size:14px;flex-shrink:0;}
+.wf-col{display:flex;flex-direction:column;align-items:center;gap:0;}
+.wf-down{color:var(--muted);font-size:14px;padding:4px 0;text-align:center;}
+.wf-branch-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;text-align:center;}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.rule-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:13px 15px;}
+.rule-num{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:var(--muted);margin-bottom:5px;}
+.rule-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.rule-body{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.65;}
+.enroll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.enroll-card{border:1px solid var(--border);border-radius:6px;padding:14px;background:var(--surface);}
+.enroll-card.p{border-top:2px solid var(--purple);}
+.enroll-card.t{border-top:2px solid var(--teal);}
+.enroll-card.a{border-top:2px solid var(--amber);}
+.enroll-name{font-weight:500;font-size:13px;color:var(--text);margin-bottom:3px;}
+.enroll-name.p{color:var(--purple-light);}
+.enroll-name.t{color:var(--teal-light);}
+.enroll-name.a{color:var(--amber-light);}
+.enroll-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:7px;}
+.enroll-use{font-size:11px;color:var(--soft);font-weight:300;}
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.ac{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;}
+.ac-name{font-size:12.5px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.ac-desc{font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.55;}
+.wf-type{display:inline-block;font-family:var(--font-mono);font-size:10.5px;padding:2px 7px;border-radius:3px;background:var(--purple-bg);color:var(--purple-light);}
+.wf-type.t{background:var(--teal-bg);color:var(--teal-light);}
+.wf-type.a{background:var(--amber-bg);color:var(--amber-light);}
+.wf8-list{list-style:none;padding:0;}
+.wf8-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:8px;}
+.wf8-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.wf8-num{font-family:var(--font-mono);font-size:10px;color:var(--muted);padding:2px 7px;border:1px solid var(--border);border-radius:3px;flex-shrink:0;}
+.wf8-name{font-size:13.5px;font-weight:500;color:var(--text);}
+.wf8-trigger{font-size:12px;color:var(--purple-light);margin-bottom:6px;font-weight:300;}
+.wf8-actions{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+.wf8-action{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.12);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+@media(max-width:760px){
+  .layout{display:block;}
+  .sidebar{display:block!important;width:100%;min-width:0;height:auto;max-height:none;position:sticky;top:0;z-index:50;border-right:none;border-bottom:1px solid var(--border2);box-shadow:0 18px 42px rgba(0,0,0,.18);overflow:visible;background:var(--surface);}
+  .sidebar-brand{display:none;}
+  .desktop-nav{display:none;}
+  .mobile-nav{display:block;}
+  .sidebar-footer{display:none;}
+  .main{width:100%;padding:22px 14px 34px;max-width:100%;}
+  .mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch;}
+  .mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;white-space:nowrap;}
+  .mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff;}
+  .mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch;}
+  .mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap;}
+  .mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38);}
+  .hero{margin-bottom:38px;padding-bottom:30px;}
+  .hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start;}
+  .creator-card{grid-column:1;grid-row:1;padding:0;border:none;background:transparent;box-shadow:none;}
+  .creator-card img{width:64px;height:80px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28);}
+  .creator-name,.creator-role,.creator-link{display:none;}
+  .hero-copy{grid-column:2;grid-row:1;}
+  .hero-kicker{font-size:10px;margin-bottom:9px;}
+  .hero-title{font-size:32px;}
+  .hero-description{font-size:14px;}
+  .section{margin-bottom:42px;}
+  .sec-title{font-size:25px;}
+  .card-hd{padding:18px 16px 15px;}
+  .pane,.tab-pane{padding:16px;}
+  .tabs{display:flex;overflow-x:auto;gap:7px;padding:9px 12px;}
+  .tab{flex:0 0 auto;padding:8px 11px;font-size:12px;}
+  .rules-grid,.enroll-grid{grid-template-columns:1fr;}
+  .action-grid{grid-template-columns:1fr 1fr;}
+  .wf-canvas{padding:16px;}
+}
+@media(max-width:430px){
+  .hero-title{font-size:28px;}
+  .creator-card img{width:58px;height:72px;}
+  .sec-title{font-size:23px;}
+  .hero-inner{grid-template-columns:64px minmax(0,1fr);gap:12px;}
+  .action-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <a class="hubspot-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+        <div class="hubspot-word">HubSpot</div>
+        <div class="hubspot-ref">For better references, visit hubspot.com</div>
+      </a>
+      <div class="sidebar-title">Workflows &amp; Automation</div>
+      <div class="sidebar-desc">The operational nervous system of your CRM — triggers, filters, actions, branches, and governance.</div>
+    </div>
+    <div class="desktop-nav">
+      
+        <div class="nav-group active-page expanded" data-page-group="foundation">
+          <button class="nav-group-label page-tab" onclick="showPage('foundation', true)">
+            <span>Foundation</span><span class="nav-arrow">›</span>
+          </button>
+          <div class="nav-page-items">
+            <a class="nav-item active" data-page="foundation" data-target="what" onclick="showDivision('foundation','what', true)"><span class="nav-dot dot-purple"></span>What is a workflow?</a><a class="nav-item" data-page="foundation" data-target="anatomy" onclick="showDivision('foundation','anatomy', true)"><span class="nav-dot dot-purple"></span>Workflow anatomy</a><a class="nav-item" data-page="foundation" data-target="types" onclick="showDivision('foundation','types', true)"><span class="nav-dot dot-purple"></span>Workflow types</a><a class="nav-item" data-page="foundation" data-target="logic" onclick="showDivision('foundation','logic', true)"><span class="nav-dot dot-purple"></span>7 system rules</a><a class="nav-item" data-page="foundation" data-target="enrollment" onclick="showDivision('foundation','enrollment', true)"><span class="nav-dot dot-purple"></span>Enrollment modes</a>
+          </div>
+        </div>
+        <div class="nav-group" data-page-group="building">
+          <button class="nav-group-label page-tab" onclick="showPage('building', true)">
+            <span>Building Blocks</span><span class="nav-arrow">›</span>
+          </button>
+          <div class="nav-page-items">
+            <a class="nav-item" data-page="building" data-target="triggers" onclick="showDivision('building','triggers', true)"><span class="nav-dot dot-teal"></span>Triggers</a><a class="nav-item" data-page="building" data-target="actions" onclick="showDivision('building','actions', true)"><span class="nav-dot dot-teal"></span>Actions</a><a class="nav-item" data-page="building" data-target="branches" onclick="showDivision('building','branches', true)"><span class="nav-dot dot-teal"></span>Branches</a><a class="nav-item" data-page="building" data-target="delays" onclick="showDivision('building','delays', true)"><span class="nav-dot dot-teal"></span>Delays</a><a class="nav-item" data-page="building" data-target="visual" onclick="showDivision('building','visual', true)"><span class="nav-dot dot-teal"></span>Visual workflow map</a>
+          </div>
+        </div>
+        <div class="nav-group" data-page-group="admin">
+          <button class="nav-group-label page-tab" onclick="showPage('admin', true)">
+            <span>Admin Setup</span><span class="nav-arrow">›</span>
+          </button>
+          <div class="nav-page-items">
+            <a class="nav-item" data-page="admin" data-target="core8" onclick="showDivision('admin','core8', true)"><span class="nav-dot dot-teal"></span>8 essential workflows</a><a class="nav-item" data-page="admin" data-target="setup" onclick="showDivision('admin','setup', true)"><span class="nav-dot dot-teal"></span>Step-by-step setup</a><a class="nav-item" data-page="admin" data-target="naming" onclick="showDivision('admin','naming', true)"><span class="nav-dot dot-teal"></span>Naming & governance</a>
+          </div>
+        </div>
+        <div class="nav-group" data-page-group="applied">
+          <button class="nav-group-label page-tab" onclick="showPage('applied', true)">
+            <span>Applied Learning</span><span class="nav-arrow">›</span>
+          </button>
+          <div class="nav-page-items">
+            <a class="nav-item" data-page="applied" data-target="example" onclick="showDivision('applied','example', true)"><span class="nav-dot dot-amber"></span>Real-world example</a><a class="nav-item" data-page="applied" data-target="cases" onclick="showDivision('applied','cases', true)"><span class="nav-dot dot-amber"></span>Case studies</a><a class="nav-item" data-page="applied" data-target="mistakes" onclick="showDivision('applied','mistakes', true)"><span class="nav-dot dot-amber"></span>Common mistakes</a><a class="nav-item" data-page="applied" data-target="best" onclick="showDivision('applied','best', true)"><span class="nav-dot dot-amber"></span>Best practices</a><a class="nav-item" data-page="applied" data-target="practice" onclick="showDivision('applied','practice', true)"><span class="nav-dot dot-amber"></span>Practice exercise</a><a class="nav-item" data-page="applied" data-target="interview" onclick="showDivision('applied','interview', true)"><span class="nav-dot dot-amber"></span>Interview questions</a><a class="nav-item" data-page="applied" data-target="cheatsheet" onclick="showDivision('applied','cheatsheet', true)"><span class="nav-dot dot-amber"></span>Cheatsheet</a>
+          </div>
+        </div>
+    </div>
+    <div class="mobile-nav">
+      <div class="mobile-section-row">
+        <button class="mobile-section-btn active" data-page-group="foundation" onclick="showPage('foundation', true)">Foundation</button><button class="mobile-section-btn " data-page-group="building" onclick="showPage('building', true)">Building Blocks</button><button class="mobile-section-btn " data-page-group="admin" onclick="showPage('admin', true)">Admin Setup</button><button class="mobile-section-btn " data-page-group="applied" onclick="showPage('applied', true)">Applied Learning</button>
+      </div>
+      <div class="mobile-division-row" id="mobileDivisionRow"></div>
+    </div>
+    <div class="sidebar-footer">Click any section to explore · Cards expand on click</div>
+  </nav>
+  <main class="main">
+    <div class="hero" id="page-top">
+      <div class="hero-inner">
+        <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+          <img src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo" />
+          <div class="creator-name">Naveed Abbas</div>
+          <div class="creator-role">CRM Administrator</div>
+          <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+        </a>
+        <div class="hero-copy">
+          <div class="hero-kicker">HubSpot Admin · Module 8</div>
+          <h1 class="hero-title">HubSpot<br><em>Workflows</em></h1>
+          <p class="hero-description">The automation engine of your CRM — the layer where everything connects. Triggers, filters, actions, branches, delays, and the essential workflows every portal must have.</p>
+          <div class="hero-pills">
+            <span class="pill p">Triggers + filters + actions</span>
+            <span class="pill p">7 system rules</span>
+            <span class="pill t">Branches &amp; delays</span>
+            <span class="pill t">8 essential workflows</span>
+            <span class="pill a">3 case studies</span>
+            <span class="pill n">Naming conventions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <section class="section" id="foundation" data-page="foundation" aria-label="Foundation">
+        <div class="sec division" data-division="what" id="what">
+<div class="sec-eye">Foundation · 01</div>
+<div class="sec-title">What Is a <em>Workflow?</em></div>
+<p class="sec-lead">An automated sequence of actions that executes when conditions are met — the digital employee who never sleeps, never forgets, and scales to any volume.</p>
+<div class="box why"><div class="bl">Core definition</div><p>A HubSpot Workflow is a rule-based automation: <strong>"When [trigger] happens, and [conditions] are true, execute [actions] in sequence."</strong> Once activated, a workflow runs 24/7 without any human input — for every contact that qualifies, forever.</p></div>
+<h3>What workflows replace</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Manual process</th><th>Workflow replacement</th><th>Impact</th></tr></thead>
+<tbody>
+<tr><td>Rep manually sets Lifecycle Stage</td><td>Auto-set when lead score hits threshold</td><td>Instant, consistent, zero missed updates</td></tr>
+<tr><td>Admin emails CS when deal closes</td><td>Workflow sends Slack notification instantly</td><td>Seconds vs hours — no dropped handoffs</td></tr>
+<tr><td>Rep creates follow-up tasks each morning</td><td>Tasks auto-created based on contact behaviour</td><td>Nothing falls through the cracks</td></tr>
+<tr><td>Marketer sends welcome email manually</td><td>Sent within seconds of form submission</td><td>Strikes while engagement is highest</td></tr>
+<tr><td>Nobody re-engages Bad Timing contacts</td><td>Lead Status resets automatically on follow-up date</td><td>Free pipeline from previously dead leads</td></tr>
+<tr><td>SDR manager checks for uncovered MQLs</td><td>Manager alerted when MQL sits untouched 48h</td><td>SLA enforcement without manual monitoring</td></tr>
+</tbody>
+</table></div>
+<div class="box amber"><div class="bl">From your SDR background</div><p>Every manual task you did repeatedly as an SDR — logging call outcomes, setting follow-up reminders, updating lead statuses after calls — is something a workflow can do automatically. As an admin, you build these systems once and they run for every rep on the team, consistently, forever. That's the scale shift.</p></div>
+</div><div class="sec division division-hidden" data-division="anatomy" id="anatomy">
+<div class="sec-eye">Foundation · 02</div>
+<div class="sec-title">Workflow <em>Anatomy</em></div>
+<p class="sec-lead">Every workflow has exactly three required parts. Understanding each deeply is the foundation of everything else.</p>
+<div class="wf-canvas">
+<div class="wf-title">Workflow structure — three required parts</div>
+<div style="display:flex;align-items:stretch;gap:0;overflow-x:auto;">
+<div class="wf-node trigger">
+<div class="wf-node-label">Part 1</div>
+<div class="wf-node-title">Enrollment Trigger</div>
+<div class="wf-node-sub">The event that starts the process</div>
+<div style="margin-top:10px;font-size:11.5px;color:var(--purple);line-height:1.7">
+          Form submitted<br/>Property changed<br/>Date reached<br/>List joined<br/>Deal stage changed
+        </div>
+</div>
+<div class="wf-arrow">→</div>
+<div class="wf-node filter">
+<div class="wf-node-label">Part 2</div>
+<div class="wf-node-title">Enrollment Filters</div>
+<div class="wf-node-sub">Who actually qualifies?</div>
+<div style="margin-top:10px;font-size:11.5px;color:var(--teal);line-height:1.7">
+          Lifecycle = Lead<br/>Industry = SaaS<br/>Score &gt; 40<br/>Is customer? No<br/><em>Optional but critical</em>
+</div>
+</div>
+<div class="wf-arrow">→</div>
+<div class="wf-node action">
+<div class="wf-node-label">Part 3</div>
+<div class="wf-node-title">Actions</div>
+<div class="wf-node-sub">What happens, in order</div>
+<div style="margin-top:10px;font-size:11.5px;color:var(--amber);line-height:1.7">
+          Set property<br/>Send email<br/>Create task<br/>Notify user<br/>Branch / Delay
+        </div>
+</div>
+</div>
+</div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Part</th><th>What it does</th><th>Analogy</th></tr></thead>
+<tbody>
+<tr><td><strong>Enrollment Trigger</strong></td><td>The event that causes HubSpot to check whether a record should enter this workflow. Checked continuously.</td><td>The alarm that rings when the condition is met</td></tr>
+<tr><td><strong>Enrollment Filters</strong></td><td>Additional conditions that must be true AFTER the trigger fires for a record to actually enroll. Optional but almost always needed.</td><td>The bouncer checking the guest list after the alarm rings</td></tr>
+<tr><td><strong>Actions</strong></td><td>Everything the workflow does after a record enrolls — run in sequence, top to bottom. Includes delays and branches.</td><td>The step-by-step instructions in the employee handbook</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="types" id="types">
+<div class="sec-eye">Foundation · 03</div>
+<div class="sec-title">Workflow <em>Types</em></div>
+<p class="sec-lead">Workflows run on a specific object — and the object type determines what triggers, filters, and actions are available.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Type</th><th>Acts on</th><th>Common use cases</th><th>Frequency of use</th></tr></thead>
+<tbody>
+<tr><td><span class="wf-type">Contact</span></td><td>Contact records</td><td>Lead nurture, MQL promotion, lifecycle updates, welcome emails, lead scoring, re-engagement</td><td>~80% of all workflows</td></tr>
+<tr><td><span class="wf-type t">Deal</span></td><td>Deal records</td><td>Stage automation, close notifications, task creation, deal rotation, forecast updates</td><td>~10%</td></tr>
+<tr><td><span class="wf-type t">Ticket</span></td><td>Ticket records</td><td>SLA escalation, support routing, CSAT survey triggers, category auto-tagging</td><td>~5%</td></tr>
+<tr><td><span class="wf-type a">Company</span></td><td>Company records</td><td>Account lifecycle sync, ABM automation, company scoring</td><td>~3%</td></tr>
+<tr><td><span class="wf-type a">Quote</span></td><td>Quote records</td><td>Approval flows, expiry reminders, signed quote follow-up</td><td>~1%</td></tr>
+<tr><td><span class="wf-type a">Conversation</span></td><td>Conversation records</td><td>Post-chat follow-up, CSAT surveys, ticket linking</td><td>~1%</td></tr>
+</tbody>
+</table></div>
+<div class="box tip"><div class="bl">Admin starting point</div><p>Master Contact-based workflows first — they represent the vast majority of real-world automation. Once you deeply understand trigger → filter → action logic for contacts, the same mental model applies to every other object type.</p></div>
+</div><div class="sec division division-hidden" data-division="logic" id="logic">
+<div class="sec-eye">Foundation · 04</div>
+<div class="sec-title">7 System <em>Rules</em></div>
+<p class="sec-lead">How HubSpot processes workflows under the hood — know these rules before building anything.</p>
+<div class="rules-grid">
+<div class="rule-card">
+<div class="rule-num">Rule 01</div>
+<div class="rule-title">Workflows process records, not people</div>
+<div class="rule-body">The workflow doesn't know or care that there's a real human. It checks whether a record meets criteria and executes actions. Always ask: "What state will this record be in when this action runs?"</div>
+</div>
+<div class="rule-card">
+<div class="rule-num">Rule 02</div>
+<div class="rule-title">Single enrollment by default</div>
+<div class="rule-body">A contact enrolls once and never re-enters — even if they re-meet the trigger. You must explicitly enable re-enrollment. This is the most common cause of workflows "stopping working."</div>
+</div>
+<div class="rule-card">
+<div class="rule-num">Rule 03</div>
+<div class="rule-title">Actions execute sequentially</div>
+<div class="rule-body">Actions run top-to-bottom, one at a time. A delay pauses execution at that step. A branch splits execution into two simultaneous paths.</div>
+</div>
+<div class="rule-card">
+<div class="rule-num">Rule 04</div>
+<div class="rule-title">Enrolled contacts stay enrolled</div>
+<div class="rule-body">Once a contact enters a workflow, property changes don't automatically remove them. You must configure explicit unenrollment conditions if you want contacts pulled out mid-flow.</div>
+</div>
+<div class="rule-card">
+<div class="rule-num">Rule 05</div>
+<div class="rule-title">"Don't overwrite" is your safety net</div>
+<div class="rule-body">Every "Set property value" action can be set to not overwrite existing values. Always decide: should this action win over manually-set data, or should existing values be protected?</div>
+</div>
+<div class="rule-card">
+<div class="rule-num">Rule 06</div>
+<div class="rule-title">Not all triggers are real-time</div>
+<div class="rule-body">Form submission triggers are near-instant. Date-based triggers run once daily. Property change triggers run within minutes. Know the processing cycle of each trigger type for time-sensitive flows.</div>
+</div>
+<div class="rule-card" style="grid-column:1/-1">
+<div class="rule-num">Rule 07</div>
+<div class="rule-title">When activating — check the eligible contact count first</div>
+<div class="rule-body">When you activate a workflow, HubSpot will enroll all existing contacts that currently meet the trigger (unless you disable this). If you're expecting to enroll 50 new leads and see 1,200 eligible, don't activate until you understand why — or configure it to only enroll going forward.</div>
+</div>
+</div>
+</div><div class="sec division division-hidden" data-division="enrollment" id="enrollment">
+<div class="sec-eye">Foundation · 05</div>
+<div class="sec-title">Enrollment <em>Modes</em></div>
+<p class="sec-lead">Three enrollment configurations — choosing the wrong one is the most common workflow mistake.</p>
+<div class="enroll-grid">
+<div class="enroll-card p">
+<div class="enroll-name p">Single enrollment</div>
+<div class="enroll-desc">A contact enters once and never re-enters — even if they re-meet the trigger conditions in the future. Default setting.</div>
+<div class="enroll-use"><strong>Use for:</strong> Welcome emails (one per customer), lifecycle stage promotions, deal close notifications, one-time onboarding sequences</div>
+</div>
+<div class="enroll-card t">
+<div class="enroll-name t">Re-enrollment</div>
+<div class="enroll-desc">Contact can re-enter every time they re-meet the trigger. Must be explicitly enabled. HubSpot will ask: re-enroll when they re-meet the trigger, or based on a specific condition.</div>
+<div class="enroll-use"><strong>Use for:</strong> Date-based reminders (fire every year), lead scoring updates, Bad Timing re-engagement, quarterly re-nurture sequences</div>
+</div>
+<div class="enroll-card a">
+<div class="enroll-name a">Unenrollment conditions</div>
+<div class="enroll-desc">Conditions under which a contact is pulled out mid-workflow — before completing all actions. Configured separately from re-enrollment.</div>
+<div class="enroll-use"><strong>Always set for:</strong> Nurture workflows → unenroll when Lifecycle = Customer. Lead sequences → unenroll when demo is booked. Follow-up → unenroll when contact replies.</div>
+</div>
+</div>
+<div class="box warn"><div class="bl">The most expensive mistake</div><p>A lead nurture workflow without an unenrollment condition for <code>Lifecycle Stage = Customer</code> will keep sending "discover why you should try us" emails to people who already bought. Every time. Until someone manually removes them. Set unenrollment conditions on every nurture and sequence workflow before activating.</p></div>
+</div>
+      </section>
+      <section class="section page-hidden" id="building" data-page="building" aria-label="Building Blocks">
+        <div class="sec division division-hidden" data-division="triggers" id="triggers">
+<div class="sec-eye">Building Blocks · 06</div>
+<div class="sec-title">Enrollment <em>Triggers</em></div>
+<p class="sec-lead">The event that starts every workflow — eight categories, each with a different use case.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Trigger category</th><th>Example trigger</th><th>Best for</th><th>Speed</th></tr></thead>
+<tbody>
+<tr><td><strong>Contact property</strong></td><td>Lifecycle Stage changes to MQL</td><td>Stage-based automation, score thresholds</td><td>Near real-time</td></tr>
+<tr><td><strong>Form submission</strong></td><td>Contact submits "Demo Request" form</td><td>Post-form sequences, lead follow-up</td><td>Instant (~seconds)</td></tr>
+<tr><td><strong>List membership</strong></td><td>Contact joins "Hot Leads" active list</td><td>List-based enrollment, segmented flows</td><td>Minutes</td></tr>
+<tr><td><strong>Date-based</strong></td><td>Contact's Follow-up Date = today</td><td>Renewals, re-engagement, anniversary emails</td><td>Runs once daily</td></tr>
+<tr><td><strong>Deal property</strong></td><td>Deal Stage changes to Closed Won</td><td>Post-sale automation, onboarding triggers</td><td>Near real-time</td></tr>
+<tr><td><strong>Email engagement</strong></td><td>Contact opens or clicks a specific email</td><td>Behaviour-based branching, hot lead alerts</td><td>Minutes</td></tr>
+<tr><td><strong>Page view</strong></td><td>Contact visits /pricing URL</td><td>Intent-based workflows, sales alerts</td><td>Minutes</td></tr>
+<tr><td><strong>Ticket / Conversation</strong></td><td>New ticket created in Support inbox</td><td>SLA workflows, support routing</td><td>Near real-time</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="actions" id="actions">
+<div class="sec-eye">Building Blocks · 07</div>
+<div class="sec-title">Workflow <em>Actions</em></div>
+<p class="sec-lead">Everything a workflow can do — organised by category. These are your tools.</p>
+<div class="action-grid">
+<div class="ac"><div class="ac-name">Set contact property</div><div class="ac-desc">Write a value to any Contact property. Supports "don't overwrite" protection. The most-used action in any workflow.</div></div>
+<div class="ac"><div class="ac-name">Set company/deal property</div><div class="ac-desc">Update associated Company or Deal properties. Used to sync Lifecycle Stage from Contact to Company.</div></div>
+<div class="ac"><div class="ac-name">Send marketing email</div><div class="ac-desc">Send a specific published marketing email to the enrolled contact. For automated nurture and onboarding sequences.</div></div>
+<div class="ac"><div class="ac-name">Send internal notification</div><div class="ac-desc">Email a HubSpot user or team with information about the contact. Instant, personalised alerts to reps.</div></div>
+<div class="ac"><div class="ac-name">Create a task</div><div class="ac-desc">Generate a to-do assigned to the contact's owner or a specific user. With a due date and priority. The follow-up engine.</div></div>
+<div class="ac"><div class="ac-name">Add to / remove from list</div><div class="ac-desc">Add the contact to a static list, or remove them. Used for exclusion management and post-action tracking.</div></div>
+<div class="ac"><div class="ac-name">Enrol in sequence</div><div class="ac-desc">Start a sales email sequence for the contact, assigned to the contact's owner or a specified rep.</div></div>
+<div class="ac"><div class="ac-name">Create a deal/ticket</div><div class="ac-desc">Generate a new Deal or Ticket record linked to the contact. Automates pipeline creation from lead behaviour.</div></div>
+<div class="ac"><div class="ac-name">Rotate owner</div><div class="ac-desc">Assign the contact to the next available user in a round-robin list. For inbound lead distribution.</div></div>
+<div class="ac"><div class="ac-name">Set association</div><div class="ac-desc">Link a Contact to a Company, Deal, or Ticket. Build CRM relationships automatically from import data.</div></div>
+<div class="ac"><div class="ac-name">Webhook / HTTP request</div><div class="ac-desc">Send data to an external URL. Connects HubSpot to any external system — Slack (custom), Zapier, custom APIs.</div></div>
+<div class="ac"><div class="ac-name">Copy / clear property value</div><div class="ac-desc">Copy a value from one property to another, or clear a property. Used in data normalisation and migration workflows.</div></div>
+</div>
+</div><div class="sec division division-hidden" data-division="branches" id="branches">
+<div class="sec-eye">Building Blocks · 08</div>
+<div class="sec-title">Workflow <em>Branches</em></div>
+<p class="sec-lead">If/then logic that makes workflows intelligent — routes contacts down different paths based on their data.</p>
+<p>A branch splits the workflow into two or more paths. Each path has its own sequence of actions. After the branch, paths can rejoin or remain separate. Branches can be nested inside other branches.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Branch type</th><th>What it checks</th><th>Use case</th></tr></thead>
+<tbody>
+<tr><td><strong>If/then branch</strong></td><td>A property value on the enrolled record</td><td>Route by company size, industry, lifecycle stage, score, or any property</td></tr>
+<tr><td><strong>Is enrolled in sequence?</strong></td><td>Whether the contact is in an active Sales sequence</td><td>Avoid emailing contacts who are mid-sequence</td></tr>
+<tr><td><strong>Test branch (A/B)</strong></td><td>Random 50/50 split</td><td>Email subject line testing, CTA testing</td></tr>
+<tr><td><strong>Weighted branch</strong></td><td>Custom percentage split (e.g. 70/30)</td><td>Gradual rollout of a new email template</td></tr>
+<tr><td><strong>Time-based branch</strong></td><td>Time of day or day of week</td><td>Send different messages to contacts in different timezones</td></tr>
+</tbody>
+</table></div>
+<div class="wf-canvas">
+<div class="wf-title">Branch example — routing by company size</div>
+<div class="wf-col">
+<div class="wf-node trigger" style="width:260px;text-align:center">
+<div class="wf-node-label">Trigger</div>
+<div class="wf-node-title">Contact submits demo request form</div>
+</div>
+<div class="wf-down">↓</div>
+<div class="wf-node branch" style="width:260px;text-align:center">
+<div class="wf-node-label">If/Then Branch</div>
+<div class="wf-node-title">Company Employees ≥ 50?</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px;width:100%;max-width:560px;">
+<div>
+<div class="wf-branch-label" style="color:var(--teal)">YES → Enterprise path</div>
+<div class="wf-node action" style="margin-bottom:8px"><div class="wf-node-title">Notify SDR immediately</div></div>
+<div class="wf-down">↓</div>
+<div class="wf-node action" style="margin-bottom:8px"><div class="wf-node-title">Set Lifecycle = SQL</div></div>
+<div class="wf-down">↓</div>
+<div class="wf-node action"><div class="wf-node-title">Create task: "Enterprise demo lead"</div></div>
+</div>
+<div>
+<div class="wf-branch-label" style="color:var(--purple)">NO → SMB path</div>
+<div class="wf-node action" style="margin-bottom:8px"><div class="wf-node-title">Send self-serve resources</div></div>
+<div class="wf-down">↓</div>
+<div class="wf-node action" style="margin-bottom:8px"><div class="wf-node-title">Set Lifecycle = Lead</div></div>
+<div class="wf-down">↓</div>
+<div class="wf-node action"><div class="wf-node-title">Enrol in SMB nurture sequence</div></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="sec division division-hidden" data-division="delays" id="delays">
+<div class="sec-eye">Building Blocks · 09</div>
+<div class="sec-title">Workflow <em>Delays</em></div>
+<p class="sec-lead">Pausing execution at a specific point — the timing layer that makes automation feel human.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Delay type</th><th>What it does</th><th>Best for</th></tr></thead>
+<tbody>
+<tr><td><strong>Fixed delay</strong></td><td>Wait exactly X minutes, hours, days, or weeks before the next action</td><td>Email sequences, follow-up reminders, onboarding step spacing</td></tr>
+<tr><td><strong>Until a specific date</strong></td><td>Wait until a Contact property date (e.g. Contract End Date) is reached</td><td>Renewal reminders, anniversary emails, trial expiration</td></tr>
+<tr><td><strong>Until a day and time</strong></td><td>Wait until a specific day of week AND time of day</td><td>Ensuring automated actions fire during business hours only</td></tr>
+</tbody>
+</table></div>
+<div class="box tip"><div class="bl">The "until day and time" power move</div><p>Instead of sending an automated task creation or notification at 3am on a Sunday, add a "delay until Monday at 9:00am" action. Your automated workflows then feel like deliberate human-timed actions rather than obviously robotic blasts. This small detail dramatically improves rep adoption and response rates from automated outreach.</p></div>
+</div><div class="sec division division-hidden" data-division="visual" id="visual">
+<div class="sec-eye">Building Blocks · 10</div>
+<div class="sec-title">Full Workflow <em>Architecture Map</em></div>
+<p class="sec-lead">The complete onboarding workflow — showing every node type in a real-world sequence.</p>
+<div class="wf-canvas">
+<div class="wf-title">Workflow: [Deal] New customer onboarding — Deal Closed Won</div>
+<div class="wf-col" style="align-items:flex-start;max-width:480px;">
+<div class="wf-node trigger">
+<div class="wf-node-label">Enrollment Trigger</div>
+<div class="wf-node-title">Deal Stage = Closed Won</div>
+<div class="wf-node-sub">Filter: Pipeline = New Business (not Renewal)</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node action">
+<div class="wf-node-label">Action 1</div>
+<div class="wf-node-title">Set Contact: Lifecycle Stage = Customer</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node action">
+<div class="wf-node-label">Action 2</div>
+<div class="wf-node-title">Set Contact: Customer Date = Today</div>
+<div class="wf-node-sub">"Don't overwrite" enabled</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node action">
+<div class="wf-node-label">Action 3</div>
+<div class="wf-node-title">Send internal notification to CS Slack</div>
+<div class="wf-node-sub">Includes deal value, company, contact name</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node action">
+<div class="wf-node-label">Action 4</div>
+<div class="wf-node-title">Send email: Welcome to [Company]</div>
+<div class="wf-node-sub">From: assigned CS owner</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node delay">
+<div class="wf-node-label">Delay</div>
+<div class="wf-node-title">Wait 3 days</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node action">
+<div class="wf-node-label">Action 5</div>
+<div class="wf-node-title">Create task: Check in — has onboarding started?</div>
+<div class="wf-node-sub">Assigned to CS owner. Due in 1 day.</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node delay">
+<div class="wf-node-label">Delay</div>
+<div class="wf-node-title">Wait 7 more days (Day 10 total)</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node action">
+<div class="wf-node-label">Action 6</div>
+<div class="wf-node-title">Send email: Day 10 onboarding tips</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node delay">
+<div class="wf-node-label">Delay</div>
+<div class="wf-node-title">Wait 14 more days (Day 24 total)</div>
+</div>
+<div class="wf-down" style="padding-left:20px">↓</div>
+<div class="wf-node end">
+<div class="wf-node-label">Final Action</div>
+<div class="wf-node-title">Create task: 30-day check-in call</div>
+<div class="wf-node-sub">Assigned to CS owner. Due in 6 days.</div>
+</div>
+</div>
+</div>
+</div>
+      </section>
+      <section class="section page-hidden" id="admin" data-page="admin" aria-label="Admin Setup">
+        <div class="sec division division-hidden" data-division="core8" id="core8">
+<div class="sec-eye">Admin Setup · 11</div>
+<div class="sec-title">The 8 <em>Essential Workflows</em></div>
+<p class="sec-lead">Every HubSpot portal needs these 8 workflows. Without them, the CRM runs on manual processes and data degrades.</p>
+<ul class="wf8-list">
+<li class="wf8-item">
+<div class="wf8-head"><span class="wf8-num">01</span><span class="wf8-name">Lifecycle Stage: Lead → MQL promotion</span></div>
+<div class="wf8-trigger">Trigger: Lead Score ≥ threshold AND meets ICP criteria (industry, size, title)</div>
+<div class="wf8-actions">
+<span class="wf8-action">Set Lifecycle = MQL</span>
+<span class="wf8-action">Set Lead Status = New</span>
+<span class="wf8-action">Set MQL Date = Today</span>
+<span class="wf8-action">Notify assigned SDR</span>
+<span class="wf8-action">Create review task</span>
+</div>
+</li>
+<li class="wf8-item">
+<div class="wf8-head"><span class="wf8-num">02</span><span class="wf8-name">Deal close → Customer promotion + onboarding</span></div>
+<div class="wf8-trigger">Trigger: Associated Deal Stage = Closed Won</div>
+<div class="wf8-actions">
+<span class="wf8-action">Set Lifecycle = Customer</span>
+<span class="wf8-action">Set Customer Date = Today</span>
+<span class="wf8-action">Notify CS Slack</span>
+<span class="wf8-action">Send welcome email</span>
+<span class="wf8-action">Create onboarding task</span>
+<span class="wf8-action">Enrol in onboarding sequence</span>
+</div>
+</li>
+<li class="wf8-item">
+<div class="wf8-head"><span class="wf8-num">03</span><span class="wf8-name">Blank Lifecycle Stage — catchall default</span></div>
+<div class="wf8-trigger">Trigger: Lifecycle Stage is unknown AND Contact is created</div>
+<div class="wf8-actions">
+<span class="wf8-action">Set Lifecycle = Lead</span>
+<span class="wf8-action">Set Lead Status = New</span>
+</div>
+</li>
+<li class="wf8-item">
+<div class="wf8-head"><span class="wf8-num">04</span><span class="wf8-name">Bad Timing re-engagement</span></div>
+<div class="wf8-trigger">Trigger: Lead Status = Bad Timing AND Follow-up Date = today (date-based, re-enrollment enabled)</div>
+<div class="wf8-actions">
+<span class="wf8-action">Set Lead Status = New</span>
+<span class="wf8-action">Clear Follow-up Date</span>
+<span class="wf8-action">Notify owner</span>
+<span class="wf8-action">Create re-engagement task</span>
+</div>
+</li>
+<li class="wf8-item">
+<div class="wf8-head"><span class="wf8-num">05</span><span class="wf8-name">Stale MQL alert — SLA enforcement</span></div>
+<div class="wf8-trigger">Trigger: Lifecycle = MQL AND Lead Status = New AND MQL Date &gt; 2 business days ago</div>
+<div class="wf8-actions">
+<span class="wf8-action">Notify SDR manager</span>
+<span class="wf8-action">Create urgent task for manager</span>
+</div>
+</li>
+<li class="wf8-item">
+<div class="wf8-head"><span class="wf8-num">06</span><span class="wf8-name">Form submission — post-form follow-up</span></div>
+<div class="wf8-trigger">Trigger: Contact submits [specific form]</div>
+<div class="wf8-actions">
+<span class="wf8-action">Set Lifecycle = Lead</span>
+<span class="wf8-action">Set Lead Status = New</span>
+<span class="wf8-action">Send confirmation email</span>
+<span class="wf8-action">Notify SDR</span>
+<span class="wf8-action">Create follow-up task</span>
+</div>
+</li>
+<li class="wf8-item">
+<div class="wf8-head"><span class="wf8-num">07</span><span class="wf8-name">Deal stage automation</span></div>
+<div class="wf8-trigger">Trigger: Deal Stage changes to [key stage]</div>
+<div class="wf8-actions">
+<span class="wf8-action">Create task for deal owner</span>
+<span class="wf8-action">Send internal notification</span>
+<span class="wf8-action">Update contact lifecycle</span>
+</div>
+</li>
+<li class="wf8-item">
+<div class="wf8-head"><span class="wf8-num">08</span><span class="wf8-name">Date-stamp properties — funnel velocity data</span></div>
+<div class="wf8-trigger">Trigger: Lifecycle Stage = MQL (or SQL, or Customer) — separate workflows per stage, re-enrollment OFF</div>
+<div class="wf8-actions">
+<span class="wf8-action">Set MQL Date = Today (don't overwrite)</span>
+<span class="wf8-action">[Repeat for SQL Date, Customer Date]</span>
+</div>
+</li>
+</ul>
+</div><div class="sec division division-hidden" data-division="setup" id="setup">
+<div class="sec-eye">Admin Setup · 12</div>
+<div class="sec-title">Step-by-Step <em>Setup</em></div>
+<div class="box tip"><div class="bl">Path in HubSpot</div><p>Automation → Workflows → Create workflow</p></div>
+<ol class="psteps">
+<li><strong>Choose the object type</strong> — Contact, Company, Deal, Ticket, etc. This determines what triggers, filters, and actions are available.</li>
+<li><strong>Choose: Start from scratch or Use a template</strong> — For learning: use templates to understand structure. For production: always start from scratch to ensure every condition is deliberate.</li>
+<li><strong>Set the enrollment trigger</strong> — Click "Set up trigger." Choose the event type and configure the specific condition (property, form, list, date).</li>
+<li><strong>Add enrollment filters</strong> — After the trigger, narrow who actually enrolls. This is where you add industry = SaaS, company size ≥ 50, lifecycle = Lead, etc.</li>
+<li><strong>Configure re-enrollment</strong> — In the left panel Settings tab: decide if contacts can re-enroll. Default is off. Enable only if needed.</li>
+<li><strong>Add actions</strong> — Click the "+" to add actions. Build in logical order: set properties first (data before actions), then send emails, then notify, then create tasks.</li>
+<li><strong>Add delays between timed actions</strong> — Between sequential emails or tasks, insert delays. Use "until a day and time" for actions that should feel human-timed.</li>
+<li><strong>Add branches where paths diverge</strong> — Insert an If/Then branch when different contacts should receive different experiences based on their properties.</li>
+<li><strong>Set unenrollment conditions</strong> — Settings → Unenrollment and suppression. Add: "Contact's Lifecycle Stage is any of Customer, Evangelist" for all nurture workflows.</li>
+<li><strong>Name the workflow with your convention</strong> — <code>[Contact] MQL Promotion — Lead Score 50+</code>. Add a description with purpose, owner, and last-updated date.</li>
+<li><strong>Check eligible contact count</strong> — Before activating, HubSpot shows how many existing contacts are eligible. Verify this matches your expectations. If wrong, fix the trigger/filter before activating.</li>
+<li><strong>Activate</strong> — Toggle "Turn on." Decide: enroll existing eligible contacts, or only new contacts going forward? For most workflows: only new contacts going forward.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="naming" id="naming">
+<div class="sec-eye">Admin Setup · 13</div>
+<div class="sec-title">Naming <em>&amp; Governance</em></div>
+<p class="sec-lead">A workflow library without governance becomes unmaintainable within 6 months. Structure from day one.</p>
+<h3>The naming convention</h3>
+<div class="wf-canvas">
+<div style="font-family:var(--font-mono);font-size:14px;color:var(--ink);background:var(--surface2);padding:14px 18px;border-radius:var(--r-sm);display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+<span style="background:var(--purple-bg);color:var(--purple);padding:4px 10px;border-radius:3px">[Contact]</span>
+<span style="color:var(--muted)">·</span>
+<span style="background:var(--teal-bg);color:var(--teal);padding:4px 10px;border-radius:3px">[MKT]</span>
+<span style="color:var(--muted)">·</span>
+<span style="background:var(--amber-bg);color:var(--amber);padding:4px 10px;border-radius:3px">MQL Promotion</span>
+<span style="color:var(--muted)">—</span>
+<span style="background:var(--surface3);padding:4px 10px;border-radius:3px;color:var(--soft)">Lead Score 50+</span>
+</div>
+<div style="margin-top:10px;font-size:12px;color:var(--muted);display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+<div><strong style="color:var(--purple)">Object prefix</strong><br/>Contact / Deal / Ticket</div>
+<div><strong style="color:var(--teal)">Team prefix</strong><br/>MKT / SALES / CS / AUTO</div>
+<div><strong style="color:var(--amber)">Purpose</strong><br/>What this workflow does</div>
+<div><strong style="color:var(--soft)">Trigger descriptor</strong><br/>What starts it</div>
+</div>
+</div>
+<h3>Examples</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Workflow name</th><th>What it tells you instantly</th></tr></thead>
+<tbody>
+<tr><td><code>[Contact] MKT — MQL Promotion — Lead Score 50+</code></td><td>Contact workflow, owned by marketing, promotes MQLs when score hits 50</td></tr>
+<tr><td><code>[Deal] SALES — Onboarding Start — Closed Won</code></td><td>Deal workflow, sales-owned, starts onboarding on deal close</td></tr>
+<tr><td><code>[Contact] CS — Bad Timing Re-engage — Follow-up Date</code></td><td>CS-managed contact workflow, re-engages bad timing leads on their follow-up date</td></tr>
+<tr><td><code>[Contact] AUTO — Lifecycle Default — New Contact</code></td><td>Automated catchall, sets default lifecycle on any new contact without one</td></tr>
+<tr><td><code>[Ticket] CS — SLA Escalation — 2hr No Response</code></td><td>Ticket workflow, escalates when no agent response in 2 hours</td></tr>
+</tbody>
+</table></div>
+<h3>Quarterly governance checklist</h3>
+<ul class="prlist">
+<li><span>🔍</span><div>Review all active workflows — any that enrolled 0 contacts in 30 days should be investigated (trigger broken or audience too narrow)</div></li>
+<li><span>🗄️</span><div>Pause and archive any workflow for a campaign or initiative that has ended — don't leave inactive workflows cluttering the list</div></li>
+<li><span>📝</span><div>Verify every workflow has a description — purpose, owner, last updated date</div></li>
+<li><span>⚠️</span><div>Check for conflicting workflows — two workflows both trying to set the same property can create unexpected results</div></li>
+<li><span>📊</span><div>Review enrollment counts — any workflow with unusually high or low enrollment vs expectation needs investigation</div></li>
+</ul>
+</div>
+      </section>
+      <section class="section page-hidden" id="applied" data-page="applied" aria-label="Applied Learning">
+        <div class="sec division division-hidden" data-division="example" id="example">
+<div class="sec-eye">Applied Learning · 14</div>
+<div class="sec-title">Real-World <em>Example</em></div>
+<p class="sec-lead">How building 8 core workflows transformed a B2B SaaS company's revenue operations in 3 weeks.</p>
+<div class="box case"><div class="bl">The situation</div><p>A 20-person B2B SaaS startup had been using HubSpot for 8 months with zero automation. Every lifecycle stage was manually updated. Every handoff (Marketing → Sales, Sales → CS) depended on a Slack message. 40% of deals closed without any post-sale CRM update. The sales manager had no idea which MQLs had been covered. The CS team found out about new customers 2–3 days after close.</p></div>
+<h3>Week 1 — Data foundation</h3>
+<ul class="prlist">
+<li><span>01</span><div>Built <strong>Workflow 03</strong> (blank lifecycle default) first. Ran overnight — assigned Lifecycle Stage = Lead to 840 contacts that had none. CRM data went from 43% coverage to 97% in 8 hours.</div></li>
+<li><span>02</span><div>Built <strong>Workflow 08</strong> (date-stamp properties). Created MQL Date, SQL Date, Customer Date custom properties. Retroactively stamped Customer Date from deal close dates via import. Now had funnel velocity data for the first time.</div></li>
+</ul>
+<h3>Week 2 — Handoff automation</h3>
+<ul class="prlist">
+<li><span>03</span><div>Built <strong>Workflow 01</strong> (MQL promotion). Facilitated joint session with CMO and VP Sales to agree on MQL criteria. Workflow activated — first 12 MQLs auto-promoted with SDR notifications within the first 3 hours.</div></li>
+<li><span>04</span><div>Built <strong>Workflow 02</strong> (deal close → customer onboarding). CS team notified within seconds of every new close. First week: 3 deals closed, all 3 onboarding sequences started automatically, CS manager called it "magic."</div></li>
+<li><span>05</span><div>Built <strong>Workflow 05</strong> (stale MQL alert). First alert fired within 6 hours of activation — an MQL had been sitting at "New" for 72 hours. SDR had "missed it in their inbox." Problem identified and fixed.</div></li>
+</ul>
+<h3>Week 3 — Pipeline automation + re-engagement</h3>
+<ul class="prlist">
+<li><span>06</span><div>Built <strong>Workflow 04</strong> (Bad Timing re-engagement). 47 existing Bad Timing contacts with Follow-up Dates populated. First week: 8 re-engaged automatically, 2 booked calls.</div></li>
+<li><span>07</span><div>Built <strong>Workflow 06</strong> (form submissions). Connected to all 3 active lead-gen forms. Every form submission now triggers lifecycle stage set, SDR notification, and confirmation email within 30 seconds.</div></li>
+</ul>
+<h3>30-day outcome</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Metric</th><th>Before</th><th>After (30 days)</th></tr></thead>
+<tbody>
+<tr><td>Contacts with lifecycle stage set</td><td>43%</td><td>99%</td></tr>
+<tr><td>Avg. time from deal close to CS notification</td><td>2.8 days</td><td>45 seconds</td></tr>
+<tr><td>MQLs covered within 4 hours</td><td>Unknown (no tracking)</td><td>94%</td></tr>
+<tr><td>New customers without an onboarding task</td><td>40%</td><td>0%</td></tr>
+<tr><td>Revenue from re-engaged Bad Timing contacts</td><td>$0</td><td>$24,000 (2 closed in first month)</td></tr>
+<tr><td>Admin time spent on manual stage updates</td><td>~6 hrs/week</td><td>0 hrs/week</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="cases" id="cases">
+<div class="sec-eye">Applied Learning · 15</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico p">🔄</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — The workflow that emailed 1,200 people at once</div>
+<div class="csub">When a workflow activates without checking the eligible count</div>
+<div class="ctags"><span class="tag r">Data disaster</span><span class="tag n">Marketing agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c1p')">Problem</div><div class="tab" onclick="st(this,'c1s')">Solution</div><div class="tab" onclick="st(this,'c1r')">Prevention</div></div>
+<div class="pane on" id="c1p"><div class="box case"><div class="bl">The problem</div><p>A marketing agency built a "Welcome to our community" workflow with a trigger of "Lifecycle Stage changes to Lead." They intended this to fire for all new leads going forward. But when they clicked Activate, they missed HubSpot's warning — there were 1,247 existing contacts who currently had Lifecycle Stage = Lead. HubSpot enrolled all of them immediately. 1,247 people received a "Welcome! So glad you just joined us!" email simultaneously. Many were clients of 2+ years. Several called the account manager confused. The unsubscribe rate for that email was 14%.</p></div></div>
+<div class="pane" id="c1s"><ul class="prlist">
+<li><span>1.</span><div>Added a date-based enrollment filter: Contact Create Date is after [today's date]. This immediately excluded all existing contacts — only new contacts going forward would enroll.</div></li>
+<li><span>2.</span><div>Added an unenrollment condition: Lifecycle Stage = Customer or Evangelist. Any existing customer who somehow meets the trigger won't receive the welcome email.</div></li>
+<li><span>3.</span><div>Sent an apology email to the 1,247 contacts — personalised to acknowledge the error.</div></li>
+</ul></div>
+<div class="pane" id="c1r"><div class="box warn"><div class="bl">Prevention rule</div><p>Before activating any workflow: look at the eligible contact count in the bottom left of the workflow editor. If it shows more contacts than expected, add a date filter or pause and investigate. Always disable "Enroll existing contacts that currently meet the trigger" unless you explicitly want to process historical records. This check takes 10 seconds. The cleanup takes 10 hours.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">⚙️</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — The monolithic workflow nobody could debug</div>
+<div class="csub">When one workflow tries to do everything</div>
+<div class="ctags"><span class="tag t">Architecture</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c2p')">Problem</div><div class="tab" onclick="st(this,'c2s')">Solution</div><div class="tab" onclick="st(this,'c2r')">Lesson</div></div>
+<div class="pane on" id="c2p"><div class="box case"><div class="bl">The problem</div><p>A SaaS company's previous admin built one massive "Lead Management" workflow with 47 actions: MQL promotion, SDR notification, lead nurture emails (8 of them), deal creation for high-score leads, Slack integration, task creation, lifecycle stage updates, AND a 14-day re-engagement sequence. When a contact wasn't receiving nurture emails correctly, nobody could figure out where the failure was. The workflow had been edited 11 times by 3 different people. Actions at step 31 referenced a property that was being set by step 44 (which ran after step 31). It had become unmaintainable.</p></div></div>
+<div class="pane" id="c2s"><ul class="prlist">
+<li><span>1.</span><div>Paused the monolithic workflow and rebuilt as 7 separate, named workflows: MQL Promotion, SDR Notification, Welcome Email, 14-Day Nurture Sequence, High Score Deal Creation, Slack Integration, Re-engagement.</div></li>
+<li><span>2.</span><div>Each workflow had one job. Maximum 8–10 actions. Each had a clear name and description.</div></li>
+<li><span>3.</span><div>The troubleshooting that had taken 4 hours in the monolithic workflow now took 8 minutes because each workflow's purpose and scope was obvious.</div></li>
+</ul></div>
+<div class="pane" id="c2r"><div class="box revops"><div class="bl">Architecture lesson</div><p>One workflow, one purpose. A workflow should do one thing clearly. If you find yourself saying "this workflow handles X and also Y and also Z," stop and split it. The test: can you explain this workflow's entire purpose in one sentence? If not, it's doing too much. Small, focused, named workflows are the hallmark of a mature HubSpot admin.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico a">🎯</div>
+<div style="flex:1">
+<div class="ctitle">Case 3 — Building a multi-stage lead nurture from scratch</div>
+<div class="csub">Systematic automation that replaced 20 hours of manual outreach per week</div>
+<div class="ctags"><span class="tag a">Lead nurture</span><span class="tag n">Agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c3p')">Setup</div><div class="tab" onclick="st(this,'c3s')">Execution</div><div class="tab" onclick="st(this,'c3r')">Outcome</div></div>
+<div class="pane on" id="c3p"><p>A digital agency had a marketing team generating 150 leads/month from content. The leads were being manually emailed by one marketing coordinator — 20+ hours/week. The coordinator could only get to about 40% of leads in the first week. The other 60% received their first email 1–2 weeks late, by which point engagement was minimal.</p></div>
+<div class="pane" id="c3s"><ul class="prlist">
+<li><span>1.</span><div><strong>Enrollment trigger:</strong> Lifecycle Stage = Lead AND Lead Source = Organic Search or Social. Filter: Not a current customer.</div></li>
+<li><span>2.</span><div><strong>Action 1:</strong> Set Lead Status = New. <strong>Action 2:</strong> Set Lead Date = Today. <strong>Action 3:</strong> Send Email 1 — "The guide you requested + 3 quick tips." Sent immediately on enrollment.</div></li>
+<li><span>3.</span><div><strong>Day 3 delay → Branch:</strong> Did they open Email 1? If yes: send Email 2 — case study. If no: send alternate Email 2 — different subject line angle.</div></li>
+<li><span>4.</span><div><strong>Day 7 delay → Branch:</strong> Did they click any email? If yes: enrol in SDR sequence (warm lead). If no: delay 7 more days, then send re-engagement email with survey link.</div></li>
+<li><span>5.</span><div><strong>Unenrollment:</strong> Lifecycle Stage = MQL or beyond (they've been promoted). OR Email opt-out is true. OR Contact submits any form (they self-qualified).</div></li>
+</ul></div>
+<div class="pane" id="c3r"><div class="box revops"><div class="bl">RevOps outcome</div><p>100% of leads now received Email 1 within 60 seconds of becoming a Lead — up from 40% in the first week. The marketing coordinator's 20 hours/week of manual emailing dropped to 2 hours/week (reviewing results and making content updates). Lead-to-MQL conversion rate increased from 8% to 17% — because timely, behaviour-branched emails significantly outperformed a manually-managed flat sequence. The coordinator's time was reinvested into content creation, which increased organic lead volume by 23% over the same quarter.</p></div></div>
+</div>
+</div>
+</div><div class="sec division division-hidden" data-division="mistakes" id="mistakes">
+<div class="sec-eye">Applied Learning · 16</div>
+<div class="sec-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — No unenrollment conditions on nurture workflows</div>Every lead nurture workflow must unenroll contacts when Lifecycle = Customer. Without this, paying customers receive "discover why you should try us" emails indefinitely. Add unenrollment conditions before activating any outbound sequence.</li>
+<li><div class="mt">02 — Not enabling re-enrollment when the trigger can fire multiple times</div>A lead scoring workflow that only runs once misses contacts who later hit a higher threshold. Check: should this workflow run once per contact, or every time the trigger condition is met? Wrong setting = workflow appears to "stop working" for returning contacts.</li>
+<li><div class="mt">03 — Activating without checking eligible contact count</div>HubSpot shows how many existing contacts will immediately enroll. If this number is wildly different from your expectation — stop. Fix the trigger or add a date filter before activating. Activating with too many eligible contacts can send thousands of unexpected emails in seconds.</li>
+<li><div class="mt">04 — Overwriting manually-set properties without "don't overwrite"</div>A workflow setting Lead Status = New every time a contact reaches MQL erases a rep's manually-set "In Progress" or "Bad Timing" status silently. For properties reps also manage, always enable "Don't overwrite existing values."</li>
+<li><div class="mt">05 — Building monolithic workflows with too many actions</div>A 45-action workflow that handles everything is impossible to debug, maintain, or hand off to another admin. Split into focused, single-purpose workflows. One workflow, one job.</li>
+<li><div class="mt">06 — No naming convention or description</div>After 6 months: 80 workflows named "Test," "Copy of," "New MQL flow v3." Impossible to audit. Future admins spend hours reverse-engineering what each does. Enforce naming and descriptions from day one.</li>
+<li><div class="mt">07 — Testing in production</div>Never build and activate a new workflow directly in your live portal. Test in sandbox. Verify triggers, filters, actions, and re-enrollment behaviour with test contacts. Then rebuild in production. This is especially critical for any workflow that sends emails.</li>
+</ul>
+</div><div class="sec division division-hidden" data-division="best" id="best">
+<div class="sec-eye">Applied Learning · 17</div>
+<div class="sec-title">Admin <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span>📋</span><div><strong>One workflow, one purpose.</strong> If you can't explain a workflow in one sentence, it's doing too much. Split it. Small, focused, named workflows are infinitely easier to build, debug, maintain, and hand off.</div></li>
+<li><span>🏷️</span><div><strong>Naming convention on every workflow.</strong> <code>[Object] [Team] Purpose — Trigger</code>. Non-negotiable. Enforce it for every workflow in every portal you manage.</div></li>
+<li><span>📝</span><div><strong>Description field is documentation.</strong> Purpose, owner, last-updated date, any gotchas. Future-you will thank present-you every single time.</div></li>
+<li><span>🧪</span><div><strong>Test in sandbox before production.</strong> Always. No exceptions for workflows that send emails, set properties, or create records.</div></li>
+<li><span>🔢</span><div><strong>Check eligible count before activating.</strong> The 10-second check that prevents hour-long cleanup sessions. If the count is unexpected, investigate before proceeding.</div></li>
+<li><span>🚪</span><div><strong>Set unenrollment conditions on every nurture flow.</strong> Lifecycle = Customer is the minimum. Add: email opted out, form submission (self-qualified), sequence enrolled (already in sales outreach).</div></li>
+<li><span>📅</span><div><strong>Use "delay until day and time" for human-feeling automation.</strong> Actions that fire at 3am on Sunday erode trust in the system. Delays until Monday 9am make automation feel intentional.</div></li>
+<li><span>🗓️</span><div><strong>Quarterly workflow audit.</strong> Review all active workflows. Pause/archive inactive ones. Check enrollment counts. Look for conflicts. Governance is how you maintain a healthy system as it grows.</div></li>
+</ul>
+</div><div class="sec division division-hidden" data-division="practice" id="practice">
+<div class="sec-eye">Applied Learning · 18</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-lead">Do this in your free HubSpot sandbox — approximately 60 minutes across three workflows.</p>
+<h3>Workflow 1 — Blank lifecycle catchall (10 min)</h3>
+<ol class="psteps">
+<li>Automation → Workflows → Create workflow → Contact-based → Start from scratch</li>
+<li>Trigger: Contact property → Lifecycle Stage → is unknown</li>
+<li>Action: Set contact property → Lifecycle Stage → Lead. Enable "Don't overwrite."</li>
+<li>Name it: <code>[Contact] AUTO — Lifecycle Default — New Contact</code>. Add description.</li>
+<li>Before activating: check eligible count. Activate with "Enroll existing contacts" ON — you want all blank-stage contacts to get a stage.</li>
+</ol>
+<h3>Workflow 2 — Form submission follow-up (20 min)</h3>
+<ol class="psteps">
+<li>Create a new Contact-based workflow. Start from scratch.</li>
+<li>Trigger: Marketing → Form submission → any form you created earlier.</li>
+<li>Enrollment filter: Lifecycle Stage is not equal to Customer (don't enroll existing customers).</li>
+<li>Actions: (1) Set Lifecycle Stage = Lead. (2) Set Lead Status = New. (3) Send internal email notification to yourself. (4) Create task: "Follow up with {{contact.firstname}} — form submitted today."</li>
+<li>Unenrollment: Lifecycle Stage = Customer.</li>
+<li>Name it. Add description. Activate with "Don't enroll existing" option.</li>
+<li>Submit your test form from the previous module. Check: did the Contact get the stage? Did you receive the notification? Was a task created?</li>
+</ol>
+<h3>Workflow 3 — Branching based on company size (30 min)</h3>
+<ol class="psteps">
+<li>Create a new Contact-based workflow. Trigger: Lifecycle Stage changes to Lead.</li>
+<li>Filter: Lead Status = New (only newly created leads, not existing ones).</li>
+<li>Action: Delay until next business day at 9:00am.</li>
+<li>Add an If/Then branch: condition = Company Employees ≥ 50.</li>
+<li>YES path: Set Lead Status = In Progress. Create task: "Enterprise lead — call today."</li>
+<li>NO path: Set Lead Status = New. Send email: a self-serve resource email (you can use any published email).</li>
+<li>Unenrollment: Lifecycle Stage is any of Customer, Evangelist.</li>
+<li>Name it. Add description. Activate for new contacts only.</li>
+<li>Create two test contacts manually: one with Employees = 100, one with Employees = 10. Watch them flow through different paths.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="interview" id="interview">
+<div class="sec-eye">Applied Learning · 19</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"Walk me through how you'd build a lead nurture workflow for a B2B SaaS company."</div>
+<div class="iq-a">First I'd define the audience: Contacts with Lifecycle Stage = Lead who haven't had activity in the last 7 days. The enrollment trigger would be joining an active list matching those criteria. The filter would add: Lifecycle Stage is still Lead, not MQL or beyond, and Email opted out is false. Then the action sequence: Day 0 — send the first educational email immediately. Day 3 — branch: did they open the email? If yes, send a case study. If no, send a different subject line angle. Day 7 — another branch: did they click anything? If yes, enrol in an SDR outreach sequence. If no, wait 7 more days and send a re-engagement email with a survey link. Day 21 — if still no engagement, create a task for the rep to manually review. Unenrollment conditions: Lifecycle Stage moves to MQL or above, contact submits any form, or contact is added to a suppression list. I'd test the entire flow in sandbox first, check the eligible count before activating in production, and document the purpose and owner in the description field.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"What is the difference between a workflow trigger and enrollment filters?"</div>
+<div class="iq-a">The trigger is the event that initiates the enrollment check — a property changes, a form is submitted, a date is reached. It's what fires the evaluation. The enrollment filter is a secondary qualification layer — after the trigger fires, HubSpot checks whether the record also meets these additional AND conditions before actually enrolling them. So I might have a trigger of "Lifecycle Stage changes to MQL" — that covers all MQL promotions. But my enrollment filter says "Industry = SaaS AND Company Employees ≥ 50" — so only SaaS MQLs with 50+ employees actually enter this workflow. Other MQLs trigger it but don't pass the filter. This separation gives you flexible, reusable triggers with precise audience control without having to build separate workflows for every scenario.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"How do you prevent a welcome email workflow from firing for 1,200 existing contacts when you first activate it?"</div>
+<div class="iq-a">HubSpot asks at activation whether to enroll existing contacts that currently meet the trigger. The first line of defence is simply unchecking "Enroll existing contacts who currently meet the trigger" — this means only new contacts going forward will enroll. For additional safety, I'd add an enrollment filter with a date condition: Contact Create Date is after today's date. This structurally prevents any historical contact from enrolling even if the re-enrollment setting changes later. For welcome emails specifically, I'd also add a "Has received welcome email" custom checkbox property as a filter — contacts with that checked are excluded. This creates a permanent record of who received the email that persists even if the workflow is modified later.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"What does 'Don't overwrite existing values' do on a Set Property action, and when would you use it?"</div>
+<div class="iq-a">When you set a property value in a workflow, HubSpot by default writes the new value over whatever was previously in that property — even if it was set manually by a rep. "Don't overwrite" changes this behaviour so the action only writes a value if the property is currently empty — it skips the action entirely if the property already has any value. I use it whenever the property is also managed by humans. For example, Lead Status: a workflow might set it to New when an MQL is created, but I don't want that to overwrite a rep who already manually set it to In Progress. So "don't overwrite" is enabled. Same for date-stamp properties like MQL Date — once set, I never want a re-enrollment to clear it and reset it to today. The general rule: if a property might be legitimately set by a rep or another system, protect it with don't overwrite.</div>
+</div>
+</div><div class="sec division division-hidden" data-division="cheatsheet" id="cheatsheet">
+<div class="sec-eye">Applied Learning · 20</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is a workflow</td><td>Automated rule: when [trigger] + [filters] → execute [actions]. Runs 24/7 without human input.</td></tr>
+<tr><td>Three required parts</td><td>Enrollment Trigger + Enrollment Filters + Actions</td></tr>
+<tr><td>Trigger</td><td>The event that starts the enrollment check (property change, form submit, date, list join)</td></tr>
+<tr><td>Filter</td><td>Secondary AND conditions — narrows who actually enrolls after the trigger fires</td></tr>
+<tr><td>Actions</td><td>Execute sequentially, top to bottom. Set property, send email, create task, notify, branch, delay.</td></tr>
+<tr><td>Single enrollment (default)</td><td>Contact enters once, never re-enters — even if trigger fires again</td></tr>
+<tr><td>Re-enrollment</td><td>Must be explicitly enabled — allows re-entry when trigger conditions are met again</td></tr>
+<tr><td>Unenrollment</td><td>Conditions to pull contacts out mid-workflow — ALWAYS set on nurture workflows: Lifecycle = Customer</td></tr>
+<tr><td>Branch</td><td>If/then split — routes contacts down different paths based on conditions</td></tr>
+<tr><td>Delay</td><td>Pauses execution — fixed time, until a date, or until a specific day/time (use for business hours)</td></tr>
+<tr><td>"Don't overwrite"</td><td>Protects existing property values from being overwritten — use for rep-managed and date-stamp properties</td></tr>
+<tr><td>Object types</td><td>Contact (~80%), Deal, Ticket, Company, Quote, Conversation</td></tr>
+<tr><td>Naming convention</td><td><code>[Object] [Team] Purpose — Trigger descriptor</code></td></tr>
+<tr><td>Must-have description</td><td>Purpose · Owner · Last updated date — in every workflow, no exceptions</td></tr>
+<tr><td>Eligible count check</td><td>Always check before activating — if count is unexpected, investigate before proceeding</td></tr>
+<tr><td>Architecture rule</td><td>One workflow, one purpose. Split if you can't explain it in one sentence.</td></tr>
+<tr><td>8 essential workflows</td><td>MQL promotion · Deal close onboarding · Blank stage catchall · Bad timing re-engage · Stale MQL alert · Form follow-up · Deal stage automation · Date-stamp properties</td></tr>
+<tr><td>Admin interview gold</td><td>"I build small, focused, named workflows — one purpose per workflow. Always test in sandbox. Always check eligible count. Always set unenrollment on nurture flows."</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps mindset on workflows</div><p>Workflows are the operational nervous system of your CRM. Every data quality standard, every inter-team handoff, every SLA — enforced through workflows. They do three things that define a mature RevOps practice: they make data quality automatic (not aspirational), they make handoffs instant and reliable (not dependent on humans remembering), and they make your CRM self-documenting (every action logged, every change traceable). A HubSpot portal with well-designed workflows runs itself at the data layer. The admin's job shifts from manual execution to system design, monitoring, and refinement. That is the transition from admin to RevOps practitioner — and workflows are where it happens.</p></div>
+</div>
+      </section>
+  </main>
+</div>
+<script>
+const guideGroups = [{id:'foundation',title:'Foundation',items:[{id:'what',label:'What is a workflow?'},{id:'anatomy',label:'Workflow anatomy'},{id:'types',label:'Workflow types'},{id:'logic',label:'7 system rules'},{id:'enrollment',label:'Enrollment modes'}]},{id:'building',title:'Building Blocks',items:[{id:'triggers',label:'Triggers'},{id:'actions',label:'Actions'},{id:'branches',label:'Branches'},{id:'delays',label:'Delays'},{id:'visual',label:'Visual workflow map'}]},{id:'admin',title:'Admin Setup',items:[{id:'core8',label:'8 essential workflows'},{id:'setup',label:'Step-by-step setup'},{id:'naming',label:'Naming & governance'}]},{id:'applied',title:'Applied Learning',items:[{id:'example',label:'Real-world example'},{id:'cases',label:'Case studies'},{id:'mistakes',label:'Common mistakes'},{id:'best',label:'Best practices'},{id:'practice',label:'Practice exercise'},{id:'interview',label:'Interview questions'},{id:'cheatsheet',label:'Cheatsheet'}]}];
+let currentPage = 'foundation';
+let currentDivision = 'what';
+
+function getGroup(page) { return guideGroups.find(g => g.id === page) || guideGroups[0]; }
+
+function renderMobileDivisions(page, activeDivision) {
+  const row = document.getElementById('mobileDivisionRow');
+  if (!row) return;
+  const group = getGroup(page);
+  row.innerHTML = group.items.map((item, idx) => `
+    <button class="mobile-division-btn ${(activeDivision || group.items[0].id) === item.id ? 'active' : ''}" data-page="${page}" data-target="${item.id}" onclick="showDivision('${page}','${item.id}', true)">${item.label}</button>
+  `).join('');
+}
+
+function updateActiveStates(page, division) {
+  document.querySelectorAll('[data-page-group]').forEach(el => {
+    el.classList.toggle('active', el.dataset.pageGroup === page && el.classList.contains('mobile-section-btn'));
+    el.classList.toggle('active-page', el.dataset.pageGroup === page && el.classList.contains('nav-group'));
+    el.classList.toggle('expanded', el.dataset.pageGroup === page && el.classList.contains('nav-group'));
+  });
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === page && el.dataset.target === division);
+  });
+  document.querySelectorAll('.mobile-section-btn').forEach(el => {
+    el.classList.toggle('active', el.dataset.pageGroup === page);
+  });
+  document.querySelectorAll('.mobile-division-btn').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === page && el.dataset.target === division);
+  });
+}
+
+function showPage(page, shouldScroll=false) {
+  const group = getGroup(page);
+  const firstDivision = group.items[0]?.id;
+  showDivision(page, firstDivision, shouldScroll);
+}
+
+function showDivision(page, division, shouldScroll=false) {
+  currentPage = page;
+  currentDivision = division;
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.classList.toggle('page-hidden', sec.dataset.page !== page);
+  });
+  document.querySelectorAll(`.section[data-page="${page}"] .division`).forEach(div => {
+    div.classList.toggle('division-hidden', div.dataset.division !== division);
+  });
+  renderMobileDivisions(page, division);
+  updateActiveStates(page, division);
+  if (shouldScroll) {
+    const target = document.getElementById(division) || document.getElementById(page);
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+function tog(hd) {
+  const card = hd.closest('.card');
+  if (!card) return;
+  const wasOpen = card.classList.contains('open');
+  const scope = card.closest('.division') || card.parentElement;
+  if (scope) scope.querySelectorAll('.card.open').forEach(c => { if (c !== card) c.classList.remove('open'); });
+  card.classList.toggle('open', !wasOpen);
+}
+
+function st(tab, pid) {
+  const body = tab.closest('.card-body') || tab.closest('.division') || document;
+  body.querySelectorAll('.tab').forEach(t => t.classList.remove('on','active'));
+  body.querySelectorAll('.pane, .tab-pane').forEach(p => p.classList.remove('on','active'));
+  tab.classList.add('on');
+  const p = document.getElementById(pid);
+  if (p) p.classList.add('on');
+}
+
+// Legacy jump helper retained for any original inline calls.
+function j(id) { showDivision(currentPage, id, true); }
+function jump(id) { j(id); }
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderMobileDivisions(currentPage, currentDivision);
+  updateActiveStates(currentPage, currentDivision);
+});
+</script>
+</body>
+</html>
