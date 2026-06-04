@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HubSpot Sequences — Complete Admin Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0e12;
+  --surface: #12151c;
+  --surface2: #181c26;
+  --surface3: #1e2230;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e4e6f0;
+  --muted: #6e7289;
+  --soft: #9da3bb;
+  --purple: #8b7ff5;
+  --purple-bg: rgba(139,127,245,0.1);
+  --purple-light: #b4abff;
+  --teal: #20c997;
+  --teal-bg: rgba(32,201,151,0.1);
+  --teal-light: #6ef5cc;
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --amber-light: #fcd34d;
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --blue: #60a5fa;
+  --blue-bg: rgba(96,165,250,0.1);
+  --green: #4ade80;
+  --green-bg: rgba(74,222,128,0.1);
+  --hubspot-orange: #ff5c35;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r-lg: 16px;
+  --r-sm: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75;}
+a{color:inherit;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;scrollbar-width:thin;}
+.sidebar-brand{padding:22px 18px 18px;border-bottom:1px solid var(--border);}
+.hubspot-brand{display:block;text-decoration:none;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,92,53,0.24);background:linear-gradient(135deg,rgba(255,92,53,0.10),rgba(255,255,255,0.02));transition:transform .18s,border-color .18s,background .18s;margin-bottom:18px;}
+.hubspot-brand:hover{transform:translateY(-1px);border-color:rgba(255,92,53,0.42);background:linear-gradient(135deg,rgba(255,92,53,0.14),rgba(255,255,255,0.03));}
+.hubspot-word{font-family:var(--font-display);font-size:18px;font-weight:500;color:var(--hubspot-orange);line-height:1;}
+.hubspot-ref{font-size:10.5px;color:var(--muted);margin-top:5px;}
+.sidebar-title{font-family:var(--font-display);font-size:19px;line-height:1.25;font-weight:500;color:var(--text);}
+.sidebar-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-top:7px;}
+.desktop-nav{padding:16px 0 10px;}
+.nav-group{margin-bottom:4px;}
+.nav-group-label{width:calc(100% - 20px);margin:0 10px 8px;padding:10px 13px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--soft);display:flex;align-items:center;justify-content:space-between;font-family:var(--font-body);font-size:13.5px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;cursor:pointer;transition:all .15s;text-align:left;}
+.nav-group-label:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.nav-group.active-page .nav-group-label{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,0.30);}
+.nav-arrow{transition:transform .18s;color:var(--muted);font-size:18px;line-height:1;}
+.nav-group.active-page .nav-arrow,.nav-group.expanded .nav-arrow{transform:rotate(90deg);color:var(--purple-light);}
+.nav-page-items{display:none;padding-bottom:6px;}
+.nav-group.active-page .nav-page-items,.nav-group.expanded .nav-page-items{display:block;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;font-size:13.4px;color:var(--muted);border-left:2px solid transparent;transition:all .15s;cursor:pointer;text-decoration:none;line-height:1.35;}
+.nav-item:hover{color:var(--text);background:var(--surface2);}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple);}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--purple);}
+.dot-purple{background:var(--purple);}
+.dot-teal{background:var(--teal);}
+.dot-amber{background:var(--amber);}
+.mobile-nav{display:none;}
+.sidebar-footer{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+.main{flex:1;padding:52px 60px;max-width:920px;}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border);}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start;}
+.creator-card{grid-column:2;grid-row:1;display:block;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015));border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;transition:transform .18s,border-color .18s,background .18s;}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,0.45);background:linear-gradient(180deg,rgba(255,92,53,0.08),rgba(139,127,245,0.04));}
+.creator-card img{width:100%;height:auto;border-radius:14px;border:2px solid rgba(255,92,53,0.75);box-shadow:0 12px 28px rgba(255,92,53,0.16),0 18px 42px rgba(0,0,0,0.28);object-fit:cover;}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text);}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:2px;}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:5px;}
+.hero-copy{grid-column:1;grid-row:1;}
+.hero-kicker{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px;}
+.hero-title{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px;}
+.hero-title em{font-style:italic;color:var(--purple);}
+.hero-description{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8;margin-bottom:0;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+.pill,.chip,.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
+.pill{font-size:12px;padding:5px 14px;border:1px solid var(--border2);background:var(--surface);color:var(--soft);}
+.pill.p,.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);}
+.pill.t,.tag.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,0.2);}
+.pill.a,.tag.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.2);}
+.pill.n,.tag.n{background:rgba(122,127,148,0.08);color:var(--muted);border:1px solid var(--border);}
+.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,0.18);}
+.tag.g{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,0.18);}
+.section{margin-bottom:68px;scroll-margin-top:24px;}
+.section.page-hidden{display:none;}
+.division.division-hidden{display:none;}
+.division{animation:fadeIn .18s ease-out;}
+@keyframes fadeIn{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.sec-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px;}
+.sec-title em{font-style:italic;color:var(--purple);}
+.sec-lead{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px;}
+h3{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);margin-bottom:11px;margin-top:22px;}
+h3:first-child{margin-top:0;}
+h4{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;margin-top:16px;}
+p{color:var(--soft);margin-bottom:12px;font-size:14.5px;line-height:1.8;font-weight:300;}
+strong{color:var(--text);font-weight:500;}
+code{font-family:var(--font-mono);font-size:12px;color:var(--purple-light);background:var(--purple-bg);padding:2px 6px;border-radius:3px;}
+code.t{color:var(--teal-light);background:var(--teal-bg);}
+code.a{color:var(--amber-light);background:var(--amber-bg);}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:var(--border2);}
+.card-hd{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+.card-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.card-ico.p{background:var(--purple-bg);}
+.card-ico.t{background:var(--teal-bg);}
+.card-ico.a{background:var(--amber-bg);}
+.card-ico.r{background:var(--red-bg);}
+.ctitle{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2;}
+.csub{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.ctags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.chev{font-size:18px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0;}
+.card.open .chev{transform:rotate(90deg);}
+.card-body{display:none;}
+.card.open .card-body{display:block;}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;overflow-x:auto;}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;font-family:var(--font-body);}
+.tab:hover{color:var(--text);}
+.tab.on,.tab.active{color:var(--text);border-bottom-color:var(--purple);}
+.pane,.tab-pane{display:none;padding:24px;}
+.pane.on,.tab-pane.on{display:block;}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
+.table-wrap .tbl{min-width:650px;margin-bottom:0;}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;}
+.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2);}
+.tbl th{padding:9px 13px;text-align:left;font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:300;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(255,255,255,0.015);}
+.box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid;}
+.box p{margin:0;font-size:14px;font-weight:300;}
+.box p+p{margin-top:6px;}
+.bl{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;font-family:var(--font-mono);}
+.box.why{border-color:var(--purple);background:var(--purple-bg);}
+.box.why .bl{color:var(--purple-light);}
+.box.tip{border-color:var(--teal);background:var(--teal-bg);}
+.box.tip .bl{color:var(--teal-light);}
+.box.warn{border-color:var(--red);background:var(--red-bg);}
+.box.warn .bl{color:var(--red);}
+.box.case{border-color:var(--blue);background:var(--blue-bg);}
+.box.case .bl{color:var(--blue);}
+.box.revops{border-color:var(--purple);background:linear-gradient(135deg,var(--purple-bg),var(--teal-bg));}
+.box.revops .bl{color:var(--purple-light);}
+.box.amber{border-color:var(--amber);background:var(--amber-bg);}
+.box.amber .bl{color:var(--amber-light);}
+.psteps{list-style:none;padding:0;counter-reset:ps;}
+.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:300;}
+.psteps li:last-child{border-bottom:none;}
+.psteps li::before{content:counter(ps);font-family:var(--font-mono);font-size:10px;color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);border-radius:3px;padding:2px 6px;flex-shrink:0;height:fit-content;margin-top:1px;background:var(--purple-bg);min-width:26px;text-align:center;}
+.prlist{list-style:none;padding:0;}
+.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:300;}
+.prlist li:last-child{border-bottom:none;}
+.mlist{list-style:none;padding:0;}
+.mlist li{background:rgba(248,113,113,0.04);border:1px solid rgba(248,113,113,0.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft);font-weight:300;}
+.mt{color:var(--red);font-weight:500;margin-bottom:4px;font-size:12.5px;font-family:var(--font-mono);}
+.iq{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:12px;}
+.iq-q{font-family:var(--font-display);font-size:16px;color:var(--text);font-style:italic;margin-bottom:8px;}
+.iq-a{font-size:13px;color:var(--soft);line-height:1.8;font-weight:300;}
+.wf-canvas{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;overflow-x:auto;}
+.wf-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.wf-row{display:flex;align-items:stretch;gap:0;margin-bottom:0;}
+.wf-node{border-radius:6px;padding:12px 16px;min-width:160px;flex-shrink:0;}
+.wf-node.trigger{background:var(--purple-bg);border:1px solid rgba(139,127,245,0.2);}
+.wf-node.filter{background:var(--teal-bg);border:1px solid rgba(32,201,151,0.2);}
+.wf-node.action{background:var(--amber-bg);border:1px solid rgba(245,158,11,0.18);}
+.wf-node.delay{background:rgba(255,255,255,0.035);border:1px dashed var(--border2);}
+.wf-node.branch{background:var(--blue-bg);border:1px solid rgba(96,165,250,0.2);}
+.wf-node.end{background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);}
+.wf-node-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.wf-node-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.wf-node-sub{font-size:11.5px;color:var(--muted);font-weight:300;}
+.wf-arrow{display:flex;align-items:center;padding:0 8px;color:var(--muted);font-size:14px;flex-shrink:0;}
+.wf-col{display:flex;flex-direction:column;align-items:center;gap:0;}
+.wf-down{color:var(--muted);font-size:14px;padding:4px 0;text-align:center;}
+.wf-branch-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;text-align:center;}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.rule-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:13px 15px;}
+.rule-num{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:var(--muted);margin-bottom:5px;}
+.rule-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.rule-body{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.65;}
+.enroll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.enroll-card{border:1px solid var(--border);border-radius:6px;padding:14px;background:var(--surface);}
+.enroll-card.p{border-top:2px solid var(--purple);}
+.enroll-card.t{border-top:2px solid var(--teal);}
+.enroll-card.a{border-top:2px solid var(--amber);}
+.enroll-name{font-weight:500;font-size:13px;color:var(--text);margin-bottom:3px;}
+.enroll-name.p{color:var(--purple-light);}
+.enroll-name.t{color:var(--teal-light);}
+.enroll-name.a{color:var(--amber-light);}
+.enroll-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:7px;}
+.enroll-use{font-size:11px;color:var(--soft);font-weight:300;}
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.ac{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;}
+.ac-name{font-size:12.5px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.ac-desc{font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.55;}
+.wf-type{display:inline-block;font-family:var(--font-mono);font-size:10.5px;padding:2px 7px;border-radius:3px;background:var(--purple-bg);color:var(--purple-light);}
+.wf-type.t{background:var(--teal-bg);color:var(--teal-light);}
+.wf-type.a{background:var(--amber-bg);color:var(--amber-light);}
+.wf8-list{list-style:none;padding:0;}
+.wf8-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:8px;}
+.wf8-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.wf8-num{font-family:var(--font-mono);font-size:10px;color:var(--muted);padding:2px 7px;border:1px solid var(--border);border-radius:3px;flex-shrink:0;}
+.wf8-name{font-size:13.5px;font-weight:500;color:var(--text);}
+.wf8-trigger{font-size:12px;color:var(--purple-light);margin-bottom:6px;font-weight:300;}
+.wf8-actions{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+.wf8-action{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.12);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+@media(max-width:760px){
+  .layout{display:block;}
+  .sidebar{display:block!important;width:100%;min-width:0;height:auto;max-height:none;position:sticky;top:0;z-index:50;border-right:none;border-bottom:1px solid var(--border2);box-shadow:0 18px 42px rgba(0,0,0,.18);overflow:visible;background:var(--surface);}
+  .sidebar-brand{display:none;}
+  .desktop-nav{display:none;}
+  .mobile-nav{display:block;}
+  .sidebar-footer{display:none;}
+  .main{width:100%;padding:22px 14px 34px;max-width:100%;}
+  .mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch;}
+  .mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;white-space:nowrap;}
+  .mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff;}
+  .mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch;}
+  .mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap;}
+  .mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38);}
+  .hero{margin-bottom:38px;padding-bottom:30px;}
+  .hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start;}
+  .creator-card{grid-column:1;grid-row:1;padding:0;border:none;background:transparent;box-shadow:none;}
+  .creator-card img{width:64px;height:80px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28);}
+  .creator-name,.creator-role,.creator-link{display:none;}
+  .hero-copy{grid-column:2;grid-row:1;}
+  .hero-kicker{font-size:10px;margin-bottom:9px;}
+  .hero-title{font-size:32px;}
+  .hero-description{font-size:14px;}
+  .section{margin-bottom:42px;}
+  .sec-title{font-size:25px;}
+  .card-hd{padding:18px 16px 15px;}
+  .pane,.tab-pane{padding:16px;}
+  .tabs{display:flex;overflow-x:auto;gap:7px;padding:9px 12px;}
+  .tab{flex:0 0 auto;padding:8px 11px;font-size:12px;}
+  .rules-grid,.enroll-grid{grid-template-columns:1fr;}
+  .action-grid{grid-template-columns:1fr 1fr;}
+  .wf-canvas{padding:16px;}
+}
+@media(max-width:430px){
+  .hero-title{font-size:28px;}
+  .creator-card img{width:58px;height:72px;}
+  .sec-title{font-size:23px;}
+  .hero-inner{grid-template-columns:64px minmax(0,1fr);gap:12px;}
+  .action-grid{grid-template-columns:1fr;}
+}
+
+
+/* Compatibility aliases for preserved educational content */
+:root{
+  --ink: var(--text);
+  --rule: var(--border);
+  --rule2: var(--border2);
+  --blue-mid: var(--blue);
+  --purple-mid: var(--purple-light);
+  --teal-mid: var(--teal-light);
+  --amber-mid: var(--amber-light);
+}
+
+/* Sequence-specific preserved components */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:18px;border:1px solid var(--border);} 
+.cmp-cell{background:var(--surface);padding:16px;} 
+.cmp-cell.h{background:var(--surface3);padding:12px 16px;} 
+.cmp-h-label{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-family:var(--font-mono);} 
+.cmp-h-title{font-size:14px;font-weight:700;color:var(--text);} 
+.cmp-items{list-style:none;padding:0;margin:0;} 
+.cmp-items li{font-size:13.5px;color:var(--soft);padding:6px 0;border-bottom:1px solid var(--border);font-weight:300;line-height:1.55;} 
+.cmp-items li:last-child{border-bottom:none;} 
+.cmp-items li.b::before{content:"✓ ";color:var(--blue);} 
+.cmp-items li.p::before{content:"✓ ";color:var(--purple-light);} 
+.cmp-items li.n::before{content:"— ";color:var(--muted);} 
+
+.seq-canvas{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;margin-bottom:16px;overflow-x:auto;} 
+.seq-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;} 
+.seq-steps{display:flex;gap:0;align-items:stretch;position:relative;min-width:max-content;} 
+.seq-step{min-width:120px;max-width:145px;flex-shrink:0;} 
+.seq-step-inner{border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;background:var(--surface2);} 
+.seq-step-inner.email{border-top:2px solid var(--blue);background:var(--blue-bg);} 
+.seq-step-inner.call{border-top:2px solid var(--amber);background:var(--amber-bg);} 
+.seq-step-inner.li{border-top:2px solid var(--purple);background:var(--purple-bg);} 
+.seq-step-inner.task{border-top:2px solid var(--teal);background:var(--teal-bg);} 
+.seq-step-day{font-family:var(--font-mono);font-size:9px;color:var(--muted);margin-bottom:5px;letter-spacing:.5px;} 
+.seq-step-type{font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;} 
+.seq-step-desc{font-size:11px;color:var(--soft);font-weight:300;line-height:1.5;} 
+.seq-arrow{display:flex;align-items:center;padding:0 6px;color:var(--muted);font-size:12px;flex-shrink:0;margin-top:20px;} 
+
+.email-mock{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);overflow:hidden;margin-bottom:16px;font-family:var(--font-mono);font-size:12px;} 
+.em-header{background:var(--surface2);padding:10px 16px;border-bottom:1px solid var(--border);} 
+.em-field{padding:4px 0;color:var(--muted);font-size:11.5px;} 
+.em-field span{color:var(--text);font-weight:500;} 
+.em-body{padding:16px;font-family:var(--font-body);font-size:13.5px;color:var(--soft);line-height:1.8;font-weight:300;} 
+.em-token{background:var(--blue-bg);color:var(--blue);padding:1px 5px;border-radius:3px;font-family:var(--font-mono);font-size:11.5px;} 
+.em-sig{border-top:1px solid var(--border);padding:12px 16px;color:var(--muted);font-size:12px;font-family:var(--font-body);} 
+
+.timeline{list-style:none;padding:0;position:relative;margin-bottom:18px;} 
+.timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:1px;background:var(--border2);} 
+.tl-item{display:flex;gap:16px;padding:12px 0;align-items:flex-start;position:relative;} 
+.tl-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:1;border:1px solid var(--border2);} 
+.tl-dot.email{background:var(--blue-bg);color:var(--blue);} 
+.tl-dot.call{background:var(--amber-bg);color:var(--amber-light);} 
+.tl-dot.li{background:var(--purple-bg);color:var(--purple-light);} 
+.tl-dot.task{background:var(--teal-bg);color:var(--teal-light);} 
+.tl-content{flex:1;} 
+.tl-day{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:3px;text-transform:uppercase;} 
+.tl-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:2px;} 
+.tl-desc{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.6;} 
+
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;} 
+.metric-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;} 
+.metric-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;} 
+.metric-val{font-family:var(--font-display);font-size:24px;font-weight:300;color:var(--text);line-height:1;margin-bottom:4px;} 
+.metric-desc{font-size:12px;color:var(--soft);font-weight:300;line-height:1.55;} 
+
+/* Make original sequence tags inherit the new color system */
+.chip.b,.tag.b{background:var(--blue-bg);color:var(--blue);border-color:rgba(96,165,250,0.2);} 
+.chip.p,.tag.p{background:var(--purple-bg);color:var(--purple-light);border-color:rgba(139,127,245,0.2);} 
+.tag.t{background:var(--teal-bg);color:var(--teal-light);border-color:rgba(32,201,151,0.2);} 
+.tag.a{background:var(--amber-bg);color:var(--amber-light);border-color:rgba(245,158,11,0.2);} 
+.tag.r{background:var(--red-bg);color:var(--red);border-color:rgba(248,113,113,0.2);} 
+.tag.g{background:var(--green-bg);color:var(--green);border-color:rgba(74,222,128,0.2);} 
+
+@media(max-width:760px){
+  .cmp-grid{grid-template-columns:1fr;}
+  .metrics-grid{grid-template-columns:1fr 1fr;}
+  .seq-canvas{padding:16px;}
+  .timeline::before{left:18px;}
+}
+@media(max-width:430px){
+  .metrics-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <a class="hubspot-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+        <div class="hubspot-word">HubSpot</div>
+        <div class="hubspot-ref">For better references, visit hubspot.com</div>
+      </a>
+      <div class="sidebar-title">Sequences</div>
+      <div class="sidebar-desc">Personal outreach automation, SDR cadences, templates, reply detection, and sequence analytics.</div>
+    </div>
+    <div class="desktop-nav">
+        <div class="nav-group active-page expanded" data-page-group="foundation">
+          <button class="nav-group-label page-tab" onclick="showPage('foundation', true)"><span>Foundation</span><span class="nav-arrow">›</span></button>
+          <div class="nav-page-items"><a class="nav-item active" data-page="foundation" data-target="what" onclick="showDivision('foundation','what', true)"><span class="nav-dot dot-purple"></span>What is a sequence?</a><a class="nav-item" data-page="foundation" data-target="vs" onclick="showDivision('foundation','vs', true)"><span class="nav-dot dot-purple"></span>Sequences vs Workflows</a><a class="nav-item" data-page="foundation" data-target="logic" onclick="showDivision('foundation','logic', true)"><span class="nav-dot dot-purple"></span>System logic</a><a class="nav-item" data-page="foundation" data-target="steps" onclick="showDivision('foundation','steps', true)"><span class="nav-dot dot-purple"></span>Step types</a></div>
+        </div>
+    
+        <div class="nav-group" data-page-group="admin">
+          <button class="nav-group-label page-tab" onclick="showPage('admin', true)"><span>Admin Setup</span><span class="nav-arrow">›</span></button>
+          <div class="nav-page-items"><a class="nav-item" data-page="admin" data-target="building" onclick="showDivision('admin','building', true)"><span class="nav-dot dot-teal"></span>Step-by-step setup</a><a class="nav-item" data-page="admin" data-target="templates" onclick="showDivision('admin','templates', true)"><span class="nav-dot dot-teal"></span>Email templates</a><a class="nav-item" data-page="admin" data-target="cadence" onclick="showDivision('admin','cadence', true)"><span class="nav-dot dot-teal"></span>7-touch cadence example</a><a class="nav-item" data-page="admin" data-target="enrollment" onclick="showDivision('admin','enrollment', true)"><span class="nav-dot dot-teal"></span>Enrollment options</a><a class="nav-item" data-page="admin" data-target="reporting" onclick="showDivision('admin','reporting', true)"><span class="nav-dot dot-teal"></span>Reporting & analytics</a></div>
+        </div>
+    
+        <div class="nav-group" data-page-group="applied">
+          <button class="nav-group-label page-tab" onclick="showPage('applied', true)"><span>Applied Learning</span><span class="nav-arrow">›</span></button>
+          <div class="nav-page-items"><a class="nav-item" data-page="applied" data-target="example" onclick="showDivision('applied','example', true)"><span class="nav-dot dot-amber"></span>Real-world example</a><a class="nav-item" data-page="applied" data-target="cases" onclick="showDivision('applied','cases', true)"><span class="nav-dot dot-amber"></span>Case studies</a><a class="nav-item" data-page="applied" data-target="mistakes" onclick="showDivision('applied','mistakes', true)"><span class="nav-dot dot-amber"></span>Common mistakes</a><a class="nav-item" data-page="applied" data-target="best" onclick="showDivision('applied','best', true)"><span class="nav-dot dot-amber"></span>Best practices</a><a class="nav-item" data-page="applied" data-target="practice" onclick="showDivision('applied','practice', true)"><span class="nav-dot dot-amber"></span>Practice exercise</a><a class="nav-item" data-page="applied" data-target="interview" onclick="showDivision('applied','interview', true)"><span class="nav-dot dot-amber"></span>Interview questions</a><a class="nav-item" data-page="applied" data-target="cheatsheet" onclick="showDivision('applied','cheatsheet', true)"><span class="nav-dot dot-amber"></span>Cheatsheet</a></div>
+        </div>
+    </div>
+    <div class="mobile-nav">
+      <div class="mobile-section-row"><button class="mobile-section-btn active" data-page-group="foundation" onclick="showPage('foundation', true)">Foundation</button><button class="mobile-section-btn " data-page-group="admin" onclick="showPage('admin', true)">Admin Setup</button><button class="mobile-section-btn " data-page-group="applied" onclick="showPage('applied', true)">Applied Learning</button></div>
+      <div class="mobile-division-row" id="mobileDivisionRow"></div>
+    </div>
+    <div class="sidebar-footer">Click any section to explore · Cards expand on click</div>
+  </nav>
+  <main class="main">
+    <div class="hero" id="page-top">
+      <div class="hero-inner">
+        <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+          <img src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo" />
+          <div class="creator-name">Naveed Abbas</div>
+          <div class="creator-role">CRM Administrator</div>
+          <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+        </a>
+        <div class="hero-copy">
+          <div class="hero-kicker">HubSpot Admin · Module 9</div>
+          <h1 class="hero-title">HubSpot<br><em>Sequences</em></h1>
+          <p class="hero-description">The personal outreach engine of your CRM — automated cadences that send from a rep's own inbox, stop on reply, and turn repeatable sales outreach into a scalable, measurable system.</p>
+          <div class="hero-pills">
+            <span class="pill p">6 step types</span>
+            <span class="pill p">Stops on reply</span>
+            <span class="pill t">Sequences vs Workflows</span>
+            <span class="pill t">Sequence analytics</span>
+            <span class="pill a">3 case studies</span>
+            <span class="pill n">Break-up email guide</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="section" id="foundation" data-page="foundation" aria-label="Foundation"><div class="sec division" data-division="what" id="what">
+<div class="sec-eye">Foundation · 01</div>
+<div class="sec-title">What Is a <em>Sequence?</em></div>
+<p class="sec-lead">Your sales team's call cadence — automated, measured, and connected to the CRM. Emails sent from the rep's own inbox, tasks created automatically, and the whole thing stops the moment the contact replies.</p>
+<div class="box why"><div class="bl">Core definition</div><p>A HubSpot Sequence is a <strong>personalised, automated outreach cadence</strong> — a series of timed emails, call tasks, and LinkedIn tasks that execute automatically after a rep enrolls a contact. Emails send from the rep's personal Gmail or Outlook inbox. The sequence pauses instantly when the contact replies. Tasks remind reps to call, connect on LinkedIn, or take any custom action at the right moment.</p></div>
+<h3>The problem sequences solve</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Without sequences</th><th>With sequences</th></tr></thead>
+<tbody>
+<tr><td>Rep decides how many touches to make</td><td>Every lead gets the defined number of touches, consistently</td></tr>
+<tr><td>Follow-up timing is random and rep-dependent</td><td>Emails and tasks fire at scheduled intervals automatically</td></tr>
+<tr><td>Rep forgets to call between emails</td><td>Call tasks auto-created at exactly the right step</td></tr>
+<tr><td>Contact abandoned after 2 attempts</td><td>Sequence continues through all steps until reply or completion</td></tr>
+<tr><td>No visibility into which message gets replies</td><td>Step-by-step analytics show which email performs best</td></tr>
+<tr><td>New rep builds their own templates from scratch</td><td>Shared sequence library reduces ramp time to days</td></tr>
+</tbody>
+</table></div>
+<div class="box amber"><div class="bl">From your SDR background</div><p>You know this system — you lived it every day. Sequences are your call cadence, formalised and automated. The 7-touch follow-up plan. The "email Monday, call Wednesday, LinkedIn Friday" process that the best SDRs ran consistently and others forgot halfway through. As admin, you're the person who builds that system once and gives it to the entire team.</p></div>
+</div><div class="sec division division-hidden" data-division="vs" id="vs">
+<div class="sec-eye">Foundation · 02</div>
+<div class="sec-title">Sequences <em>vs Workflows</em></div>
+<p class="sec-lead">The most important distinction in HubSpot outreach — not just conceptually, but in how you use each tool in practice.</p>
+<div class="cmp-grid">
+<div class="cmp-cell h"><div class="cmp-h-label">Tool</div><div class="cmp-h-title">Sequences</div></div>
+<div class="cmp-cell h"><div class="cmp-h-label">Tool</div><div class="cmp-h-title">Workflows (emails)</div></div>
+<div class="cmp-cell">
+<ul class="cmp-items">
+<li class="b">Sends from rep's personal Gmail/Outlook</li>
+<li class="b">Feels like a 1-to-1 human email</li>
+<li class="b">Stops automatically when contact replies</li>
+<li class="b">Creates call, LinkedIn, and custom tasks</li>
+<li class="b">Step-level reply rate analytics</li>
+<li class="n">Individual contacts or small batches only</li>
+<li class="n">Cannot set CRM properties or create records</li>
+<li class="n">Requires Sales Hub plan</li>
+</ul>
+</div>
+<div class="cmp-cell">
+<ul class="cmp-items">
+<li class="p">Sends from HubSpot's marketing email system</li>
+<li class="p">Scales to thousands of contacts at once</li>
+<li class="p">Sets properties, creates tasks, creates records</li>
+<li class="p">Works with Lists, lifecycle stages, all triggers</li>
+<li class="p">Full workflow analytics and enrollment logs</li>
+<li class="n">Does not stop on reply</li>
+<li class="n">Does not create call tasks or LinkedIn tasks</li>
+<li class="n">Emails feel automated, not personal</li>
+</ul>
+</div>
+</div>
+<div class="box why"><div class="bl">The analogy that makes this permanent</div><p><strong>Workflows are like billboard advertising</strong> — you design it once, it reaches thousands automatically, and it doesn't adapt if someone talks back. <strong>Sequences are like a trained salesperson's calling script</strong> — it follows a structure but adjusts when the prospect picks up the phone. Both are essential. They are complementary tools, not alternatives.</p></div>
+<h3>The hybrid approach — how mature RevOps teams use both</h3>
+<div class="seq-canvas">
+<div class="seq-title">Workflow + sequence: the complete inbound lead system</div>
+<div style="display:flex;flex-direction:column;gap:10px;max-width:560px;">
+<div style="background:var(--purple-bg);border:1px solid rgba(66,55,168,0.15);border-radius:var(--r-sm);padding:12px 14px;">
+<div style="font-family:var(--font-mono);font-size:9px;color:var(--purple);letter-spacing:1px;margin-bottom:5px;">WORKFLOW (systemic)</div>
+<div style="font-size:13px;color:var(--ink);font-weight:500;margin-bottom:4px;">MQL Promotion workflow fires</div>
+<div style="font-size:12px;color:var(--muted);">Sets lifecycle = MQL · Sets Lead Status = New · Creates task: "Review this MQL and enrol in appropriate sequence"</div>
+</div>
+<div style="text-align:center;color:var(--muted);font-size:18px;">↓</div>
+<div style="background:var(--surface2);border:1px solid var(--rule);border-radius:var(--r-sm);padding:12px 14px;">
+<div style="font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:5px;">REP ACTION</div>
+<div style="font-size:13px;color:var(--ink);font-weight:500;margin-bottom:4px;">SDR reviews MQL contact</div>
+<div style="font-size:12px;color:var(--muted);">Reviews qualification data, picks the right sequence for this persona, edits first email for personalisation</div>
+</div>
+<div style="text-align:center;color:var(--muted);font-size:18px;">↓</div>
+<div style="background:var(--blue-bg);border:1px solid rgba(20,77,136,0.15);border-radius:var(--r-sm);padding:12px 14px;">
+<div style="font-family:var(--font-mono);font-size:9px;color:var(--blue);letter-spacing:1px;margin-bottom:5px;">SEQUENCE (personal outreach)</div>
+<div style="font-size:13px;color:var(--ink);font-weight:500;margin-bottom:4px;">SDR Outreach Sequence runs</div>
+<div style="font-size:12px;color:var(--muted);">Day 0: Email from rep's inbox · Day 2: Call task · Day 4: Email · Day 7: LinkedIn · Contact replies → unenrolled → real conversation begins</div>
+</div>
+</div>
+</div>
+</div><div class="sec division division-hidden" data-division="logic" id="logic">
+<div class="sec-eye">Foundation · 03</div>
+<div class="sec-title">System <em>Logic</em></div>
+<p class="sec-lead">Five rules that govern how HubSpot processes sequences — know these before building anything.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Rule</th><th>What it means</th><th>Admin implication</th></tr></thead>
+<tbody>
+<tr><td><strong>Reply triggers instant unenrollment</strong></td><td>When a contact replies to any email in the sequence, HubSpot detects the reply, pauses all remaining steps immediately, and notifies the rep.</td><td>This is the feature that makes sequences feel human. Design sequences with this in mind — the goal of every step is to get a reply, at which point the automation hands off to a real conversation.</td></tr>
+<tr><td><strong>Emails send from the rep's personal inbox</strong></td><td>Not HubSpot's marketing servers. The email comes from rep@company.com via their connected Gmail or Outlook.</td><td>Reps must connect their Gmail or Outlook in HubSpot before using sequences. Settings → Email integrations. Each rep connects their own account.</td></tr>
+<tr><td><strong>Scale is limited by design</strong></td><td>Contacts can only be enrolled one at a time or in small batches — not mass lists. This preserves the 1-to-1 feel.</td><td>If someone asks "can we send this sequence to 5,000 contacts?" — no. That's what workflows + marketing email are for. Sequences are intentionally personal-scale.</td></tr>
+<tr><td><strong>Task steps require rep action</strong></td><td>Call tasks and LinkedIn tasks create a to-do in the rep's task queue — but the rep must actually make the call or send the message.</td><td>Sequences don't call anyone automatically. The rep must complete the task and log the outcome before the sequence progresses to the next step.</td></tr>
+<tr><td><strong>One sequence at a time</strong></td><td>A contact can only be enrolled in one sequence simultaneously. HubSpot warns you if you try to enrol a contact already in one.</td><td>Check a contact's sequence status before enrolling. Build a view: "Contacts currently in a sequence" to avoid double-enrollment attempts.</td></tr>
+</tbody>
+</table></div>
+<h3>What also causes automatic unenrollment</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Trigger</th><th>What happens</th></tr></thead>
+<tbody>
+<tr><td>Contact replies to any sequence email</td><td>Sequence pauses immediately. Rep notified. All remaining steps cancelled.</td></tr>
+<tr><td>Contact books via HubSpot Meetings link in email</td><td>Same — sequence stops. Meeting is the goal; automation hands off.</td></tr>
+<tr><td>Contact unsubscribes</td><td>Removed from sequence. No further emails sent. HubSpot logs opt-out.</td></tr>
+<tr><td>Rep manually unenrols</td><td>Rep can stop the sequence from the Contact record at any time.</td></tr>
+<tr><td>Workflow action unenrols</td><td>A workflow can stop a sequence — e.g. when lifecycle stage changes to Customer.</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="steps" id="steps">
+<div class="sec-eye">Foundation · 04</div>
+<div class="sec-title">Step <em>Types</em></div>
+<p class="sec-lead">Six types of steps you can add to any sequence — each with a different role in the outreach cadence.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Step type</th><th>What it does</th><th>Who acts</th><th>Best used for</th></tr></thead>
+<tbody>
+<tr><td><strong>Automated email</strong></td><td>Sends automatically from rep's connected inbox at the scheduled delay — no rep action needed</td><td>HubSpot (using rep's account)</td><td>Opening touch, follow-up emails, break-up email</td></tr>
+<tr><td><strong>Manual email task</strong></td><td>Creates a task reminding the rep to write a fully personalised email from scratch</td><td>Rep writes and sends manually</td><td>High-value accounts needing unique messaging</td></tr>
+<tr><td><strong>Call task</strong></td><td>Creates a call to-do in the rep's task queue — linked to the contact's phone number</td><td>Rep makes the call</td><td>Mid-sequence follow-up, discovery calls, appointment setting</td></tr>
+<tr><td><strong>LinkedIn connect</strong></td><td>Creates a task to send a LinkedIn connection request</td><td>Rep sends from their LinkedIn profile</td><td>Multi-channel sequences, after 2–3 email attempts</td></tr>
+<tr><td><strong>LinkedIn message</strong></td><td>Creates a task to send a LinkedIn direct message (requires existing connection)</td><td>Rep sends from their LinkedIn profile</td><td>Follow-up after connection accepted</td></tr>
+<tr><td><strong>General task</strong></td><td>Any custom action — send a video, mail a gift, research the account, check Twitter</td><td>Rep completes the custom action</td><td>Creative touches that email can't do</td></tr>
+</tbody>
+</table></div>
+</div></section><section class="section page-hidden" id="admin" data-page="admin" aria-label="Admin Setup"><div class="sec division division-hidden" data-division="building" id="building">
+<div class="sec-eye">Admin Setup · 05</div>
+<div class="sec-title">Step-by-Step <em>Setup</em></div>
+<div class="box tip"><div class="bl">Path in HubSpot</div><p>Sales → Sequences → Create sequence</p></div>
+<ol class="psteps">
+<li><strong>Name the sequence</strong> — follow the convention: <code>[Team] Purpose — Persona — Stage</code>. Example: <code>[SDR] Cold Outreach — SaaS VP — MQL</code>. Clear naming lets reps pick the right sequence at enrolment without guessing.</li>
+<li><strong>Add Step 1 — automated email</strong> — click "Add step" → Automated email → Create a new template or select an existing one. Write the subject line and email body. Add personalisation tokens. Keep the email to 3–5 sentences maximum.</li>
+<li><strong>Set the delay after Step 1</strong> — how many days until Step 2? For cold outreach: 2–3 days standard. Choose whether to send on business days only (strongly recommended for all outbound sequences).</li>
+<li><strong>Add Step 2 — call task</strong> — click "+" → Phone call → Add task instructions: what should the rep say? What's the goal of this call? What to log in the call outcome field?</li>
+<li><strong>Continue building steps</strong> — alternate between emails and task steps. Total steps: 5–8 for most sequences. More than 10 steps is usually too long — if there's no reply in 10 touches, you have your answer.</li>
+<li><strong>Add the break-up email as the final step</strong> — every sequence should end with a "I'll close your file" email. This is your highest-converting email in cold outreach. Never skip it.</li>
+<li><strong>Configure sequence settings</strong> — set "Send emails at a specific time" (business hours only), "Send on weekdays only," and whether to include an unsubscribe link.</li>
+<li><strong>Review and save</strong> — save the sequence as a draft. Do a test enrolment on a colleague's contact to verify timing, template tokens, and task creation all work correctly before using with real prospects.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="templates" id="templates">
+<div class="sec-eye">Admin Setup · 06</div>
+<div class="sec-title">Email <em>Templates</em></div>
+<p class="sec-lead">The foundation of every sequence — what makes outreach scalable without losing personality.</p>
+<h3>Anatomy of a high-converting sequence email</h3>
+<div class="email-mock">
+<div class="em-header">
+<div class="em-field">From: <span>James Chen &lt;james.chen@company.com&gt;</span></div>
+<div class="em-field">To: <span><span class="em-token">{{contact.email}}</span></span></div>
+<div class="em-field">Subject: <span>Quick question, <span class="em-token">{{contact.firstname}}</span></span></div>
+</div>
+<div class="em-body">
+<p style="margin:0 0 12px">Hi <span class="em-token">{{contact.firstname}}</span>,</p>
+<p style="margin:0 0 12px">I noticed <span class="em-token">{{contact.company}}</span> recently <span style="background:var(--amber-bg);color:var(--amber);padding:1px 5px;border-radius:3px;font-size:12px">[personalisation — research this]</span>. Companies going through that transition often find that [the specific pain your product solves] becomes a bottleneck.</p>
+<p style="margin:0 0 12px">We helped [similar company] achieve [specific result] in 90 days without [the friction/cost they were worried about].</p>
+<p style="margin:0 0 16px">Do you have 15 minutes on Thursday or Friday to see if we could do something similar for <span class="em-token">{{contact.company}}</span>?</p>
+<div class="em-sig">
+<span class="em-token">{{owner.firstname}}</span> <span class="em-token">{{owner.lastname}}</span><br/>
+<span class="em-token">{{owner.title}}</span> · <span class="em-token">{{owner.phone}}</span><br/>
+<a href="#" style="color:var(--blue)">LinkedIn</a>
+</div>
+</div>
+</div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Element</th><th>Best practice</th><th>Common mistake</th></tr></thead>
+<tbody>
+<tr><td><strong>Subject line</strong></td><td>Short, personal, curiosity-gap. Under 50 characters. "Quick question, {{contact.firstname}}"</td><td>Long subject lines, using company name or product name in subject, starting with "I"</td></tr>
+<tr><td><strong>Opening line</strong></td><td>Reference something specific to them — recent news, LinkedIn post, company announcement</td><td>"I hope this email finds you well." Delete this sentence from every template.</td></tr>
+<tr><td><strong>Body</strong></td><td>3 sentences max. Value + social proof. Never feature-list.</td><td>Paragraphs about your product. Nobody reads these.</td></tr>
+<tr><td><strong>CTA</strong></td><td>One specific ask. "Do you have 15 minutes Thursday or Friday?"</td><td>Multiple asks or a vague "let me know if you're interested"</td></tr>
+<tr><td><strong>Signature</strong></td><td>Plain text: name, title, phone, LinkedIn. No HTML images, no banner ads.</td><td>HTML-heavy signatures with company logos trigger spam filters</td></tr>
+<tr><td><strong>Length</strong></td><td>Under 100 words for cold outreach emails</td><td>500-word essays about your product — never read</td></tr>
+</tbody>
+</table></div>
+<h3>The break-up email template</h3>
+<div class="email-mock">
+<div class="em-header">
+<div class="em-field">Subject: <span>Should I close your file, <span class="em-token">{{contact.firstname}}</span>?</span></div>
+</div>
+<div class="em-body">
+<p style="margin:0 0 12px">Hi <span class="em-token">{{contact.firstname}}</span>,</p>
+<p style="margin:0 0 12px">I've reached out a few times but haven't heard back — which usually means one of two things: the timing isn't right, or this isn't a priority right now.</p>
+<p style="margin:0 0 12px">Either way is completely fine. I'll close your file for now — but if anything changes, please don't hesitate to reach back out.</p>
+<p style="margin:0 0 16px">Wishing you all the best.</p>
+<div class="em-sig"><span class="em-token">{{owner.firstname}}</span></div>
+</div>
+</div>
+<div class="box tip"><div class="bl">Why the break-up email works</div><p>This email consistently generates the highest reply rate in any cold outreach sequence — often 2–4× higher than the opening email. People respond to finality. Either they engage (they were interested but kept forgetting) or they confirm they're not interested (which cleans your pipeline). Both outcomes are valuable. Never skip it.</p></div>
+</div><div class="sec division division-hidden" data-division="cadence" id="cadence">
+<div class="sec-eye">Admin Setup · 07</div>
+<div class="sec-title">The 7-Touch <em>Cadence</em></div>
+<p class="sec-lead">The standard cold outreach cadence — 7 steps over 17 days. Adapt for your audience, but use this as the starting template.</p>
+<ul class="timeline">
+<li class="tl-item">
+<div class="tl-dot email">E</div>
+<div class="tl-content">
+<div class="tl-day">Day 0 — automated email</div>
+<div class="tl-title">Opening email — value proposition</div>
+<div class="tl-desc">Short, personalised, specific to their situation. Opens with a relevant observation. Ends with a single meeting ask.</div>
+</div>
+</li>
+<li class="tl-item">
+<div class="tl-dot call">C</div>
+<div class="tl-content">
+<div class="tl-day">Day 2 — call task</div>
+<div class="tl-title">First call attempt</div>
+<div class="tl-desc">Reference the email. If voicemail: keep it under 20 seconds, mention the email, give your phone number twice.</div>
+</div>
+</li>
+<li class="tl-item">
+<div class="tl-dot email">E</div>
+<div class="tl-content">
+<div class="tl-day">Day 4 — automated email</div>
+<div class="tl-title">Different angle — case study</div>
+<div class="tl-desc">Different subject line, different opening. Lead with a relevant customer story. "We helped [Company like theirs] do X."</div>
+</div>
+</li>
+<li class="tl-item">
+<div class="tl-dot li">Li</div>
+<div class="tl-content">
+<div class="tl-day">Day 7 — LinkedIn connect task</div>
+<div class="tl-title">LinkedIn connection request</div>
+<div class="tl-desc">Short, personal note with the request. Reference something from their profile. No pitch in the connection request.</div>
+</div>
+</li>
+<li class="tl-item">
+<div class="tl-dot email">E</div>
+<div class="tl-content">
+<div class="tl-day">Day 10 — automated email</div>
+<div class="tl-title">Social proof / competitor angle</div>
+<div class="tl-desc">Different angle again — "If you're currently using [competitor], here's what our customers switched from and why."</div>
+</div>
+</li>
+<li class="tl-item">
+<div class="tl-dot call">C</div>
+<div class="tl-content">
+<div class="tl-day">Day 14 — call task</div>
+<div class="tl-title">Second call attempt</div>
+<div class="tl-desc">Last human touch before the break-up. Reference the case study email. Express genuine curiosity about their situation.</div>
+</div>
+</li>
+<li class="tl-item">
+<div class="tl-dot email">E</div>
+<div class="tl-content">
+<div class="tl-day">Day 17 — automated email</div>
+<div class="tl-title">Break-up email</div>
+<div class="tl-desc">"Should I close your file?" — finality drives replies. Generates 2–4× the reply rate of earlier emails. Never skip this step.</div>
+</div>
+</li>
+</ul>
+</div><div class="sec division division-hidden" data-division="enrollment" id="enrollment">
+<div class="sec-eye">Admin Setup · 08</div>
+<div class="sec-title">Enrollment <em>Options</em></div>
+<p class="sec-lead">Two ways to enrol contacts — manual enrolment by reps, or automatic via workflows.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Method</th><th>How it works</th><th>Best for</th><th>Admin setup</th></tr></thead>
+<tbody>
+<tr><td><strong>Manual enrolment</strong></td><td>Rep goes to Contact record → clicks "Enrol in sequence" → selects the sequence → reviews and optionally edits each automated email → confirms enrolment</td><td>When the rep needs to review and personalise each contact before enrolment. The standard method for outbound prospecting.</td><td>Train reps on the enrolment review step — make sure they edit the opening email for each contact, not just bulk-enrol without personalisation.</td></tr>
+<tr><td><strong>Workflow enrolment</strong></td><td>A workflow action "Enrol in sequence" automatically enrolls a contact when the workflow fires. Assigns the sequence to the contact's owner.</td><td>When you want enrolment to happen automatically — e.g. MQL reaches a certain score and should immediately start an outreach sequence</td><td>Set the sequence owner carefully — the workflow assigns the sequence using the contact's owner property. Ensure every contact has an owner before this workflow fires.</td></tr>
+</tbody>
+</table></div>
+<div class="box warn"><div class="bl">Workflow enrolment risk</div><p>When enrolling contacts via workflow, they are automatically added without a rep reviewing or personalising the emails. This can result in generic, unedited emails going out at scale — which defeats the purpose of a personal sequence. Only use workflow enrolment if your templates are strong enough to send without per-contact editing, or if you're doing high-volume outreach where individual personalisation isn't feasible.</p></div>
+</div><div class="sec division division-hidden" data-division="reporting" id="reporting">
+<div class="sec-eye">Admin Setup · 09</div>
+<div class="sec-title">Sequence <em>Analytics</em></div>
+<p class="sec-lead">What HubSpot measures — and how to use the data to optimise and coach.</p>
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-label">Open rate</div>
+<div class="metric-val">~40%</div>
+<div class="metric-desc">% who opened the email. Measures subject line effectiveness. Benchmark: 35–50% for cold outreach.</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Reply rate</div>
+<div class="metric-val">~8%</div>
+<div class="metric-desc">% who replied. The primary metric. Measures whether the email started a conversation. Benchmark: 5–15% for well-written cold sequences.</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Meeting booked rate</div>
+<div class="metric-val">~4%</div>
+<div class="metric-desc">% who booked a meeting. The conversion metric. Measures whether outreach resulted in a demo or call.</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Click rate</div>
+<div class="metric-val">~12%</div>
+<div class="metric-desc">% who clicked a link in the email. Useful if you include a case study link or a calendar link in the body.</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Unsubscribe rate</div>
+<div class="metric-val">&lt;1%</div>
+<div class="metric-desc">% who opted out. Above 2% signals the sequence is too aggressive or targeting the wrong audience.</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Completion rate</div>
+<div class="metric-val">~75%</div>
+<div class="metric-desc">% who finished all steps with no reply. High completion + low reply = sequence needs rewriting.</div>
+</div>
+</div>
+<h3>Step-level analytics — the coaching gold mine</h3>
+<p>HubSpot shows reply rate per step — which email in the sequence generates the most replies. This is where most teams leave value on the table. Common patterns:</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Pattern found</th><th>What it means</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td>Break-up email (step 7) gets 4× the replies of step 1</td><td>Your opening email isn't compelling enough — but finality resonates</td><td>Rewrite step 1 to feel more like the break-up email — direct, short, low pressure</td></tr>
+<tr><td>Step 3 (case study) gets the highest click rate</td><td>Social proof is the most compelling angle for this audience</td><td>Lead with social proof earlier — make step 1 a case study reference</td></tr>
+<tr><td>Call steps (steps 2 and 6) have 0% completion rate</td><td>Reps aren't making the calls — tasks are being ignored</td><td>Coaching issue, not a sequence issue — review rep task completion rates</td></tr>
+<tr><td>Reply rate drops to 0% after step 4</td><td>The sequence is too long for this audience</td><td>Shorten to 5 steps — the last 3 are producing no results</td></tr>
+</tbody>
+</table></div>
+</div></section><section class="section page-hidden" id="applied" data-page="applied" aria-label="Applied Learning"><div class="sec division division-hidden" data-division="example" id="example">
+<div class="sec-eye">Applied Learning · 10</div>
+<div class="sec-title">Real-World <em>Example</em></div>
+<div class="box case"><div class="bl">The situation</div><p>A B2B SaaS company with 5 SDRs. Each building their own email cadences in personal Google Docs, copying emails manually, losing track of where they were in their follow-up. MQL-to-demo conversion: 11%. Average reply rate: 3.2%. New SDR ramp time: 3+ weeks to develop their own templates.</p></div>
+<h3>What the admin built</h3>
+<ul class="prlist">
+<li><span>1.</span><div>Built a <strong>Sequence Library</strong> — 3 sequences covering the main personas: SaaS VPs, FinTech Directors, and re-engagement of 90-day-old lost SQLs.</div></li>
+<li><span>2.</span><div>Each sequence uses a <strong>7-step cadence</strong> over 17 days with persona-specific templates. The FinTech sequence focuses on compliance. The SaaS sequence focuses on speed and integration.</div></li>
+<li><span>3.</span><div>Connected the <strong>MQL workflow</strong> to include a task: "Review MQL and enrol in the appropriate sequence" — making sequence enrolment part of the standard SDR review process.</div></li>
+<li><span>4.</span><div>Built a <strong>Sequence Performance Dashboard</strong>: reply rate by sequence, by rep, and by step. Reviewed weekly in sales standup.</div></li>
+<li><span>5.</span><div>Step-by-step data after 30 days showed the break-up email had a <strong>31% reply rate</strong> — highest in the sequence. Admin moved a "softer" version of the break-up language into step 3, which increased the reply rate for that step from 2% to 9%.</div></li>
+</ul>
+<h3>Results after 60 days</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Metric</th><th>Before</th><th>After</th></tr></thead>
+<tbody>
+<tr><td>MQL-to-demo conversion</td><td>11%</td><td>23%</td></tr>
+<tr><td>Average team reply rate</td><td>3.2%</td><td>8.7%</td></tr>
+<tr><td>New SDR ramp time (to first meeting booked)</td><td>3+ weeks</td><td>4 days</td></tr>
+<tr><td>Rep time spent on email copy per lead</td><td>~12 min</td><td>~2 min (edit template)</td></tr>
+<tr><td>Best-performing email step</td><td>Unknown</td><td>Break-up email — 31% reply rate</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="cases" id="cases">
+<div class="sec-eye">Applied Learning · 11</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico b">📧</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — Sequences landing in spam</div>
+<div class="csub">When HTML-heavy templates hurt deliverability</div>
+<div class="ctags"><span class="tag b">Deliverability</span><span class="tag n">B2B Tech</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c1p')">Problem</div><div class="tab" onclick="st(this,'c1s')">Solution</div><div class="tab" onclick="st(this,'c1r')">Outcome</div></div>
+<div class="pane on" id="c1p"><div class="box case"><div class="bl">The problem</div><p>An SDR team's sequence open rates suddenly dropped from 42% to 11% over two weeks. Replies had effectively stopped. Investigation revealed two issues: the company's IT team had recently added a large HTML email signature template with a company banner image, tracking pixels, and multiple links — applied to every outgoing email including sequence emails. Additionally, several SDRs had added "click here to unsubscribe" footers styled as HTML with multiple hyperlinks. The email clients were routing these to the Promotions or Spam folder.</p></div></div>
+<div class="pane" id="c1s"><ul class="prlist">
+<li><span>1.</span><div>Rebuilt all email templates as plain-text style — no HTML formatting, no banner images, no styled elements. Just: first name, body text, signature in plain text.</div></li>
+<li><span>2.</span><div>Email signature standardised: Name, Title, Phone (plain text), LinkedIn URL (not hyperlinked, just the URL). No images, no HTML tables.</div></li>
+<li><span>3.</span><div>Removed the HTML unsubscribe footer — for true 1-to-1 sequences under legal thresholds, unsubscribe links are optional. Kept them only where legally required.</div></li>
+<li><span>4.</span><div>Reviewed email authentication: verified SPF, DKIM, and DMARC were properly configured for the company's domain. Found DMARC was in "none" mode — updated to "quarantine" after confirming all legitimate email sources were covered.</div></li>
+</ul></div>
+<div class="pane" id="c1r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Open rates recovered from 11% to 38% within 2 weeks of template changes. Reply rates returned to baseline. Admin created a "Sequence Email Template Standards" document: no HTML elements, plain text signatures only, no embedded images. This document became part of every new SDR onboarding package. The IT team's HTML signature template was removed from sequence-sending accounts and kept only for non-sequence outbound email.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico p">🎯</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — One sequence for all personas</div>
+<div class="csub">When generic messaging kills reply rates</div>
+<div class="ctags"><span class="tag p">Personalisation</span><span class="tag n">SaaS Agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c2p')">Problem</div><div class="tab" onclick="st(this,'c2s')">Solution</div><div class="tab" onclick="st(this,'c2r')">Outcome</div></div>
+<div class="pane on" id="c2p"><div class="box case"><div class="bl">The problem</div><p>A SaaS marketing agency had built one cold outreach sequence that every SDR used for every MQL — regardless of the contact's industry, seniority, or pain point. A VP of Engineering at a FinTech company was receiving the same email as a Marketing Director at an e-commerce startup. The sequence had a 2.1% reply rate. The team assumed the product just "wasn't a good fit" for most MQLs. In reality, the messaging wasn't matching the audience.</p></div></div>
+<div class="pane" id="c2s"><ul class="prlist">
+<li><span>1.</span><div>Segmented sequences by persona. Built 4 sequences: FinTech (compliance + security angle), E-commerce (conversion rate + speed angle), SaaS (integrations + developer experience angle), General/Other.</div></li>
+<li><span>2.</span><div>For each persona: rewrote all 7 email templates with persona-specific pain points, persona-specific social proof (different customer logos and results for each industry), and persona-specific CTAs.</div></li>
+<li><span>3.</span><div>Created a custom Contact property: "Sequence Persona" with the four options as a dropdown. MQL promotion workflow added a step: branch by industry → set Sequence Persona automatically. SDRs could then quickly see which sequence to enrol each contact in.</div></li>
+<li><span>4.</span><div>Built a comparison report: reply rate by sequence. Updated monthly. Worst-performing sequence gets a template rewrite review each quarter.</div></li>
+</ul></div>
+<div class="pane" id="c2r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Overall reply rate went from 2.1% to 9.4% within 60 days. The FinTech sequence performed best at 13.2% — the compliance angle resonated strongly. The general/other sequence still underperformed at 5.8% — flagged for further segmentation. The team stopped blaming "poor fit" and started optimising messaging. MQL-to-demo conversion doubled within the quarter.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">📊</div>
+<div style="flex:1">
+<div class="ctitle">Case 3 — Using step analytics to reorder a sequence</div>
+<div class="csub">When data reveals your best email is in the wrong position</div>
+<div class="ctags"><span class="tag t">Analytics</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c3p')">Discovery</div><div class="tab" onclick="st(this,'c3s')">Changes made</div><div class="tab" onclick="st(this,'c3r')">Outcome</div></div>
+<div class="pane on" id="c3p"><p>After 3 months of using their SDR outreach sequence, the admin pulled step-level analytics. The data was surprising:</p><div class="table-wrap"><table class="tbl" style="margin-top:12px"><thead><tr><th>Step</th><th>Type</th><th>Reply rate</th></tr></thead><tbody><tr><td>Step 1 (Day 0)</td><td>Opening email</td><td>2.1%</td></tr><tr><td>Step 3 (Day 4)</td><td>Case study email</td><td>4.8%</td></tr><tr><td>Step 5 (Day 10)</td><td>Competitor angle email</td><td>3.2%</td></tr><tr><td>Step 7 (Day 17)</td><td>Break-up email</td><td>14.3%</td></tr></tbody></table></div><p style="margin-top:12px">The break-up email was generating 7× the replies of the opening email. Most replies were coming from people who had opened earlier emails but never responded — the finality triggered them to engage.</p></div>
+<div class="pane" id="c3s"><ul class="prlist">
+<li><span>1.</span><div>Moved a softer version of the break-up language into Step 3 instead of Step 7 — "I want to make sure I'm not bothering you. Is this the right time, or should I reach back out in Q3?"</div></li>
+<li><span>2.</span><div>Rewrote Step 1 to be shorter and lower-pressure — more like the break-up email's directness, less like a formal value proposition pitch.</div></li>
+<li><span>3.</span><div>Added a second break-up email at Step 7 that was even more final: "I'll be closing your file today — but if anything changes, here's my direct email."</div></li>
+</ul></div>
+<div class="pane" id="c3r"><div class="box revops"><div class="bl">RevOps outcome</div><p>After the restructure, Step 1 reply rate went from 2.1% to 6.8%. Step 3 (new semi-break-up) generated 8.2% replies. Step 7 (final break-up) still generated 11.4%. Overall sequence reply rate went from 4.9% to 12.7%. The lesson: the tone that generates replies isn't the formal pitch — it's the direct, low-pressure, "I'm not going to chase you" tone. The data told the team what their audience responded to. The admin's job was to surface that data and implement the changes.</p></div></div>
+</div>
+</div>
+</div><div class="sec division division-hidden" data-division="mistakes" id="mistakes">
+<div class="sec-eye">Applied Learning · 12</div>
+<div class="sec-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — One generic sequence for all personas</div>A SaaS VP and a Retail Director have completely different priorities, vocabulary, and pain points. One generic sequence performs poorly for both. Build persona-specific sequences. Three targeted sequences will always outperform one generic one.</li>
+<li><div class="mt">02 — Sequences that are too long</div>A 15-step sequence over 45 days is too long. Most replies come in the first 4 steps. After 6–7 touches with no response, you have your answer. Keep sequences under 8 steps. The break-up email should come within 3 weeks.</li>
+<li><div class="mt">03 — Email templates that are too long</div>Sales emails are read in under 10 seconds. A 500-word product pitch will not be read. Every cold outreach email should be under 100 words. If you can't explain the value in 5 sentences, the message isn't clear enough — not the email isn't long enough.</li>
+<li><div class="mt">04 — Enrolling unqualified contacts</div>Sequences are not a substitute for qualification. Enrolling every lead wastes rep time, hurts sender domain reputation, and inflates unsubscribe rates. Reserve sequences for contacts that have been reviewed and are genuinely worth pursuing.</li>
+<li><div class="mt">05 — HTML-heavy templates killing deliverability</div>Images, HTML formatting, banner signatures, multiple hyperlinks — all increase spam classification risk. Sequence emails should look like they were written in 2 minutes in Gmail, not designed in Mailchimp. Plain text wins deliverability every time.</li>
+<li><div class="mt">06 — No break-up email as the final step</div>The break-up email is typically the highest-converting email in any cold outreach sequence. Omitting it leaves your best opportunity on the table. Always end with a clear "I'll close your file" message.</li>
+<li><div class="mt">07 — Not reviewing step-level analytics</div>Without step analytics, you don't know which email is working and which is failing. Reviewing reply rate by step monthly is what separates a sequence that was built once and forgotten from one that continuously improves.</li></ul></div><div class="sec division division-hidden" data-division="best" id="best">
+<div class="sec-eye">Applied Learning · 13</div>
+<div class="sec-title">Admin <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span>📚</span><div><strong>Build a shared sequence library before reps start prospecting.</strong> Admin builds 3–5 core sequences for the main personas, publishes them as shared sequences. Reps select from the library — not build their own. One source of truth for outreach copy.</div></li>
+<li><span>📊</span><div><strong>Review step analytics monthly.</strong> Which step gets the most replies? That's the signal. Move what's working earlier. Rewrite or remove what isn't generating engagement.</div></li>
+<li><span>📧</span><div><strong>Keep all templates plain text.</strong> No HTML, no banner images, no formatted signatures. Sequence emails should look like a human wrote them in their email client, not designed in a marketing tool.</div></li>
+<li><span>✉️</span><div><strong>Always include a break-up email as the final step.</strong> Every cold outreach sequence, no exceptions. The finality generates replies that nothing else does.</div></li>
+<li><span>📏</span><div><strong>Test subject lines systematically.</strong> Run the same sequence with two different subject lines for 30 days. Pick the winner by open rate. Standardise. Repeat.</div></li>
+<li><span>🎯</span><div><strong>Use sequence analytics for rep coaching.</strong> Reply rate by rep in the same sequence reveals skill gaps — not lead quality differences. Low reply rate from specific reps points to personalisation or targeting issues worth coaching.</div></li>
+<li><span>⏸️</span><div><strong>Pause sequences before major holidays and company events.</strong> Sequences continue running unless you stop them. Build a quarterly calendar of pause dates and make sure someone is responsible for pausing active sequences before major breaks.</div></li>
+</ul>
+</div><div class="sec division division-hidden" data-division="practice" id="practice">
+<div class="sec-eye">Applied Learning · 14</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-lead">Do this in your free HubSpot sandbox — approximately 45 minutes.</p>
+<h3>Part A — Build a 5-step sequence (30 min)</h3>
+<ol class="psteps">
+<li>Go to Sales → Sequences → Create sequence. Name it: <code>[SDR] Cold Outreach — Practice — MQL</code></li>
+<li>Step 1: Automated email. Create a template. Subject line: "Quick question, {{contact.firstname}}". Body: 3 sentences — opening observation, value statement, CTA. Save template.</li>
+<li>Set delay: 2 days. Check "Business days only."</li>
+<li>Step 2: Phone call task. Instructions: "Call {{contact.firstname}} — reference the email sent on Day 0. Goal: book a discovery call."</li>
+<li>Step 3: Automated email. Subject: different angle. Body: one customer story in 2 sentences + one CTA.</li>
+<li>Step 4: LinkedIn connect task. Instructions: "Connect with {{contact.firstname}} on LinkedIn. Reference something from their profile in the connection note."</li>
+<li>Step 5: Automated email — break-up email. Use the template from this module exactly. Set delay: 3 days after Step 4.</li>
+<li>Save the sequence. Do a test enrolment on a fake contact in sandbox. Verify the first email template looks correct before confirming enrolment.</li>
+</ol>
+<h3>Part B — Enrol a contact and track it (15 min)</h3>
+<ol class="psteps">
+<li>Create a test Contact in your sandbox with a real-looking email address.</li>
+<li>Go to the Contact record. Click "Enrol in sequence." Select your new sequence.</li>
+<li>In the enrolment preview, edit the first email — add a personalised opening line specific to this fake contact's company.</li>
+<li>Confirm enrolment. The first email should send (or attempt to send from your connected inbox) immediately.</li>
+<li>Go to Sales → Sequences → find your sequence. Check the Enrolled count and see the contact listed.</li>
+<li>On the Contact record: check the timeline. You should see the sequence enrolment and the first email logged as an activity.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="interview" id="interview">
+<div class="sec-eye">Applied Learning · 15</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"What is the difference between a HubSpot Sequence and a Workflow?"</div>
+<div class="iq-a">They solve different problems at different scales. A Sequence is a personalised 1-to-1 sales outreach tool — emails send from the rep's personal Gmail or Outlook inbox, they feel like real human emails, and the entire sequence stops automatically the moment the contact replies. They're for SDR cold outreach, AE follow-up cadences, and CSM personal touchpoints with specific accounts. Workflows are a bulk automation engine — emails send from HubSpot's marketing system to hundreds or thousands of contacts at once, they don't stop on reply, and they can combine emails with property updates, task creation, and CRM record changes in one flow. The best RevOps setup uses both: workflows handle the systemic automation and lifecycle management, sequences handle the personal outreach when a rep is actively working a prospect. They're complementary tools — workflows bring contacts to sequences' door, sequences take them through a personal conversation.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"How would you build a sequence library for a new SDR team?"</div>
+<div class="iq-a">First I'd work with sales leadership to map the key personas SDRs will be targeting and what stage they're at — cold MQL outreach, post-demo follow-up, re-engagement of lost deals. For each persona, I'd define the core pain point angle, a relevant social proof example, and the tone that matches the audience. I'd draft the 7-step template structure and get feedback from the best-performing rep before building in HubSpot. Then I'd build 3–5 sequences as shared sequences with clear naming: [SDR] Cold — SaaS VP — MQL, [SDR] Cold — FinTech Director — MQL. I'd connect the MQL review workflow to include a task that prompts the SDR to review the contact's persona and enrol in the right sequence. After 30 days I'd pull step-level analytics — which email generates the most replies? That email gets moved earlier in the sequence. Underperforming emails get rewritten or removed. The library evolves based on data, not intuition.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"A rep's sequence emails are landing in spam. How do you investigate and fix it?"</div>
+<div class="iq-a">I'd start with the email templates themselves — the most common cause is HTML-heavy templates with images, formatted signatures, or multiple hyperlinks. Spam filters treat these like marketing emails. I'd rebuild the templates in plain text style: no formatting, text-only signature. Then I'd check the sending domain's email authentication: SPF, DKIM, and DMARC records. Misconfigured authentication means receiving servers can't verify the email is legitimate. I'd also check the bounce rate for recent sequence sends — high bounce rates indicate either low-quality contact lists or domain reputation problems. If bounce rate is high, I'd clean the contact list and reduce sending volume temporarily. Finally I'd check whether the rep's Gmail or Outlook account has had any spam complaints flagged — too many complaints over a short period damage sender reputation and need time to recover through reduced volume and high-quality sends.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"What makes the break-up email so effective, and where do you place it?"</div>
+<div class="iq-a">The break-up email works because it leverages finality — people respond to closure in a way they don't respond to a sixth follow-up. A contact who has been passively interested but too busy to reply suddenly finds urgency when they feel the opportunity is about to close. It also filters the pipeline: contacts who genuinely aren't interested confirm it, which is also valuable — it cleans your active pipeline rather than letting dead leads linger. I place it as the final step in every cold outreach sequence — typically after 5–6 earlier touches, within 3 weeks of the first email. The data consistently shows break-up emails generate the highest reply rate of any step in the sequence, often 3–5× higher than the opening email. I've also found that moving a softer version of the break-up tone into an earlier step — around step 3 — increases overall sequence reply rate significantly, because that direct, low-pressure tone is what the audience responds to throughout, not just at the end.</div>
+</div>
+</div><div class="sec division division-hidden" data-division="cheatsheet" id="cheatsheet">
+<div class="sec-eye">Applied Learning · 16</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is a sequence</td><td>Personalised automated outreach cadence — emails from rep's own inbox, tasks for calls/LinkedIn, stops on reply</td></tr>
+<tr><td>vs Workflow</td><td>Sequences = 1-to-1, personal, stops on reply. Workflows = bulk, systemic, doesn't stop on reply. Use both together.</td></tr>
+<tr><td>Sends from</td><td>Rep's connected Gmail or Outlook — not HubSpot's marketing system</td></tr>
+<tr><td>Reply detection</td><td>Contact replies → entire sequence stops instantly, rep notified</td></tr>
+<tr><td>Meeting detection</td><td>Contact books via HubSpot Meetings link in email → sequence stops instantly</td></tr>
+<tr><td>Scale limit</td><td>Individual contacts or small batches — not mass lists (that's what workflows are for)</td></tr>
+<tr><td>6 step types</td><td>Automated email · Manual email task · Call task · LinkedIn connect · LinkedIn message · General task</td></tr>
+<tr><td>Automated email step</td><td>Sends automatically — no rep action needed. Uses a template with personalisation tokens.</td></tr>
+<tr><td>Task steps</td><td>Creates to-do in rep's task queue — rep must take the actual action (call, LinkedIn message)</td></tr>
+<tr><td>One sequence at a time</td><td>Contact can only be in one sequence simultaneously — HubSpot warns on double-enrolment</td></tr>
+<tr><td>Email template rules</td><td>Plain text only. Under 100 words. One CTA. No HTML, no images. Subject line: short and personal.</td></tr>
+<tr><td>Break-up email</td><td>Always the final step. "Should I close your file?" Generates the highest reply rate of any step.</td></tr>
+<tr><td>Enrollment methods</td><td>Manual (rep reviews and enrols) or Workflow action (auto-enrols when trigger fires)</td></tr>
+<tr><td>Primary metric</td><td>Reply rate — did the outreach start a real conversation?</td></tr>
+<tr><td>Step analytics</td><td>Reply rate per step — reveals which email works best. Move it earlier. Rewrite what doesn't work.</td></tr>
+<tr><td>Deliverability rule</td><td>Plain text style templates prevent spam classification. HTML = marketing email = spam folder.</td></tr>
+<tr><td>Admin superpower</td><td>Shared sequence library = consistent messaging + coaching data + fast rep onboarding</td></tr>
+<tr><td>Interview gold</td><td>"I build persona-specific sequences, review step analytics monthly, and always end with a break-up email — the data consistently shows it generates the highest reply rate."</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps mindset on sequences</div><p>The sequence library is intellectual property — the accumulated outreach intelligence of your sales organisation. The templates that generate replies, the step order that converts, the subject lines that get opened — all represent months of iteration and thousands of data points. An admin who builds, tests, and systematically optimises the sequence library is contributing directly to pipeline generation. Sequence analytics also connect directly to rep coaching: reply rate by rep in the same sequence reveals execution and personalisation skill gaps, not lead quality problems. This is where sales enablement and RevOps converge — the admin who owns the sequence library is influencing how every deal starts.</p></div>
+</div></section>
+  </main>
+</div>
+<script>
+const guideGroups = [{id:'foundation',title:'Foundation',items:[{id:'what',label:'What is a sequence?'},{id:'vs',label:'Sequences vs Workflows'},{id:'logic',label:'System logic'},{id:'steps',label:'Step types'}]},{id:'admin',title:'Admin Setup',items:[{id:'building',label:'Step-by-step setup'},{id:'templates',label:'Email templates'},{id:'cadence',label:'7-touch cadence example'},{id:'enrollment',label:'Enrollment options'},{id:'reporting',label:'Reporting & analytics'}]},{id:'applied',title:'Applied Learning',items:[{id:'example',label:'Real-world example'},{id:'cases',label:'Case studies'},{id:'mistakes',label:'Common mistakes'},{id:'best',label:'Best practices'},{id:'practice',label:'Practice exercise'},{id:'interview',label:'Interview questions'},{id:'cheatsheet',label:'Cheatsheet'}]}];
+let currentPage = 'foundation';
+let currentDivision = 'what';
+
+function getGroup(page) { return guideGroups.find(g => g.id === page) || guideGroups[0]; }
+
+function renderMobileDivisions(page, activeDivision) {
+  const row = document.getElementById('mobileDivisionRow');
+  if (!row) return;
+  const group = getGroup(page);
+  row.innerHTML = group.items.map(item => `
+    <button class="mobile-division-btn ${(activeDivision || group.items[0].id) === item.id ? 'active' : ''}" data-page="${page}" data-target="${item.id}" onclick="showDivision('${page}','${item.id}', true)">${item.label}</button>
+  `).join('');
+}
+
+function updateActiveStates(page, division) {
+  document.querySelectorAll('[data-page-group]').forEach(el => {
+    el.classList.toggle('active', el.dataset.pageGroup === page && el.classList.contains('mobile-section-btn'));
+    el.classList.toggle('active-page', el.dataset.pageGroup === page && el.classList.contains('nav-group'));
+    el.classList.toggle('expanded', el.dataset.pageGroup === page && el.classList.contains('nav-group'));
+  });
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === page && el.dataset.target === division);
+  });
+  document.querySelectorAll('.mobile-section-btn').forEach(el => {
+    el.classList.toggle('active', el.dataset.pageGroup === page);
+  });
+  document.querySelectorAll('.mobile-division-btn').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === page && el.dataset.target === division);
+  });
+}
+
+function showPage(page, shouldScroll=false) {
+  const group = getGroup(page);
+  const firstDivision = group.items[0]?.id;
+  showDivision(page, firstDivision, shouldScroll);
+}
+
+function showDivision(page, division, shouldScroll=false) {
+  currentPage = page;
+  currentDivision = division;
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.classList.toggle('page-hidden', sec.dataset.page !== page);
+  });
+  document.querySelectorAll(`.section[data-page="${page}"] .division`).forEach(div => {
+    div.classList.toggle('division-hidden', div.dataset.division !== division);
+  });
+  renderMobileDivisions(page, division);
+  updateActiveStates(page, division);
+  if (shouldScroll) {
+    const target = document.getElementById(division) || document.getElementById(page);
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+function tog(hd) {
+  const card = hd.closest('.card');
+  if (!card) return;
+  const wasOpen = card.classList.contains('open');
+  const scope = card.closest('.division') || card.parentElement;
+  if (scope) scope.querySelectorAll('.card.open').forEach(c => { if (c !== card) c.classList.remove('open'); });
+  card.classList.toggle('open', !wasOpen);
+}
+
+function st(tab, pid) {
+  const body = tab.closest('.card-body') || tab.closest('.division') || document;
+  body.querySelectorAll('.tab').forEach(t => t.classList.remove('on','active'));
+  body.querySelectorAll('.pane, .tab-pane').forEach(p => p.classList.remove('on','active'));
+  tab.classList.add('on');
+  const p = document.getElementById(pid);
+  if (p) p.classList.add('on');
+}
+
+function j(id) {
+  const match = guideGroups.flatMap(g => g.items.map(item => ({page:g.id, id:item.id}))).find(x => x.id === id);
+  if (match) showDivision(match.page, id, true);
+}
+function jump(id) { j(id); }
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderMobileDivisions(currentPage, currentDivision);
+  updateActiveStates(currentPage, currentDivision);
+});
+</script>
+</body>
+</html>
