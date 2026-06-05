@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HubSpot Pipelines &amp; Deal Stages — Complete Admin Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0e12;
+  --surface: #12151c;
+  --surface2: #181c26;
+  --surface3: #1e2230;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e4e6f0;
+  --muted: #6e7289;
+  --soft: #9da3bb;
+  --purple: #8b7ff5;
+  --purple-bg: rgba(139,127,245,0.1);
+  --purple-light: #b4abff;
+  --teal: #20c997;
+  --teal-bg: rgba(32,201,151,0.1);
+  --teal-light: #6ef5cc;
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --amber-light: #fcd34d;
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --blue: #60a5fa;
+  --blue-bg: rgba(96,165,250,0.1);
+  --green: #4ade80;
+  --green-bg: rgba(74,222,128,0.1);
+  --hubspot-orange: #ff5c35;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r-lg: 16px;
+  --r-sm: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75;}
+a{color:inherit;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;scrollbar-width:thin;}
+.sidebar-brand{padding:22px 18px 18px;border-bottom:1px solid var(--border);}
+.hubspot-brand{display:block;text-decoration:none;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,92,53,0.24);background:linear-gradient(135deg,rgba(255,92,53,0.10),rgba(255,255,255,0.02));transition:transform .18s,border-color .18s,background .18s;margin-bottom:18px;}
+.hubspot-brand:hover{transform:translateY(-1px);border-color:rgba(255,92,53,0.42);background:linear-gradient(135deg,rgba(255,92,53,0.14),rgba(255,255,255,0.03));}
+.hubspot-word{font-family:var(--font-display);font-size:18px;font-weight:500;color:var(--hubspot-orange);line-height:1;}
+.hubspot-ref{font-size:10.5px;color:var(--muted);margin-top:5px;}
+.sidebar-title{font-family:var(--font-display);font-size:19px;line-height:1.25;font-weight:500;color:var(--text);}
+.sidebar-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-top:7px;}
+.desktop-nav{padding:16px 0 10px;}
+.nav-group{margin-bottom:4px;}
+.nav-group-label{width:calc(100% - 20px);margin:0 10px 8px;padding:10px 13px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--soft);display:flex;align-items:center;justify-content:space-between;font-family:var(--font-body);font-size:13.5px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;cursor:pointer;transition:all .15s;text-align:left;}
+.nav-group-label:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.nav-group.active-page .nav-group-label{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,0.30);}
+.nav-arrow{transition:transform .18s;color:var(--muted);font-size:18px;line-height:1;}
+.nav-group.active-page .nav-arrow,.nav-group.expanded .nav-arrow{transform:rotate(90deg);color:var(--purple-light);}
+.nav-page-items{display:none;padding-bottom:6px;}
+.nav-group.active-page .nav-page-items,.nav-group.expanded .nav-page-items{display:block;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;font-size:13.4px;color:var(--muted);border-left:2px solid transparent;transition:all .15s;cursor:pointer;text-decoration:none;line-height:1.35;}
+.nav-item:hover{color:var(--text);background:var(--surface2);}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple);}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--purple);}
+.dot-purple{background:var(--purple);}
+.dot-teal{background:var(--teal);}
+.dot-amber{background:var(--amber);}
+.mobile-nav{display:none;}
+.sidebar-footer{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+.main{flex:1;padding:52px 60px;max-width:920px;}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border);}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start;}
+.creator-card{grid-column:2;grid-row:1;display:block;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015));border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;transition:transform .18s,border-color .18s,background .18s;}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,0.45);background:linear-gradient(180deg,rgba(255,92,53,0.08),rgba(139,127,245,0.04));}
+.creator-card img{width:100%;height:auto;border-radius:14px;border:2px solid rgba(255,92,53,0.75);box-shadow:0 12px 28px rgba(255,92,53,0.16),0 18px 42px rgba(0,0,0,0.28);object-fit:cover;}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text);}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:2px;}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:5px;}
+.hero-copy{grid-column:1;grid-row:1;}
+.hero-kicker{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px;}
+.hero-title{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px;}
+.hero-title em{font-style:italic;color:var(--purple);}
+.hero-description{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8;margin-bottom:0;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+.pill,.chip,.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
+.pill{font-size:12px;padding:5px 14px;border:1px solid var(--border2);background:var(--surface);color:var(--soft);}
+.pill.p,.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);}
+.pill.t,.tag.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,0.2);}
+.pill.a,.tag.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.2);}
+.pill.n,.tag.n{background:rgba(122,127,148,0.08);color:var(--muted);border:1px solid var(--border);}
+.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,0.18);}
+.tag.g{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,0.18);}
+.section{margin-bottom:68px;scroll-margin-top:24px;}
+.section.page-hidden{display:none;}
+.division.division-hidden{display:none;}
+.division{animation:fadeIn .18s ease-out;}
+@keyframes fadeIn{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.sec-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px;}
+.sec-title em{font-style:italic;color:var(--purple);}
+.sec-lead{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px;}
+h3{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);margin-bottom:11px;margin-top:22px;}
+h3:first-child{margin-top:0;}
+h4{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;margin-top:16px;}
+p{color:var(--soft);margin-bottom:12px;font-size:14.5px;line-height:1.8;font-weight:300;}
+strong{color:var(--text);font-weight:500;}
+code{font-family:var(--font-mono);font-size:12px;color:var(--purple-light);background:var(--purple-bg);padding:2px 6px;border-radius:3px;}
+code.t{color:var(--teal-light);background:var(--teal-bg);}
+code.a{color:var(--amber-light);background:var(--amber-bg);}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:var(--border2);}
+.card-hd{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+.card-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.card-ico.p{background:var(--purple-bg);}
+.card-ico.t{background:var(--teal-bg);}
+.card-ico.a{background:var(--amber-bg);}
+.card-ico.r{background:var(--red-bg);}
+.ctitle{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2;}
+.csub{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.ctags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.chev{font-size:18px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0;}
+.card.open .chev{transform:rotate(90deg);}
+.card-body{display:none;}
+.card.open .card-body{display:block;}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;overflow-x:auto;}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;font-family:var(--font-body);}
+.tab:hover{color:var(--text);}
+.tab.on,.tab.active{color:var(--text);border-bottom-color:var(--purple);}
+.pane,.tab-pane{display:none;padding:24px;}
+.pane.on,.tab-pane.on{display:block;}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
+.table-wrap .tbl{min-width:650px;margin-bottom:0;}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;}
+.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2);}
+.tbl th{padding:9px 13px;text-align:left;font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:300;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(255,255,255,0.015);}
+.box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid;}
+.box p{margin:0;font-size:14px;font-weight:300;}
+.box p+p{margin-top:6px;}
+.bl{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;font-family:var(--font-mono);}
+.box.why{border-color:var(--purple);background:var(--purple-bg);}
+.box.why .bl{color:var(--purple-light);}
+.box.tip{border-color:var(--teal);background:var(--teal-bg);}
+.box.tip .bl{color:var(--teal-light);}
+.box.warn{border-color:var(--red);background:var(--red-bg);}
+.box.warn .bl{color:var(--red);}
+.box.case{border-color:var(--blue);background:var(--blue-bg);}
+.box.case .bl{color:var(--blue);}
+.box.revops{border-color:var(--purple);background:linear-gradient(135deg,var(--purple-bg),var(--teal-bg));}
+.box.revops .bl{color:var(--purple-light);}
+.box.amber{border-color:var(--amber);background:var(--amber-bg);}
+.box.amber .bl{color:var(--amber-light);}
+.psteps{list-style:none;padding:0;counter-reset:ps;}
+.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:300;}
+.psteps li:last-child{border-bottom:none;}
+.psteps li::before{content:counter(ps);font-family:var(--font-mono);font-size:10px;color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);border-radius:3px;padding:2px 6px;flex-shrink:0;height:fit-content;margin-top:1px;background:var(--purple-bg);min-width:26px;text-align:center;}
+.prlist{list-style:none;padding:0;}
+.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:300;}
+.prlist li:last-child{border-bottom:none;}
+.mlist{list-style:none;padding:0;}
+.mlist li{background:rgba(248,113,113,0.04);border:1px solid rgba(248,113,113,0.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft);font-weight:300;}
+.mt{color:var(--red);font-weight:500;margin-bottom:4px;font-size:12.5px;font-family:var(--font-mono);}
+.iq{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:12px;}
+.iq-q{font-family:var(--font-display);font-size:16px;color:var(--text);font-style:italic;margin-bottom:8px;}
+.iq-a{font-size:13px;color:var(--soft);line-height:1.8;font-weight:300;}
+.wf-canvas{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;overflow-x:auto;}
+.wf-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.wf-row{display:flex;align-items:stretch;gap:0;margin-bottom:0;}
+.wf-node{border-radius:6px;padding:12px 16px;min-width:160px;flex-shrink:0;}
+.wf-node.trigger{background:var(--purple-bg);border:1px solid rgba(139,127,245,0.2);}
+.wf-node.filter{background:var(--teal-bg);border:1px solid rgba(32,201,151,0.2);}
+.wf-node.action{background:var(--amber-bg);border:1px solid rgba(245,158,11,0.18);}
+.wf-node.delay{background:rgba(255,255,255,0.035);border:1px dashed var(--border2);}
+.wf-node.branch{background:var(--blue-bg);border:1px solid rgba(96,165,250,0.2);}
+.wf-node.end{background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);}
+.wf-node-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.wf-node-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.wf-node-sub{font-size:11.5px;color:var(--muted);font-weight:300;}
+.wf-arrow{display:flex;align-items:center;padding:0 8px;color:var(--muted);font-size:14px;flex-shrink:0;}
+.wf-col{display:flex;flex-direction:column;align-items:center;gap:0;}
+.wf-down{color:var(--muted);font-size:14px;padding:4px 0;text-align:center;}
+.wf-branch-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;text-align:center;}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.rule-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:13px 15px;}
+.rule-num{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:var(--muted);margin-bottom:5px;}
+.rule-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.rule-body{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.65;}
+.enroll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.enroll-card{border:1px solid var(--border);border-radius:6px;padding:14px;background:var(--surface);}
+.enroll-card.p{border-top:2px solid var(--purple);}
+.enroll-card.t{border-top:2px solid var(--teal);}
+.enroll-card.a{border-top:2px solid var(--amber);}
+.enroll-name{font-weight:500;font-size:13px;color:var(--text);margin-bottom:3px;}
+.enroll-name.p{color:var(--purple-light);}
+.enroll-name.t{color:var(--teal-light);}
+.enroll-name.a{color:var(--amber-light);}
+.enroll-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:7px;}
+.enroll-use{font-size:11px;color:var(--soft);font-weight:300;}
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.ac{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;}
+.ac-name{font-size:12.5px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.ac-desc{font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.55;}
+.wf-type{display:inline-block;font-family:var(--font-mono);font-size:10.5px;padding:2px 7px;border-radius:3px;background:var(--purple-bg);color:var(--purple-light);}
+.wf-type.t{background:var(--teal-bg);color:var(--teal-light);}
+.wf-type.a{background:var(--amber-bg);color:var(--amber-light);}
+.wf8-list{list-style:none;padding:0;}
+.wf8-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:8px;}
+.wf8-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.wf8-num{font-family:var(--font-mono);font-size:10px;color:var(--muted);padding:2px 7px;border:1px solid var(--border);border-radius:3px;flex-shrink:0;}
+.wf8-name{font-size:13.5px;font-weight:500;color:var(--text);}
+.wf8-trigger{font-size:12px;color:var(--purple-light);margin-bottom:6px;font-weight:300;}
+.wf8-actions{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+.wf8-action{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.12);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+@media(max-width:760px){
+  .layout{display:block;}
+  .sidebar{display:block!important;width:100%;min-width:0;height:auto;max-height:none;position:sticky;top:0;z-index:50;border-right:none;border-bottom:1px solid var(--border2);box-shadow:0 18px 42px rgba(0,0,0,.18);overflow:visible;background:var(--surface);}
+  .sidebar-brand{display:none;}
+  .desktop-nav{display:none;}
+  .mobile-nav{display:block;}
+  .sidebar-footer{display:none;}
+  .main{width:100%;padding:22px 14px 34px;max-width:100%;}
+  .mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch;}
+  .mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;white-space:nowrap;}
+  .mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff;}
+  .mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch;}
+  .mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap;}
+  .mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38);}
+  .hero{margin-bottom:38px;padding-bottom:30px;}
+  .hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start;}
+  .creator-card{grid-column:1;grid-row:1;padding:0;border:none;background:transparent;box-shadow:none;}
+  .creator-card img{width:64px;height:80px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28);}
+  .creator-name,.creator-role,.creator-link{display:none;}
+  .hero-copy{grid-column:2;grid-row:1;}
+  .hero-kicker{font-size:10px;margin-bottom:9px;}
+  .hero-title{font-size:32px;}
+  .hero-description{font-size:14px;}
+  .section{margin-bottom:42px;}
+  .sec-title{font-size:25px;}
+  .card-hd{padding:18px 16px 15px;}
+  .pane,.tab-pane{padding:16px;}
+  .tabs{display:flex;overflow-x:auto;gap:7px;padding:9px 12px;}
+  .tab{flex:0 0 auto;padding:8px 11px;font-size:12px;}
+  .rules-grid,.enroll-grid{grid-template-columns:1fr;}
+  .action-grid{grid-template-columns:1fr 1fr;}
+  .wf-canvas{padding:16px;}
+}
+@media(max-width:430px){
+  .hero-title{font-size:28px;}
+  .creator-card img{width:58px;height:72px;}
+  .sec-title{font-size:23px;}
+  .hero-inner{grid-template-columns:64px minmax(0,1fr);gap:12px;}
+  .action-grid{grid-template-columns:1fr;}
+}
+
+
+/* Compatibility aliases for preserved educational content */
+:root{
+  --ink: var(--text);
+  --rule: var(--border);
+  --rule2: var(--border2);
+  --blue-mid: var(--blue);
+  --purple-mid: var(--purple-light);
+  --teal-mid: var(--teal-light);
+  --amber-mid: var(--amber-light);
+}
+
+/* Sequence-specific preserved components */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:18px;border:1px solid var(--border);} 
+.cmp-cell{background:var(--surface);padding:16px;} 
+.cmp-cell.h{background:var(--surface3);padding:12px 16px;} 
+.cmp-h-label{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-family:var(--font-mono);} 
+.cmp-h-title{font-size:14px;font-weight:700;color:var(--text);} 
+.cmp-items{list-style:none;padding:0;margin:0;} 
+.cmp-items li{font-size:13.5px;color:var(--soft);padding:6px 0;border-bottom:1px solid var(--border);font-weight:300;line-height:1.55;} 
+.cmp-items li:last-child{border-bottom:none;} 
+.cmp-items li.b::before{content:"✓ ";color:var(--blue);} 
+.cmp-items li.p::before{content:"✓ ";color:var(--purple-light);} 
+.cmp-items li.n::before{content:"— ";color:var(--muted);} 
+
+.seq-canvas{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;margin-bottom:16px;overflow-x:auto;} 
+.seq-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;} 
+.seq-steps{display:flex;gap:0;align-items:stretch;position:relative;min-width:max-content;} 
+.seq-step{min-width:120px;max-width:145px;flex-shrink:0;} 
+.seq-step-inner{border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;background:var(--surface2);} 
+.seq-step-inner.email{border-top:2px solid var(--blue);background:var(--blue-bg);} 
+.seq-step-inner.call{border-top:2px solid var(--amber);background:var(--amber-bg);} 
+.seq-step-inner.li{border-top:2px solid var(--purple);background:var(--purple-bg);} 
+.seq-step-inner.task{border-top:2px solid var(--teal);background:var(--teal-bg);} 
+.seq-step-day{font-family:var(--font-mono);font-size:9px;color:var(--muted);margin-bottom:5px;letter-spacing:.5px;} 
+.seq-step-type{font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;} 
+.seq-step-desc{font-size:11px;color:var(--soft);font-weight:300;line-height:1.5;} 
+.seq-arrow{display:flex;align-items:center;padding:0 6px;color:var(--muted);font-size:12px;flex-shrink:0;margin-top:20px;} 
+
+.email-mock{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);overflow:hidden;margin-bottom:16px;font-family:var(--font-mono);font-size:12px;} 
+.em-header{background:var(--surface2);padding:10px 16px;border-bottom:1px solid var(--border);} 
+.em-field{padding:4px 0;color:var(--muted);font-size:11.5px;} 
+.em-field span{color:var(--text);font-weight:500;} 
+.em-body{padding:16px;font-family:var(--font-body);font-size:13.5px;color:var(--soft);line-height:1.8;font-weight:300;} 
+.em-token{background:var(--blue-bg);color:var(--blue);padding:1px 5px;border-radius:3px;font-family:var(--font-mono);font-size:11.5px;} 
+.em-sig{border-top:1px solid var(--border);padding:12px 16px;color:var(--muted);font-size:12px;font-family:var(--font-body);} 
+
+.timeline{list-style:none;padding:0;position:relative;margin-bottom:18px;} 
+.timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:1px;background:var(--border2);} 
+.tl-item{display:flex;gap:16px;padding:12px 0;align-items:flex-start;position:relative;} 
+.tl-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:1;border:1px solid var(--border2);} 
+.tl-dot.email{background:var(--blue-bg);color:var(--blue);} 
+.tl-dot.call{background:var(--amber-bg);color:var(--amber-light);} 
+.tl-dot.li{background:var(--purple-bg);color:var(--purple-light);} 
+.tl-dot.task{background:var(--teal-bg);color:var(--teal-light);} 
+.tl-content{flex:1;} 
+.tl-day{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:3px;text-transform:uppercase;} 
+.tl-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:2px;} 
+.tl-desc{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.6;} 
+
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;} 
+.metric-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;} 
+.metric-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;} 
+.metric-val{font-family:var(--font-display);font-size:24px;font-weight:300;color:var(--text);line-height:1;margin-bottom:4px;} 
+.metric-desc{font-size:12px;color:var(--soft);font-weight:300;line-height:1.55;} 
+
+/* Make original sequence tags inherit the new color system */
+.chip.b,.tag.b{background:var(--blue-bg);color:var(--blue);border-color:rgba(96,165,250,0.2);} 
+.chip.p,.tag.p{background:var(--purple-bg);color:var(--purple-light);border-color:rgba(139,127,245,0.2);} 
+.tag.t{background:var(--teal-bg);color:var(--teal-light);border-color:rgba(32,201,151,0.2);} 
+.tag.a{background:var(--amber-bg);color:var(--amber-light);border-color:rgba(245,158,11,0.2);} 
+.tag.r{background:var(--red-bg);color:var(--red);border-color:rgba(248,113,113,0.2);} 
+.tag.g{background:var(--green-bg);color:var(--green);border-color:rgba(74,222,128,0.2);} 
+
+@media(max-width:760px){
+  .cmp-grid{grid-template-columns:1fr;}
+  .metrics-grid{grid-template-columns:1fr 1fr;}
+  .seq-canvas{padding:16px;}
+  .timeline::before{left:18px;}
+}
+@media(max-width:430px){
+  .metrics-grid{grid-template-columns:1fr;}
+}
+
+
+/* Pipeline-specific preserved components */
+.card-ico.b{background:var(--blue-bg);color:var(--blue);} 
+.stage-design,.forecast-tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:0;min-width:720px;background:var(--surface);} 
+.stage-design thead tr,.forecast-tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2);} 
+.stage-design th,.forecast-tbl th{padding:10px 12px;text-align:left;font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);} 
+.stage-design td,.forecast-tbl td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:300;} 
+.stage-design tr:last-child td,.forecast-tbl tr:last-child td{border-bottom:none;} 
+.stage-design tr:hover td,.forecast-tbl tr:hover td{background:rgba(255,255,255,.015);} 
+.prob-cell{font-family:var(--font-mono);font-size:12px;color:var(--blue);font-weight:500;} 
+.won-row td{background:var(--teal-bg)!important;} 
+.lost-row td{background:var(--red-bg)!important;} 
+.req-b,.auto-b{font-size:10.5px;padding:2px 8px;border-radius:20px;white-space:nowrap;display:inline-block;margin:2px 2px 2px 0;font-weight:500;} 
+.req-b{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,.18);} 
+.auto-b{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,.18);} 
+.amount-cell{font-family:var(--font-mono);font-weight:500;color:var(--text);} 
+.weighted-cell{font-family:var(--font-mono);font-weight:500;color:var(--teal-light);} 
+.total-row td{background:var(--teal-bg)!important;font-weight:500;color:var(--text);} 
+.mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;} 
+.mp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:15px;box-shadow:0 10px 24px rgba(0,0,0,.08);} 
+.mp-card.yes{border-left:3px solid var(--teal);} 
+.mp-card.no{border-left:3px solid var(--red);} 
+.mp-head{font-size:13.5px;font-weight:700;margin-bottom:6px;color:var(--text);} 
+.mp-head.yes{color:var(--teal-light);} 
+.mp-head.no{color:var(--red);} 
+.mp-desc{font-size:12.8px;color:var(--soft);font-weight:300;line-height:1.65;} 
+.chip.b,.tag.b{background:var(--blue-bg);color:var(--blue);border-color:rgba(96,165,250,0.2);} 
+.chip.t,.tag.t{background:var(--teal-bg);color:var(--teal-light);border-color:rgba(32,201,151,0.2);} 
+.tag.a{background:var(--amber-bg);color:var(--amber-light);border-color:rgba(245,158,11,0.2);} 
+@media(max-width:760px){.mp-grid{grid-template-columns:1fr;}.stage-design,.forecast-tbl{min-width:760px;}}
+</style>
+</head>
+<body>
+<div class="layout">
+  
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <a class="hubspot-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+      <div class="hubspot-word">HubSpot</div>
+      <div class="hubspot-ref">For better references, visit hubspot.com</div>
+    </a>
+    <div class="sidebar-title">Pipelines &amp; Deal Stages</div>
+    <div class="sidebar-desc">Revenue architecture · Stage design · Forecasting · Required fields</div>
+  </div>
+  <div class="desktop-nav">
+    <div class="nav-group active-page expanded" data-page-group="foundation">
+      <button class="nav-group-label" onclick="showPage('foundation', true)"><span>Foundation</span><span class="nav-arrow">›</span></button>
+      <div class="nav-page-items"><a class="nav-item active" data-page="foundation" data-target="what" onclick="showDivision('foundation','what', true)"><span class="nav-dot dot-purple"></span>What is a pipeline?</a><a class="nav-item" data-page="foundation" data-target="concepts" onclick="showDivision('foundation','concepts', true)"><span class="nav-dot dot-purple"></span>Pipelines vs deal stages</a><a class="nav-item" data-page="foundation" data-target="logic" onclick="showDivision('foundation','logic', true)"><span class="nav-dot dot-purple"></span>5 system rules</a><a class="nav-item" data-page="foundation" data-target="probability" onclick="showDivision('foundation','probability', true)"><span class="nav-dot dot-purple"></span>Probability & forecasting</a><a class="nav-item" data-page="foundation" data-target="multiple" onclick="showDivision('foundation','multiple', true)"><span class="nav-dot dot-purple"></span>When to use multiple pipelines</a></div>
+    </div><div class="nav-group " data-page-group="admin">
+      <button class="nav-group-label" onclick="showPage('admin', true)"><span>Admin Setup</span><span class="nav-arrow">›</span></button>
+      <div class="nav-page-items"><a class="nav-item" data-page="admin" data-target="setup" onclick="showDivision('admin','setup', true)"><span class="nav-dot dot-teal"></span>Step-by-step setup</a><a class="nav-item" data-page="admin" data-target="required" onclick="showDivision('admin','required', true)"><span class="nav-dot dot-teal"></span>Required fields per stage</a><a class="nav-item" data-page="admin" data-target="automation" onclick="showDivision('admin','automation', true)"><span class="nav-dot dot-teal"></span>Stage automation</a><a class="nav-item" data-page="admin" data-target="stage-design" onclick="showDivision('admin','stage-design', true)"><span class="nav-dot dot-teal"></span>Stage design reference</a></div>
+    </div><div class="nav-group " data-page-group="applied">
+      <button class="nav-group-label" onclick="showPage('applied', true)"><span>Applied Learning</span><span class="nav-arrow">›</span></button>
+      <div class="nav-page-items"><a class="nav-item" data-page="applied" data-target="example" onclick="showDivision('applied','example', true)"><span class="nav-dot dot-amber"></span>Real-world example</a><a class="nav-item" data-page="applied" data-target="cases" onclick="showDivision('applied','cases', true)"><span class="nav-dot dot-amber"></span>Case studies</a><a class="nav-item" data-page="applied" data-target="mistakes" onclick="showDivision('applied','mistakes', true)"><span class="nav-dot dot-amber"></span>Common mistakes</a><a class="nav-item" data-page="applied" data-target="best" onclick="showDivision('applied','best', true)"><span class="nav-dot dot-amber"></span>Best practices</a><a class="nav-item" data-page="applied" data-target="practice" onclick="showDivision('applied','practice', true)"><span class="nav-dot dot-amber"></span>Practice exercise</a><a class="nav-item" data-page="applied" data-target="interview" onclick="showDivision('applied','interview', true)"><span class="nav-dot dot-amber"></span>Interview questions</a><a class="nav-item" data-page="applied" data-target="cheatsheet" onclick="showDivision('applied','cheatsheet', true)"><span class="nav-dot dot-amber"></span>Cheatsheet</a></div>
+    </div>
+  </div>
+  <div class="mobile-nav">
+    <div class="mobile-section-row"><button class="mobile-section-btn active" data-page-group="foundation" onclick="showPage('foundation', true)">Foundation</button><button class="mobile-section-btn " data-page-group="admin" onclick="showPage('admin', true)">Admin Setup</button><button class="mobile-section-btn " data-page-group="applied" onclick="showPage('applied', true)">Applied Learning</button></div>
+    <div class="mobile-division-row" id="mobileDivisionRow"><button class="mobile-division-btn active" data-page="foundation" data-target="what" onclick="showDivision('foundation','what', true)">What is a pipeline?</button><button class="mobile-division-btn " data-page="foundation" data-target="concepts" onclick="showDivision('foundation','concepts', true)">Pipelines vs deal stages</button><button class="mobile-division-btn " data-page="foundation" data-target="logic" onclick="showDivision('foundation','logic', true)">5 system rules</button><button class="mobile-division-btn " data-page="foundation" data-target="probability" onclick="showDivision('foundation','probability', true)">Probability & forecasting</button><button class="mobile-division-btn " data-page="foundation" data-target="multiple" onclick="showDivision('foundation','multiple', true)">When to use multiple pipelines</button></div>
+  </div>
+  <div class="sidebar-footer">Click any section to explore · Cards expand on click</div>
+</nav>
+  <main class="main">
+    
+<div class="hero" id="page-top">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-kicker">HubSpot Admin · Module 10</div>
+      <h1 class="hero-title">Pipelines &amp;<br><em>Deal Stages</em></h1>
+      <p class="hero-description">The revenue architecture of your CRM — how to design pipelines, configure deal stages, set required fields, calibrate probability for accurate forecasting, and connect it all to automation.</p>
+      <div class="hero-pills">
+        <span class="pill p">Stage design</span>
+        <span class="pill p">Probability calibration</span>
+        <span class="pill t">Required fields</span>
+        <span class="pill t">Stage automation</span>
+        <span class="pill a">3 case studies</span>
+        <span class="pill n">Forecasting math</span>
+      </div>
+    </div>
+    <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+      <img src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo">
+      <div class="creator-name">Naveed Abbas</div>
+      <div class="creator-role">CRM Administrator</div>
+      <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+    </a>
+  </div>
+</div>
+    <section class="section" id="foundation" data-page="foundation" aria-label="Foundation"><div class="sec division" data-division="what" id="what">
+<div class="sec-eye">Foundation · 01</div>
+<div class="sec-title">What Is a <em>Pipeline?</em></div>
+<p class="sec-lead">A visual representation of your sales process — the path a deal travels from first conversation to closed won or lost.</p>
+<div class="box why"><div class="bl">Core definition</div><p>A HubSpot Pipeline is a named sales process with a series of <strong>Deal Stages</strong> — each representing a meaningful milestone in a deal's journey. Deals are individual opportunity records that move through stages as they progress. Pipelines give your team a shared language for where every opportunity stands and give leadership a real-time view of revenue in motion.</p></div>
+<h3>What pipelines replace</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Without a pipeline</th><th>With a configured pipeline</th></tr></thead>
+<tbody>
+<tr><td>"How much is closing this quarter?" requires calling every rep</td><td>Sum of weighted deal values by close date — real-time</td></tr>
+<tr><td>Risk deals identified through intuition</td><td>Filter: last activity &gt; 14 days AND stage = Negotiation</td></tr>
+<tr><td>Sales cycle length unknown</td><td>Average days from Deal created to Closed Won — reportable</td></tr>
+<tr><td>Pipeline bottlenecks discovered at quarter end</td><td>Time-in-stage analysis shows where deals stall — weekly</td></tr>
+<tr><td>Lost deal reasons locked in reps' heads</td><td>Required Closed Lost Reason field — aggregated monthly</td></tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="concepts" id="concepts">
+<div class="sec-eye">Foundation · 02</div>
+<div class="sec-title">Pipelines vs <em>Deal Stages</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th></th><th>Pipeline</th><th>Deal Stage</th><th>Deal</th></tr></thead>
+<tbody>
+<tr><td><strong>What is it</strong></td><td>A named sales process</td><td>A step within that process</td><td>An individual opportunity</td></tr>
+<tr><td><strong>Example</strong></td><td>New Business Pipeline</td><td>Proposal Sent</td><td>"Acme Corp — Platform | $45k"</td></tr>
+<tr><td><strong>How many</strong></td><td>Multiple (per motion)</td><td>5–8 per pipeline</td><td>One per opportunity</td></tr>
+<tr><td><strong>Changes how often</strong></td><td>Rarely</td><td>Rarely</td><td>Constantly</td></tr>
+</tbody>
+</table></div>
+<h3>What every deal stage contains</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Component</th><th>What it is</th><th>Can be changed after creation?</th></tr></thead>
+<tbody>
+<tr><td><strong>Label</strong></td><td>The name reps see: "Discovery," "Proposal Sent," "Negotiation"</td><td>Yes — rename anytime</td></tr>
+<tr><td><strong>Internal name</strong></td><td>Auto-generated API identifier from the label. Used in workflows and integrations.</td><td>No — permanent at creation</td></tr>
+<tr><td><strong>Probability</strong></td><td>0–100% estimate of deals at this stage closing. Drives weighted forecasting.</td><td>Yes — update regularly</td></tr>
+<tr><td><strong>Required properties</strong></td><td>Fields that must be filled before a deal can be moved here</td><td>Yes — add/remove anytime</td></tr>
+</tbody>
+</table></div>
+<div class="box warn"><div class="bl">Internal name is permanent</div><p>When you create a deal stage, HubSpot generates an internal name from the label (e.g. "proposalSent"). This internal name is used by every workflow, integration, and API that references that stage. It cannot be changed after creation. If you rename the label later, all workflows and automations still reference the old internal name correctly — but understand that renaming labels doesn't break anything, while needing to delete and recreate a stage does.</p></div>
+</div><div class="sec division division-hidden" data-division="logic" id="logic">
+<div class="sec-eye">Foundation · 03</div>
+<div class="sec-title">5 System <em>Rules</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Rule</th><th>What it means</th><th>Admin implication</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Deals belong to one pipeline at a time</strong></td>
+<td>A deal cannot exist in two pipelines simultaneously. Moving a deal to a different pipeline resets its stage tracking.</td>
+<td>Design your pipelines carefully upfront. Moving deals between pipelines is disruptive to historical stage data.</td>
+</tr>
+<tr>
+<td><strong>Stage probability drives weighted forecasting</strong></td>
+<td>Amount × Stage Probability = Weighted Value for that deal. All weighted values summed = the forecast.</td>
+<td>Probability percentages must reflect real historical close rates — not defaults or guesses. Miscalibrated probabilities give CEOs wrong numbers.</td>
+</tr>
+<tr>
+<td><strong>Closed Won and Closed Lost are mandatory</strong></td>
+<td>Every pipeline must have exactly these two terminal stages. They cannot be removed or renamed.</td>
+<td>Build automation specifically for these two stages — they are the most important events in the pipeline.</td>
+</tr>
+<tr>
+<td><strong>Stage changes are timestamped automatically</strong></td>
+<td>HubSpot creates a <code>hs_date_entered_[stage]</code> property for every stage. You don't need to configure this — it happens automatically.</td>
+<td>Use these date properties in reports to measure time-in-stage, velocity, and sales cycle length. These are your bottleneck-finding tools.</td>
+</tr>
+<tr>
+<td><strong>Required fields block stage advancement</strong></td>
+<td>If a rep tries to move a deal to a stage that has required fields not yet filled, HubSpot blocks the move and shows a form.</td>
+<td>This is your data quality enforcement mechanism. Use it for Amount, Close Date, and Closed Lost Reason at minimum.</td>
+</tr>
+</tbody>
+</table></div>
+</div><div class="sec division division-hidden" data-division="probability" id="probability">
+<div class="sec-eye">Foundation · 04</div>
+<div class="sec-title">Probability &amp; <em>Forecasting</em></div>
+<p class="sec-lead">How stage probabilities drive the weighted forecast — the number leadership actually uses for revenue planning.</p>
+<div class="box why"><div class="bl">The formula</div><p>Weighted pipeline forecast = Sum of (Deal Amount × Stage Probability) for all open deals. This is different from — and more accurate than — the total raw pipeline value (Sum of all Deal Amounts regardless of stage).</p></div>
+<h3>Forecasting calculation example</h3>
+<div class="table-wrap"><table class="forecast-tbl">
+<thead><tr><th>Deal</th><th>Stage</th><th>Amount</th><th>Probability</th><th>Weighted value</th></tr></thead>
+<tbody>
+<tr>
+<td>Acme Corp deal</td>
+<td><span class="tag n">Discovery (20%)</span></td>
+<td class="amount-cell">$100,000</td>
+<td>20%</td>
+<td class="weighted-cell">$20,000</td>
+</tr>
+<tr>
+<td>TechStart deal</td>
+<td><span class="tag b">Proposal (55%)</span></td>
+<td class="amount-cell">$45,000</td>
+<td>55%</td>
+<td class="weighted-cell">$24,750</td>
+</tr>
+<tr>
+<td>GlobalCo deal</td>
+<td><span class="tag b">Negotiation (75%)</span></td>
+<td class="amount-cell">$200,000</td>
+<td>75%</td>
+<td class="weighted-cell">$150,000</td>
+</tr>
+<tr>
+<td>MidCo deal</td>
+<td><span class="tag n">Prospecting (5%)</span></td>
+<td class="amount-cell">$80,000</td>
+<td>5%</td>
+<td class="weighted-cell">$4,000</td>
+</tr>
+<tr class="total-row">
+<td colspan="2"><strong>Total pipeline:</strong> $425,000</td>
+<td colspan="2"><strong>Weighted forecast:</strong></td>
+<td class="weighted-cell"><strong>$198,750</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="box amber"><div class="bl">Probability calibration — admin gold</div><p>The default HubSpot probabilities (10%, 25%, 50%, 75%) are starting points, not truth. Your actual close rates by stage from historical data should drive these numbers. If your Proposal stage historically closes at 42% but you have 55% set, every forecast overstates expected revenue by 13% of all proposal-stage deals — compounding with pipeline volume. Pull a historical close rate report twice a year and recalibrate.</p></div>
+<h3>How to calibrate probabilities</h3>
+<ol class="psteps">
+<li>Pull a report: all Closed Won deals from the last 12 months. Note the stage history for each.</li>
+<li>For each stage, calculate: (Deals that reached this stage AND eventually closed won) ÷ (All deals that reached this stage) = actual close rate.</li>
+<li>Set your probability to match that actual close rate. Example: 100 deals reached Proposal stage → 42 eventually closed won → set Proposal probability = 42%.</li>
+<li>Repeat every 6 months — close rates shift as you improve qualification criteria.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="multiple" id="multiple">
+<div class="sec-eye">Foundation · 05</div>
+<div class="sec-title">When to Use <em>Multiple Pipelines</em></div>
+<div class="mp-grid">
+<div class="mp-card yes">
+<div class="mp-head yes">Use separate pipelines when</div>
+<div class="mp-desc">The stages, timelines, and probabilities are genuinely different across sales motions. Different hand-off points. Different qualification criteria. Different team ownership.</div>
+</div>
+<div class="mp-card no">
+<div class="mp-head no">Use one pipeline when</div>
+<div class="mp-desc">The same reps follow the same process for all deal types, just with different deal sizes or geographies. Use a Deal property (dropdown) to differentiate instead.</div>
+</div>
+</div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Scenario</th><th>Recommendation</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td>New business vs. renewal</td><td><span class="tag t">Two pipelines</span></td><td>Different stages, different cycle lengths, different close rates</td></tr>
+<tr><td>Enterprise vs. SMB</td><td><span class="tag a">Evaluate carefully</span></td><td>If the process genuinely differs: two. If same process, different ACV: use a Deal property to segment.</td></tr>
+<tr><td>Direct vs. partner sales</td><td><span class="tag t">Two pipelines</span></td><td>Partners have unique handoff stages (referral → hand-off → joint close) not applicable to direct</td></tr>
+<tr><td>Same process, different regions</td><td><span class="tag n">One pipeline</span></td><td>Use a Region Deal property to filter reports — don't multiply pipeline complexity</td></tr>
+<tr><td>Multiple products with different processes</td><td><span class="tag t">Two pipelines</span></td><td>Different stages, different sales enablement, different forecasting needs</td></tr>
+</tbody>
+</table></div>
+<div class="box warn"><div class="bl">Admin caution</div><p>Each additional pipeline multiplies your reporting complexity. Pipeline A and Pipeline B have separate weighted forecasts, separate stage analytics, and separate required fields configurations. Start with one pipeline. Only split when you have <em>genuinely</em> different sales processes — not just different teams or different deal sizes working the same process.</p></div>
+</div></section><section class="section page-hidden" id="admin" data-page="admin" aria-label="Admin Setup"><div class="sec division" data-division="setup" id="setup">
+<div class="sec-eye">Admin Setup · 06</div>
+<div class="sec-title">Step-by-Step <em>Setup</em></div>
+<div class="box tip"><div class="bl">Path in HubSpot</div><p>Settings → Objects → Deals → Pipelines → Add pipeline (or click an existing pipeline to edit it)</p></div>
+<ol class="psteps">
+<li><strong>Name the pipeline by sales motion</strong> — "New Business," "Renewal," "Partnerships." Never "Sales Pipeline" — that's not descriptive enough when you eventually have two or three.</li>
+<li><strong>Add your stages in order</strong> — click "Add stage" for each step. Enter the label. The internal name auto-generates. Set the probability. Drag to reorder.</li>
+<li><strong>Set probability on every stage</strong> — use your historical close rate data if available. If starting from scratch, use: Prospecting 5–10%, Discovery 20–25%, Qualified 35%, Proposal 50–55%, Negotiation 70–80%, Contract Out 90%. Schedule a recalibration in 6 months.</li>
+<li><strong>Configure required properties per stage</strong> — click any stage → "Properties required to move deals here." Add Contact, Company, or Deal properties. At minimum: Amount at Qualified, Close Date at Qualified, Closed Lost Reason at Closed Lost.</li>
+<li><strong>Set stage-level automation</strong> — click any stage → "Automation" tab. Add single-action triggers: create task, send notification, set property. For complex multi-step automation, use a Deal-based workflow instead.</li>
+<li><strong>Enable Deal auto-set for contacts</strong> — Settings → Objects → Deals → scroll to "Lifecycle stage" → enable "Automatically set associated contact lifecycle stage to Opportunity when a deal is created" AND "to Customer when a deal is Closed Won." This is one of the highest-value single toggles in HubSpot.</li>
+<li><strong>Set as default pipeline</strong> — for the pipeline most reps will use most often. Settings → Pipelines → [pipeline] → "Set as default."</li>
+<li><strong>Set pipeline access permissions</strong> — Settings → Pipelines → [pipeline] → "Pipeline access." Restrict visibility to relevant teams. Especially important when you have separate business units.</li>
+<li><strong>Create a Closed Lost Reason property</strong> — Settings → Properties → Deal → Create property → Label: "Closed Lost Reason" → Dropdown. Options: Price / Competitor / Timing / Wrong Fit / No Budget / No Decision / Other. This should exist before you connect the required field in step 4.</li>
+<li><strong>Test the pipeline</strong> — create a test deal in your sandbox. Move it through every stage. Verify: required fields block progression, automation fires at correct stages, lifecycle stage updates on Closed Won.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="required" id="required">
+<div class="sec-eye">Admin Setup · 07</div>
+<div class="sec-title">Required Fields <em>Per Stage</em></div>
+<p class="sec-lead">The data quality enforcement mechanism — the single most impactful pipeline configuration for CRM data integrity.</p>
+<div class="box why"><div class="bl">Why this matters</div><p>Required fields at stage transitions solve the consistency problem: reps cannot advance a deal without providing the data you need for forecasting, reporting, and coaching. Without required fields, Amount sits blank, Close Dates are guesses, and Closed Lost Reason is permanently unknown. With required fields, data quality is enforced by the system — not by training or hoping.</p></div>
+<h3>The essential required field configuration</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Stage being entered</th><th>Require these properties</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Discovery</strong></td>
+<td><span class="req-b">Associated Contact ≥ 1</span><span class="req-b">Deal Owner</span></td>
+<td>Every deal needs a human attached and someone accountable for it before work begins</td>
+</tr>
+<tr>
+<td><strong>Qualified</strong></td>
+<td><span class="req-b">Amount</span><span class="req-b">Expected Close Date</span></td>
+<td>Cannot generate any meaningful forecast without these two fields. These are the foundation of pipeline reporting.</td>
+</tr>
+<tr>
+<td><strong>Proposal Sent</strong></td>
+<td><span class="req-b">Amount (confirmed)</span><span class="req-b">Close Date (firm)</span></td>
+<td>Upgrade from "estimated" to "confirmed" — forces the AE to validate both numbers before committing to the proposal stage</td>
+</tr>
+<tr>
+<td><strong>Negotiation</strong></td>
+<td><span class="req-b">Amount (final)</span></td>
+<td>Ensures the forecast at 75% probability is based on the actual deal value being negotiated, not an initial estimate</td>
+</tr>
+<tr>
+<td><strong>Closed Lost</strong></td>
+<td><span class="req-b">Closed Lost Reason</span></td>
+<td>The most valuable diagnostic field in your CRM. Every lost deal without a reason is a missed learning opportunity. This field, aggregated over 6 months, tells you why you lose — which tells you how to improve.</td>
+</tr>
+</tbody>
+</table></div>
+<div class="box amber"><div class="bl">Closed lost reason — the admin's highest-value field</div>
+<p>Build your Closed Lost Reason dropdown with specific, mutually-exclusive options. Avoid vague options like "Other" as the default. Recommended options:</p>
+<p style="margin-top:8px"><strong>Price</strong> — too expensive relative to alternatives · <strong>Competitor</strong> — chose a competing solution · <strong>Timing</strong> — not the right time, revisit later · <strong>Wrong fit</strong> — our product doesn't solve their problem · <strong>No budget</strong> — budget exists but not approved · <strong>No decision</strong> — committee couldn't reach consensus · <strong>Ghosted</strong> — went dark after engagement</p>
+<p style="margin-top:8px">Monthly report: Closed Lost Reason count by reason, by rep, by source. This single report drives: ICP refinement, competitive positioning, pricing strategy, and qualification improvements.</p>
+</div>
+</div><div class="sec division division-hidden" data-division="automation" id="automation">
+<div class="sec-eye">Admin Setup · 08</div>
+<div class="sec-title">Stage <em>Automation</em></div>
+<p class="sec-lead">Single-action triggers that fire when a deal enters a stage — no separate workflow needed for simple actions.</p>
+<div class="box tip"><div class="bl">Path</div><p>Settings → Objects → Deals → Pipelines → [pipeline] → [stage] → Automation tab</p></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Stage</th><th>Automatic action</th><th>Purpose</th></tr></thead>
+<tbody>
+<tr><td>Discovery</td><td><span class="auto-b">Task</span> "Log call outcome and update deal amount" — due in 1 day</td><td>Forces the rep to document the discovery conversation immediately</td></tr>
+<tr><td>Proposal Sent</td><td><span class="auto-b">Task</span> "Follow up if no response in 3 days"</td><td>The most common stall point — automates the follow-up reminder</td></tr>
+<tr><td>Negotiation</td><td><span class="auto-b">Notify</span> Sales Manager via email/Slack</td><td>Manager visibility at the 75% stage — allows coaching before the deal closes or stalls</td></tr>
+<tr><td>Contract Out</td><td><span class="auto-b">Task</span> "Follow up on contract status" — due in 2 days</td><td>Maintains momentum during the waiting period between send and signature</td></tr>
+<tr><td>Closed Won</td><td><span class="auto-b">Property</span> Set Contact Lifecycle Stage = Customer</td><td>The most critical single automation in the pipeline — ensures CRM accuracy and suppression lists update</td></tr>
+<tr><td>Closed Won</td><td><span class="auto-b">Notify</span> CS team Slack channel with deal details</td><td>Instant handoff — CS knows about new customers within seconds of deal close</td></tr>
+<tr><td>Closed Lost</td><td><span class="auto-b">Task</span> "Evaluate re-engagement opportunity in 90 days" — assigned to SDR</td><td>Keeps lost deals in the re-engagement pipeline automatically</td></tr>
+</tbody>
+</table></div>
+<div class="box warn"><div class="bl">Stage automation vs workflow</div><p>Stage-level automation handles one action per trigger. For complex multi-step sequences (delay → send email → create task → send Slack notification), build a Deal-based workflow with "Deal Stage changes to X" as the enrollment trigger. Stage automation is for simple, immediate, single-action triggers. Workflows handle everything more complex.</p></div>
+</div><div class="sec division division-hidden" data-division="stage-design" id="stage-design">
+<div class="sec-eye">Admin Setup · 09</div>
+<div class="sec-title">Stage Design <em>Reference</em></div>
+<p class="sec-lead">A complete 7-stage B2B SaaS pipeline — with probability, required fields, owner, and automation for each stage.</p>
+<div class="table-wrap"><table class="stage-design">
+<thead>
+<tr>
+<th>Stage</th>
+<th>Prob.</th>
+<th>What it means</th>
+<th>Owner</th>
+<th>Required to enter</th>
+<th>Auto action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prospecting</strong></td>
+<td class="prob-cell">5%</td>
+<td>Deal created, first contact attempted</td>
+<td>SDR</td>
+<td><span class="req-b">Contact ≥ 1</span><span class="req-b">Owner</span></td>
+<td><span class="auto-b">Task: Log first contact outcome</span></td>
+</tr>
+<tr>
+<td><strong>Discovery</strong></td>
+<td class="prob-cell">20%</td>
+<td>Discovery call held, need confirmed</td>
+<td>SDR → AE</td>
+<td><span class="req-b">Amount (est.)</span></td>
+<td><span class="auto-b">Task: Send follow-up summary</span></td>
+</tr>
+<tr>
+<td><strong>Qualified</strong></td>
+<td class="prob-cell">35%</td>
+<td>BANT confirmed, AE accepts deal</td>
+<td>AE</td>
+<td><span class="req-b">Amount</span><span class="req-b">Close Date</span><span class="req-b">Decision maker linked</span></td>
+<td><span class="auto-b">Set Contact Lifecycle = SQL</span></td>
+</tr>
+<tr>
+<td><strong>Proposal sent</strong></td>
+<td class="prob-cell">55%</td>
+<td>Custom proposal delivered to prospect</td>
+<td>AE</td>
+<td><span class="req-b">Amount (final)</span><span class="req-b">Close Date (firm)</span><span class="req-b">Quote linked</span></td>
+<td><span class="auto-b">Task: Follow up in 3 days</span><span class="auto-b">Notify manager</span></td>
+</tr>
+<tr>
+<td><strong>Negotiation</strong></td>
+<td class="prob-cell">75%</td>
+<td>Commercial terms being discussed</td>
+<td>AE</td>
+<td><span class="req-b">Amount (negotiated)</span></td>
+<td><span class="auto-b">Notify Sales Manager (Slack)</span></td>
+</tr>
+<tr>
+<td><strong>Contract out</strong></td>
+<td class="prob-cell">90%</td>
+<td>Contract sent, awaiting signature</td>
+<td>AE</td>
+<td></td>
+<td><span class="auto-b">Task: Follow up in 2 days</span></td>
+</tr>
+<tr class="won-row">
+<td><strong>Closed won</strong></td>
+<td class="prob-cell">100%</td>
+<td>Signed and payment initiated</td>
+<td>AE → CS</td>
+<td></td>
+<td><span class="auto-b">Set Lifecycle = Customer</span><span class="auto-b">Notify CS Slack</span><span class="auto-b">Create onboarding task</span></td>
+</tr>
+<tr class="lost-row">
+<td><strong>Closed lost</strong></td>
+<td class="prob-cell">0%</td>
+<td>Deal lost — reason documented</td>
+<td>AE</td>
+<td><span class="req-b">Closed Lost Reason</span></td>
+<td><span class="auto-b">Task: Re-engage in 90 days</span></td>
+</tr>
+</tbody>
+</table></div>
+</div></section><section class="section page-hidden" id="applied" data-page="applied" aria-label="Applied Learning"><div class="sec division" data-division="example" id="example">
+<div class="sec-eye">Applied Learning · 10</div>
+<div class="sec-title">Real-World <em>Example</em></div>
+<div class="box case"><div class="bl">The situation</div><p>A B2B digital agency with 8 salespeople. Previously tracking deals in a spreadsheet. No CRM. Two years of invoice data available. Sales director wants to answer: "Why do we keep losing deals at the proposal stage?" — but has no structured data to work with.</p></div>
+<h3>What the admin built</h3>
+<ul class="prlist">
+<li><span>1.</span><div><strong>Pipeline design session:</strong> Discovery conversation with the sales director and two senior reps. Mapped the actual sales process — 7 meaningful milestones. Reviewed invoice data to estimate historical close rates by stage. Set realistic probabilities.</div></li>
+<li><span>2.</span><div><strong>Required fields enforced:</strong> Amount at Discovery (estimated), Amount at Proposal Sent (confirmed), Close Date at Proposal Sent. Most importantly: <strong>Closed Lost Reason</strong> as a required dropdown on Closed Lost stage — 8 specific options.</div></li>
+<li><span>3.</span><div><strong>Stage automation:</strong> Proposal Sent → task: "Follow up in 3 days if no response." Closed Won → set Contact Lifecycle = Customer, notify CS team. Closed Lost → task for SDR: "Review for re-engagement in 90 days."</div></li>
+<li><span>4.</span><div><strong>Deal health view:</strong> Saved deal view: all open deals, sorted by Last Activity Date ascending. Sales manager reviews every Monday — any deal with no activity in 14+ days gets a coaching conversation.</div></li>
+</ul>
+<h3>The Closed Lost Reason report — 30 days later</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Reason</th><th>Count</th><th>% of lost deals</th><th>Insight generated</th></tr></thead>
+<tbody>
+<tr><td>Price</td><td>11</td><td>48%</td><td>Proposals may be landing above budget expectations — consider discovery questions about budget earlier</td></tr>
+<tr><td>Competitor</td><td>6</td><td>26%</td><td>Competitor appears at Proposal stage → not being addressed in Discovery. Add competitor question to discovery script.</td></tr>
+<tr><td>Timing</td><td>4</td><td>17%</td><td>These contacts enter the Bad Timing re-engagement workflow with a 90-day follow-up date</td></tr>
+<tr><td>Wrong fit</td><td>2</td><td>9%</td><td>Review ICP criteria — these 2 deals should not have been qualified</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps outcome</div><p>The sales director's question — "Why do we lose at Proposal stage?" — was answered with data in 30 days. The answer: primarily price (48%) and a competitor they weren't aware of until the proposal (26%). These insights drove: a new budget discovery question in the sales process, a competitive battle card for the most common competitor, and a pricing review. The admin's pipeline configuration generated these insights passively — just from requiring one dropdown field on Closed Lost.</p></div>
+</div><div class="sec division division-hidden" data-division="cases" id="cases">
+<div class="sec-eye">Applied Learning · 11</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico b">📊</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — The forecasting accuracy problem</div>
+<div class="csub">When wrong probabilities give the CEO wrong numbers</div>
+<div class="ctags"><span class="tag b">Forecasting</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c1p')">Problem</div><div class="tab" onclick="st(this,'c1s')">Solution</div><div class="tab" onclick="st(this,'c1r')">Outcome</div></div>
+<div class="pane on" id="c1p"><div class="box case"><div class="bl">The problem</div><p>A 30-person B2B SaaS company's CEO was using HubSpot's weighted pipeline forecast to set revenue targets. Three quarters in a row, actual closed revenue came in at 60–65% of what the forecast predicted. The CEO had lost confidence in the pipeline data and was manually discounting the forecast by 35% based on intuition. Investigation revealed: the pipeline still had HubSpot's default probabilities (Proposal = 50%, Negotiation = 75%) and the actual historical close rates were significantly lower — the team was closing only 28% of Proposal-stage deals and 55% of Negotiation-stage deals.</p></div></div>
+<div class="pane" id="c1s"><ul class="prlist">
+<li><span>1.</span><div>Pulled a full analysis of 18 months of closed deals. Calculated actual close rates by stage: Prospecting 8%, Discovery 18%, Qualified 31%, Proposal 28%, Negotiation 55%, Contract Out 88%.</div></li>
+<li><span>2.</span><div>Updated all pipeline probabilities to match actual close rates. Negotiation dropped from 75% to 55%. Proposal dropped from 50% to 28%.</div></li>
+<li><span>3.</span><div>Added a quarterly recalibration reminder to the admin's calendar. Booked a 30-minute "Pipeline Calibration" recurring review with the VP of Sales every 6 months.</div></li>
+<li><span>4.</span><div>Built a "Forecast accuracy" report: each quarter, compare the weighted pipeline forecast from 90 days prior vs actual closed revenue. Track the deviation percentage over time.</div></li>
+</ul></div>
+<div class="pane" id="c1r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Forecast accuracy improved from 62% to 87% within two quarters of recalibration. The CEO reinstated full trust in the pipeline data and stopped applying manual discounts. The quarterly calibration review became a standing meeting between RevOps and Sales leadership — turning pipeline data into a strategic planning tool rather than a number everyone mentally adjusted.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">🗂️</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — The stale deal problem</div>
+<div class="csub">When pipeline is inflated by deals that will never close</div>
+<div class="ctags"><span class="tag t">Pipeline hygiene</span><span class="tag n">Agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c2p')">Problem</div><div class="tab" onclick="st(this,'c2s')">Solution</div><div class="tab" onclick="st(this,'c2r')">Outcome</div></div>
+<div class="pane on" id="c2p"><div class="box case"><div class="bl">The problem</div><p>A digital agency's pipeline showed $2.8M in weighted pipeline. The VP of Sales was telling investors the company was on track to exceed targets. The admin pulled a pipeline age analysis and found: 41% of open deals had zero activity logged in the past 30 days. 18 deals had been in "Proposal Sent" for more than 90 days — 6 had been there for over 200 days. These deals had no close dates updated, no activity logged, and several of the contacts were unreachable. The actual live pipeline was closer to $1.4M.</p></div></div>
+<div class="pane" id="c2s"><ul class="prlist">
+<li><span>1.</span><div>Built an active list: Deal Stage is not any of (Closed Won, Closed Lost) AND Last Activity Date is more than 30 days ago. Named it "[ADMIN] Stale open deals." This became the Monday morning pipeline review list.</div></li>
+<li><span>2.</span><div>Built a Deal-based workflow: Deal is open AND Last Activity Date &gt; 21 days → Create task for deal owner: "Review stale deal — update status or close as lost." → Notify Sales Manager. This fires automatically, every time, for every rep.</div></li>
+<li><span>3.</span><div>Ran a one-time cleanup: reviewed all 18 proposal-stage deals with the VP of Sales. 12 were marked Closed Lost (with required Closed Lost Reason). 6 were legitimate — just poorly maintained. Moved those 6 to appropriate stages and logged activity.</div></li>
+<li><span>4.</span><div>Required Close Date as a mandatory field at the Discovery stage. Every deal entering the pipeline now has a timeline. Close Dates older than today trigger a workflow that creates a task: "Update close date — this deal is overdue."</div></li>
+</ul></div>
+<div class="pane" id="c2r"><div class="box revops"><div class="bl">RevOps outcome</div><p>The actual weighted pipeline dropped from $2.8M to $1.6M — a more honest number that the VP of Sales trusted. The stale deal workflow caught 8 new stale deals in the first week. Pipeline hygiene improved from monthly manual audits to continuous automated monitoring. The discovery: one AE had 14 of the 18 stale proposal deals — a coaching conversation happened, and their pipeline accuracy improved dramatically within 30 days.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico a">⚙️</div>
+<div style="flex:1">
+<div class="ctitle">Case 3 — The pipeline-per-motion architecture</div>
+<div class="csub">When one pipeline serves two fundamentally different sales motions</div>
+<div class="ctags"><span class="tag a">Architecture</span><span class="tag n">B2B Tech</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c3p')">Problem</div><div class="tab" onclick="st(this,'c3s')">Solution</div><div class="tab" onclick="st(this,'c3r')">Outcome</div></div>
+<div class="pane on" id="c3p"><div class="box case"><div class="bl">The problem</div><p>A B2B tech company had two distinct sales motions sharing one pipeline: new business (typical cycle: 45 days, ACV $12k) and enterprise expansion (typical cycle: 90 days, ACV $85k). The combined pipeline had average probabilities and average stage names that didn't accurately represent either motion. "Discovery" meant a 20-minute SDR call for new business but a 3-month stakeholder mapping process for enterprise. The forecasting was meaningless for either motion because the probabilities were averaged across them. New business deals were understated in the forecast; enterprise deals were overstated.</p></div></div>
+<div class="pane" id="c3s"><ul class="prlist">
+<li><span>1.</span><div>Built a second pipeline: "Enterprise Expansion." Unique stages: "Executive sponsor identified," "Pilot agreement," "Legal review," "Contract approved" — none of which existed in the New Business pipeline.</div></li>
+<li><span>2.</span><div>Recalibrated probabilities separately for each pipeline. New Business Proposal = 42% (actual). Enterprise Pilot Agreement = 65% (actual for that motion).</div></li>
+<li><span>3.</span><div>Set separate required fields for each pipeline. Enterprise required "Executive sponsor contact" linked at a specific stage — not applicable to SMB motion.</div></li>
+<li><span>4.</span><div>Built separate forecasting dashboards: New Business weighted pipeline vs Enterprise weighted pipeline. Leadership could now see total expected revenue AND understand the breakdown by motion.</div></li>
+</ul></div>
+<div class="pane" id="c3r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Forecast accuracy for each motion improved dramatically once probabilities were calibrated separately. Leadership discovered that enterprise deals were stalling specifically at "Legal review" — averaging 28 days at that stage. This triggered a process change: pre-approved contract templates for enterprise, reducing legal review time to 9 days. That single insight, visible only once the motions were separated, shortened the average enterprise sales cycle by 3 weeks.</p></div></div>
+</div>
+</div>
+</div><div class="sec division division-hidden" data-division="mistakes" id="mistakes">
+<div class="sec-eye">Applied Learning · 12</div>
+<div class="sec-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — Too many pipeline stages</div>A 14-stage pipeline is not more insightful than a 7-stage one — it's just harder to manage. Reps skip stages or move backward. The ideal is 5–8 stages representing genuine milestones. Use Deal properties for sub-state tracking, not new pipeline stages.</li>
+<li><div class="mt">02 — Not requiring Closed Lost Reason</div>Every lost deal without a reason is a missed data point. Over 6 months, these aggregate into strategic insights about why you lose. Requiring one dropdown field at Closed Lost is the highest-value, lowest-effort admin configuration in the pipeline.</li>
+<li><div class="mt">03 — Probabilities that don't reflect reality</div>HubSpot's defaults (50% at Proposal, 75% at Negotiation) may not match your actual close rates. If they don't, every weighted forecast is wrong. Calibrate against historical data. This is a quarterly admin task.</li>
+<li><div class="mt">04 — One pipeline for fundamentally different sales motions</div>When new business and renewal deals share a pipeline, their stage definitions, timelines, and probabilities are all averaged — making the data accurate for neither. Separate motions get separate pipelines.</li>
+<li><div class="mt">05 — Stale open deals inflating pipeline</div>Deals that haven't moved in 60+ days are not pipeline — they're wishful thinking. Build the stale deal alert workflow and the inactive deal list. Review and close dead deals monthly. Pipeline integrity is an ongoing responsibility.</li>
+<li><div class="mt">06 — Not connecting Closed Won to Contact Lifecycle Stage</div>When a deal closes won, the associated Contact's Lifecycle Stage should automatically become Customer. Without this: the contact stays at SQL, is excluded from appropriate CS communications, and still receives prospecting emails. Enable this in Settings → Objects → Deals.</li>
+</ul>
+</div><div class="sec division division-hidden" data-division="best" id="best">
+<div class="sec-eye">Applied Learning · 13</div>
+<div class="sec-title">Admin <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span>📋</span><div><strong>Name stages by outcome, not activity.</strong> "Proposal Sent" (outcome) beats "Proposal Stage" (activity). The outcome-based name makes it clear what has happened for a deal to be at this stage.</div></li>
+<li><span>📊</span><div><strong>Recalibrate probabilities every 6 months.</strong> Pull actual close rate from each stage. Update probability to match. Schedule it as a recurring calendar event. This is what keeps forecasting trustworthy.</div></li>
+<li><span>👁️</span><div><strong>Build a "Deal health" view.</strong> All open deals, sorted by Last Activity Date ascending. The most stale deals appear at the top. Sales manager reviews this every Monday — the most important weekly operational ritual.</div></li>
+<li><span>📝</span><div><strong>Document what each stage means.</strong> Write "A deal enters [stage] when: [criteria]." into the stage description in HubSpot settings. Without documentation, two reps use "Proposal Sent" to mean different things.</div></li>
+<li><span>🔢</span><div><strong>Use properties for sub-states, not extra stages.</strong> If you need to track whether a contract has been reviewed by legal, or whether a proposal has been revised — use a custom Deal property for that. Pipeline stages are milestones. Details are properties.</div></li>
+<li><span>🔗</span><div><strong>Connect Closed Won to Contact Lifecycle = Customer.</strong> Enable in Settings → Objects → Deals. Enable it today if it isn't already. This is the most important single toggle in the deal pipeline configuration.</div></li>
+</ul>
+</div><div class="sec division division-hidden" data-division="practice" id="practice">
+<div class="sec-eye">Applied Learning · 14</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-lead">Do this in your free HubSpot sandbox — approximately 45 minutes.</p>
+<h3>Part A — Build a pipeline (25 min)</h3>
+<ol class="psteps">
+<li>Create a "Closed Lost Reason" dropdown Deal property first. Settings → Properties → Deal → Create property. Label: Closed Lost Reason. Field type: Dropdown. Options: Price / Competitor / Timing / Wrong Fit / No Budget / No Decision. Group: Deal Information.</li>
+<li>Go to Settings → Objects → Deals → Pipelines → Add pipeline. Name it: "New Business Pipeline."</li>
+<li>Add 6 stages: Prospecting (5%), Discovery (20%), Qualified (35%), Proposal Sent (55%), Negotiation (75%), Contract Out (90%). Closed Won and Closed Lost are already there.</li>
+<li>Click the Qualified stage → Properties required → add Amount and Close Date (both required).</li>
+<li>Click the Closed Lost stage → Properties required → add your Closed Lost Reason property.</li>
+<li>Click the Closed Won stage → Automation tab → Add: Set property on associated Contact: Lifecycle Stage = Customer.</li>
+<li>Enable Deal auto-set: Settings → Objects → Deals → Lifecycle stage → enable both toggles (Opportunity and Customer).</li>
+</ol>
+<h3>Part B — Test the pipeline (20 min)</h3>
+<ol class="psteps">
+<li>Create a test Contact and Company in sandbox. Create a Deal associated to both. Leave Amount blank.</li>
+<li>Try to move the deal from Discovery to Qualified. HubSpot should block you and prompt for Amount and Close Date. Fill them in. Confirm the move.</li>
+<li>Move the deal to Closed Won. Check the associated Contact — did Lifecycle Stage change to Customer automatically?</li>
+<li>Create another test deal. Move it to Closed Lost without filling Closed Lost Reason. Verify HubSpot blocks you. Fill it in. Complete the move.</li>
+<li>Check the pipeline Kanban view (Deals → Board view). Verify your stages appear in order with deal cards in the correct columns.</li>
+</ol>
+</div><div class="sec division division-hidden" data-division="interview" id="interview">
+<div class="sec-eye">Applied Learning · 15</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"How do you decide how many pipeline stages to create for a new client?"</div>
+<div class="iq-a">I start with a discovery conversation with sales leadership and a few reps: how many meaningful milestones does a typical deal pass through, where do deals most often stall, and what does leadership need visible in forecasting? I aim for 5–8 stages — enough to show meaningful progression, not so many that reps skip stages or move backwards. I also look at historical deal data — if they have close rates by stage, I set probabilities accurately from day one. The stages I always ensure exist: a clear Proposal or Offer stage (the most common stall point), and Closed Lost with a required reason property. That single field generates more actionable insight than almost anything else in the pipeline. If a VP wants to add 8 more stages, I first map their visibility needs to custom Deal properties — most "I want to know if X happened" questions are better answered by a property than a new stage.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"How does pipeline stage probability affect revenue forecasting, and how do you ensure it's accurate?"</div>
+<div class="iq-a">HubSpot calculates a weighted pipeline forecast by multiplying each deal's Amount by its stage probability and summing the results. A $100k deal at Proposal with 50% probability contributes $50k to the forecast; the same deal at Negotiation with 75% contributes $75k. This weighted number is what CFOs use for planning — not the raw pipeline total. The admin's responsibility is ensuring probabilities reflect real historical close rates, not HubSpot defaults. I pull a report of all closed deals from the last 12 months and calculate: for each stage, what percentage of deals that reached that stage eventually closed won? Those percentages become the stage probabilities. I schedule a recalibration every 6 months and build a "Forecast accuracy" report that tracks predicted vs actual closed revenue each quarter — so the deviation is visible and the probability adjustment can be justified with data.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"Why is Closed Lost Reason such an important field, and how do you ensure it gets filled in?"</div>
+<div class="iq-a">Closed Lost Reason is the most valuable diagnostic field in a sales CRM because it answers "why do we lose?" — which in turn drives improvements in ICP targeting, competitive positioning, pricing strategy, and qualification criteria. Without it, every lost deal is just a number disappearing from the pipeline. I make it a required field on the Closed Lost stage — when a rep tries to move a deal there, HubSpot blocks the move until the reason is filled in. I also build the dropdown options carefully: specific, mutually exclusive options like Price, Competitor, Timing, Wrong Fit, No Budget, No Decision — not vague catch-alls like "Other." Then I build a monthly report showing the distribution of closed lost reasons, segmented by rep and by lead source. That report goes to both the VP of Sales and the CMO — because if 40% of lost deals are "Wrong Fit," that's a marketing targeting problem, not a sales problem.</div>
+</div>
+</div><div class="sec division division-hidden" data-division="cheatsheet" id="cheatsheet">
+<div class="sec-eye">Applied Learning · 16</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is a pipeline</td><td>A named sales process — a series of stages a deal moves through from open to closed</td></tr>
+<tr><td>What is a deal stage</td><td>A step in the pipeline with label, probability (0–100%), and optional required fields</td></tr>
+<tr><td>Internal name</td><td>Auto-generated from label — cannot be changed after creation. Renaming the label is safe.</td></tr>
+<tr><td>Probability</td><td>Weighted forecast = Amount × Stage Probability. Set from historical close rates, not defaults.</td></tr>
+<tr><td>Closed Won / Closed Lost</td><td>Mandatory terminal stages — every pipeline must have both, cannot be removed</td></tr>
+<tr><td>Multiple pipelines</td><td>One per distinct sales motion. Not per team or geography. Each adds reporting complexity.</td></tr>
+<tr><td>Required fields</td><td>Configured per stage — blocks deal advancement until properties are filled. Data quality by design.</td></tr>
+<tr><td>Must-require: Qualified stage</td><td>Amount + Close Date — without these, forecasting is impossible</td></tr>
+<tr><td>Must-require: Closed Lost</td><td>Closed Lost Reason — the most valuable diagnostic data in your CRM</td></tr>
+<tr><td>Stage auto-timestamps</td><td>HubSpot auto-creates hs_date_entered_[stage] for every stage — enables velocity reporting</td></tr>
+<tr><td>Stage automation</td><td>Single-action triggers per stage — create task, notify, set property. Complex = use a workflow.</td></tr>
+<tr><td>Most important toggle</td><td>Settings → Objects → Deals → enable auto-set Contact Lifecycle = Customer on Closed Won</td></tr>
+<tr><td>Probability calibration</td><td>Pull historical close rates by stage. Update probabilities to match. Repeat every 6 months.</td></tr>
+<tr><td>Deal health monitoring</td><td>Active list: open deals sorted by Last Activity Date ascending. Review every Monday.</td></tr>
+<tr><td>Stale deal automation</td><td>Workflow: open deal + no activity 21 days → task for owner + notify manager. Always on.</td></tr>
+<tr><td>Stage count</td><td>5–8 stages for most pipelines. More = reps skip stages. Use properties for sub-state tracking.</td></tr>
+<tr><td>RevOps insight</td><td>Pipeline design is strategy — required fields codify your sales methodology</td></tr>
+<tr><td>Admin interview gold</td><td>"I require Closed Lost Reason — it's the single highest-value diagnostic field for improving ICP targeting and competitive positioning."</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps mindset on pipelines</div><p>Pipelines are the revenue reporting backbone of your CRM — every quarterly review, every board forecast, every quota conversation starts here. The quality of that data determines whether leadership can trust the numbers or silently discounts them. Pipeline design is strategy: what you require at each stage defines your sales methodology. The probabilities you set determine forecasting accuracy. The Closed Lost Reason you enforce generates the insights that improve everything upstream. A well-designed pipeline with accurate probabilities, enforced required fields, and automated hygiene monitoring is not just a tracking tool — it's a self-improving system that makes the sales organisation measurably smarter over time.</p></div>
+</div></section>
+  </main>
+</div>
+
+<script>
+const guideGroups = [{"id": "foundation", "title": "Foundation", "items": [{"id": "what", "label": "What is a pipeline?"}, {"id": "concepts", "label": "Pipelines vs deal stages"}, {"id": "logic", "label": "5 system rules"}, {"id": "probability", "label": "Probability & forecasting"}, {"id": "multiple", "label": "When to use multiple pipelines"}]}, {"id": "admin", "title": "Admin Setup", "items": [{"id": "setup", "label": "Step-by-step setup"}, {"id": "required", "label": "Required fields per stage"}, {"id": "automation", "label": "Stage automation"}, {"id": "stage-design", "label": "Stage design reference"}]}, {"id": "applied", "title": "Applied Learning", "items": [{"id": "example", "label": "Real-world example"}, {"id": "cases", "label": "Case studies"}, {"id": "mistakes", "label": "Common mistakes"}, {"id": "best", "label": "Best practices"}, {"id": "practice", "label": "Practice exercise"}, {"id": "interview", "label": "Interview questions"}, {"id": "cheatsheet", "label": "Cheatsheet"}]}];
+let currentPage = 'foundation';
+let currentDivision = 'what';
+
+function getGroup(page) { return guideGroups.find(g => g.id === page) || guideGroups[0]; }
+
+function renderMobileDivisions(page, activeDivision) {
+  const row = document.getElementById('mobileDivisionRow');
+  if (!row) return;
+  const group = getGroup(page);
+  row.innerHTML = group.items.map(item => `
+    <button class="mobile-division-btn ${(activeDivision || group.items[0].id) === item.id ? 'active' : ''}" data-page="${page}" data-target="${item.id}" onclick="showDivision('${page}','${item.id}', true)">${item.label}</button>
+  `).join('');
+}
+
+function updateActiveStates(page, division) {
+  document.querySelectorAll('[data-page-group]').forEach(el => {
+    el.classList.toggle('active', el.dataset.pageGroup === page && el.classList.contains('mobile-section-btn'));
+    el.classList.toggle('active-page', el.dataset.pageGroup === page && el.classList.contains('nav-group'));
+    el.classList.toggle('expanded', el.dataset.pageGroup === page && el.classList.contains('nav-group'));
+  });
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === page && el.dataset.target === division);
+  });
+  document.querySelectorAll('.mobile-section-btn').forEach(el => {
+    el.classList.toggle('active', el.dataset.pageGroup === page);
+  });
+  document.querySelectorAll('.mobile-division-btn').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === page && el.dataset.target === division);
+  });
+}
+
+function showPage(page, shouldScroll=false) {
+  const group = getGroup(page);
+  const firstDivision = group.items[0]?.id;
+  showDivision(page, firstDivision, shouldScroll);
+}
+
+function showDivision(page, division, shouldScroll=false) {
+  currentPage = page;
+  currentDivision = division;
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.classList.toggle('page-hidden', sec.dataset.page !== page);
+  });
+  document.querySelectorAll(`.section[data-page="${page}"] .division`).forEach(div => {
+    div.classList.toggle('division-hidden', div.dataset.division !== division);
+  });
+  renderMobileDivisions(page, division);
+  updateActiveStates(page, division);
+  if (shouldScroll) {
+    const target = document.getElementById(division) || document.getElementById(page);
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+function tog(hd) {
+  const card = hd.closest('.card');
+  if (!card) return;
+  const wasOpen = card.classList.contains('open');
+  const scope = card.closest('.division') || card.parentElement;
+  if (scope) scope.querySelectorAll('.card.open').forEach(c => { if (c !== card) c.classList.remove('open'); });
+  card.classList.toggle('open', !wasOpen);
+}
+
+function st(tab, pid) {
+  const body = tab.closest('.card-body') || tab.closest('.division') || document;
+  body.querySelectorAll('.tab').forEach(t => t.classList.remove('on','active'));
+  body.querySelectorAll('.pane, .tab-pane').forEach(p => p.classList.remove('on','active'));
+  tab.classList.add('on');
+  const p = document.getElementById(pid);
+  if (p) p.classList.add('on');
+}
+
+function j(id) {
+  const match = guideGroups.flatMap(g => g.items.map(item => ({page:g.id, id:item.id}))).find(x => x.id === id);
+  if (match) showDivision(match.page, id, true);
+}
+function jump(id) { j(id); }
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderMobileDivisions(currentPage, currentDivision);
+  updateActiveStates(currentPage, currentDivision);
+});
+</script>
+
+</body>
+</html>
