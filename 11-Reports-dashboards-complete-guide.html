@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HubSpot Reports &amp; Dashboards — Complete Admin Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0e12;
+  --surface: #12151c;
+  --surface2: #181c26;
+  --surface3: #1e2230;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e4e6f0;
+  --muted: #6e7289;
+  --soft: #9da3bb;
+  --purple: #8b7ff5;
+  --purple-bg: rgba(139,127,245,0.1);
+  --purple-light: #b4abff;
+  --teal: #20c997;
+  --teal-bg: rgba(32,201,151,0.1);
+  --teal-light: #6ef5cc;
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --amber-light: #fcd34d;
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --blue: #60a5fa;
+  --blue-bg: rgba(96,165,250,0.1);
+  --green: #4ade80;
+  --green-bg: rgba(74,222,128,0.1);
+  --hubspot-orange: #ff5c35;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r: 10px;
+  --r-lg: 16px;
+  --r-sm: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.75;}
+a{color:inherit;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:270px;min-width:270px;background:var(--surface);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;scrollbar-width:thin;}
+.sidebar-brand{padding:22px 18px 18px;border-bottom:1px solid var(--border);}
+.hubspot-brand{display:block;text-decoration:none;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,92,53,0.24);background:linear-gradient(135deg,rgba(255,92,53,0.10),rgba(255,255,255,0.02));transition:transform .18s,border-color .18s,background .18s;margin-bottom:18px;}
+.hubspot-brand:hover{transform:translateY(-1px);border-color:rgba(255,92,53,0.42);background:linear-gradient(135deg,rgba(255,92,53,0.14),rgba(255,255,255,0.03));}
+.hubspot-word{font-family:var(--font-display);font-size:18px;font-weight:500;color:var(--hubspot-orange);line-height:1;}
+.hubspot-ref{font-size:10.5px;color:var(--muted);margin-top:5px;}
+.sidebar-title{font-family:var(--font-display);font-size:19px;line-height:1.25;font-weight:500;color:var(--text);}
+.sidebar-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-top:7px;}
+.desktop-nav{padding:16px 0 10px;}
+.nav-group{margin-bottom:4px;}
+.nav-group-label{width:calc(100% - 20px);margin:0 10px 8px;padding:10px 13px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--soft);display:flex;align-items:center;justify-content:space-between;font-family:var(--font-body);font-size:13.5px;font-weight:700;letter-spacing:1.15px;text-transform:uppercase;cursor:pointer;transition:all .15s;text-align:left;}
+.nav-group-label:hover{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.nav-group.active-page .nav-group-label{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,0.30);}
+.nav-arrow{transition:transform .18s;color:var(--muted);font-size:18px;line-height:1;}
+.nav-group.active-page .nav-arrow,.nav-group.expanded .nav-arrow{transform:rotate(90deg);color:var(--purple-light);}
+.nav-page-items{display:none;padding-bottom:6px;}
+.nav-group.active-page .nav-page-items,.nav-group.expanded .nav-page-items{display:block;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 20px 8px 24px;font-size:13.4px;color:var(--muted);border-left:2px solid transparent;transition:all .15s;cursor:pointer;text-decoration:none;line-height:1.35;}
+.nav-item:hover{color:var(--text);background:var(--surface2);}
+.nav-item.active{color:var(--text);background:var(--surface2);border-left-color:var(--purple);}
+.nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--purple);}
+.dot-purple{background:var(--purple);}
+.dot-teal{background:var(--teal);}
+.dot-amber{background:var(--amber);}
+.mobile-nav{display:none;}
+.sidebar-footer{margin-top:auto;padding:14px 18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+.main{flex:1;padding:52px 60px;max-width:920px;}
+.hero{margin-bottom:60px;padding-bottom:44px;border-bottom:1px solid var(--border);}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start;}
+.creator-card{grid-column:2;grid-row:1;display:block;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015));border:1px solid var(--border);border-radius:16px;padding:12px 12px 14px;text-align:center;transition:transform .18s,border-color .18s,background .18s;}
+.creator-card:hover{transform:translateY(-2px);border-color:rgba(255,92,53,0.45);background:linear-gradient(180deg,rgba(255,92,53,0.08),rgba(139,127,245,0.04));}
+.creator-card img{width:100%;height:auto;border-radius:14px;border:2px solid rgba(255,92,53,0.75);box-shadow:0 12px 28px rgba(255,92,53,0.16),0 18px 42px rgba(0,0,0,0.28);object-fit:cover;}
+.creator-name{font-family:var(--font-display);font-size:19px;font-weight:500;margin-top:12px;color:var(--text);}
+.creator-role{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple-light);margin-top:2px;}
+.creator-link{font-family:var(--font-mono);font-size:10.5px;color:var(--amber-light);word-break:break-all;margin-top:5px;}
+.hero-copy{grid-column:1;grid-row:1;}
+.hero-kicker{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:14px;}
+.hero-title{font-family:var(--font-display);font-size:52px;line-height:1.1;font-weight:300;color:var(--text);margin-bottom:18px;}
+.hero-title em{font-style:italic;color:var(--purple);}
+.hero-description{font-size:15.5px;color:var(--soft);max-width:600px;line-height:1.8;margin-bottom:0;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+.pill,.chip,.tag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
+.pill{font-size:12px;padding:5px 14px;border:1px solid var(--border2);background:var(--surface);color:var(--soft);}
+.pill.p,.tag.p{background:var(--purple-bg);color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);}
+.pill.t,.tag.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,0.2);}
+.pill.a,.tag.a{background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.2);}
+.pill.n,.tag.n{background:rgba(122,127,148,0.08);color:var(--muted);border:1px solid var(--border);}
+.tag.r{background:var(--red-bg);color:var(--red);border:1px solid rgba(248,113,113,0.18);}
+.tag.g{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,222,128,0.18);}
+.section{margin-bottom:68px;scroll-margin-top:24px;}
+.section.page-hidden{display:none;}
+.division.division-hidden{display:none;}
+.division{animation:fadeIn .18s ease-out;}
+@keyframes fadeIn{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.sec-title{font-family:var(--font-display);font-size:30px;font-weight:300;line-height:1.2;color:var(--text);margin-bottom:14px;}
+.sec-title em{font-style:italic;color:var(--purple);}
+.sec-lead{font-size:14px;color:var(--soft);max-width:640px;line-height:1.8;margin-bottom:24px;}
+h3{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);margin-bottom:11px;margin-top:22px;}
+h3:first-child{margin-top:0;}
+h4{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;margin-top:16px;}
+p{color:var(--soft);margin-bottom:12px;font-size:14.5px;line-height:1.8;font-weight:300;}
+strong{color:var(--text);font-weight:500;}
+code{font-family:var(--font-mono);font-size:12px;color:var(--purple-light);background:var(--purple-bg);padding:2px 6px;border-radius:3px;}
+code.t{color:var(--teal-light);background:var(--teal-bg);}
+code.a{color:var(--amber-light);background:var(--amber-bg);}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color .2s;}
+.card:hover{border-color:var(--border2);}
+.card-hd{display:flex;align-items:flex-start;gap:14px;padding:22px 26px 18px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+.card-ico{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.card-ico.p{background:var(--purple-bg);}
+.card-ico.t{background:var(--teal-bg);}
+.card-ico.a{background:var(--amber-bg);}
+.card-ico.r{background:var(--red-bg);}
+.ctitle{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.2;}
+.csub{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.ctags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.chev{font-size:18px;color:var(--muted);transition:transform .2s;margin-top:4px;flex-shrink:0;}
+.card.open .chev{transform:rotate(90deg);}
+.card-body{display:none;}
+.card.open .card-body{display:block;}
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface2);padding:0 26px;overflow-x:auto;}
+.tab{font-size:12.5px;font-weight:500;color:var(--muted);padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;font-family:var(--font-body);}
+.tab:hover{color:var(--text);}
+.tab.on,.tab.active{color:var(--text);border-bottom-color:var(--purple);}
+.pane,.tab-pane{display:none;padding:24px;}
+.pane.on,.tab-pane.on{display:block;}
+.table-wrap{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
+.table-wrap .tbl{min-width:650px;margin-bottom:0;}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;}
+.tbl thead tr{background:var(--surface2);border-bottom:1px solid var(--border2);}
+.tbl th{padding:9px 13px;text-align:left;font-family:var(--font-mono);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.tbl td{padding:10px 13px;border-bottom:1px solid var(--border);color:var(--soft);vertical-align:top;font-weight:300;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(255,255,255,0.015);}
+.box{border-radius:6px;padding:15px 17px;margin-bottom:14px;border-left:3px solid;}
+.box p{margin:0;font-size:14px;font-weight:300;}
+.box p+p{margin-top:6px;}
+.bl{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;font-family:var(--font-mono);}
+.box.why{border-color:var(--purple);background:var(--purple-bg);}
+.box.why .bl{color:var(--purple-light);}
+.box.tip{border-color:var(--teal);background:var(--teal-bg);}
+.box.tip .bl{color:var(--teal-light);}
+.box.warn{border-color:var(--red);background:var(--red-bg);}
+.box.warn .bl{color:var(--red);}
+.box.case{border-color:var(--blue);background:var(--blue-bg);}
+.box.case .bl{color:var(--blue);}
+.box.revops{border-color:var(--purple);background:linear-gradient(135deg,var(--purple-bg),var(--teal-bg));}
+.box.revops .bl{color:var(--purple-light);}
+.box.amber{border-color:var(--amber);background:var(--amber-bg);}
+.box.amber .bl{color:var(--amber-light);}
+.psteps{list-style:none;padding:0;counter-reset:ps;}
+.psteps li{counter-increment:ps;display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:300;}
+.psteps li:last-child{border-bottom:none;}
+.psteps li::before{content:counter(ps);font-family:var(--font-mono);font-size:10px;color:var(--purple-light);border:1px solid rgba(139,127,245,0.2);border-radius:3px;padding:2px 6px;flex-shrink:0;height:fit-content;margin-top:1px;background:var(--purple-bg);min-width:26px;text-align:center;}
+.prlist{list-style:none;padding:0;}
+.prlist li{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--soft);font-weight:300;}
+.prlist li:last-child{border-bottom:none;}
+.mlist{list-style:none;padding:0;}
+.mlist li{background:rgba(248,113,113,0.04);border:1px solid rgba(248,113,113,0.1);border-radius:6px;padding:11px 14px;margin-bottom:8px;font-size:13.5px;color:var(--soft);font-weight:300;}
+.mt{color:var(--red);font-weight:500;margin-bottom:4px;font-size:12.5px;font-family:var(--font-mono);}
+.iq{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;margin-bottom:12px;}
+.iq-q{font-family:var(--font-display);font-size:16px;color:var(--text);font-style:italic;margin-bottom:8px;}
+.iq-a{font-size:13px;color:var(--soft);line-height:1.8;font-weight:300;}
+.wf-canvas{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px;overflow-x:auto;}
+.wf-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.wf-row{display:flex;align-items:stretch;gap:0;margin-bottom:0;}
+.wf-node{border-radius:6px;padding:12px 16px;min-width:160px;flex-shrink:0;}
+.wf-node.trigger{background:var(--purple-bg);border:1px solid rgba(139,127,245,0.2);}
+.wf-node.filter{background:var(--teal-bg);border:1px solid rgba(32,201,151,0.2);}
+.wf-node.action{background:var(--amber-bg);border:1px solid rgba(245,158,11,0.18);}
+.wf-node.delay{background:rgba(255,255,255,0.035);border:1px dashed var(--border2);}
+.wf-node.branch{background:var(--blue-bg);border:1px solid rgba(96,165,250,0.2);}
+.wf-node.end{background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);}
+.wf-node-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.wf-node-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.wf-node-sub{font-size:11.5px;color:var(--muted);font-weight:300;}
+.wf-arrow{display:flex;align-items:center;padding:0 8px;color:var(--muted);font-size:14px;flex-shrink:0;}
+.wf-col{display:flex;flex-direction:column;align-items:center;gap:0;}
+.wf-down{color:var(--muted);font-size:14px;padding:4px 0;text-align:center;}
+.wf-branch-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;text-align:center;}
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.rule-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:13px 15px;}
+.rule-num{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:var(--muted);margin-bottom:5px;}
+.rule-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.rule-body{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.65;}
+.enroll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.enroll-card{border:1px solid var(--border);border-radius:6px;padding:14px;background:var(--surface);}
+.enroll-card.p{border-top:2px solid var(--purple);}
+.enroll-card.t{border-top:2px solid var(--teal);}
+.enroll-card.a{border-top:2px solid var(--amber);}
+.enroll-name{font-weight:500;font-size:13px;color:var(--text);margin-bottom:3px;}
+.enroll-name.p{color:var(--purple-light);}
+.enroll-name.t{color:var(--teal-light);}
+.enroll-name.a{color:var(--amber-light);}
+.enroll-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.65;margin-bottom:7px;}
+.enroll-use{font-size:11px;color:var(--soft);font-weight:300;}
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.ac{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;}
+.ac-name{font-size:12.5px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.ac-desc{font-size:11.5px;color:var(--muted);font-weight:300;line-height:1.55;}
+.wf-type{display:inline-block;font-family:var(--font-mono);font-size:10.5px;padding:2px 7px;border-radius:3px;background:var(--purple-bg);color:var(--purple-light);}
+.wf-type.t{background:var(--teal-bg);color:var(--teal-light);}
+.wf-type.a{background:var(--amber-bg);color:var(--amber-light);}
+.wf8-list{list-style:none;padding:0;}
+.wf8-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:8px;}
+.wf8-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.wf8-num{font-family:var(--font-mono);font-size:10px;color:var(--muted);padding:2px 7px;border:1px solid var(--border);border-radius:3px;flex-shrink:0;}
+.wf8-name{font-size:13.5px;font-weight:500;color:var(--text);}
+.wf8-trigger{font-size:12px;color:var(--purple-light);margin-bottom:6px;font-weight:300;}
+.wf8-actions{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+.wf8-action{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--amber-bg);color:var(--amber-light);border:1px solid rgba(245,158,11,0.12);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+@media(max-width:760px){
+  .layout{display:block;}
+  .sidebar{display:block!important;width:100%;min-width:0;height:auto;max-height:none;position:sticky;top:0;z-index:50;border-right:none;border-bottom:1px solid var(--border2);box-shadow:0 18px 42px rgba(0,0,0,.18);overflow:visible;background:var(--surface);}
+  .sidebar-brand{display:none;}
+  .desktop-nav{display:none;}
+  .mobile-nav{display:block;}
+  .sidebar-footer{display:none;}
+  .main{width:100%;padding:22px 14px 34px;max-width:100%;}
+  .mobile-section-row{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:10px 10px 9px;background:linear-gradient(135deg,#ff5c35,#f59e0b);border-bottom:1px solid rgba(255,255,255,.16);-webkit-overflow-scrolling:touch;}
+  .mobile-section-btn{flex:0 0 auto;padding:9px 12px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(12,14,18,.18);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;white-space:nowrap;}
+  .mobile-section-btn.active{background:rgba(12,14,18,.78);border-color:rgba(255,255,255,.50);color:#fff;}
+  .mobile-division-row{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;padding:9px 10px 10px;background:var(--surface2);border-bottom:1px solid var(--border2);-webkit-overflow-scrolling:touch;}
+  .mobile-division-btn{flex:0 0 auto;padding:8px 11px;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.018);color:var(--soft);font-size:12.2px;line-height:1.25;cursor:pointer;white-space:nowrap;}
+  .mobile-division-btn.active{color:var(--text);background:var(--purple-bg);border-color:rgba(139,127,245,.38);}
+  .hero{margin-bottom:38px;padding-bottom:30px;}
+  .hero-inner{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;align-items:start;}
+  .creator-card{grid-column:1;grid-row:1;padding:0;border:none;background:transparent;box-shadow:none;}
+  .creator-card img{width:64px;height:80px;object-fit:cover;border-radius:14px;border:2px solid rgba(255,92,53,.75);box-shadow:0 12px 28px rgba(255,92,53,.16),0 18px 42px rgba(0,0,0,.28);}
+  .creator-name,.creator-role,.creator-link{display:none;}
+  .hero-copy{grid-column:2;grid-row:1;}
+  .hero-kicker{font-size:10px;margin-bottom:9px;}
+  .hero-title{font-size:32px;}
+  .hero-description{font-size:14px;}
+  .section{margin-bottom:42px;}
+  .sec-title{font-size:25px;}
+  .card-hd{padding:18px 16px 15px;}
+  .pane,.tab-pane{padding:16px;}
+  .tabs{display:flex;overflow-x:auto;gap:7px;padding:9px 12px;}
+  .tab{flex:0 0 auto;padding:8px 11px;font-size:12px;}
+  .rules-grid,.enroll-grid{grid-template-columns:1fr;}
+  .action-grid{grid-template-columns:1fr 1fr;}
+  .wf-canvas{padding:16px;}
+}
+@media(max-width:430px){
+  .hero-title{font-size:28px;}
+  .creator-card img{width:58px;height:72px;}
+  .sec-title{font-size:23px;}
+  .hero-inner{grid-template-columns:64px minmax(0,1fr);gap:12px;}
+  .action-grid{grid-template-columns:1fr;}
+}
+
+
+/* Compatibility aliases for preserved educational content */
+:root{
+  --ink: var(--text);
+  --rule: var(--border);
+  --rule2: var(--border2);
+  --blue-mid: var(--blue);
+  --purple-mid: var(--purple-light);
+  --teal-mid: var(--teal-light);
+  --amber-mid: var(--amber-light);
+}
+
+/* Sequence-specific preserved components */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:18px;border:1px solid var(--border);} 
+.cmp-cell{background:var(--surface);padding:16px;} 
+.cmp-cell.h{background:var(--surface3);padding:12px 16px;} 
+.cmp-h-label{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-family:var(--font-mono);} 
+.cmp-h-title{font-size:14px;font-weight:700;color:var(--text);} 
+.cmp-items{list-style:none;padding:0;margin:0;} 
+.cmp-items li{font-size:13.5px;color:var(--soft);padding:6px 0;border-bottom:1px solid var(--border);font-weight:300;line-height:1.55;} 
+.cmp-items li:last-child{border-bottom:none;} 
+.cmp-items li.b::before{content:"✓ ";color:var(--blue);} 
+.cmp-items li.p::before{content:"✓ ";color:var(--purple-light);} 
+.cmp-items li.n::before{content:"— ";color:var(--muted);} 
+
+.seq-canvas{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;margin-bottom:16px;overflow-x:auto;} 
+.seq-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;} 
+.seq-steps{display:flex;gap:0;align-items:stretch;position:relative;min-width:max-content;} 
+.seq-step{min-width:120px;max-width:145px;flex-shrink:0;} 
+.seq-step-inner{border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;background:var(--surface2);} 
+.seq-step-inner.email{border-top:2px solid var(--blue);background:var(--blue-bg);} 
+.seq-step-inner.call{border-top:2px solid var(--amber);background:var(--amber-bg);} 
+.seq-step-inner.li{border-top:2px solid var(--purple);background:var(--purple-bg);} 
+.seq-step-inner.task{border-top:2px solid var(--teal);background:var(--teal-bg);} 
+.seq-step-day{font-family:var(--font-mono);font-size:9px;color:var(--muted);margin-bottom:5px;letter-spacing:.5px;} 
+.seq-step-type{font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px;} 
+.seq-step-desc{font-size:11px;color:var(--soft);font-weight:300;line-height:1.5;} 
+.seq-arrow{display:flex;align-items:center;padding:0 6px;color:var(--muted);font-size:12px;flex-shrink:0;margin-top:20px;} 
+
+.email-mock{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);overflow:hidden;margin-bottom:16px;font-family:var(--font-mono);font-size:12px;} 
+.em-header{background:var(--surface2);padding:10px 16px;border-bottom:1px solid var(--border);} 
+.em-field{padding:4px 0;color:var(--muted);font-size:11.5px;} 
+.em-field span{color:var(--text);font-weight:500;} 
+.em-body{padding:16px;font-family:var(--font-body);font-size:13.5px;color:var(--soft);line-height:1.8;font-weight:300;} 
+.em-token{background:var(--blue-bg);color:var(--blue);padding:1px 5px;border-radius:3px;font-family:var(--font-mono);font-size:11.5px;} 
+.em-sig{border-top:1px solid var(--border);padding:12px 16px;color:var(--muted);font-size:12px;font-family:var(--font-body);} 
+
+.timeline{list-style:none;padding:0;position:relative;margin-bottom:18px;} 
+.timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:1px;background:var(--border2);} 
+.tl-item{display:flex;gap:16px;padding:12px 0;align-items:flex-start;position:relative;} 
+.tl-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:1;border:1px solid var(--border2);} 
+.tl-dot.email{background:var(--blue-bg);color:var(--blue);} 
+.tl-dot.call{background:var(--amber-bg);color:var(--amber-light);} 
+.tl-dot.li{background:var(--purple-bg);color:var(--purple-light);} 
+.tl-dot.task{background:var(--teal-bg);color:var(--teal-light);} 
+.tl-content{flex:1;} 
+.tl-day{font-family:var(--font-mono);font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:3px;text-transform:uppercase;} 
+.tl-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:2px;} 
+.tl-desc{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.6;} 
+
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;} 
+.metric-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;} 
+.metric-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;} 
+.metric-val{font-family:var(--font-display);font-size:24px;font-weight:300;color:var(--text);line-height:1;margin-bottom:4px;} 
+.metric-desc{font-size:12px;color:var(--soft);font-weight:300;line-height:1.55;} 
+
+/* Make original sequence tags inherit the new color system */
+.chip.b,.tag.b{background:var(--blue-bg);color:var(--blue);border-color:rgba(96,165,250,0.2);} 
+.chip.p,.tag.p{background:var(--purple-bg);color:var(--purple-light);border-color:rgba(139,127,245,0.2);} 
+.tag.t{background:var(--teal-bg);color:var(--teal-light);border-color:rgba(32,201,151,0.2);} 
+.tag.a{background:var(--amber-bg);color:var(--amber-light);border-color:rgba(245,158,11,0.2);} 
+.tag.r{background:var(--red-bg);color:var(--red);border-color:rgba(248,113,113,0.2);} 
+.tag.g{background:var(--green-bg);color:var(--green);border-color:rgba(74,222,128,0.2);} 
+
+@media(max-width:760px){
+  .cmp-grid{grid-template-columns:1fr;}
+  .metrics-grid{grid-template-columns:1fr 1fr;}
+  .seq-canvas{padding:16px;}
+  .timeline::before{left:18px;}
+}
+@media(max-width:430px){
+  .metrics-grid{grid-template-columns:1fr;}
+}
+
+
+/* Reports & Dashboards specific components */
+.builder-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px;}
+.builder-panel{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;border-top:3px solid var(--blue);}
+.builder-panel.p2{border-top-color:var(--teal);}.builder-panel.p3{border-top-color:var(--amber);}.builder-panel.p4{border-top-color:var(--purple);}.builder-panel.p5{border-top-color:var(--red);}
+.bp-num{font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:5px;letter-spacing:1px;}
+.bp-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px;}
+.bp-desc{font-size:12px;color:var(--soft);font-weight:300;line-height:1.6;}
+.bp-ex{font-size:11.5px;color:var(--blue);margin-top:6px;font-style:italic;}
+.rtype-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.rtype{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px;}
+.rtype.b{border-top:2px solid var(--blue);}.rtype.t{border-top:2px solid var(--teal);}.rtype.a{border-top:2px solid var(--amber);}.rtype.p{border-top:2px solid var(--purple);}
+.rtype-name{font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.rtype-sub{font-size:12px;color:var(--muted);margin-bottom:7px;font-weight:300;}
+.rtype-ex{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.65;}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.dash-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px;}
+.dash-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:7px;gap:10px;}
+.dash-name{font-size:13.5px;font-weight:500;color:var(--text);}
+.dash-badge{font-size:10px;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.dash-badge.daily{background:var(--blue-bg);color:var(--blue);}.dash-badge.weekly{background:var(--teal-bg);color:var(--teal);}
+.dash-items{list-style:none;padding:0;}.dash-items li{font-size:12.5px;color:var(--soft);padding:4px 0;font-weight:300;}.dash-items li::before{content:'· ';color:var(--hubspot-orange);}
+.dq-grid{display:grid;gap:8px;margin-bottom:16px;}
+.dq-row{display:grid;grid-template-columns:1.5fr 1.5fr 1fr;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:13px;align-items:start;}
+.dq-row.header{background:var(--surface2);border-radius:8px;font-size:11px;font-family:var(--font-mono);letter-spacing:.5px;text-transform:uppercase;padding:8px 12px;}
+.dq-row.header span{color:var(--muted);}.dq-config{font-weight:300;color:var(--soft);}.dq-report{font-weight:300;color:var(--blue);}.dq-risk{font-size:11.5px;color:var(--red);font-weight:300;}
+.attr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.attr-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px;}
+.attr-name{font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:4px;}.attr-desc{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.65;margin-bottom:8px;}
+.attr-bar{display:flex;gap:2px;height:18px;margin-bottom:7px;}.attr-seg{border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-family:var(--font-mono);}
+.attr-use{font-size:11.5px;color:var(--soft);font-weight:300;}
+.chip.cap,.pill.cap,.tag.cap{background:var(--purple-bg);border:1px solid rgba(139,127,245,0.2);color:var(--purple-light);}
+.tag.b{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,0.2);} .chip.b{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,0.2);} .chip.t{background:var(--teal-bg);color:var(--teal-light);border:1px solid rgba(32,201,151,0.2);} .chip.n{background:rgba(122,127,148,0.08);color:var(--muted);border:1px solid var(--border);}
+@media(max-width:760px){.builder-grid{grid-template-columns:1fr 1fr}.rtype-grid,.dash-grid,.attr-grid{grid-template-columns:1fr}.dq-row{grid-template-columns:1fr}.dq-row.header{display:none}}
+@media(max-width:430px){.builder-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <a class="hubspot-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+      <div class="hubspot-word">HubSpot</div>
+      <div class="hubspot-ref">For better references, visit hubspot.com</div>
+    </a>
+    <div class="sidebar-title">Reports &amp; Dashboards</div>
+    <div class="sidebar-desc">Measurement layer · 8 essential reports · Dashboards by audience</div>
+  </div>
+  <div class="desktop-nav"><div class="nav-group active-page expanded" data-page-group="foundation">
+  <button class="nav-group-label page-tab" onclick="showPage('foundation', true)">Foundation<span class="nav-arrow">›</span></button>
+  <div class="nav-page-items"><a class="nav-item active" data-page="foundation" data-target="what" onclick="showDivision('foundation','what', true)"><span class="nav-dot dot-purple"></span>What is reporting?</a><a class="nav-item" data-page="foundation" data-target="architecture" onclick="showDivision('foundation','architecture', true)"><span class="nav-dot dot-purple"></span>Reporting architecture</a><a class="nav-item" data-page="foundation" data-target="types" onclick="showDivision('foundation','types', true)"><span class="nav-dot dot-purple"></span>Report types</a><a class="nav-item" data-page="foundation" data-target="builder" onclick="showDivision('foundation','builder', true)"><span class="nav-dot dot-purple"></span>Report builder anatomy</a></div>
+</div><div class="nav-group" data-page-group="reports">
+  <button class="nav-group-label page-tab" onclick="showPage('reports', true)">Essential Reports<span class="nav-arrow">›</span></button>
+  <div class="nav-page-items"><a class="nav-item" data-page="reports" data-target="essential" onclick="showDivision('reports','essential', true)"><span class="nav-dot dot-teal"></span>The 8 essential reports</a></div>
+</div><div class="nav-group" data-page-group="admin">
+  <button class="nav-group-label page-tab" onclick="showPage('admin', true)">Admin Setup<span class="nav-arrow">›</span></button>
+  <div class="nav-page-items"><a class="nav-item" data-page="admin" data-target="setup" onclick="showDivision('admin','setup', true)"><span class="nav-dot dot-amber"></span>Step-by-step setup</a><a class="nav-item" data-page="admin" data-target="dashboards" onclick="showDivision('admin','dashboards', true)"><span class="nav-dot dot-amber"></span>Dashboard design</a><a class="nav-item" data-page="admin" data-target="dq" onclick="showDivision('admin','dq', true)"><span class="nav-dot dot-amber"></span>Data quality dependency</a><a class="nav-item" data-page="admin" data-target="attribution" onclick="showDivision('admin','attribution', true)"><span class="nav-dot dot-amber"></span>Attribution models</a></div>
+</div><div class="nav-group" data-page-group="applied">
+  <button class="nav-group-label page-tab" onclick="showPage('applied', true)">Applied Learning<span class="nav-arrow">›</span></button>
+  <div class="nav-page-items"><a class="nav-item" data-page="applied" data-target="example" onclick="showDivision('applied','example', true)"><span class="nav-dot dot-purple"></span>Real-world example</a><a class="nav-item" data-page="applied" data-target="cases" onclick="showDivision('applied','cases', true)"><span class="nav-dot dot-purple"></span>Case studies</a><a class="nav-item" data-page="applied" data-target="mistakes" onclick="showDivision('applied','mistakes', true)"><span class="nav-dot dot-purple"></span>Common mistakes</a><a class="nav-item" data-page="applied" data-target="best" onclick="showDivision('applied','best', true)"><span class="nav-dot dot-purple"></span>Best practices</a><a class="nav-item" data-page="applied" data-target="practice" onclick="showDivision('applied','practice', true)"><span class="nav-dot dot-purple"></span>Practice exercise</a><a class="nav-item" data-page="applied" data-target="interview" onclick="showDivision('applied','interview', true)"><span class="nav-dot dot-purple"></span>Interview questions</a><a class="nav-item" data-page="applied" data-target="cheatsheet" onclick="showDivision('applied','cheatsheet', true)"><span class="nav-dot dot-purple"></span>Cheatsheet</a></div>
+</div></div>
+  <div class="mobile-nav">
+    <div class="mobile-section-row"><button class="mobile-section-btn active" data-page-group="foundation" onclick="showPage('foundation', true)">Foundation</button><button class="mobile-section-btn " data-page-group="reports" onclick="showPage('reports', true)">Essential Reports</button><button class="mobile-section-btn " data-page-group="admin" onclick="showPage('admin', true)">Admin Setup</button><button class="mobile-section-btn " data-page-group="applied" onclick="showPage('applied', true)">Applied Learning</button></div>
+    <div class="mobile-division-row" id="mobileDivisionRow"></div>
+  </div>
+  <div class="sidebar-footer">Click any section to explore · Cards expand on click</div>
+</nav>
+
+<main class="main">
+
+<div class="hero" id="page-top">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-kicker">HubSpot Admin · Module 11 · Curriculum Capstone</div>
+      <h1 class="hero-title">Reports &amp;<br><em>Dashboards</em></h1>
+      <p class="hero-description">The measurement layer of your CRM — where every object, property, workflow, and pipeline you've built becomes visible, actionable, and improvable. Reports are the feedback loop that makes a CRM self-improving.</p>
+      <div class="hero-pills">
+        <span class="pill p">4 report types</span>
+        <span class="pill p">8 essential reports</span>
+        <span class="pill t">Dashboard design</span>
+        <span class="pill t">Attribution models</span>
+        <span class="pill a">3 case studies</span>
+        <span class="pill cap">Curriculum capstone</span>
+      </div>
+    </div>
+    <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+      <img src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo">
+      <div class="creator-name">Naveed Abbas</div>
+      <div class="creator-role">CRM Administrator</div>
+      <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+    </a>
+  </div>
+</div>
+
+<section class="section" id="page-foundation" data-page="foundation">
+<div class="sec division" data-division="what" id="what">
+<div class="sec-eye">Foundation · 01</div>
+<div class="sec-title">What Is <em>Reporting?</em></div>
+<p class="sec-lead">The measurement layer — turning CRM data into decisions. Everything you've configured generates data; reports reveal whether it's working.</p>
+<div class="box why"><div class="bl">Core definition</div><p>HubSpot Reporting is the system that converts your CRM activity data into answers to business questions. A <strong>Report</strong> is a saved query that answers one specific question. A <strong>Dashboard</strong> is a curated collection of reports for a specific audience. Together they are the feedback mechanism that tells you whether your CRM system is generating the right outcomes — and where to improve it.</p></div>
+<h3>Questions reports answer</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Business question</th><th>Report that answers it</th><th>Used by</th></tr></thead>
+<tbody>
+<tr><td>How many MQLs did marketing generate?</td><td>Contacts by Lifecycle Stage over time</td><td>CMO, marketing team</td></tr>
+<tr><td>What's our MQL → Customer conversion rate?</td><td>Lifecycle stage funnel with conversion %</td><td>CMO, RevOps</td></tr>
+<tr><td>Which deals are at risk of slipping?</td><td>Open deals by stage + last activity date</td><td>VP Sales</td></tr>
+<tr><td>What's our weighted pipeline forecast?</td><td>Deal forecast: Amount × Probability</td><td>CEO, CFO, VP Sales</td></tr>
+<tr><td>Why are we losing deals?</td><td>Closed Lost Reason breakdown</td><td>VP Sales, RevOps</td></tr>
+<tr><td>Which lead source generates the most revenue?</td><td>Revenue by Original Source</td><td>CMO, RevOps</td></tr>
+<tr><td>How fast do reps respond to inbound leads?</td><td>First response time by rep</td><td>Sales manager</td></tr>
+<tr><td>Which customers are at risk of churning?</td><td>Ticket volume + CSAT by customer</td><td>CS manager</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">The capstone insight</div><p>Reporting is why everything else in this curriculum matters. The lifecycle stages, workflows, pipeline required fields, lead status reasons — all of it was building the data infrastructure that reporting depends on. Reports don't create insight from nothing. They surface what's already in your data. The quality of your reports is exactly proportional to the quality of your CRM configuration upstream.</p></div>
+</div>
+<div class="sec division division-hidden" data-division="architecture" id="architecture">
+<div class="sec-eye">Foundation · 02</div>
+<div class="sec-title">Reporting <em>Architecture</em></div>
+<p class="sec-lead">Three layers from raw data to executive insight — understanding the stack makes you a better admin.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Layer</th><th>What it is</th><th>Who configures it</th><th>What it produces</th></tr></thead>
+<tbody>
+<tr><td><strong>Layer 1: CRM Data</strong></td><td>Contact properties, deal properties, lifecycle stages, logged activities, form submissions, email events</td><td>Generated automatically by CRM activity + admin configurations</td><td>Raw data — the fuel for all reporting</td></tr>
+<tr><td><strong>Layer 2: Reports</strong></td><td>Saved queries that pull, filter, group, and visualise CRM data to answer one specific question</td><td>Admin + RevOps practitioners</td><td>Single visualisations answering individual business questions</td></tr>
+<tr><td><strong>Layer 3: Dashboards</strong></td><td>Curated collections of reports for a specific audience — showing multiple answers on one screen</td><td>Admin + RevOps practitioners</td><td>Operational views tailored to specific decision-makers</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="sec division division-hidden" data-division="types" id="types">
+<div class="sec-eye">Foundation · 03</div>
+<div class="sec-title">The Four <em>Report Types</em></div>
+<div class="rtype-grid">
+<div class="rtype b">
+<div class="rtype-name">Single-object report</div>
+<div class="rtype-sub">Reports on one object type</div>
+<div class="rtype-ex">Count of Contacts by Lifecycle Stage · Sum of Deal Amount by Owner · Tickets by Category this month. The most common report type — fast to build, highly readable.</div>
+</div>
+<div class="rtype t">
+<div class="rtype-name">Cross-object (multi-object) report</div>
+<div class="rtype-sub">Joins two or more objects</div>
+<div class="rtype-ex">"Contacts who became Customers this quarter with their associated Deal Amount, broken down by Original Source." Requires Marketing Hub Pro+ or Sales Hub Pro+.</div>
+</div>
+<div class="rtype a">
+<div class="rtype-name">Funnel report</div>
+<div class="rtype-sub">Tracks stage-by-stage progression</div>
+<div class="rtype-ex">Lifecycle stage conversion rates · Deal stage velocity · Support ticket resolution stages. Shows count at each stage and the % conversion between adjacent stages.</div>
+</div>
+<div class="rtype p">
+<div class="rtype-name">Attribution report</div>
+<div class="rtype-sub">Traces which interactions drove conversions</div>
+<div class="rtype-ex">Which pages, forms, campaigns, and emails contributed to contacts becoming Customers. Three models: First touch, Last touch, Linear. Marketing Hub Pro+ required.</div>
+</div>
+</div>
+<div class="box tip"><div class="bl">Which to start with</div><p>For most HubSpot setups: build Single-object reports first (they're fastest and most reliable). Add Cross-object reports when you need to connect Marketing activity to Sales outcomes. Add Funnel reports for conversion analysis. Add Attribution reports last — they require the most data maturity to be accurate and meaningful.</p></div>
+</div>
+<div class="sec division division-hidden" data-division="builder" id="builder">
+<div class="sec-eye">Foundation · 04</div>
+<div class="sec-title">Report Builder <em>Anatomy</em></div>
+<p class="sec-lead">Every report in HubSpot is configured through five panels. Understanding each determines whether your report answers the right question.</p>
+<div class="builder-grid">
+<div class="builder-panel">
+<div class="bp-num">Panel 1</div>
+<div class="bp-name">Data source</div>
+<div class="bp-desc">Which object(s) to pull from. Contacts, Deals, Companies, Tickets, or a combination for multi-object.</div>
+<div class="bp-ex">ex: Contacts</div>
+</div>
+<div class="builder-panel p2">
+<div class="bp-num">Panel 2</div>
+<div class="bp-name">Filters</div>
+<div class="bp-desc">Which records to include. Same AND/OR logic as lists. Date ranges, property values, status conditions.</div>
+<div class="bp-ex">ex: Close Date = this quarter AND Stage ≠ Closed Lost</div>
+</div>
+<div class="builder-panel p3">
+<div class="bp-num">Panel 3</div>
+<div class="bp-name">Measures</div>
+<div class="bp-desc">What to count, sum, or average. Count of records, sum of a number property, average of a duration.</div>
+<div class="bp-ex">ex: Count of Contacts · Sum of Deal Amount</div>
+</div>
+<div class="builder-panel p4">
+<div class="bp-num">Panel 4</div>
+<div class="bp-name">Dimensions</div>
+<div class="bp-desc">How to group or break down the results. By property value, by time period, by owner, by stage.</div>
+<div class="bp-ex">ex: By Lifecycle Stage · By Month · By Deal Owner</div>
+</div>
+<div class="builder-panel p5">
+<div class="bp-num">Panel 5</div>
+<div class="bp-name">Visualisation</div>
+<div class="bp-desc">How to display the result. Table, bar, line, funnel, pie, donut. Choose based on the data structure.</div>
+<div class="bp-ex">ex: Bar chart comparing owners · Funnel for stages</div>
+</div>
+</div>
+<h3>Visualisation selection guide</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Visualisation</th><th>Best for</th><th>Avoid when</th></tr></thead>
+<tbody>
+<tr><td><strong>Table</strong></td><td>Detailed data with multiple dimensions, when exact numbers matter</td><td>Audience needs a quick visual — tables require reading</td></tr>
+<tr><td><strong>Bar chart</strong></td><td>Comparing groups or categories (reps, stages, sources)</td><td>More than 12 bars — becomes unreadable</td></tr>
+<tr><td><strong>Line chart</strong></td><td>Tracking change over time — MQL count by month, revenue trends</td><td>Fewer than 3 data points in time — not enough to show trend</td></tr>
+<tr><td><strong>Funnel chart</strong></td><td>Stage-by-stage progression with visible drop-off</td><td>Non-sequential data — a funnel implies progression</td></tr>
+<tr><td><strong>Pie chart</strong></td><td>Proportional breakdown with 2–4 categories</td><td>More than 4 categories — slices become unreadable</td></tr>
+<tr><td><strong>Donut chart</strong></td><td>Same as pie, but better for centering a total count</td><td>More than 5 categories</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section class="section page-hidden" id="page-reports" data-page="reports">
+<div class="sec division division-hidden" data-division="essential" id="essential">
+<div class="sec-eye">Essential Reports · 05–12</div>
+<div class="sec-title">The 8 <em>Essential Reports</em></div>
+<p class="sec-lead">Every HubSpot portal needs these 8 reports before any other custom reporting work. Together they cover the full revenue operation across Marketing, Sales, and Customer Success.</p>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico p">📊</div>
+<div style="flex:1">
+<div class="ctitle">Report 01 — Lifecycle stage funnel</div>
+<div class="csub">The foundational revenue pipeline health report</div>
+<div class="ctags"><span class="tag p">RevOps</span><span class="tag n">Funnel report</span><span class="tag n">Contacts</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'r1c')">Config</div><div class="tab" onclick="st(this,'r1r')">How to read it</div></div>
+<div class="pane on" id="r1c">
+<div class="table-wrap"><table class="tbl"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody>
+<tr><td>Report type</td><td>Funnel (Contact funnel)</td></tr>
+<tr><td>Data source</td><td>Contacts</td></tr>
+<tr><td>Funnel stages</td><td>Subscriber → Lead → MQL → SQL → Opportunity → Customer</td></tr>
+<tr><td>Date filter</td><td>Contact Create Date: Rolling last 90 days OR This quarter</td></tr>
+<tr><td>Visualisation</td><td>Funnel chart (shows count per stage + conversion % between stages)</td></tr>
+</tbody></table></div>
+<div class="box tip"><div class="bl">Admin note</div><p>This report only works accurately if lifecycle stages are being set consistently by workflows — not manually or randomly. If you see 90% of contacts stuck at "Lead" with only a handful at MQL, it likely means your MQL promotion workflow is either broken or your MQL criteria are too strict. Investigate the data first.</p></div>
+</div>
+<div class="pane" id="r1r"><p>Read this report as a health check on your entire funnel. A healthy funnel shows consistent conversion rates at each stage. A sudden drop between MQL and SQL (e.g. 80% MQL acceptance one quarter, 40% the next) signals a qualification friction point — could be wrong MQL criteria, SDR capacity issue, or a change in lead quality. This single report should open every marketing-sales alignment meeting.</p></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico b">📈</div>
+<div style="flex:1">
+<div class="ctitle">Report 02 — MQL-to-customer conversion rate</div>
+<div class="csub">The primary marketing effectiveness metric</div>
+<div class="ctags"><span class="tag b">Marketing</span><span class="tag n">Multi-object</span><span class="tag n">Contacts + Deals</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'r2c')">Config</div><div class="tab" onclick="st(this,'r2r')">How to read it</div></div>
+<div class="pane on" id="r2c">
+<div class="table-wrap"><table class="tbl"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody>
+<tr><td>Report type</td><td>Single-object or funnel (Contacts)</td></tr>
+<tr><td>Measure</td><td>Count of contacts — filter to each stage separately, or use funnel</td></tr>
+<tr><td>Dimension</td><td>By month or quarter</td></tr>
+<tr><td>Date filter</td><td>MQL Date: this year (requires MQL Date custom property)</td></tr>
+<tr><td>Visualisation</td><td>Line chart (showing trend over time) or Funnel (showing current conversion)</td></tr>
+</tbody></table></div>
+<div class="box amber"><div class="bl">Requires</div><p>MQL Date, SQL Date, and Customer Date custom properties must be created and stamped by workflows. Without these date-stamp properties, you can only see current state — not historical trends.</p></div>
+</div>
+<div class="pane" id="r2r"><p>This report connects marketing output (MQL count) to business outcome (Customer count). A high MQL count with a low Customer conversion rate means either marketing is generating the wrong leads or sales is failing to convert them. This data makes the Marketing-Sales alignment conversation productive because it's based on facts, not opinions.</p></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">💰</div>
+<div style="flex:1">
+<div class="ctitle">Report 03 — Weighted pipeline forecast</div>
+<div class="csub">The number the CEO asks about every week</div>
+<div class="ctags"><span class="tag t">Sales</span><span class="tag n">Single-object</span><span class="tag n">Deals</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'r3c')">Config</div><div class="tab" onclick="st(this,'r3r')">How to read it</div></div>
+<div class="pane on" id="r3c">
+<div class="table-wrap"><table class="tbl"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody>
+<tr><td>Data source</td><td>Deals</td></tr>
+<tr><td>Filters</td><td>Deal Stage: not Closed Won, not Closed Lost · Close Date: this quarter</td></tr>
+<tr><td>Measures</td><td>Sum of Amount (raw pipeline) · Sum of Weighted Amount (Amount × Probability)</td></tr>
+<tr><td>Dimension</td><td>By Deal Stage OR by Deal Owner (run both versions)</td></tr>
+<tr><td>Visualisation</td><td>Bar chart (by stage) or Table (by owner with both values shown)</td></tr>
+</tbody></table></div>
+<div class="box warn"><div class="bl">Accuracy depends on</div><p>Probability percentages must be calibrated from historical close rates (not HubSpot defaults) and Deal Amounts must be required at the Qualified stage. If either condition is unmet, this report produces a meaningless number.</p></div>
+</div>
+<div class="pane" id="r3r"><p>Raw pipeline (total amount) overstates expected revenue. Weighted pipeline (amount × stage probability) is the accurate forecast. Always build the report to show both — the gap between them reveals how much speculative pipeline exists. By owner view shows who is pulling their weight and who has under-sized or low-quality pipeline.</p></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico a">⏱️</div>
+<div style="flex:1">
+<div class="ctitle">Report 04 — Deal velocity (time in stage)</div>
+<div class="csub">Where in the sales process are deals stalling?</div>
+<div class="ctags"><span class="tag a">Sales</span><span class="tag n">Single-object</span><span class="tag n">Deals</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="pane on" style="display:block;padding:22px">
+<div class="table-wrap"><table class="tbl"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody>
+<tr><td>Data source</td><td>Deals (Closed Won deals from last 12 months)</td></tr>
+<tr><td>Measures</td><td>Average days in each stage using hs_date_entered_[stage] properties</td></tr>
+<tr><td>Dimension</td><td>By Deal Stage (sequenced in pipeline order)</td></tr>
+<tr><td>Visualisation</td><td>Bar chart (horizontal) — stages with longest average time stand out immediately</td></tr>
+</tbody></table></div>
+<div class="box tip"><div class="bl">The bottleneck finder</div><p>The stage with the longest average time is your pipeline bottleneck. That's where coaching, enablement, or process improvement will have the highest impact. HubSpot auto-creates hs_date_entered_[stage] properties for every deal stage — no custom setup required to use these.</p></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico r">❌</div>
+<div style="flex:1">
+<div class="ctitle">Report 05 — Closed lost reason breakdown</div>
+<div class="csub">Why deals are being lost — the most actionable data in the CRM</div>
+<div class="ctags"><span class="tag r">Sales</span><span class="tag n">Single-object</span><span class="tag n">Deals</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="pane on" style="display:block;padding:22px">
+<div class="table-wrap"><table class="tbl"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody>
+<tr><td>Data source</td><td>Deals</td></tr>
+<tr><td>Filters</td><td>Deal Stage = Closed Lost · Close Date: last 90 days</td></tr>
+<tr><td>Measure</td><td>Count of Deals</td></tr>
+<tr><td>Dimension</td><td>By Closed Lost Reason (required dropdown)</td></tr>
+<tr><td>Visualisation</td><td>Bar chart sorted by count (most common reason at top)</td></tr>
+</tbody></table></div>
+<div class="box amber"><div class="bl">What this report drives upstream</div><p>Price dominates → pricing strategy conversation. Competitor wins → competitive battle card. Wrong fit → ICP refinement. Timing → build the Bad Timing re-engagement workflow. No budget → add budget qualification earlier in discovery. One chart drives changes across Marketing, Sales, and Product.</p></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico b">🎯</div>
+<div style="flex:1">
+<div class="ctitle">Report 06 — Lead source revenue attribution</div>
+<div class="csub">Which marketing channels generate the most customers and revenue</div>
+<div class="ctags"><span class="tag b">Marketing</span><span class="tag n">Multi-object</span><span class="tag n">Contacts + Deals</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="pane on" style="display:block;padding:22px">
+<div class="table-wrap"><table class="tbl"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody>
+<tr><td>Data source</td><td>Deals (with associated Contact data)</td></tr>
+<tr><td>Filters</td><td>Deal Stage = Closed Won · Close Date: this year</td></tr>
+<tr><td>Measures</td><td>Count of Deals (customers) · Sum of Deal Amount (revenue)</td></tr>
+<tr><td>Dimension</td><td>By Contact Original Source (or First touch source)</td></tr>
+<tr><td>Visualisation</td><td>Bar chart sorted by revenue (not by count)</td></tr>
+</tbody></table></div>
+<div class="box tip"><div class="bl">Sort by revenue, not count</div><p>A source that generates 100 leads but $10k revenue is less valuable than one generating 10 leads and $200k revenue. Sorting by revenue (not by lead count) reveals true ROI. This is how marketing justifies budget allocation.</p></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">👤</div>
+<div style="flex:1">
+<div class="ctitle">Report 07 — Rep activity dashboard</div>
+<div class="csub">What each sales rep is actually doing — calls, emails, meetings, tasks</div>
+<div class="ctags"><span class="tag t">Sales</span><span class="tag n">Single-object</span><span class="tag n">Activities</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="pane on" style="display:block;padding:22px">
+<div class="table-wrap"><table class="tbl"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody>
+<tr><td>Data source</td><td>Activities (separate reports for Calls, Emails, Meetings)</td></tr>
+<tr><td>Filters</td><td>Activity date: this week · Owner: all reps</td></tr>
+<tr><td>Measure</td><td>Count of each activity type</td></tr>
+<tr><td>Dimension</td><td>By Activity Owner (rep name)</td></tr>
+<tr><td>Visualisation</td><td>Grouped bar chart (one bar per rep, grouped by activity type)</td></tr>
+</tbody></table></div>
+<div class="box revops"><div class="bl">The coaching separator</div><p>This report separates activity from outcome. A rep with low pipeline but high activity has a quality or process problem — coach on targeting and messaging. A rep with low activity has an effort problem — different management conversation entirely. Never have a pipeline review without this report on the table.</p></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico p">🎫</div>
+<div style="flex:1">
+<div class="ctitle">Report 08 — Customer success metrics</div>
+<div class="csub">Ticket volume, resolution time, and customer health indicators</div>
+<div class="ctags"><span class="tag p">CS</span><span class="tag n">Single-object</span><span class="tag n">Tickets</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="pane on" style="display:block;padding:22px">
+<div class="table-wrap"><table class="tbl"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody>
+<tr><td>Data source</td><td>Tickets</td></tr>
+<tr><td>Filters</td><td>Ticket Create Date: this month · Associated Contact Lifecycle = Customer</td></tr>
+<tr><td>Measures</td><td>Count of tickets by status · Average hs_time_to_first_reply_ms · Average resolution time</td></tr>
+<tr><td>Dimension</td><td>By Ticket Category OR by CS Owner</td></tr>
+<tr><td>Visualisation</td><td>Table + metric cards (total open, avg response time, avg resolution)</td></tr>
+</tbody></table></div>
+<div class="box tip"><div class="bl">Revenue connection</div><p>Rising ticket volume from a specific category = product or process issue that drives churn. High tickets per customer per month = leading indicator of churn risk before the customer churns. These metrics connect directly to retention revenue — the CS dashboard should be on every revenue review.</p></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="section page-hidden" id="page-admin" data-page="admin">
+<div class="sec division division-hidden" data-division="setup" id="setup">
+<div class="sec-eye">Admin Setup · 13</div>
+<div class="sec-title">Step-by-Step <em>Setup</em></div>
+<p class="sec-lead">Building Report 01 — the Lifecycle Stage Funnel — step by step.</p>
+<div class="box tip"><div class="bl">Path in HubSpot</div><p>Reports → Reports → Create report → Funnel reports → Contact funnel</p></div>
+<ol class="psteps">
+<li><strong>Choose report type</strong> — Select "Funnel" from the report type picker. Then "Contact funnel" for lifecycle stage analysis.</li>
+<li><strong>Add funnel stages</strong> — HubSpot populates with lifecycle stage options. Select: Subscriber, Lead, MQL, SQL, Opportunity, Customer. Arrange in funnel order.</li>
+<li><strong>Set date filter</strong> — Click "Add filter" → Contact Create Date → "is in the rolling 90 days." This keeps the report automatically current.</li>
+<li><strong>Optional: segment filter</strong> — Add "Original Source = Organic Search" to see the funnel specifically for organic contacts. Or leave unfiltered for the full picture.</li>
+<li><strong>Choose visualisation</strong> — Select "Funnel chart." The funnel view shows both count at each stage and conversion percentage between adjacent stages.</li>
+<li><strong>Preview the report</strong> — Click "Apply" to see a live preview with your real data. Check: do the numbers make sense? Is MQL count significantly lower than Lead count (expected)? If MQL count is 0, your MQL promotion workflow may not be running.</li>
+<li><strong>Name and save</strong> — "Lifecycle Stage Funnel — All Contacts — Rolling 90 Days." Click "Save" and add to your RevOps Operations dashboard.</li>
+<li><strong>Repeat the pattern</strong> — Every other essential report follows the same five-panel structure: source → filters → measure → dimension → visualisation. Once you've built one, the rest follow naturally.</li>
+</ol>
+</div>
+<div class="sec division division-hidden" data-division="dashboards" id="dashboards">
+<div class="sec-eye">Admin Setup · 14</div>
+<div class="sec-title">Dashboard <em>Design</em></div>
+<p class="sec-lead">A dashboard is not a collection of reports — it's a curated decision-making tool for a specific audience.</p>
+<div class="dash-grid">
+<div class="dash-card">
+<div class="dash-head"><div class="dash-name">Executive dashboard</div><span class="dash-badge weekly">Weekly</span></div>
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:300">CEO · CFO · Board</p>
+<ul class="dash-items">
+<li>Revenue vs target (closed won YTD)</li>
+<li>Weighted pipeline forecast (this quarter)</li>
+<li>MQL → Customer funnel conversion</li>
+<li>NPS / CSAT score</li>
+<li>Churn rate (if tracked)</li>
+</ul>
+</div>
+<div class="dash-card">
+<div class="dash-head"><div class="dash-name">Marketing dashboard</div><span class="dash-badge daily">Daily</span></div>
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:300">CMO · Marketing team</p>
+<ul class="dash-items">
+<li>MQL count this month (vs last month)</li>
+<li>Lead source breakdown by MQL count</li>
+<li>Form conversion rates by form</li>
+<li>Email campaign performance</li>
+<li>Lifecycle stage funnel</li>
+</ul>
+</div>
+<div class="dash-card">
+<div class="dash-head"><div class="dash-name">Sales dashboard</div><span class="dash-badge daily">Daily</span></div>
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:300">VP Sales · Sales managers</p>
+<ul class="dash-items">
+<li>Open pipeline by rep (weighted)</li>
+<li>Deals closing this week</li>
+<li>Stale deals (no activity 14+ days)</li>
+<li>Rep activity this week (calls/emails)</li>
+<li>Closed lost reasons last 90 days</li>
+</ul>
+</div>
+<div class="dash-card">
+<div class="dash-head"><div class="dash-name">RevOps dashboard</div><span class="dash-badge daily">Daily</span></div>
+<p style="font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:300">RevOps practitioner</p>
+<ul class="dash-items">
+<li>Full funnel conversion rates</li>
+<li>Pipeline velocity (time in stage)</li>
+<li>Closed lost reason breakdown</li>
+<li>Data quality monitors (blank stages, owners)</li>
+<li>Forecast accuracy (predicted vs actual)</li>
+</ul>
+</div>
+</div>
+<h3>Dashboard design principles</h3>
+<ul class="prlist">
+<li><span>👥</span><div><strong>One audience per dashboard.</strong> The Marketing dashboard should not include rep activity metrics. The Sales dashboard should not include email campaign click rates. Design for the person reading it every morning.</div></li>
+<li><span>📊</span><div><strong>8–12 reports maximum.</strong> A 25-chart dashboard nobody reads is worse than a 6-chart dashboard everyone uses. Edit ruthlessly.</div></li>
+<li><span>📅</span><div><strong>Consistent time periods across all reports.</strong> If reports on the same dashboard use different time periods, the numbers won't be comparable. Pick one default per dashboard (this quarter, rolling 90 days) and stick to it.</div></li>
+<li><span>👑</span><div><strong>Lead with the headline number.</strong> The most important metric for that audience goes top-left. For Sales: weighted pipeline. For Marketing: MQL count. For CEO: revenue vs target.</div></li>
+<li><span>🔄</span><div><strong>Use rolling date ranges, not fixed.</strong> "Last 30 days" stays current automatically. A fixed date range requires manual updating and goes stale.</div></li>
+</ul>
+</div>
+<div class="sec division division-hidden" data-division="dq" id="dq">
+<div class="sec-eye">Admin Setup · 15</div>
+<div class="sec-title">Data Quality <em>Dependency</em></div>
+<p class="sec-lead">Reports are only as accurate as the data that feeds them. Every report traces back to a configuration decision earlier in this curriculum.</p>
+<div class="box warn"><div class="bl">The most important concept in this module</div><p>A report that shows wrong numbers is almost never a report configuration problem. It's a data capture problem upstream. Before trusting any report, trace backward: what property does this report depend on? Is that property being set consistently? By a workflow? By a required field? Or by manual rep entry (unreliable)?</p></div>
+<div class="dq-grid">
+<div class="dq-row header">
+<span>If this isn't configured</span>
+<span>This report breaks</span>
+<span>Risk level</span>
+</div>
+<div class="dq-row">
+<div class="dq-config">MQL promotion workflow not built</div>
+<div class="dq-report">Lifecycle funnel shows 0 MQLs forever</div>
+<div class="dq-risk">Critical</div>
+</div>
+<div class="dq-row">
+<div class="dq-config">Amount not required at Qualified stage</div>
+<div class="dq-report">Pipeline forecast includes $0 deals — overstates volume, understates value</div>
+<div class="dq-risk">Critical</div>
+</div>
+<div class="dq-row">
+<div class="dq-config">Closed Lost Reason not required</div>
+<div class="dq-report">Lost deal analysis has no data — most valuable diagnostic is blank</div>
+<div class="dq-risk">Critical</div>
+</div>
+<div class="dq-row">
+<div class="dq-config">Date-stamp properties (MQL Date, Customer Date) not built</div>
+<div class="dq-report">Can't show trends over time — only current state visible</div>
+<div class="dq-risk">High</div>
+</div>
+<div class="dq-row">
+<div class="dq-config">Contact owner not assigned consistently</div>
+<div class="dq-report">Rep-level reports are inaccurate or show "no owner" for large segments</div>
+<div class="dq-risk">High</div>
+</div>
+<div class="dq-row">
+<div class="dq-config">Deal auto-set to Customer never enabled</div>
+<div class="dq-report">Lifecycle → Customer data is stale — customers still show as SQL or Opportunity</div>
+<div class="dq-risk">High</div>
+</div>
+<div class="dq-row">
+<div class="dq-config">Form fields mapped to wrong property types</div>
+<div class="dq-report">Lead Source attribution is wrong — "unknown" inflated, paid channels understated</div>
+<div class="dq-risk">Medium</div>
+</div>
+<div class="dq-row">
+<div class="dq-config">Lifecycle stages manually updated (no workflows)</div>
+<div class="dq-report">Funnel data is inconsistent — reflects which reps remember to update, not reality</div>
+<div class="dq-risk">Medium</div>
+</div>
+</div>
+</div>
+<div class="sec division division-hidden" data-division="attribution" id="attribution">
+<div class="sec-eye">Admin Setup · 16</div>
+<div class="sec-title">Attribution <em>Models</em></div>
+<p class="sec-lead">How HubSpot credits marketing interactions for driving a conversion — three models, each telling a different story.</p>
+<div class="attr-grid">
+<div class="attr-card">
+<div class="attr-name">First touch</div>
+<div class="attr-desc">100% of credit goes to the very first marketing interaction the contact had with your company.</div>
+<div class="attr-bar">
+<div class="attr-seg" style="width:100%;background:var(--blue)">100%</div>
+</div>
+<div class="attr-use"><strong>Use for:</strong> Understanding what brings people in the door — top-of-funnel channel performance. Best for: awareness campaign measurement.</div>
+</div>
+<div class="attr-card">
+<div class="attr-name">Last touch</div>
+<div class="attr-desc">100% of credit goes to the final marketing interaction before the contact converted (became a Customer).</div>
+<div class="attr-bar">
+<div class="attr-seg" style="width:100%;background:var(--teal)">100%</div>
+</div>
+<div class="attr-use"><strong>Use for:</strong> Understanding what closes the deal — bottom-of-funnel conversion drivers. Best for: identifying what content or campaigns directly precede purchase decisions.</div>
+</div>
+<div class="attr-card">
+<div class="attr-name">Linear</div>
+<div class="attr-desc">Credit distributed equally across all marketing interactions — every touchpoint gets a proportional share.</div>
+<div class="attr-bar">
+<div class="attr-seg" style="flex:1;background:var(--amber)">25%</div>
+<div class="attr-seg" style="flex:1;background:var(--amber);opacity:.8">25%</div>
+<div class="attr-seg" style="flex:1;background:var(--amber);opacity:.6">25%</div>
+<div class="attr-seg" style="flex:1;background:var(--amber);opacity:.4">25%</div>
+</div>
+<div class="attr-use"><strong>Use for:</strong> Understanding the full buyer journey — which channels support conversion throughout the funnel, not just at entry or exit. Best for: long sales cycles with multiple touchpoints.</div>
+</div>
+</div>
+<div class="box amber"><div class="bl">Admin truth about attribution</div><p>No attribution model is "correct" — they each answer a different question about the marketing funnel. Most mature RevOps teams look at all three and understand what each tells them. Start with Last touch attribution (it's the most intuitively understood by leadership) and add First touch when the CMO starts asking "but how do they find us in the first place?"</p></div>
+</div>
+</section>
+<section class="section page-hidden" id="page-applied" data-page="applied">
+<div class="sec division division-hidden" data-division="example" id="example">
+<div class="sec-eye">Applied Learning · 17</div>
+<div class="sec-title">Real-World <em>Example</em></div>
+<div class="box case"><div class="bl">The situation</div><p>A 25-person B2B SaaS company has been using HubSpot for 9 months. The CEO asks for a quarterly business review presentation and wants answers to: how many leads did we generate, what's our pipeline for next quarter, why are we losing deals, and what is our average sales cycle? The admin has 5 days to build the reporting system from scratch. Most of the data is there — but nobody has built any reports yet.</p></div>
+<h3>Day-by-day build plan</h3>
+<ul class="prlist">
+<li><span>Day 1</span><div><strong>Data quality audit.</strong> Pulled every essential property and checked coverage: 94% of contacts have Lifecycle Stage set (good), 61% of deals have Amount populated (not good), 0% of Closed Lost deals have a Closed Lost Reason (nothing). Fixed: enabled Amount required at Qualified stage, enabled Closed Lost Reason required at Closed Lost. Can't retroactively fix old data, but future data will be clean.</div></li>
+<li><span>Day 2</span><div><strong>Built date-stamp properties</strong> — MQL Date, SQL Date, Customer Date. Retroactively stamped Customer Date from deal close dates via import (had 2 years of deal history). This unlocked trend reporting.</div></li>
+<li><span>Day 3</span><div><strong>Built the 8 essential reports.</strong> Lifecycle funnel, pipeline forecast (discovered 43% of deals had $0 amount — found and fixed), closed lost reason (blank — noted for future quarters), lead source breakdown, rep activity, deal velocity.</div></li>
+<li><span>Day 4</span><div><strong>Built 3 dashboards</strong> — Executive (for QBR), Sales (for VP of Sales review), Marketing (for CMO). Each with 8 reports, rolling time periods, consistent formatting.</div></li>
+<li><span>Day 5</span><div><strong>Prepared QBR narrative.</strong> Lead source data showed 68% of customers came from Organic Search — the company had been investing heavily in paid social with near-zero revenue attribution. This single data point redirected $15k/month in ad spend before the QBR presentation even ended.</div></li>
+</ul>
+<div class="box revops"><div class="bl">RevOps outcome</div><p>The QBR was the first time the company had a data-backed conversation about its revenue operations. Three strategic decisions came directly from the dashboards: redirect paid social budget to organic content, require Closed Lost Reason to diagnose why they were losing deals (they assumed wrong fit — the data later showed it was mostly price), and hire a second SDR because the MQL → SQL conversion was healthy but volume was the constraint. All three decisions were data-driven and tied to specific reports. The admin's 5 days of work changed the direction of marketing budget allocation and headcount planning.</p></div>
+</div>
+<div class="sec division division-hidden" data-division="cases" id="cases">
+<div class="sec-eye">Applied Learning · 18</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico b">📊</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — The inflated pipeline problem</div>
+<div class="csub">When reports reveal that pipeline volume is misleading</div>
+<div class="ctags"><span class="tag b">Pipeline reporting</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c1p')">Discovery</div><div class="tab" onclick="st(this,'c1s')">Fix</div><div class="tab" onclick="st(this,'c1r')">Outcome</div></div>
+<div class="pane on" id="c1p"><div class="box case"><div class="bl">What the admin found</div><p>A VP of Sales was reporting $3.2M in "pipeline" to the board. The admin built the weighted pipeline forecast report for the first time and the number was $680k. The gap: 52% of open deals had no amount populated, so they contributed $0 to the weighted forecast. A further 30% were in Prospecting stage (5% probability). The actual weighted forecast of deals with real amounts was $680k — 79% less than the number being quoted to the board.</p></div></div>
+<div class="pane" id="c1s"><ul class="prlist">
+<li><span>1.</span><div>Required Amount and Close Date at the Qualified stage. Going forward, no deal can progress to Qualified without both fields.</div></li>
+<li><span>2.</span><div>Bulk-updated Amount on existing open deals via a rep-by-rep review session with the sales manager. Took 2 hours. Many "deals" turned out to be nothing — 18 were closed as Lost.</div></li>
+<li><span>3.</span><div>Rebuilt the pipeline dashboard to show BOTH raw pipeline and weighted pipeline side by side. The gap between them is now a visual reminder that raw pipeline overstates expected revenue.</div></li>
+</ul></div>
+<div class="pane" id="c1r"><div class="box revops"><div class="bl">RevOps outcome</div><p>The board got an accurate picture for the first time. The quarter's actual closed revenue ($410k) was close to the weighted forecast ($680k at the start of quarter, accounting for deals that progressed and regressed). The VP of Sales initially objected to the lower number — "it makes us look worse." The admin's response: "It makes us look accurate, which lets us make better decisions about hiring, runway, and target-setting." The CEO agreed.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">🔍</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — Lead source attribution changes marketing spend</div>
+<div class="csub">When reporting reveals the wrong channels are getting the budget</div>
+<div class="ctags"><span class="tag t">Attribution</span><span class="tag n">B2B Tech</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c2p')">Discovery</div><div class="tab" onclick="st(this,'c2s')">Decision</div><div class="tab" onclick="st(this,'c2r')">Outcome</div></div>
+<div class="pane on" id="c2p"><div class="box case"><div class="bl">What the admin found</div><p>A B2B tech company was spending $45k/month on marketing. Budget breakdown: $20k Google Ads, $15k LinkedIn Ads, $8k content production, $2k tools. The marketing team reported monthly on lead volume — Google Ads generated 150 leads/month, LinkedIn 80 leads/month, organic 40 leads/month. The CMO was considering doubling LinkedIn spend. The admin built the lead source revenue attribution report for the first time — tracking Original Source to Closed Won revenue.</p></div></div>
+<div class="pane" id="c2s"><ul class="prlist">
+<li><span>1.</span><div>Revenue attribution report revealed: Organic Search generated $380k in closed won revenue (40 leads × high conversion). Google Ads: $185k. LinkedIn Ads: $42k (80 leads, very low conversion rate — most were wrong industry).</div></li>
+<li><span>2.</span><div>The CMO's plan to double LinkedIn spend was immediately reversed. LinkedIn was generating volume but almost no revenue.</div></li>
+<li><span>3.</span><div>$10k/month was shifted from LinkedIn to content production (which fed organic search). Google Ads spend remained but with tighter targeting criteria.</div></li>
+</ul></div>
+<div class="pane" id="c2r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Within 2 quarters: organic search leads grew from 40 to 85/month. Revenue from organic grew from $380k/quarter to $620k/quarter. The $10k/month shift in budget generated approximately $240k in additional quarterly revenue — a 2.4× return. The admin's single report changed how $120k/year of marketing budget was allocated. This is why revenue attribution reporting exists.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico a">📈</div>
+<div style="flex:1">
+<div class="ctitle">Case 3 — Rep performance reporting reveals the real problem</div>
+<div class="csub">When activity data separates effort from outcome</div>
+<div class="ctags"><span class="tag a">Sales reporting</span><span class="tag n">Agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c3p')">Discovery</div><div class="tab" onclick="st(this,'c3s')">Analysis</div><div class="tab" onclick="st(this,'c3r')">Outcome</div></div>
+<div class="pane on" id="c3p"><div class="box case"><div class="bl">What the admin found</div><p>A 6-rep sales team was missing quota by 23%. The VP of Sales assumed the MQL quality was poor — blaming Marketing for sending bad leads. The admin built the rep activity dashboard alongside the pipeline report for the first time. The activity data told a different story.</p></div></div>
+<div class="pane" id="c3s"><ul class="prlist">
+<li><span>1.</span><div>Activity report showed: 4 of 6 reps were averaging 18–24 calls/week. Two reps (James and Sarah) were averaging 6 and 4 calls/week respectively. All 6 reps received the same volume of MQLs.</div></li>
+<li><span>2.</span><div>Pipeline report showed: James and Sarah had 65% of the stale deals (no activity in 14+ days). The other 4 reps had healthy pipeline velocity.</div></li>
+<li><span>3.</span><div>The MQL quality was not the problem. The team had 2 underperforming reps dragging the collective quota attainment number down. The other 4 were hitting or exceeding individual quota.</div></li>
+</ul></div>
+<div class="pane" id="c3r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Marketing budget was not cut. MQL criteria were not changed. Instead, the VP of Sales had targeted performance conversations with James and Sarah based on activity data. James improved to 16 calls/week within 30 days; Sarah left the company within 60 days and was replaced. Team quota attainment went from 77% to 102% within 2 quarters. The admin's reports redirected a misdiagnosed Marketing problem to the correct Sales performance problem — saving a marketing channel restructuring that would have caused significant revenue damage.</p></div></div>
+</div>
+</div>
+</div>
+<div class="sec division division-hidden" data-division="mistakes" id="mistakes">
+<div class="sec-eye">Applied Learning · 19</div>
+<div class="sec-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — Building reports before fixing data quality</div>A lifecycle funnel report that shows 94% of contacts at Lead with 3 at MQL is not a broken report — it's a broken workflow. Fix the MQL promotion workflow first. Then the report becomes accurate. Never spend time formatting a report built on bad data.</li>
+<li><div class="mt">02 — Reporting on current state instead of over time</div>"How many MQLs do we have right now?" tells you nothing useful. "How many MQLs did we generate each month for the last 12 months?" reveals trends, seasonality, and growth trajectory. Always add a time dimension to operational metrics.</li>
+<li><div class="mt">03 — Using fixed date ranges instead of rolling dates</div>A report with a fixed date range (Jan 1 – Dec 31 2024) becomes stale the moment the period ends. Use rolling dates (Last 30 days, This quarter, Rolling 90 days) — they stay current automatically and never require updating.</li>
+<li><div class="mt">04 — Too many reports on one dashboard</div>A 25-chart dashboard that nobody reads is worse than a 6-chart dashboard everyone opens every morning. Limit dashboards to 8–12 reports. Every report on a dashboard must answer a question someone is genuinely asking.</li>
+<li><div class="mt">05 — Pie charts for data with more than 4 categories</div>A pie chart with 10 slices representing 10 Closed Lost Reasons is unreadable. Use a bar chart. Pie charts are appropriate for 2–4 proportional categories with meaningful size differences. Nothing else.</li>
+<li><div class="mt">06 — Dashboards without named owners</div>If nobody is responsible for a dashboard, nobody reads it. Every dashboard should have a named owner who reviews it on a defined cadence and is accountable for the business outcome it represents. Without ownership, dashboards become digital wallpaper.</li>
+</ul>
+</div>
+<div class="sec division division-hidden" data-division="best" id="best">
+<div class="sec-eye">Applied Learning · 20</div>
+<div class="sec-title">Admin <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span>❓</span><div><strong>Start with the question, not the report.</strong> Never open the report builder without knowing the exact business question. "I want a report on contacts" is not a question. "Which lead source generates the most revenue per customer?" is a question. Every configuration decision flows from the question.</div></li>
+<li><span>🏷️</span><div><strong>Name reports like newspaper headlines.</strong> "Closed Lost Reason — Last 90 Days — By Rep" is better than "Deal Report 3." The name should tell you what question it answers, what time period it covers, and what breakdown it shows.</div></li>
+<li><span>🔍</span><div><strong>Always audit the upstream data before trusting a report.</strong> Trace backward from the report to the properties it depends on. Verify each property is being set consistently — by a workflow, by a required field, or by a reliable process. A wrong number in a report is almost never a report problem.</div></li>
+<li><span>👥</span><div><strong>Design dashboards for the reader, not for yourself.</strong> The best dashboard is the one the VP of Sales opens every morning without anyone explaining it to them. Test it: show it to them and see if they understand it in 30 seconds without narration.</div></li>
+<li><span>📋</span><div><strong>Document every dashboard.</strong> Maintain a simple record: Dashboard name · Primary audience · Review cadence · Owner · Key questions it answers. This prevents dashboard sprawl and keeps the system purposeful over time.</div></li>
+<li><span>🔄</span><div><strong>Build reporting into your workflow configurations.</strong> Every time you build a workflow that sets a property, ask: "Do I need to report on this later?" If yes, make sure the property it sets is the exact property the report will filter on. Plan reporting requirements before building automations.</div></li>
+</ul>
+</div>
+<div class="sec division division-hidden" data-division="practice" id="practice">
+<div class="sec-eye">Applied Learning · 21</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-lead">Do this in your free HubSpot sandbox — approximately 60 minutes. This exercise builds the full reporting layer on top of everything you've configured in previous modules.</p>
+<h3>Part A — Build 3 essential reports (40 min)</h3>
+<ol class="psteps">
+<li><strong>Lifecycle Stage Funnel</strong> — Reports → Create report → Funnel → Contact funnel. Stages: Lead → MQL → SQL → Opportunity → Customer. Date filter: Create Date, rolling last 90 days. Save as "Lifecycle Stage Funnel — Rolling 90 Days."</li>
+<li><strong>Pipeline Forecast</strong> — Create report → Single object → Deals. Filters: Stage not Closed Won or Lost · Close Date this quarter. Measure: Sum of Amount. Breakdown: by Deal Stage. Visualisation: bar chart. Save as "Pipeline Forecast — This Quarter — By Stage."</li>
+<li><strong>Rep Activity</strong> — Create report → Single object → Calls. Filters: Call Date this week. Measure: Count of calls. Breakdown: by Activity Owner. Visualisation: bar chart. Save as "Call Activity — This Week — By Owner." Repeat for Emails and Meetings.</li>
+</ol>
+<h3>Part B — Build a Sales Dashboard (20 min)</h3>
+<ol class="psteps">
+<li>Go to Reports → Dashboards → Create dashboard. Name it: "Sales Team Dashboard."</li>
+<li>Add your 3 reports from Part A. Arrange: Pipeline Forecast top-left (most important for sales), Lifecycle Funnel top-right, Rep Activity bottom.</li>
+<li>Set the dashboard to be shared with: "Anyone in my HubSpot account." This makes it visible to all users.</li>
+<li>Pin it to your HubSpot home (click the pin icon in the dashboard header). Now it appears on your HubSpot home page every time you log in.</li>
+<li>Look at the pipeline forecast report. Is the data what you expected? If Amount is showing as $0 for most deals — that's a data quality issue, not a report issue. Make a note: "Require Amount at Qualified stage."</li>
+</ol>
+</div>
+<div class="sec division division-hidden" data-division="interview" id="interview">
+<div class="sec-eye">Applied Learning · 22</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"How do you ensure reporting data is accurate in HubSpot?"</div>
+<div class="iq-a">Reporting accuracy is entirely dependent on data quality upstream. Before building any report, I audit the data that feeds into it. For a lifecycle funnel report: are lifecycle stages being set consistently by workflows or manually? For a pipeline forecast: is Amount required at the right stage so it's never blank? For lost deal analysis: is Closed Lost Reason required? For any report I build, I trace backward to identify every property it depends on and verify that property is being set correctly — either by a workflow, a required field, or a reliable manual process. A report showing wrong numbers is almost never a report configuration problem. It's a data capture problem that needs to be fixed upstream.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"A VP of Sales asks you to build a pipeline health dashboard. What do you include and why?"</div>
+<div class="iq-a">I'd start by asking what decisions they're making from this dashboard — that determines the reports. Typically a pipeline health view needs: a weighted pipeline forecast grouped by owner and by stage (this is the number leadership trusts for planning, not raw pipeline total), deals closing in the next 30 days sorted by amount (the immediate-action list), an open pipeline view sorted by last activity date ascending (stale deals surface at the top — the weekly review tool), a closed lost reason breakdown for the last 90 days (the diagnostic tool), and rep activity metrics for the week (calls, emails, meetings by rep — separates effort from outcome for coaching). I'd put the weighted forecast prominently at the top since that's the most time-sensitive. All reports would use rolling time periods so the dashboard stays current automatically. I'd also verify before building that Amount and Close Date are required fields on the pipeline — if they're not, the forecast report will produce meaningless numbers regardless of how well it's built.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"What's the difference between a single-object, cross-object, and attribution report, and when would you use each?"</div>
+<div class="iq-a">Single-object reports pull from one type of record — Contacts, Deals, Tickets — and answer questions within that domain: "How many deals closed this quarter by stage?" or "How many contacts have lifecycle stage MQL?" They're fast to build and highly reliable. Cross-object reports join two or more object types — for example, Contacts plus their associated Deals — letting you answer questions that span the Marketing-to-Sales journey: "Which lead sources generate the highest average deal value?" That requires connecting Contact source data with Deal revenue data. Attribution reports are specifically for tracing which marketing interactions contributed to a conversion, using models like first touch (who brought them in), last touch (what closed them), or linear (distributing credit across all touchpoints). I'd use single-object for operational reporting within a team, cross-object when I need to connect Marketing outcomes to Sales revenue, and attribution when the CMO needs to justify budget allocation by channel.</div>
+</div>
+</div>
+<div class="sec division division-hidden" data-division="cheatsheet" id="cheatsheet">
+<div class="sec-eye">Applied Learning · 23</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is a report</td><td>A saved query against CRM data answering one specific business question</td></tr>
+<tr><td>What is a dashboard</td><td>A curated collection of reports designed for one specific audience</td></tr>
+<tr><td>4 report types</td><td>Single-object · Cross-object (multi-object) · Funnel · Attribution</td></tr>
+<tr><td>5 report builder panels</td><td>Data source → Filters → Measures → Dimensions (breakdown) → Visualisation</td></tr>
+<tr><td>Most important principle</td><td>Reports are only as accurate as the upstream data that feeds them</td></tr>
+<tr><td>Report 01: Lifecycle funnel</td><td>Contact funnel → all stages → rolling 90 days. Reveals funnel health and conversion rates.</td></tr>
+<tr><td>Report 02: MQL→Customer</td><td>Requires date-stamp properties. Shows marketing effectiveness over time.</td></tr>
+<tr><td>Report 03: Pipeline forecast</td><td>Deals: Sum of Amount × Probability. Requires calibrated probabilities and required Amount field.</td></tr>
+<tr><td>Report 04: Deal velocity</td><td>Average days in each stage (hs_date_entered_[stage]). Reveals pipeline bottlenecks.</td></tr>
+<tr><td>Report 05: Closed lost reasons</td><td>Most actionable diagnostic report. Requires Closed Lost Reason as required field.</td></tr>
+<tr><td>Report 06: Lead source revenue</td><td>Original Source → Closed Won Amount. Sort by revenue, not lead count.</td></tr>
+<tr><td>Report 07: Rep activity</td><td>Calls/emails/meetings by rep this week. Separates effort from outcome for coaching.</td></tr>
+<tr><td>Report 08: CS metrics</td><td>Ticket volume, first response time, resolution time. Connects to retention revenue.</td></tr>
+<tr><td>Dashboard limit</td><td>8–12 reports max per dashboard. One audience per dashboard.</td></tr>
+<tr><td>Date ranges</td><td>Always use rolling dates (Last 30 days, This quarter). Fixed dates go stale.</td></tr>
+<tr><td>Attribution models</td><td>First touch (awareness) · Last touch (conversion drivers) · Linear (full journey)</td></tr>
+<tr><td>Naming convention</td><td>"Metric — Time Period — Breakdown" e.g. "Closed Lost Reasons — 90 Days — By Rep"</td></tr>
+<tr><td>The feedback loop</td><td>Data → Report → Insight → Decision → Changed CRM behaviour → Better data → Better reports</td></tr>
+<tr><td>RevOps insight</td><td>Reports don't create insight from nothing — they surface what's already in your data. Data quality is everything.</td></tr>
+<tr><td>Admin interview gold</td><td>"Before trusting any report, I trace backward to every property it depends on and verify each is being set consistently."</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps mindset on reporting — the curriculum capstone</div><p>This is the module where everything you've learned connects. The objects and properties you configured in Layer 1 generate raw data. The lifecycle stages, workflows, required fields, and pipeline configurations you built in Layers 2–4 ensure that data is clean, consistent, and meaningful. The reports and dashboards you build in this final layer are the feedback mechanism that reveals whether all of it is working — and what to improve next. A CRM with good reporting is a self-improving system: reports reveal problems, problems drive process changes, process changes improve data, better data produces more accurate reports. That loop — maintained by a skilled admin who understands both the technical configuration and the business questions — is what transforms a CRM from a digital contact book into a genuine revenue intelligence platform. That is the work of a HubSpot admin. That is the work of a RevOps practitioner. That is where you are now.</p></div>
+<div style="background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:20px;margin-top:20px;text-align:center;">
+<p style="font-family:var(--font-display);font-size:22px;font-style:italic;color:var(--ink);margin-bottom:10px;">Curriculum complete.</p>
+<p style="font-size:14px;color:var(--muted);font-weight:300;max-width:480px;margin:0 auto;">11 modules · Objects · Properties · Lists · Lifecycle Stages · Lead Status · Forms &amp; Imports · Conversations · Workflows · Sequences · Pipelines · Reports. You have the full stack.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+<script>
+const guideGroups = [{"id": "foundation", "title": "Foundation", "items": [{"id": "what", "label": "What is reporting?"}, {"id": "architecture", "label": "Reporting architecture"}, {"id": "types", "label": "Report types"}, {"id": "builder", "label": "Report builder anatomy"}]}, {"id": "reports", "title": "Essential Reports", "items": [{"id": "essential", "label": "The 8 essential reports"}]}, {"id": "admin", "title": "Admin Setup", "items": [{"id": "setup", "label": "Step-by-step setup"}, {"id": "dashboards", "label": "Dashboard design"}, {"id": "dq", "label": "Data quality dependency"}, {"id": "attribution", "label": "Attribution models"}]}, {"id": "applied", "title": "Applied Learning", "items": [{"id": "example", "label": "Real-world example"}, {"id": "cases", "label": "Case studies"}, {"id": "mistakes", "label": "Common mistakes"}, {"id": "best", "label": "Best practices"}, {"id": "practice", "label": "Practice exercise"}, {"id": "interview", "label": "Interview questions"}, {"id": "cheatsheet", "label": "Cheatsheet"}]}];
+let currentPage = 'foundation';
+let currentDivision = 'what';
+function getGroup(page) { return guideGroups.find(g => g.id === page) || guideGroups[0]; }
+function renderMobileDivisions(page, activeDivision) { const row = document.getElementById('mobileDivisionRow'); if (!row) return; const group = getGroup(page); row.innerHTML = group.items.map(item => `<button class="mobile-division-btn ${(activeDivision || group.items[0].id) === item.id ? 'active' : ''}" data-page="${page}" data-target="${item.id}" onclick="showDivision('${page}','${item.id}', true)">${item.label}</button>`).join(''); }
+function updateActiveStates(page, division) { document.querySelectorAll('[data-page-group]').forEach(el => { el.classList.toggle('active', el.dataset.pageGroup === page && el.classList.contains('mobile-section-btn')); el.classList.toggle('active-page', el.dataset.pageGroup === page && el.classList.contains('nav-group')); el.classList.toggle('expanded', el.dataset.pageGroup === page && el.classList.contains('nav-group')); }); document.querySelectorAll('.nav-item').forEach(el => { el.classList.toggle('active', el.dataset.page === page && el.dataset.target === division); }); document.querySelectorAll('.mobile-section-btn').forEach(el => { el.classList.toggle('active', el.dataset.pageGroup === page); }); document.querySelectorAll('.mobile-division-btn').forEach(el => { el.classList.toggle('active', el.dataset.page === page && el.dataset.target === division); }); }
+function showPage(page, shouldScroll=false) { const group = getGroup(page); const firstDivision = group.items[0]?.id; showDivision(page, firstDivision, shouldScroll); }
+function showDivision(page, division, shouldScroll=false) { currentPage = page; currentDivision = division; document.querySelectorAll('.section').forEach(sec => { sec.classList.toggle('page-hidden', sec.dataset.page !== page); }); document.querySelectorAll(`.section[data-page="${page}"] .division`).forEach(div => { div.classList.toggle('division-hidden', div.dataset.division !== division); }); renderMobileDivisions(page, division); updateActiveStates(page, division); if (shouldScroll) { const target = document.getElementById(division) || document.getElementById('page-' + page); if (target) target.scrollIntoView({behavior:'smooth', block:'start'}); } }
+function tog(hd) { const card = hd.closest('.card'); if (!card) return; const wasOpen = card.classList.contains('open'); const scope = card.closest('.division') || card.parentElement; if (scope) scope.querySelectorAll('.card.open').forEach(c => { if (c !== card) c.classList.remove('open'); }); card.classList.toggle('open', !wasOpen); }
+function st(tab, pid) { const body = tab.closest('.card-body') || tab.closest('.division') || document; const tabContainer = tab.closest('.tabs') || body; tabContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('on','active')); body.querySelectorAll('.pane, .tab-pane').forEach(p => p.classList.remove('on','active')); tab.classList.add('on'); const p = document.getElementById(pid); if (p) p.classList.add('on'); }
+function j(id) { const match = guideGroups.flatMap(g => g.items.map(item => ({page:g.id, id:item.id}))).find(x => x.id === id); if (match) showDivision(match.page, id, true); }
+function jump(id) { j(id); }
+document.addEventListener('DOMContentLoaded', () => { renderMobileDivisions(currentPage, currentDivision); updateActiveStates(currentPage, currentDivision); });
+</script>
+</body>
+</html>
