@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HubSpot Attribution & Revenue Source Tracking — Complete Admin Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+
+:root {
+  --bg: #0c0e12;
+  --surface: #12151c;
+  --surface2: #181c26;
+  --surface3: #1e2230;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e4e6f0;
+  --muted: #6e7289;
+  --soft: #9da3bb;
+  --purple: #8b7ff5;
+  --purple-bg: rgba(139,127,245,0.1);
+  --purple-light: #b4abff;
+  --teal: #20c997;
+  --teal-bg: rgba(32,201,151,0.1);
+  --teal-light: #6ef5cc;
+  --amber: #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --amber-light: #fcd34d;
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.1);
+  --blue: #60a5fa;
+  --blue-bg: rgba(96,165,250,0.1);
+  --green: #4ade80;
+  --green-bg: rgba(74,222,128,0.1);
+  --hubspot-orange: #ff5c35;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  /* legacy aliases retained for preserved original content and inline styles */
+  --rule: var(--border);
+  --rule2: var(--border2);
+  --ink: var(--text);
+  --blue-mid: var(--blue);
+  --teal-mid: var(--teal);
+  --amber-mid: var(--amber);
+  --purple-mid: var(--purple);
+  --surface-light: #ffffff;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: radial-gradient(circle at top left, rgba(139,127,245,0.08), transparent 34%), var(--bg);
+  color: var(--text);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+a { color: inherit; }
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 270px;
+  min-width: 270px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-brand { padding: 22px 18px 18px; border-bottom: 1px solid var(--border); }
+.hubspot-brand {
+  display: block;
+  text-decoration: none;
+  padding: 10px 11px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,92,53,0.24);
+  background: linear-gradient(135deg, rgba(255,92,53,0.10), rgba(255,255,255,0.02));
+  transition: transform .18s, border-color .18s, background .18s;
+}
+.hubspot-brand:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,92,53,0.42);
+  background: linear-gradient(135deg, rgba(255,92,53,0.16), rgba(255,255,255,0.03));
+}
+.hubspot-text { font-family: var(--font-display); font-size: 18px; color: var(--hubspot-orange); font-weight: 500; letter-spacing: .2px; }
+.hubspot-ref { font-size: 10.8px; color: var(--muted); margin-top: 2px; }
+.guide-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.22;
+  margin-top: 18px;
+  color: var(--text);
+}
+.guide-desc { font-size: 12.2px; color: var(--muted); margin-top: 7px; line-height: 1.55; }
+
+.desktop-nav { padding: 14px 0 12px; }
+.nav-group { margin-bottom: 4px; }
+.nav-group-label {
+  width: calc(100% - 20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 10px 8px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--soft);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.15px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.nav-group-label:hover { background: var(--surface2); border-color: var(--border2); color: var(--text); }
+.nav-group.active-page .nav-group-label {
+  color: var(--text);
+  background: var(--purple-bg);
+  border-color: rgba(139,127,245,0.30);
+}
+.nav-arrow { color: var(--muted); transition: transform .18s, color .18s; }
+.nav-group.expanded .nav-arrow { transform: rotate(90deg); color: var(--purple-light); }
+.nav-page-items { display: none; padding: 0 0 7px; }
+.nav-group.expanded .nav-page-items { display: block; }
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 20px 8px 24px;
+  font-family: var(--font-body);
+  font-size: 13.4px;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.nav-item:hover { color: var(--text); background: var(--surface2); }
+.nav-item.active {
+  color: var(--text);
+  background: var(--surface2);
+  border-left-color: var(--purple);
+}
+.nav-dot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto; }
+.nav-dot.purple { background: var(--purple); }
+.nav-dot.teal { background: var(--teal); }
+.nav-dot.amber { background: var(--amber); }
+
+.mobile-nav { display: none; }
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px 18px 16px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.main { flex: 1; padding: 52px 60px; max-width: 920px; width: 100%; }
+.hero {
+  margin-bottom: 60px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 230px;
+  gap: 36px;
+  align-items: start;
+}
+.creator-card {
+  grid-column: 2;
+  grid-row: 1;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px 12px 14px;
+  text-align: center;
+  transition: transform 0.18s, border-color 0.18s, background 0.18s;
+}
+.creator-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,92,53,0.45);
+  background: linear-gradient(180deg, rgba(255,92,53,0.08), rgba(139,127,245,0.04));
+}
+.creator-card img {
+  width: 100%;
+  height: auto;
+  max-height: 245px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,92,53,0.75);
+  box-shadow: 0 12px 28px rgba(255,92,53,0.16), 0 18px 42px rgba(0,0,0,0.28);
+  object-fit: cover;
+}
+.creator-name {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+.creator-role {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--purple-light);
+  margin-top: 2px;
+}
+.creator-link {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--amber-light);
+  word-break: break-all;
+  margin-top: 6px;
+}
+.hero-copy { grid-column: 1; grid-row: 1; }
+.hero-kicker {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 14px;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 52px;
+  line-height: 1.1;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+.hero-title em { font-style: italic; color: var(--purple-light); }
+.hero-description {
+  font-size: 15.5px;
+  color: var(--soft);
+  max-width: 600px;
+  line-height: 1.8;
+}
+.hero-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+.hero-pill, .chip {
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--soft);
+}
+.hero-pill.purple, .chip.b, .chip.p { background: var(--purple-bg); color: var(--purple-light); border-color: rgba(139,127,245,0.2); }
+.hero-pill.teal, .chip.t { background: var(--teal-bg); color: var(--teal-light); border-color: rgba(32,201,151,0.2); }
+.hero-pill.amber, .chip.n { background: var(--amber-bg); color: var(--amber-light); border-color: rgba(245,158,11,0.2); }
+
+.section { margin-bottom: 68px; scroll-margin-top: 24px; }
+.section.page-hidden { display: none; }
+.division { animation: fadeIn .18s ease-out; }
+.division.division-hidden { display: none; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+.sec-eye, .section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 9px;
+}
+.sec-title, .section-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 13px;
+}
+.sec-title em, .section-title em { font-style: italic; color: var(--purple-light); }
+.sec-lead, .section-desc {
+  font-size: 14px;
+  color: var(--soft);
+  max-width: 640px;
+  line-height: 1.8;
+  margin-bottom: 22px;
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text);
+  margin: 24px 0 12px;
+}
+h3:first-child { margin-top: 0; }
+h4 {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 16px 0 7px;
+}
+p { color: var(--soft); margin-bottom: 11px; font-size: 14px; line-height: 1.8; }
+strong { color: var(--text); font-weight: 500; }
+code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--blue);
+  background: var(--blue-bg);
+  border: 1px solid rgba(96,165,250,0.14);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: border-color 0.2s, background 0.2s;
+}
+.card:hover { border-color: var(--border2); }
+.card-hd {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 22px 26px 18px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+.card-ico {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.card-ico.b { background: var(--blue-bg); }
+.card-ico.t { background: var(--teal-bg); }
+.card-ico.a { background: var(--amber-bg); }
+.card-ico.p { background: var(--purple-bg); }
+.card-ico.r { background: var(--red-bg); }
+.ctitle {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.2;
+}
+.csub { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.ctags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.chev { font-size: 18px; color: var(--muted); transition: transform .2s; margin-top: 3px; flex-shrink: 0; }
+.card.open .chev { transform: rotate(90deg); }
+.card-body { display: none; }
+.card.open .card-body { display: block; }
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  padding: 0 26px;
+  overflow-x: auto;
+}
+.tab {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 11px 15px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.tab:hover { color: var(--text); }
+.tab.on, .tab.active { color: var(--text); border-bottom-color: var(--purple); }
+.pane { display: none; padding: 22px; }
+.pane.on { display: block; }
+
+.tag {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.tag.b, .tag.p { background: var(--purple-bg); color: var(--purple-light); border: 1px solid rgba(139,127,245,0.2); }
+.tag.t { background: var(--teal-bg); color: var(--teal-light); border: 1px solid rgba(32,201,151,0.2); }
+.tag.a { background: var(--amber-bg); color: var(--amber-light); border: 1px solid rgba(245,158,11,0.2); }
+.tag.r { background: var(--red-bg); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+.tag.n { background: rgba(122,127,148,0.08); color: var(--muted); border: 1px solid var(--border); }
+
+.table-wrap {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+.table-wrap table { min-width: 650px; margin-bottom: 0; }
+.tbl, .rev-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.tbl thead tr, .rev-tbl thead tr {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border2);
+}
+.tbl th, .rev-tbl th {
+  padding: 9px 13px;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.tbl td, .rev-tbl td {
+  padding: 10px 13px;
+  border-bottom: 1px solid var(--border);
+  color: var(--soft);
+  vertical-align: top;
+}
+.tbl tr:hover td, .rev-tbl tr:hover td { background: rgba(255,255,255,0.015); }
+.tbl tr:last-child td, .rev-tbl tr:last-child td { border-bottom: none; }
+.rev-num { font-family: var(--font-mono); color: var(--text); }
+.rev-per { font-family: var(--font-mono); color: var(--teal-light); }
+.rev-bar { height: 16px; border-radius: 3px; background: var(--blue); display: inline-block; min-width: 4px; }
+.winner-row td { background: rgba(32,201,151,0.055); }
+
+.box {
+  border-radius: 6px;
+  padding: 15px 17px;
+  margin-bottom: 14px;
+  border-left: 3px solid;
+}
+.box p { margin: 0; font-size: 13.5px; }
+.box p+p { margin-top: 6px; }
+.bl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+.box.why, .box.revops { border-color: var(--purple); background: var(--purple-bg); }
+.box.why .bl, .box.revops .bl { color: var(--purple-light); }
+.box.tip { border-color: var(--teal); background: var(--teal-bg); }
+.box.tip .bl { color: var(--teal-light); }
+.box.amber { border-color: var(--amber); background: var(--amber-bg); }
+.box.amber .bl { color: var(--amber-light); }
+.box.warn { border-color: var(--red); background: var(--red-bg); }
+.box.warn .bl { color: var(--red); }
+.box.case { border-color: var(--blue); background: var(--blue-bg); }
+.box.case .bl { color: var(--blue); }
+
+.psteps, .prlist, .mlist { list-style: none; padding: 0; }
+.psteps { counter-reset: ps; }
+.psteps li {
+  counter-increment: ps;
+  display: flex;
+  gap: 13px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--soft);
+}
+.psteps li:last-child, .prlist li:last-child { border-bottom: none; }
+.psteps li::before {
+  content: counter(ps, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--purple-light);
+  border: 1px solid rgba(139,127,245,0.22);
+  border-radius: 4px;
+  padding: 2px 5px;
+  flex-shrink: 0;
+  height: fit-content;
+  margin-top: 1px;
+  background: var(--purple-bg);
+}
+.prlist li {
+  display: flex;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--soft);
+}
+.prlist li span { color: var(--amber-light); font-family: var(--font-mono); min-width: 28px; }
+.mlist li {
+  background: rgba(248,113,113,0.04);
+  border: 1px solid rgba(248,113,113,0.1);
+  border-radius: 6px;
+  padding: 11px 14px;
+  margin-bottom: 8px;
+  font-size: 13.5px;
+  color: var(--soft);
+}
+.mt { color: var(--red); font-weight: 500; margin-bottom: 3px; font-size: 12px; font-family: var(--font-mono); }
+
+.iq {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+.iq-q { font-family: var(--font-display); font-size: 17px; color: var(--text); font-style: italic; margin-bottom: 8px; }
+.iq-a { font-size: 13px; color: var(--soft); line-height: 1.8; }
+
+.model-grid { display: grid; gap: 10px; margin-bottom: 14px; }
+.model-row { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.model-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.model-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.model-question { font-size: 11.5px; color: var(--muted); font-style: italic; }
+.model-bar { display: flex; gap: 3px; height: 28px; margin-bottom: 6px; align-items: stretch; }
+.model-seg { border-radius: 3px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 9px; color: #fff; }
+.model-use { font-size: 12px; color: var(--blue); margin-top: 6px; font-weight: 500; }
+.utm-builder {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.utm-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.utm-field { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+.utm-param { font-family: var(--font-mono); font-size: 12px; color: var(--blue); min-width: 100px; font-weight: 500; }
+.utm-eq { color: var(--muted); font-family: var(--font-mono); }
+.utm-val { font-family: var(--font-mono); font-size: 11px; color: var(--teal-light); background: var(--teal-bg); padding: 2px 8px; border-radius: 4px; }
+.utm-desc { font-size: 11.5px; color: var(--muted); }
+.utm-output {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text);
+  background: #080a0f;
+  border: 1px solid var(--border2);
+  padding: 12px 14px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-top: 10px;
+  line-height: 1.8;
+}
+.utm-base { color: var(--soft); }
+.utm-key { color: var(--blue); }
+.utm-value { color: var(--teal-light); }
+.utm-sep { color: var(--muted); }
+.source-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(160px,1fr)); gap: 8px; margin-bottom: 14px; }
+.source-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.source-card.active { border-color: var(--purple); background: var(--purple-bg); }
+.source-icon { font-size: 18px; margin-bottom: 5px; }
+.source-name { font-size: 12.5px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+.source-hint { font-size: 11px; color: var(--muted); }
+.model-compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.mc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; }
+.mc-card.best { border-top: 2px solid var(--blue); }
+.mc-name { font-size: 12.5px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+.mc-pct { font-family: var(--font-display); font-size: 24px; font-style: italic; color: var(--blue); line-height: 1; margin-bottom: 5px; }
+.mc-label { font-size: 11px; color: var(--muted); }
+.mc-desc { font-size: 11.5px; color: var(--soft); line-height: 1.55; margin-top: 7px; }
+.data-chain { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin: 14px 0; }
+.dc-step { background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: var(--text); font-weight: 500; }
+.dc-step.key { background: var(--blue-bg); border-color: rgba(96,165,250,0.25); color: var(--blue); }
+.dc-arrow { color: var(--muted); padding: 0 6px; font-size: 14px; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+@media (max-width: 760px) {
+  body { font-size: 14px; }
+  .layout { display: block; }
+  .sidebar {
+    display: block !important;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    max-height: none;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-right: none;
+    border-bottom: 1px solid var(--border2);
+    box-shadow: 0 18px 42px rgba(0,0,0,0.18);
+    overflow: visible;
+    background: var(--surface);
+  }
+  .sidebar-brand { display: none; }
+  .desktop-nav { display: none; }
+  .sidebar-footer { display: none; }
+  .mobile-nav { display: block; }
+  .mobile-section-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 10px 9px;
+    background: linear-gradient(135deg, #ff5c35, #f59e0b);
+    border-bottom: 1px solid rgba(255,255,255,0.16);
+    -webkit-overflow-scrolling: touch;
+  }
+  .mobile-section-btn {
+    flex: 0 0 auto;
+    padding: 9px 12px;
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 12px;
+    background: rgba(12,14,18,0.18);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .mobile-section-btn.active {
+    background: rgba(12,14,18,0.78);
+    border-color: rgba(255,255,255,0.50);
+    color: #fff;
+  }
+  .mobile-division-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 7px;
+    overflow-x: auto;
+    padding: 9px 10px 10px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border2);
+    -webkit-overflow-scrolling: touch;
+  }
+  .mobile-division-btn {
+    flex: 0 0 auto;
+    padding: 8px 11px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: rgba(255,255,255,0.018);
+    color: var(--soft);
+    font-size: 12.2px;
+    line-height: 1.25;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .mobile-division-btn.active {
+    color: var(--text);
+    background: var(--purple-bg);
+    border-color: rgba(139,127,245,0.38);
+  }
+  .main {
+    width: 100%;
+    padding: 22px 14px 34px;
+    max-width: 100%;
+  }
+  .hero {
+    margin-bottom: 38px;
+    padding-bottom: 30px;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 72px minmax(0,1fr);
+    gap: 14px;
+    align-items: start;
+  }
+  .creator-card {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
+  .creator-card:hover { transform: none; background: transparent; border-color: transparent; }
+  .creator-card img {
+    width: 64px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 2px solid rgba(255,92,53,0.75);
+    box-shadow: 0 12px 28px rgba(255,92,53,0.16), 0 18px 42px rgba(0,0,0,0.28);
+  }
+  .creator-name, .creator-role, .creator-link { display: none; }
+  .hero-copy {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .hero-kicker { font-size: 10px; letter-spacing: 1.4px; margin-bottom: 8px; }
+  .hero-title { font-size: 32px; }
+  .hero-description { font-size: 14px; }
+  .hero-pills { gap: 7px; margin-top: 15px; }
+  .hero-pill { font-size: 11.5px; padding: 4px 10px; }
+  .sec-title, .section-title { font-size: 25px; }
+  .card-hd { padding: 18px 16px 15px; }
+  .card-body, .pane { padding: 16px; }
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 7px;
+    padding: 9px 12px;
+  }
+  .tab {
+    flex: 0 0 auto;
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+  .builder-grid, .rtype-grid, .dash-grid, .attr-grid, .model-compare { grid-template-columns: 1fr !important; }
+  .source-grid { grid-template-columns: repeat(2,1fr); }
+  .model-head { align-items: flex-start; flex-direction: column; gap: 2px; }
+  .utm-output { font-size: 10px; }
+}
+@media (max-width: 430px) {
+  .hero-title { font-size: 28px; }
+  .creator-card img { width: 58px; height: 72px; }
+  .hero-inner { grid-template-columns: 64px minmax(0,1fr); gap: 12px; }
+  .sec-title, .section-title { font-size: 23px; }
+  .source-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <a class="hubspot-brand" href="https://www.hubspot.com/" target="_blank" rel="noopener">
+        <div class="hubspot-text">HubSpot</div>
+        <div class="hubspot-ref">For better references, visit hubspot.com</div>
+      </a>
+      <div class="guide-title">Attribution &amp; Revenue Source Tracking</div>
+      <div class="guide-desc">Final HubSpot Admin module · UTM governance, attribution models, revenue source tracking, and budget accountability.</div>
+    </div>
+
+    <div class="desktop-nav">
+      
+      <div class="nav-group active-page expanded" data-page-group="foundation">
+        <button class="nav-group-label page-tab" type="button" onclick="showPage('foundation')">
+          <span>Foundation</span><span class="nav-arrow">›</span>
+        </button>
+        <div class="nav-page-items">
+    
+<button class="nav-item active" type="button" data-page="foundation" data-target="what" onclick="showDivision('foundation','what')"><span class="nav-dot purple"></span>What is attribution?</button>
+<button class="nav-item" type="button" data-page="foundation" data-target="vocab" onclick="showDivision('foundation','vocab')"><span class="nav-dot purple"></span>Attribution vocabulary</button>
+<button class="nav-item" type="button" data-page="foundation" data-target="sources" onclick="showDivision('foundation','sources')"><span class="nav-dot purple"></span>8 source types</button>
+<button class="nav-item" type="button" data-page="foundation" data-target="models" onclick="showDivision('foundation','models')"><span class="nav-dot purple"></span>Attribution models</button>
+<button class="nav-item" type="button" data-page="foundation" data-target="chain" onclick="showDivision('foundation','chain')"><span class="nav-dot purple"></span>Revenue data chain</button>
+</div></div>
+
+      <div class="nav-group" data-page-group="admin">
+        <button class="nav-group-label page-tab" type="button" onclick="showPage('admin')">
+          <span>Admin Setup</span><span class="nav-arrow">›</span>
+        </button>
+        <div class="nav-page-items">
+    
+<button class="nav-item" type="button" data-page="admin" data-target="utms" onclick="showDivision('admin','utms')"><span class="nav-dot teal"></span>UTM parameters</button>
+<button class="nav-item" type="button" data-page="admin" data-target="setup" onclick="showDivision('admin','setup')"><span class="nav-dot teal"></span>Step-by-step setup</button>
+<button class="nav-item" type="button" data-page="admin" data-target="reports" onclick="showDivision('admin','reports')"><span class="nav-dot teal"></span>Attribution reports</button>
+</div></div>
+
+      <div class="nav-group" data-page-group="applied">
+        <button class="nav-group-label page-tab" type="button" onclick="showPage('applied')">
+          <span>Applied Learning</span><span class="nav-arrow">›</span>
+        </button>
+        <div class="nav-page-items">
+    
+<button class="nav-item" type="button" data-page="applied" data-target="example" onclick="showDivision('applied','example')"><span class="nav-dot amber"></span>Real-world example</button>
+<button class="nav-item" type="button" data-page="applied" data-target="cases" onclick="showDivision('applied','cases')"><span class="nav-dot amber"></span>Case studies</button>
+<button class="nav-item" type="button" data-page="applied" data-target="mistakes" onclick="showDivision('applied','mistakes')"><span class="nav-dot amber"></span>Common mistakes</button>
+<button class="nav-item" type="button" data-page="applied" data-target="best" onclick="showDivision('applied','best')"><span class="nav-dot amber"></span>Best practices</button>
+<button class="nav-item" type="button" data-page="applied" data-target="practice" onclick="showDivision('applied','practice')"><span class="nav-dot amber"></span>Practice exercise</button>
+<button class="nav-item" type="button" data-page="applied" data-target="interview" onclick="showDivision('applied','interview')"><span class="nav-dot amber"></span>Interview questions</button>
+<button class="nav-item" type="button" data-page="applied" data-target="cheatsheet" onclick="showDivision('applied','cheatsheet')"><span class="nav-dot amber"></span>Cheatsheet</button>
+</div></div>
+    </div>
+
+    <div class="mobile-nav">
+      <div class="mobile-section-row">
+        <button class="mobile-section-btn active" type="button" data-page-group="foundation" onclick="showPage('foundation')">Foundation</button>
+<button class="mobile-section-btn" type="button" data-page-group="admin" onclick="showPage('admin')">Admin Setup</button>
+<button class="mobile-section-btn" type="button" data-page-group="applied" onclick="showPage('applied')">Applied Learning</button>
+      </div>
+      <div class="mobile-division-row" id="mobileDivisionRow"></div>
+    </div>
+
+    <div class="sidebar-footer">Click any section to explore · Cards expand on click</div>
+  </nav>
+
+  <main class="main">
+    <div class="hero" id="page-top">
+      <div class="hero-inner">
+        <a class="creator-card" href="https://www.linkedin.com/in/naveedabbaslive/" target="_blank" rel="noopener">
+          <img src="https://github.com/user-attachments/assets/239eab9d-146f-44b0-a7a9-238d26b72826" alt="Naveed Abbas profile photo">
+          <div class="creator-name">Naveed Abbas</div>
+          <div class="creator-role">CRM Administrator</div>
+          <div class="creator-link">linkedin.com/in/naveedabbaslive</div>
+        </a>
+
+        <div class="hero-copy">
+          <div class="hero-kicker">HubSpot Admin · Module 12 · Final Module</div>
+          <h1 class="hero-title">Attribution &amp;<br/><em>Revenue Source Tracking</em></h1>
+          <p class="hero-description">The budget accountability layer — connecting marketing spend to revenue outcome. Which channels bring people in, which convert them, and how much revenue each one drives.</p>
+          <div class="hero-pills">
+            <span class="hero-pill purple">6 attribution models</span>
+            <span class="hero-pill purple">8 source types</span>
+            <span class="hero-pill teal">UTM parameters</span>
+            <span class="hero-pill teal">Revenue data chain</span>
+            <span class="hero-pill amber">3 case studies</span>
+            <span class="hero-pill amber">Final module</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="page-foundation" data-page="foundation">
+<div class="division" data-division="what" id="what">
+<div class="sec-eye">Foundation · 01</div>
+<div class="sec-title">What Is <em>Attribution?</em></div>
+<p class="sec-lead">Tracking which marketing interactions contributed to a contact becoming a customer — and connecting those interactions to the revenue they generated.</p>
+<div class="box why"><div class="bl">Core definition</div><p><strong>Attribution</strong> is the practice of assigning credit for a customer conversion to the marketing interactions that preceded it. A contact might find you through Google, read three blog posts, click a LinkedIn ad, download an ebook, and then fill out a demo form. Attribution answers: <em>which of those touchpoints deserves credit for that customer?</em> And more importantly: how much closed revenue can be traced to each marketing channel, campaign, and asset?</p></div>
+<h3>The failure modes attribution prevents</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Without attribution</th><th>With attribution</th><th>Business impact</th></tr></thead>
+<tbody>
+<tr><td>Budget allocated by lead volume</td><td>Budget allocated by revenue generated per channel</td><td>Cuts channels that look good but convert poorly</td></tr>
+<tr><td>High-volume channels scaled regardless of quality</td><td>High-converting channels scaled based on revenue ROI</td><td>More revenue from same marketing spend</td></tr>
+<tr><td>"Which campaign worked?" unanswerable</td><td>Specific campaign → customer → revenue path visible</td><td>Repeatable campaign success</td></tr>
+<tr><td>Content and SEO investment unjustifiable</td><td>Organic content's downstream revenue impact quantified</td><td>Protects high-ROI content investment from budget cuts</td></tr>
+<tr><td>Marketing/Sales argue about lead quality</td><td>Shared data shows source → conversion rate → revenue</td><td>Data-driven alignment replaces opinion-based conflict</td></tr>
+</tbody>
+</table></div>
+</div>
+<div class="division division-hidden" data-division="vocab" id="vocab">
+<div class="sec-eye">Foundation · 02</div>
+<div class="sec-title">Attribution <em>Vocabulary</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Term</th><th>What it means</th><th>Where in HubSpot</th></tr></thead>
+<tbody>
+<tr><td><strong>Original Source</strong></td><td>The very first way HubSpot identified how a contact found you. Set once, never automatically changes.</td><td>Contact property — "Original Source"</td></tr>
+<tr><td><strong>Original Source Drill-Down 1 &amp; 2</strong></td><td>Sub-properties providing more detail. If Original Source = Paid Search, Drill-Down 1 = Google, Drill-Down 2 = campaign name.</td><td>Contact properties — auto-populated</td></tr>
+<tr><td><strong>Latest Source</strong></td><td>The most recent source of contact activity. Updates continuously with every new marketing interaction.</td><td>Contact property — "Latest Source"</td></tr>
+<tr><td><strong>Touchpoint</strong></td><td>Any recorded interaction: page view, email open/click, form submission, meeting booked, ad click.</td><td>Contact activity timeline</td></tr>
+<tr><td><strong>Attribution model</strong></td><td>The rule for distributing credit across touchpoints. First touch, Last touch, Linear, Time decay, U-shaped, Full path.</td><td>Attribution report settings</td></tr>
+<tr><td><strong>UTM parameters</strong></td><td>Tags appended to URLs that tell HubSpot exactly where a visitor came from — beyond what HubSpot can infer automatically.</td><td>UTM properties on Contact record</td></tr>
+<tr><td><strong>Revenue attribution</strong></td><td>Connecting a specific deal's closed-won revenue to the marketing touchpoints on the associated customer contact.</td><td>Multi-object reports joining Contacts + Deals</td></tr>
+<tr><td><strong>Multi-touch attribution</strong></td><td>Any model that distributes credit across more than one touchpoint — acknowledging that conversion is rarely one interaction.</td><td>U-shaped, Full path, Linear, Time decay models</td></tr>
+</tbody>
+</table></div>
+<div class="box amber"><div class="bl">Original source is permanent</div><p>Original Source is set the first time HubSpot identifies a contact — and it never automatically updates, even if the contact later arrives via a different channel. If you import a contact with the wrong source, that wrong source is permanently attached unless you manually correct it. This is why getting source data right at the point of contact creation matters so much. A bad import without proper source tagging permanently pollutes your attribution data.</p></div>
+</div>
+<div class="division division-hidden" data-division="sources" id="sources">
+<div class="sec-eye">Foundation · 03</div>
+<div class="sec-title">The 8 <em>Source Types</em></div>
+<p class="sec-lead">HubSpot automatically classifies every contact's Original Source into one of these categories. Understanding each one is essential for interpreting attribution reports correctly.</p>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Source</th><th>What it means</th><th>Drill-down detail</th><th>Admin note</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>🔍 Organic search</strong></td>
+<td>Contact arrived via unpaid search engine result — they searched for something relevant and clicked your non-ad result</td>
+<td>Search engine name (Google Organic, Bing Organic)</td>
+<td>Often the highest-converting source for B2B. Justifies SEO and content investment — revenue per lead from organic is typically 3–5× paid search.</td>
+</tr>
+<tr>
+<td><strong>💰 Paid search</strong></td>
+<td>Contact clicked a PPC ad on Google Ads, Microsoft Ads, or similar paid search platform</td>
+<td>Campaign name, keyword that triggered the ad</td>
+<td>High-intent but expensive. Compare revenue per customer (not cost per lead) to evaluate true ROI. Paid search often has worse revenue-per-lead than organic despite higher cost.</td>
+</tr>
+<tr>
+<td><strong>📱 Social media</strong></td>
+<td>Contact arrived from a social media platform — could be organic (free posts) or paid (ads)</td>
+<td>Platform name (LinkedIn, Facebook, Twitter/X, Instagram)</td>
+<td>For B2B: LinkedIn is typically the highest-converting social source. HubSpot does not automatically distinguish organic vs paid social — use UTMs to separate them.</td>
+</tr>
+<tr>
+<td><strong>📧 Email marketing</strong></td>
+<td>Contact arrived by clicking a link in a HubSpot marketing email</td>
+<td>Email campaign name</td>
+<td>Applies primarily to existing contacts clicking links — rarely a new contact creation source. Most useful for tracking re-engagement effectiveness.</td>
+</tr>
+<tr>
+<td><strong>🔗 Direct traffic</strong></td>
+<td>Contact arrived with no referrer URL — typed URL directly, used a bookmark, or clicked from an app that doesn't pass referrer data</td>
+<td>No drill-down available</td>
+<td>Inflated by email clients, PDFs, and mobile apps that strip referrer data. Treat high direct traffic with scepticism — most of it is misattributed. Use UTMs to rescue traffic from this black hole.</td>
+</tr>
+<tr>
+<td><strong>🌐 Referrals</strong></td>
+<td>Contact arrived via a link on another website — review site, press mention, partner website, blog link</td>
+<td>Referring domain (G2.com, TechCrunch, partner domain)</td>
+<td>High-quality referral sources (G2, Capterra, G2, review sites) often produce the highest revenue per lead because contacts arrive with third-party social proof already established.</td>
+</tr>
+<tr>
+<td><strong>📅 Offline sources</strong></td>
+<td>Contact was imported from a spreadsheet, created manually, or added from an offline source (trade show, event)</td>
+<td>Import name, event name if tagged</td>
+<td>Always set accurate source on import — use the most specific label possible (e.g. "Trade show — SaaStr 2024" as a custom source tag). Leaving as "Offline sources" destroys attribution data permanently.</td>
+</tr>
+<tr>
+<td><strong>⚙️ Other campaigns</strong></td>
+<td>Contact arrived via a UTM-tagged link that doesn't match HubSpot's standard source categories</td>
+<td>UTM source value, UTM campaign name</td>
+<td>This is your custom attribution channel. Any campaign with properly set UTM parameters shows here with full drill-down detail. This is where podcast sponsorships, partner campaigns, and custom initiatives appear.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="division division-hidden" data-division="models" id="models">
+<div class="sec-eye">Foundation · 04</div>
+<div class="sec-title">The 6 <em>Attribution Models</em></div>
+<p class="sec-lead">The most important concept in attribution — each model answers a different question. There is no single correct model.</p>
+<div class="box why"><div class="bl">The core truth</div><p>No attribution model is "correct." Each model answers a different question about your marketing. First touch asks what brings people in. Last touch asks what converts them. Linear asks what supports the full journey. The art of attribution analysis is knowing which model illuminates which decision — and running multiple models to get the full picture.</p></div>
+<div class="model-grid" id="model-grid">
+<!-- Rendered by JS -->
+</div>
+<h3>Model selection guide</h3>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Business question</th><th>Best model</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td>"Which campaigns are best for bringing new people into our funnel?"</td><td>First touch</td><td>Gives full credit to the awareness-generating touchpoint</td></tr>
+<tr><td>"Which content or CTAs are actually converting people?"</td><td>Last touch</td><td>Gives full credit to the conversion-generating touchpoint</td></tr>
+<tr><td>"Which channels support our customers throughout their journey?"</td><td>Linear</td><td>Every touchpoint gets equal credit — reveals sustained channel value</td></tr>
+<tr><td>"For a short sales cycle, what drove the final decision?"</td><td>Time decay</td><td>Weights recent touchpoints more — appropriate when last few touches matter most</td></tr>
+<tr><td>"What acquired AND converted our B2B customers?"</td><td>U-shaped</td><td>Weights acquisition (first touch) and conversion (lead creation) equally</td></tr>
+<tr><td>"What drove every key milestone in our complex sales process?"</td><td>Full path</td><td>Distributes credit across all major funnel milestones — best for long B2B cycles</td></tr>
+</tbody>
+</table></div>
+<div class="box amber"><div class="bl">The multi-model approach — what mature RevOps teams do</div><p>Run First touch and Last touch simultaneously on your lead source revenue report. Where First touch and Last touch credit the same source — that source is doing the whole job (great). Where they differ dramatically — you have a channel doing top-of-funnel work (gets credit in First touch but not Last) and bottom-of-funnel work being done by different channels. Understanding that split is what drives sophisticated budget allocation decisions.</p></div>
+</div>
+<div class="division division-hidden" data-division="chain" id="chain">
+<div class="sec-eye">Foundation · 05</div>
+<div class="sec-title">The Revenue <em>Data Chain</em></div>
+<p class="sec-lead">Revenue attribution only works when the entire chain of data capture is intact — each link is a configuration dependency.</p>
+<div class="data-chain">
+<div class="dc-step key">Tracking code installed on website</div>
+<div class="dc-arrow">→</div>
+<div class="dc-step">Contact arrives with source recorded</div>
+<div class="dc-arrow">→</div>
+<div class="dc-step key">Contact created via form (source captured)</div>
+<div class="dc-arrow">→</div>
+<div class="dc-step">Contact progresses through funnel</div>
+<div class="dc-arrow">→</div>
+<div class="dc-step key">Deal created and associated to contact</div>
+<div class="dc-arrow">→</div>
+<div class="dc-step key">Deal closed won with Amount filled</div>
+<div class="dc-arrow">→</div>
+<div class="dc-step">Attribution report joins source to revenue</div>
+</div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Chain link</th><th>If this is broken</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td>Tracking code not installed</td><td>No source data captured — all contacts show as "Offline" or "Direct"</td><td>Install tracking code on all pages. Settings → Tracking &amp; Analytics.</td></tr>
+<tr><td>Contacts created without HubSpot forms</td><td>Source not captured — contacts have no Original Source</td><td>Use HubSpot forms for all lead capture. For imports, set source manually.</td></tr>
+<tr><td>No UTMs on paid campaigns</td><td>Paid traffic shows as "Direct" — invisible to attribution</td><td>Create and enforce a UTM naming convention. Use HubSpot's Tracking URL Builder.</td></tr>
+<tr><td>Deals not associated to contacts</td><td>Revenue can't be linked to contacts — attribution reports show $0</td><td>Require Contact association when creating Deals. Build validation workflow.</td></tr>
+<tr><td>Deal Amount not filled</td><td>Revenue attribution shows deal count but $0 revenue</td><td>Require Amount at Qualified stage (pipeline required field).</td></tr>
+<tr><td>Deals not marked Closed Won</td><td>Revenue attribution only shows pipeline — not actual closed revenue</td><td>Train reps to close deals correctly. Build "stale open deal" alert workflow.</td></tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section class="section page-hidden" id="page-admin" data-page="admin">
+<div class="division" data-division="utms" id="utms">
+<div class="sec-eye">Admin Setup · 06</div>
+<div class="sec-title">UTM <em>Parameters</em></div>
+<p class="sec-lead">The most powerful attribution tool you control — tags that tell HubSpot exactly where every visitor came from, beyond what it can infer automatically.</p>
+<div class="box why"><div class="bl">What UTMs solve</div><p>HubSpot can infer source from referrer URLs — but it can't distinguish a LinkedIn organic post from a LinkedIn paid ad, or tell which specific Google Ads campaign drove a click, or know whether an email came from your newsletter vs a one-off campaign. UTM parameters fill every one of these gaps. They are your override for HubSpot's automatic source detection.</p></div>
+<h3>The five UTM parameters</h3>
+<div class="utm-builder">
+<div class="utm-label">UTM parameter reference</div>
+<div class="utm-field">
+<span class="utm-param">utm_source</span>
+<span class="utm-eq">=</span>
+<span class="utm-val">google / linkedin / newsletter / partner-name</span>
+<span class="utm-desc">The platform or website sending the traffic</span>
+</div>
+<div class="utm-field">
+<span class="utm-param">utm_medium</span>
+<span class="utm-eq">=</span>
+<span class="utm-val">cpc / paid-social / email / organic-social / referral</span>
+<span class="utm-desc">The type of marketing channel</span>
+</div>
+<div class="utm-field">
+<span class="utm-param">utm_campaign</span>
+<span class="utm-eq">=</span>
+<span class="utm-val">q4-awareness-saas / product-launch-2024 / retargeting-vps</span>
+<span class="utm-desc">The specific campaign name — your main reporting dimension</span>
+</div>
+<div class="utm-field">
+<span class="utm-param">utm_content</span>
+<span class="utm-eq">=</span>
+<span class="utm-val">hero-cta / sidebar-banner / ad-variant-a</span>
+<span class="utm-desc">The specific ad or link variant (for A/B testing)</span>
+</div>
+<div class="utm-field">
+<span class="utm-param">utm_term</span>
+<span class="utm-eq">=</span>
+<span class="utm-val">hubspot-crm-alternative / best-crm-startups</span>
+<span class="utm-desc">The paid keyword (primarily for search campaigns)</span>
+</div>
+<div class="utm-output">
+<span class="utm-base">https://yoursite.com/demo?</span><span class="utm-key">utm_source</span><span class="utm-sep">=</span><span class="utm-value">linkedin</span><span class="utm-sep">&amp;</span><span class="utm-key">utm_medium</span><span class="utm-sep">=</span><span class="utm-value">paid-social</span><span class="utm-sep">&amp;</span><span class="utm-key">utm_campaign</span><span class="utm-sep">=</span><span class="utm-value">q4-enterprise</span><span class="utm-sep">&amp;</span><span class="utm-key">utm_content</span><span class="utm-sep">=</span><span class="utm-value">vp-sales-ad</span>
+</div>
+</div>
+<h3>The UTM naming convention — admin governance</h3>
+<div class="box tip"><div class="bl">Why naming consistency is critical</div><p>If one marketer uses <code>utm_source=LinkedIn</code> (capital L) and another uses <code>utm_source=linkedin</code> (lowercase), HubSpot treats them as two different sources. Your LinkedIn campaign report shows two separate bars — one showing half the data. A UTM naming convention, documented and enforced, prevents this from happening.</p></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Parameter</th><th>Standard format</th><th>Examples</th></tr></thead>
+<tbody>
+<tr><td><code>utm_source</code></td><td>lowercase, no spaces, hyphens for multi-word</td><td><code>google</code>, <code>linkedin</code>, <code>facebook</code>, <code>newsletter</code>, <code>partner-hubspot</code></td></tr>
+<tr><td><code>utm_medium</code></td><td>lowercase, predefined list only</td><td><code>cpc</code>, <code>paid-social</code>, <code>email</code>, <code>organic-social</code>, <code>referral</code>, <code>podcast</code></td></tr>
+<tr><td><code>utm_campaign</code></td><td>[quarter]-[type]-[segment] format</td><td><code>q4-awareness-saas</code>, <code>q1-retargeting-vps</code>, <code>always-on-competitor</code></td></tr>
+<tr><td><code>utm_content</code></td><td>descriptive variant label</td><td><code>hero-banner</code>, <code>text-ad-a</code>, <code>video-15s</code></td></tr>
+</tbody>
+</table></div>
+<div class="box tip"><div class="bl">HubSpot Tracking URL Builder</div><p>Path: Reports → Analytics Tools → Tracking URL Builder. Enter your base URL and fill in the UTM fields — HubSpot generates the correctly formatted tagged URL. Share this tool with your marketing team so everyone uses the same naming convention.</p></div>
+</div>
+<div class="division division-hidden" data-division="setup" id="setup">
+<div class="sec-eye">Admin Setup · 07</div>
+<div class="sec-title">Step-by-Step <em>Setup</em></div>
+<div class="box tip"><div class="bl">Prerequisites</div><p>HubSpot tracking code installed on all website pages · Contacts created via HubSpot forms · Deals associated to contacts · Deal Amount required at Qualified stage · Deals using Closed Won stage correctly</p></div>
+<ol class="psteps">
+<li><strong>Verify tracking code installation</strong> — Settings → Tracking &amp; Analytics → Tracking code. The code must be on every page. Check with HubSpot's website grader or browser console for any pages missing it.</li>
+<li><strong>Audit existing contact source data</strong> — Build an active list: Original Source is unknown. Any contact in this list has no source data. If it's large, you have a tracking gap — likely from imports without source tagging or from contacts created before the tracking code was installed.</li>
+<li><strong>Create and document your UTM naming convention</strong> — Define standard values for utm_source, utm_medium, and utm_campaign format. Document in a shared Google Doc or Notion page. Add it to every new marketer's onboarding.</li>
+<li><strong>Tag all active paid campaigns with UTMs</strong> — Go through every active Google Ads campaign, LinkedIn campaign, and Facebook campaign. Add UTM parameters to every ad URL. Use HubSpot's Tracking URL Builder for consistency.</li>
+<li><strong>Build the Original Source Revenue report</strong> — Reports → Create report → Multi-object or Custom → Deals + associated Contacts. Dimension: Contact Original Source. Measures: Count of Closed Won deals + Sum of Deal Amount. Filter: Closed Won + this year. Sort by revenue descending.</li>
+<li><strong>Build the UTM Campaign Revenue report</strong> — Same structure. Dimension: UTM Campaign (Contact property). Filter: Campaign is known + Closed Won deals. This shows campaign-level revenue attribution.</li>
+<li><strong>Build the Lead Source Conversion Funnel report</strong> — Show MQL count by source AND Customer count by source side-by-side. The gap between them reveals conversion rate by source — which channels bring in leads that actually close.</li>
+<li><strong>Add reports to the Marketing dashboard</strong> — Revenue by Source + Leads by Source + Conversion Rate by Source. The CMO needs to see all three to make informed budget decisions.</li>
+<li><strong>Schedule a quarterly attribution review</strong> — First Monday of each quarter: review which sources have changed in revenue contribution. Update budget recommendations based on the data.</li>
+</ol>
+</div>
+<div class="division division-hidden" data-division="reports" id="reports">
+<div class="sec-eye">Admin Setup · 08</div>
+<div class="sec-title">Attribution <em>Reports to Build</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Report</th><th>Dimension</th><th>Measures</th><th>Answers</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>Revenue by Original Source</strong></td>
+<td>Contact Original Source</td>
+<td>Count Closed Won deals + Sum of Deal Amount</td>
+<td>"Which channel generates the most revenue?"</td>
+</tr>
+<tr>
+<td><strong>Revenue per Lead by Source</strong></td>
+<td>Contact Original Source</td>
+<td>Sum of Deal Amount ÷ Count of Contacts from that source</td>
+<td>"Which channel has the highest lead quality?"</td>
+</tr>
+<tr>
+<td><strong>Lead-to-Customer rate by Source</strong></td>
+<td>Contact Original Source</td>
+<td>Count Customers ÷ Count Leads from same source</td>
+<td>"Which channel's leads convert best?"</td>
+</tr>
+<tr>
+<td><strong>Revenue by UTM Campaign</strong></td>
+<td>UTM Campaign (Contact property)</td>
+<td>Count Closed Won deals + Sum of Deal Amount</td>
+<td>"Which specific campaign generated the most revenue?"</td>
+</tr>
+<tr>
+<td><strong>Revenue by Referral Domain</strong></td>
+<td>Original Source Drill-Down 1 (where Source = Referrals)</td>
+<td>Sum of Deal Amount</td>
+<td>"Which review sites or partners drive the most revenue?"</td>
+</tr>
+<tr>
+<td><strong>Monthly leads by source (trend)</strong></td>
+<td>Contact Original Source + Create Month</td>
+<td>Count of Contacts</td>
+<td>"Is any source growing or declining over time?"</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section class="section page-hidden" id="page-applied" data-page="applied">
+<div class="division" data-division="example" id="example">
+<div class="sec-eye">Applied Learning · 09</div>
+<div class="sec-title">Real-World <em>Example</em></div>
+<div class="box case"><div class="bl">The situation</div><p>A B2B SaaS company is spending $80k/month on marketing. The CMO believes LinkedIn Ads are their best-performing channel because they generate the most inbound demo requests (120/month). Organic search generates 40/month and is "underperforming." The marketing team is about to double LinkedIn spend and cut the content team in half.</p></div>
+<h3>The revenue attribution report tells a different story</h3>
+<div class="table-wrap"><table class="rev-tbl">
+<thead><tr><th>Source</th><th>Leads/month</th><th>Customers</th><th>Revenue</th><th>Rev/lead</th><th>Rev bar</th></tr></thead>
+<tbody>
+<tr class="winner-row">
+<td><strong>🔍 Organic search</strong></td>
+<td>40</td>
+<td>14</td>
+<td class="rev-num">$168,000</td>
+<td class="rev-per">$4,200</td>
+<td><div class="rev-bar" style="width:168px"></div></td>
+</tr>
+<tr>
+<td>💰 LinkedIn paid</td>
+<td>120</td>
+<td>8</td>
+<td class="rev-num">$72,000</td>
+<td class="rev-per">$600</td>
+<td><div class="rev-bar" style="width:72px;background:var(--muted)"></div></td>
+</tr>
+<tr class="winner-row">
+<td><strong>🌐 Referrals (G2)</strong></td>
+<td>18</td>
+<td>9</td>
+<td class="rev-num">$126,000</td>
+<td class="rev-per">$7,000</td>
+<td><div class="rev-bar" style="width:126px;background:var(--teal)"></div></td>
+</tr>
+<tr>
+<td>🔗 Direct</td>
+<td>35</td>
+<td>6</td>
+<td class="rev-num">$54,000</td>
+<td class="rev-per">$1,543</td>
+<td><div class="rev-bar" style="width:54px;background:var(--muted)"></div></td>
+</tr>
+<tr>
+<td>📧 Email marketing</td>
+<td>22</td>
+<td>4</td>
+<td class="rev-num">$38,000</td>
+<td class="rev-per">$1,727</td>
+<td><div class="rev-bar" style="width:38px;background:var(--muted)"></div></td>
+</tr>
+</tbody>
+</table></div>
+<h3>What the data reveals</h3>
+<ul class="prlist">
+<li><span>📊</span><div>Organic search generates 7× more revenue per lead than LinkedIn paid ($4,200 vs $600). The CMO's assumption that LinkedIn was "best" was based on lead volume, not lead quality.</div></li>
+<li><span>🌐</span><div>G2 referral traffic — which was receiving zero marketing investment — generates the highest revenue per lead of all channels ($7,000). Nobody on the team knew this existed until the attribution report.</div></li>
+<li><span>💡</span><div>LinkedIn paid is generating leads but very few customers. Deeper investigation reveals most LinkedIn leads are from the wrong industries and seniority levels — the ad targeting was broad.</div></li>
+</ul>
+<h3>Budget decisions made</h3>
+<ul class="prlist">
+<li><span>🔴</span><div>Reduce LinkedIn paid spend from $20k/month to $8k/month. Tighten targeting to VP+ at companies with 50+ employees in target industries.</div></li>
+<li><span>🟢</span><div>Invest $8k/month in G2 review management — responding to reviews, gathering new reviews from happy customers, optimising the G2 profile. Zero investment was generating $126k/month in attributed revenue.</div></li>
+<li><span>🟢</span><div>Invest $12k/month in SEO and content production. Scale the channel with the highest revenue-per-lead and the most consistent output.</div></li>
+</ul>
+<div class="box revops"><div class="bl">Six months later</div><p>Lead volume dropped from 235/month to 178/month (LinkedIn cuts caused the drop). Revenue from closed deals grew 22% — from $458k/month to $559k/month. The CMO initially panicked when lead volume dropped. When the revenue numbers came in, the conversation changed permanently. The company now runs revenue attribution as a monthly review ritual — not an annual retrospective. The attribution report became the single most-referenced document in marketing budget decisions.</p></div>
+</div>
+<div class="division division-hidden" data-division="cases" id="cases">
+<div class="sec-eye">Applied Learning · 10</div>
+<div class="sec-title">Three Case <em>Studies</em></div>
+<div class="card open">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico b">📈</div>
+<div style="flex:1">
+<div class="ctitle">Case 1 — UTM gaps making paid campaigns invisible</div>
+<div class="csub">When $45k/month in ad spend shows as Direct traffic</div>
+<div class="ctags"><span class="tag b">UTM tracking</span><span class="tag n">B2B Tech</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c1p')">Problem</div><div class="tab" onclick="st(this,'c1s')">Solution</div><div class="tab" onclick="st(this,'c1r')">Outcome</div></div>
+<div class="pane on" id="c1p"><div class="box case"><div class="bl">The problem</div><p>A B2B tech company was running $45k/month across Google Ads, LinkedIn Ads, and Facebook Ads. Their HubSpot attribution report showed "Direct" as the #1 source by both leads and revenue. The marketing team was celebrating their "organic" performance while their paid ads showed near-zero impact. Investigation revealed: none of the paid campaign URLs had UTM parameters. All paid traffic was landing in HubSpot's Direct category because there was no referrer data being passed. The entire paid ad investment was invisible to attribution.</p></div></div>
+<div class="pane" id="c1s"><ul class="prlist">
+<li><span>1.</span><div>Created a UTM naming convention document: utm_source (lowercase platform name), utm_medium (cpc, paid-social), utm_campaign ([quarter]-[type]-[audience]). Shared with all three agencies managing the campaigns.</div></li>
+<li><span>2.</span><div>Used HubSpot's Tracking URL Builder to regenerate UTM-tagged URLs for every active ad in every campaign. Updated all ad URLs in Google Ads, LinkedIn, and Facebook in one afternoon.</div></li>
+<li><span>3.</span><div>Built a UTM compliance check: monthly active list of contacts created in the last 30 days with Original Source = Direct but a known paid campaign date range. Any spike in this list indicates a UTM gap.</div></li>
+<li><span>4.</span><div>Added UTM verification to the campaign launch checklist: no campaign goes live without at least utm_source, utm_medium, and utm_campaign populated and verified in HubSpot.</div></li>
+</ul></div>
+<div class="pane" id="c1r"><div class="box revops"><div class="bl">RevOps outcome</div><p>Within 30 days of adding UTMs, the "Direct" source dropped from 38% of leads to 14%. Google Ads appeared as a distinct source showing $180k in attributed closed revenue over the previous 3 months — revenue that had previously been invisible. The team discovered their LinkedIn campaigns were generating 3× the revenue per lead of their Google campaigns — a finding that immediately triggered a LinkedIn budget increase. The CMO estimated the UTM implementation decision (2 hours of work) unlocked over $200k in budget reallocation decisions.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico t">🎯</div>
+<div style="flex:1">
+<div class="ctitle">Case 2 — First touch vs Last touch tells two different stories</div>
+<div class="csub">When the model you choose changes your entire marketing strategy</div>
+<div class="ctags"><span class="tag t">Attribution models</span><span class="tag n">SaaS Agency</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c2p')">Discovery</div><div class="tab" onclick="st(this,'c2s')">Analysis</div><div class="tab" onclick="st(this,'c2r')">Decision</div></div>
+<div class="pane on" id="c2p"><div class="box case"><div class="bl">The discovery</div><p>A SaaS agency built their first full attribution report using Last touch model (the HubSpot default). The result showed: Google Ads drove 42% of revenue, Direct drove 31%, and Organic content drove only 9%. The CEO wanted to double Google Ads spend and cut the content team. The admin noticed something — and built the same report using First touch model before presenting.</p></div></div>
+<div class="pane" id="c2s"><p>First touch model told a completely different story:</p><div class="table-wrap"><table class="tbl" style="margin-top:12px"><thead><tr><th>Source</th><th>Last touch (closing)</th><th>First touch (awareness)</th></tr></thead><tbody><tr><td>Google Ads</td><td>42% of revenue</td><td>18% of revenue</td></tr><tr><td>Organic content/SEO</td><td>9% of revenue</td><td>47% of revenue</td></tr><tr><td>Direct</td><td>31% of revenue</td><td>8% of revenue</td></tr><tr><td>LinkedIn</td><td>6% of revenue</td><td>14% of revenue</td></tr></tbody></table></div><p style="margin-top:12px;font-size:13px;color:var(--soft)">The pattern: most customers first found the company through organic content (First touch = 47%), then later searched for them on Google and clicked an ad (Last touch = 42%). The Google Ad was getting credit for the conversion — but organic content had done the awareness-building work that made the Google search happen in the first place.</p></div>
+<div class="pane" id="c2r"><div class="box revops"><div class="bl">RevOps outcome</div><p>The admin presented both models side by side with a clear explanation: "Last touch shows what's closing deals. First touch shows what's starting relationships. Our organic content is responsible for 47% of first impressions — if we cut it, Google Ads will have fewer brand-aware people to capture with search ads, and conversion rates will drop." The CEO did not cut the content team. Instead, they increased content investment by 20% and reduced Google Ads by 15% for a test quarter. The test showed: reducing Ads by 15% reduced leads by 12% but revenue only dropped by 4% (higher-quality leads remaining). Content investment payoff: organic first-touch revenue grew 18% over two quarters.</p></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-hd" onclick="tog(this)">
+<div class="card-ico a">🔍</div>
+<div style="flex:1">
+<div class="ctitle">Case 3 — Review site attribution justifies an unexpected investment</div>
+<div class="csub">When attribution reveals an untapped channel nobody was managing</div>
+<div class="ctags"><span class="tag a">Referral attribution</span><span class="tag n">B2B SaaS</span></div>
+</div><div class="chev">›</div>
+</div>
+<div class="card-body">
+<div class="tabs"><div class="tab on" onclick="st(this,'c3p')">Discovery</div><div class="tab" onclick="st(this,'c3s')">Action</div><div class="tab" onclick="st(this,'c3r')">Outcome</div></div>
+<div class="pane on" id="c3p"><div class="box case"><div class="bl">The discovery</div><p>A B2B SaaS company was building their first revenue attribution report. When they drilled down into Referrals by referring domain, they found something unexpected: G2.com was attributing $94k in closed won revenue over the past 6 months. The company had never invested in G2 — they had 23 reviews accumulated organically from happy customers, and those reviews were generating inbound traffic that was converting at a 31% lead-to-customer rate. Nobody on the marketing team even knew they had a G2 presence.</p></div></div>
+<div class="pane" id="c3s"><ul class="prlist">
+<li><span>1.</span><div>Claimed the G2 profile and completed all profile information — logo, product description, screenshots, pricing page, comparison widgets. This took 4 hours.</div></li>
+<li><span>2.</span><div>Sent a review request email sequence to the last 60 customers who had given positive NPS scores. Generated 28 new reviews in 3 weeks. Average rating went from 4.1 to 4.6 stars.</div></li>
+<li><span>3.</span><div>Invested $2k/month in G2 Buyer Intent data (signals showing which companies are actively researching similar products on G2) and routed those companies to the outbound SDR team.</div></li>
+<li><span>4.</span><div>Built a monthly attribution report specifically for referral sources — tracking G2, Capterra, and other review sites separately to monitor their revenue contribution over time.</div></li>
+</ul></div>
+<div class="pane" id="c3r"><div class="box revops"><div class="bl">RevOps outcome</div><p>G2 attributed revenue grew from $94k to $240k over the following two quarters (154% increase from a starting point of zero investment). The $2k/month G2 subscription plus the time investment in profile and review management generated an estimated 12× ROI based on attributed revenue. The finding came entirely from a revenue attribution report — a channel the company had never deliberately invested in was already generating significant revenue and nobody knew it. Attribution didn't just improve existing channel decisions — it revealed an entirely new investment opportunity.</p></div></div>
+</div>
+</div>
+</div>
+<div class="division division-hidden" data-division="mistakes" id="mistakes">
+<div class="sec-eye">Applied Learning · 11</div>
+<div class="sec-title">Common Admin <em>Mistakes</em></div>
+<ul class="mlist">
+<li><div class="mt">01 — Using only Last touch attribution</div>Last touch systematically overvalues conversion-moment touchpoints (retargeting ads, demo CTAs) and invisibilises awareness investments (organic content, SEO, podcast sponsorships). Running only Last touch for 12 months leads to cutting channels that are essential for bringing people into the funnel — and discovering the damage 6 months later when pipeline dries up.</li>
+<li><div class="mt">02 — Not using UTM parameters on paid campaigns</div>Every paid campaign without UTMs shows as Direct traffic. You spend $50k, it appears to have zero ROI, and the budget gets cut. Build a UTM naming convention before your first campaign goes live. Retroactive UTM tagging of existing campaigns is painful — do it right from the start.</li>
+<li><div class="mt">03 — Treating attribution correlation as causation</div>"Our webinars drove $300k in revenue" means webinar was a touchpoint for $300k of customers — not that webinars caused that revenue. Those customers might have closed regardless. Attribution shows association, not causation. Present it as "correlated with" or "contributed to" — never "caused" or "generated."</li>
+<li><div class="mt">04 — Importing contacts without setting source</div>Bulk imports from trade shows, list purchases, or CRM migrations without proper Original Source values permanently corrupt your attribution data. That data never gets better — it just stays wrong. Always set the most specific source possible at import time.</li>
+<li><div class="mt">05 — No UTM naming convention</div>Three different marketers using LinkedIn, linkedin, and LinkedIn-Ads as utm_source values creates three separate "sources" in HubSpot. Your LinkedIn report is fragmented across three rows. Create and enforce a naming convention before anyone creates their first UTM link.</li>
+<li><div class="mt">06 — Presenting one attribution model as "the truth"</div>Showing the CEO "content generated $500k (First touch)" without context creates confusion when a different model shows $90k. Always present attribution data with a clear, simple explanation of what the model measures. One sentence: "First touch shows what brought people to us for the first time."</li>
+</ul>
+</div>
+<div class="division division-hidden" data-division="best" id="best">
+<div class="sec-eye">Applied Learning · 12</div>
+<div class="sec-title">Admin <em>Best Practices</em></div>
+<ul class="prlist">
+<li><span>📐</span><div><strong>Always run at least two models.</strong> First touch and Last touch together tell the acquisition story and the conversion story. Add Linear when you want to value middle-funnel content. Three models together give you a complete picture no single model can.</div></li>
+<li><span>🏷️</span><div><strong>Build the UTM naming convention before the first campaign.</strong> Document it. Share it. Enforce it. Every marketer, agency, and contractor who creates campaign links must use it. One exception creates inconsistency that compounds over time.</div></li>
+<li><span>💰</span><div><strong>Sort revenue reports by revenue, not by lead count.</strong> The channel with the most leads is rarely the channel with the most revenue. Always sort by revenue to surface quality, not quantity.</div></li>
+<li><span>📅</span><div><strong>Run a quarterly attribution review.</strong> First Monday of each quarter: review which sources have grown or shrunk in revenue contribution. One hour. One report. One set of budget recommendations. This is the highest-ROI admin meeting you'll run.</div></li>
+<li><span>🔍</span><div><strong>Audit your Direct traffic regularly.</strong> A sudden increase in Direct source contacts is almost always a UTM gap — a new campaign launched without UTM parameters. Monthly active list check: contacts with Original Source = Direct created in the last 30 days who came during a known paid campaign period.</div></li>
+<li><span>🌐</span><div><strong>Don't ignore referral drill-downs.</strong> The Referrals source by referring domain is one of the most underanalysed reports in HubSpot. Review sites, press mentions, and partner sites often generate high-converting traffic that nobody is managing. Monthly check on top referring domains by revenue.</div></li>
+</ul>
+</div>
+<div class="division division-hidden" data-division="practice" id="practice">
+<div class="sec-eye">Applied Learning · 13</div>
+<div class="sec-title">Practice <em>Exercise</em></div>
+<p class="sec-lead">Do this in your free HubSpot sandbox — approximately 45 minutes.</p>
+<h3>Part A — Check your source data (10 min)</h3>
+<ol class="psteps">
+<li>Go to Contacts in your sandbox. Create or find 5 contacts. For each, check: does the Original Source field have a value? Open one contact and look for the Source Data section in the record sidebar.</li>
+<li>Build an active list: Contact Original Source is unknown. Note the count. Any contact in this list has no source data — in a real portal this would be a data quality issue to investigate.</li>
+<li>Go to Settings → Tracking &amp; Analytics → Tracking code. Verify the tracking code exists. Note the domain it's configured for.</li>
+</ol>
+<h3>Part B — Build a UTM-tagged URL (10 min)</h3>
+<ol class="psteps">
+<li>Go to Reports → Analytics Tools → Tracking URL Builder.</li>
+<li>Build a tagged URL for an imaginary LinkedIn campaign: Base URL = your HubSpot page URL. Source = linkedin. Medium = paid-social. Campaign = q4-awareness-saas.</li>
+<li>Copy the generated URL. Paste it into Notepad to see the full URL with UTM parameters appended.</li>
+<li>Document your UTM naming convention in a simple table: which values are allowed for each parameter. This is your first admin governance artifact.</li>
+</ol>
+<h3>Part C — Build the revenue attribution report (25 min)</h3>
+<ol class="psteps">
+<li>Go to Reports → Create report → Contact and Deal Information (multi-object).</li>
+<li>Add filter: Deal Stage = Closed Won (if you have any in sandbox) or remove the stage filter to show all deals.</li>
+<li>Add dimension: Contact Original Source.</li>
+<li>Add measure: Count of Deals + Sum of Deal Amount.</li>
+<li>Choose visualisation: Bar chart. Sort by Sum of Deal Amount descending.</li>
+<li>Save as "Revenue by Original Source — All Time." Add to your Marketing dashboard.</li>
+<li>Add a second report: same configuration but dimension = UTM Campaign. If no UTM data exists (sandbox typically won't have it), create two fake contacts with UTM Campaign values manually and create a deal for each. Verify the report picks up the UTM dimension.</li>
+</ol>
+</div>
+<div class="division division-hidden" data-division="interview" id="interview">
+<div class="sec-eye">Applied Learning · 14</div>
+<div class="sec-title">Interview <em>Questions</em></div>
+<div class="iq">
+<div class="iq-q">"What is the difference between First Touch and Last Touch attribution, and when would you use each?"</div>
+<div class="iq-a">First touch gives 100% credit to the very first marketing interaction a contact had — it answers "what brought people into our funnel for the first time?" Last touch gives 100% to the final interaction before conversion — it answers "what closed them?" I'd use First touch to evaluate awareness investments: which content, ads, or campaigns are most effective at introducing new people to our brand? I'd use Last touch to evaluate conversion investments: which CTAs, landing pages, or retargeting campaigns drive the final conversion decision? The important thing I always communicate is that neither is correct in isolation — they answer different questions. If you only use Last touch, you'll systematically undervalue awareness investments because they look like zero-ROI until Last touch captures their downstream conversions weeks later. I typically run both models on every major attribution report and present them side by side with a one-sentence explanation of what each tells us.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"How do UTM parameters work, and what's your governance process for managing them?"</div>
+<div class="iq-a">UTM parameters are tags appended to URLs that tell HubSpot exactly where a visitor came from, beyond what it can infer from referrer data automatically. They have five fields: source (the platform), medium (the channel type), campaign (the specific campaign), content (the ad variant), and term (paid keyword). When a contact clicks a UTM-tagged link and fills out a form, HubSpot captures all five values and stores them on the Contact record. For governance: I create a UTM naming convention before any campaign goes live — a documented standard for every parameter with predefined allowable values in lowercase, no spaces format. I use HubSpot's built-in Tracking URL Builder to generate consistent tagged URLs. I add a UTM verification step to the campaign launch checklist — no campaign goes live without confirmed UTM parameters. And I monitor for UTM gaps monthly with an active list: contacts created with Original Source = Direct during known paid campaign periods. A spike in that list indicates a campaign launched without UTMs.</div>
+</div>
+<div class="iq">
+<div class="iq-q">"A CMO tells you LinkedIn is your best channel based on lead volume. The attribution data shows different. How do you handle the conversation?"</div>
+<div class="iq-a">I'd lead with data and frame it as adding information rather than contradicting. I'd build a single report showing lead volume by source alongside revenue by source and revenue per lead — all three on the same view. Then I'd present it: "Looking at lead volume, LinkedIn is indeed our highest-volume source. But when we look at revenue per lead — how much closed revenue we generate per LinkedIn lead versus per organic search lead — organic generates 7x more revenue per contact. That gap matters because it means our organic leads are converting at significantly higher rates, which suggests they're higher quality for our product." I'd propose a test rather than a recommendation: shift 20% of LinkedIn budget to content for one quarter and track both lead volume and revenue outcomes. That makes it an experiment with a clear success metric — not a budget argument. If the data supports the reallocation, the next conversation happens naturally from the results.</div>
+</div>
+</div>
+<div class="division division-hidden" data-division="cheatsheet" id="cheatsheet">
+<div class="sec-eye">Applied Learning · 15</div>
+<div class="sec-title">Summary <em>Cheatsheet</em></div>
+<div class="table-wrap"><table class="tbl">
+<thead><tr><th>Concept</th><th>Key point</th></tr></thead>
+<tbody>
+<tr><td>What is attribution</td><td>Tracking which marketing interactions contributed to conversions — and connecting them to closed revenue</td></tr>
+<tr><td>Why it matters</td><td>Connects marketing spend to revenue — enables budget decisions based on ROI, not volume</td></tr>
+<tr><td>Original Source</td><td>Set once at first contact identification — never automatically changes. The "first touch" property.</td></tr>
+<tr><td>Original Source permanence</td><td>Wrong source at import = wrong source forever (unless manually corrected). Data quality at entry is critical.</td></tr>
+<tr><td>Latest Source</td><td>Updates continuously with most recent marketing interaction. The "last touch" property.</td></tr>
+<tr><td>UTM parameters</td><td>Tags on URLs that tell HubSpot exactly where a visitor came from. Required for campaign-level attribution.</td></tr>
+<tr><td>5 UTM parameters</td><td>utm_source · utm_medium · utm_campaign · utm_content · utm_term</td></tr>
+<tr><td>UTM naming convention</td><td>Documented, enforced standard — lowercase, hyphens, consistent values. Build before first campaign.</td></tr>
+<tr><td>8 source types</td><td>Organic search · Paid search · Social media · Email marketing · Direct · Referrals · Offline · Other campaigns</td></tr>
+<tr><td>Direct traffic inflated</td><td>Email clients, PDFs, apps strip referrer data → shows as Direct. Use UTMs to rescue this traffic.</td></tr>
+<tr><td>First touch model</td><td>100% credit to first interaction. Answers: what brings people in?</td></tr>
+<tr><td>Last touch model</td><td>100% credit to final interaction. Answers: what closes people?</td></tr>
+<tr><td>Linear model</td><td>Equal credit all touchpoints. Answers: what supports the full journey?</td></tr>
+<tr><td>U-shaped model</td><td>40% first + 40% lead creation + 20% middle. Good for B2B.</td></tr>
+<tr><td>No single correct model</td><td>Each answers a different question. Run multiple models. Present with explanation.</td></tr>
+<tr><td>Revenue data chain</td><td>Tracking code → form contact creation → deal association → Closed Won + Amount → attribution report</td></tr>
+<tr><td>Sort by revenue not volume</td><td>Always sort attribution reports by revenue to surface quality, not by lead count to surface volume</td></tr>
+<tr><td>Quarterly attribution review</td><td>First Monday of each quarter: which sources grew or declined in revenue? Update budget recommendations.</td></tr>
+<tr><td>Admin interview gold</td><td>"I always run both First touch and Last touch — each tells a different part of the story. No single model is correct."</td></tr>
+<tr><td>RevOps insight</td><td>Attribution is the feedback loop that makes marketing spend improve over time — every budget cycle uses better data than the last</td></tr>
+</tbody>
+</table></div>
+<div class="box revops"><div class="bl">RevOps mindset on attribution — completing the full curriculum</div><p>Attribution is the final piece of the revenue intelligence system you've been building throughout this curriculum. The objects and properties store the data. The lifecycle stages and workflows process it. The pipelines track it. The reports surface it. Attribution connects it all back to budget and strategy — answering the ultimate question: of everything we invested in marketing, which investments actually generated revenue? That question, answered accurately and consistently, is what transforms marketing from a cost centre into a measurable, optimisable revenue function. The company that runs this attribution loop rigorously — UTM discipline, multi-model analysis, quarterly budget reviews — will make materially better marketing investment decisions every cycle. And materially better decisions compound into materially better outcomes. That is the work of a RevOps practitioner. You now have the complete toolkit to do it.</p></div>
+<div style="background:var(--surface);border:1px solid var(--rule);border-radius:var(--r);padding:20px;margin-top:20px;text-align:center;">
+<p style="font-family:var(--font-display);font-size:22px;font-style:italic;color:var(--ink);margin-bottom:10px;">Curriculum complete.</p>
+<p style="font-size:13px;color:var(--muted);font-weight:300;max-width:520px;margin:0 auto;line-height:1.75;">12 modules · Objects · Properties · Lists · Lifecycle Stages · Lead Status · Forms &amp; Imports · Conversations · Workflows · Sequences · Pipelines · Reports · Attribution. You have the complete HubSpot Admin and RevOps foundation.</p>
+</div>
+</div>
+</section>
+  </main>
+</div>
+
+<script>
+
+const NAV_DATA = [{"page": "foundation", "label": "Foundation", "desc": "Core attribution concepts, vocabulary, source types, models, and revenue chain.", "color": "purple", "divs": [{"id": "what", "label": "What is attribution?"}, {"id": "vocab", "label": "Attribution vocabulary"}, {"id": "sources", "label": "8 source types"}, {"id": "models", "label": "Attribution models"}, {"id": "chain", "label": "Revenue data chain"}]}, {"page": "admin", "label": "Admin Setup", "desc": "UTM governance, setup path, and revenue attribution reports to build.", "color": "teal", "divs": [{"id": "utms", "label": "UTM parameters"}, {"id": "setup", "label": "Step-by-step setup"}, {"id": "reports", "label": "Attribution reports"}]}, {"page": "applied", "label": "Applied Learning", "desc": "Examples, case studies, mistakes, best practices, practice, interview answers, and cheatsheet.", "color": "amber", "divs": [{"id": "example", "label": "Real-world example"}, {"id": "cases", "label": "Case studies"}, {"id": "mistakes", "label": "Common mistakes"}, {"id": "best", "label": "Best practices"}, {"id": "practice", "label": "Practice exercise"}, {"id": "interview", "label": "Interview questions"}, {"id": "cheatsheet", "label": "Cheatsheet"}]}];
+
+function getGroup(page) {
+  return NAV_DATA.find(g => g.page === page) || NAV_DATA[0];
+}
+
+function setActivePageClasses(page, division) {
+  document.querySelectorAll('.nav-group').forEach(group => {
+    const isActive = group.dataset.pageGroup === page;
+    group.classList.toggle('active-page', isActive);
+    group.classList.toggle('expanded', isActive);
+  });
+  document.querySelectorAll('.mobile-section-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pageGroup === page);
+  });
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.page === page && item.dataset.target === division);
+  });
+  document.querySelectorAll('.mobile-division-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.page === page && btn.dataset.target === division);
+  });
+}
+
+function renderMobileDivisions(page, activeDivision) {
+  const row = document.getElementById('mobileDivisionRow');
+  if (!row) return;
+  const group = getGroup(page);
+  row.innerHTML = group.divs.map(div => {
+    const active = div.id === activeDivision ? ' active' : '';
+    return `<button class="mobile-division-btn${active}" type="button" data-page="${group.page}" data-target="${div.id}" onclick="showDivision('${group.page}','${div.id}')">${div.label}</button>`;
+  }).join('');
+}
+
+function showPage(page, preferredDivision) {
+  const group = getGroup(page);
+  const target = preferredDivision || group.divs[0].id;
+
+  document.querySelectorAll('.section').forEach(section => {
+    section.classList.toggle('page-hidden', section.dataset.page !== group.page);
+  });
+
+  showDivision(group.page, target, false);
+}
+
+function showDivision(page, division, shouldScroll = true) {
+  const group = getGroup(page);
+  const target = division || group.divs[0].id;
+
+  document.querySelectorAll('.section').forEach(section => {
+    section.classList.toggle('page-hidden', section.dataset.page !== group.page);
+  });
+
+  const section = document.querySelector(`.section[data-page="${group.page}"]`);
+  if (section) {
+    section.querySelectorAll('.division').forEach(div => {
+      div.classList.toggle('division-hidden', div.dataset.division !== target);
+    });
+  }
+
+  renderMobileDivisions(group.page, target);
+  setActivePageClasses(group.page, target);
+
+  // Open the first accordion in the visible division, preserving non-card sections as-is.
+  const activeDiv = document.getElementById(target);
+  if (activeDiv) {
+    const cards = activeDiv.querySelectorAll('.card');
+    if (cards.length && !activeDiv.querySelector('.card.open')) {
+      cards[0].classList.add('open');
+    }
+    if (shouldScroll) {
+      activeDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}
+
+function tog(header) {
+  const card = header.closest('.card');
+  if (!card) return;
+  const division = card.closest('.division');
+  const wasOpen = card.classList.contains('open');
+
+  if (division) {
+    division.querySelectorAll('.card.open').forEach(openCard => {
+      if (openCard !== card) openCard.classList.remove('open');
+    });
+  }
+
+  card.classList.toggle('open', !wasOpen);
+}
+
+function st(tab, paneId) {
+  const body = tab.closest('.card-body') || tab.closest('.division');
+  if (!body) return;
+  body.querySelectorAll('.tab').forEach(t => t.classList.remove('on', 'active'));
+  body.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  tab.classList.add('on');
+  const pane = document.getElementById(paneId);
+  if (pane) pane.classList.add('on');
+}
+
+function j(id) {
+  const div = document.getElementById(id);
+  if (!div) return;
+  const section = div.closest('.section');
+  const page = section?.dataset.page || 'foundation';
+  showDivision(page, id);
+}
+
+/* Attribution model bars */
+function renderModelBars() {
+  const grid = document.getElementById('model-grid');
+  if (!grid) return;
+
+  const models = [
+    {name:"First touch", q:"What brings people in for the first time?", use:"Awareness campaigns · SEO · Top-of-funnel spend", segs:[{pct:100,lbl:"Blog",c:"var(--purple)"},{pct:0,lbl:"Paid",c:"var(--surface3)"},{pct:0,lbl:"Web",c:"var(--surface3)"},{pct:0,lbl:"Email",c:"var(--surface3)"},{pct:0,lbl:"Form",c:"var(--surface3)"}]},
+    {name:"Last touch", q:"What converts people to customers?", use:"Bottom-of-funnel · Conversion rate optimisation · Retargeting", segs:[{pct:0,lbl:"Blog",c:"var(--surface3)"},{pct:0,lbl:"Paid",c:"var(--surface3)"},{pct:0,lbl:"Web",c:"var(--surface3)"},{pct:0,lbl:"Email",c:"var(--surface3)"},{pct:100,lbl:"Form",c:"var(--teal)"}]},
+    {name:"Linear", q:"Which channels support the full journey?", use:"Full-funnel analysis · Valuing mid-funnel content", segs:[{pct:20,lbl:"Blog",c:"var(--amber)"},{pct:20,lbl:"Paid",c:"var(--amber)"},{pct:20,lbl:"Web",c:"var(--amber)"},{pct:20,lbl:"Email",c:"var(--amber)"},{pct:20,lbl:"Form",c:"var(--amber)"}]},
+    {name:"Time decay", q:"What drove the final decision?", use:"Short sales cycles · Recent touches matter most", segs:[{pct:5,lbl:"Blog",c:"var(--purple)"},{pct:10,lbl:"Paid",c:"var(--purple)"},{pct:15,lbl:"Web",c:"var(--purple)"},{pct:30,lbl:"Email",c:"var(--purple)"},{pct:40,lbl:"Form",c:"var(--purple)"}]},
+    {name:"U-shaped", q:"What acquired AND converted them?", use:"B2B: acquisition and conversion milestones equally important", segs:[{pct:40,lbl:"Blog",c:"var(--teal)"},{pct:6.7,lbl:"Paid",c:"var(--teal)"},{pct:6.7,lbl:"Web",c:"var(--teal)"},{pct:6.7,lbl:"Email",c:"var(--teal)"},{pct:40,lbl:"Form",c:"var(--teal)"}]},
+    {name:"Full path", q:"What drove every key milestone?", use:"Complex B2B with long multi-stage sales cycles", segs:[{pct:22.5,lbl:"Blog",c:"var(--purple)"},{pct:10,lbl:"Paid",c:"var(--purple)"},{pct:22.5,lbl:"Web",c:"var(--purple)"},{pct:10,lbl:"Email",c:"var(--purple)"},{pct:22.5,lbl:"Form",c:"var(--purple)"}]}
+  ];
+
+  grid.innerHTML = models.map(m => `
+    <div class="model-row">
+      <div class="model-head">
+        <span class="model-name">${m.name}</span>
+        <span class="model-question">${m.q}</span>
+      </div>
+      <div class="model-bar">
+        ${m.segs.map(s => `<div class="model-seg" style="flex:${Math.max(s.pct,5)};background:${s.c};opacity:${s.pct===0?0.24:1}">${s.pct>8?Math.round(s.pct)+'%':''}</div>`).join('')}
+      </div>
+      <div style="font-size:9px;color:var(--muted);display:flex;gap:3px;margin-top:4px">
+        ${m.segs.map(s => `<div style="flex:${Math.max(s.pct,5)};text-align:center;font-family:var(--font-mono)">${s.lbl}</div>`).join('')}
+      </div>
+      <div class="model-use">Best for: ${m.use}</div>
+    </div>`).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderModelBars();
+  showPage('foundation', 'what');
+});
+
+</script>
+</body>
+</html>
